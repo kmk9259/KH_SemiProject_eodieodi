@@ -9,7 +9,7 @@
     <meta name="keywords" content="Directing, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Directing | Template</title>
+    <title>어디어디</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -26,6 +26,11 @@
     <link rel="stylesheet" href="resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="resources/css/style.css" type="text/css">
+    
+    <!--JS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -34,47 +39,8 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <div class="header__logo">
-                        <a href="semiProject/WebContent/index.jsp"><img src="resources/img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-9">
-                    <div class="header__nav">
-                        <nav class="header__menu mobile-menu">
-                            <ul>
-                             
-                                
-                                <li><a href="./selectPlan.html">일정플래너</a>
-                                    
-                                    <ul class="dropdown">
-                                        <li><a href="./listing.html">마음대로일정</a></li>
-                                        <li><a href="./listing-details.html">추천일정</a></li>
-                                        <li><a href="./blog-details.html">일정보관함</a></li>
-                                        
-                                    </ul>
-                                </li>
-                                <li><a href="./faq.html">FAQ</a></li>
-                                <li><a href="./blog.html">커뮤니티</a></li>
-                               
-                                <li><a href="./login.html">로그인</a></li>
-                                <li><a href="./signUp.html">회원가입</a></li>
-                            </ul>
-                        </nav>
-                        <div class="header__menu__right">
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="mobile-menu-wrap"></div>
-        </div>
-    </header>
-    <!-- Header Section End -->
+    <%@ include file="views/common/menubar.jsp"%>
+
 
     <!-- Hero Section Begin -->
     <section class="hero set-bg" data-setbg="resources/img/hero/hero-bg.gif">
@@ -116,8 +82,26 @@
     </section>
     <!-- Hero Section End -->
 
-   
+   <script>
+            $(function(){
+            var $header = $('header'); //헤더를 변수에 넣기
+            var $page = $('.page-start'); //색상이 변할 부분
+            var $window = $(window);
+            var pageOffsetTop = $page.offset().top;//색상 변할 부분의 top값 구하기
+            
+            $window.resize(function(){ //반응형을 대비하여 리사이즈시 top값을 다시 계산
+                pageOffsetTop = $page.offset().top;
+            });
+            
+            $window.on('scroll', function(){ //스크롤시
+                var scrolled = $window.scrollTop() >= pageOffsetTop; //스크롤된 상태; true or false
+                $header.toggleClass('down', scrolled); //클래스 토글
+            });
+            });
+        
+        </script>
 
+	<section class="page-start">
     <!-- Most Search Section Begin -->
     <section class="most-search spad">
         <div class="container">
@@ -328,71 +312,10 @@
         </div>
     </section>
     <!-- Blog Section End -->
-
+</section>
    
 
-    <!-- Footer Section Begin -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="footer__about">
-                        <div class="footer__about__logo">
-                            <a href="./index.html"><img src="resources/img/logo_D_1.png" alt=""></a>
-                        </div>
-                        <p>어디갈까 고민될 때는 어디어디!! &#128150;<br>
-                        어디어디와 함께라면 지루한 일상도 특별하게
-
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6 offset-lg-2 col-md-6">
-                    <div class="footer__address">
-                        <ul>
-                            <li>
-                                <span>전화번호:</span>
-                                <p>(+12) 345-678-910</p>
-                            </li>
-                            <li>
-                                <span>이메일:</span>
-                                <p>info.colorlib@gmail .com</p>
-                            </li>
-                            <li>
-                                <span>주소:</span>
-                                <p>서울특별시 강남구<br> 테헤란로14길 6</p>
-                            </li>
-                            <li>
-                                <span>Connect Us:</span>
-                                <div class="footer__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-skype"></i></a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-              
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> img by pngtree, Korea tourism oranization <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                        </div>
-                        <div class="footer__copyright__links">
-                            <a href="#">서비스 소개</a>
-                            <a href="#">이용약관</a>
-                            <a href="#">개인정보처리방침</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
+    <%@ include file="views/common/footer.jsp"%>
 
     <!-- Js Plugins -->
     <script src="resources/js/jquery-3.3.1.min.js"></script>
