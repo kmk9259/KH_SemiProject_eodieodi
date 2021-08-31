@@ -37,10 +37,10 @@
                             <ul>
                              
                                 
-                                <li><a href="./selectPlan.html">일정플래너</a>
+                                <li><a href="./views/plan/selectPlan.jsp">일정플래너</a>
                                     
                                     <ul class="dropdown">
-                                        <li><a href="./listing.html">마음대로일정</a></li>
+                                        <li><a href="./views/plan/myPlan.html">마음대로일정</a></li>
                                         <li><a href="./listing-details.html">추천일정</a></li>
                                         <li><a href="./blog-details.html">일정보관함</a></li>
                                         
