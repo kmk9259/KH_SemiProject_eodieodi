@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="semiProject/WebContent/index.jsp"><img src="resources/img/Logo.png" alt=""></a>
+                        <a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/resources/img/Logo.png" alt="야호"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -49,7 +49,7 @@
                                 <li><a href="./faq.html">FAQ</a></li>
                                 <li><a href="./blog.html">커뮤니티</a></li>
                                
-                                <li><a href="./login.html">로그인</a></li>
+                                <li><a href="./views/member/login.jsp">로그인</a></li>
                                 <li><a href="./signUp.html">회원가입</a></li>
                             </ul>
                         </nav>
