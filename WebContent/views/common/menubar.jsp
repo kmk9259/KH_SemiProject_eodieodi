@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="semiProject/WebContent/index.jsp"><img src="resources/img/Logo.png" alt=""></a>
+                        <a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/resources/img/Logo.png" alt="야호"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -37,10 +37,10 @@
                             <ul>
                              
                                 
-                                <li><a href="./selectPlan.html">일정플래너</a>
+                                <li><a href="./views/plan/selectPlan.jsp">일정플래너</a>
                                     
                                     <ul class="dropdown">
-                                        <li><a href="./listing.html">마음대로일정</a></li>
+                                        <li><a href="./views/plan/myPlan.html">마음대로일정</a></li>
                                         <li><a href="./listing-details.html">추천일정</a></li>
                                         <li><a href="./blog-details.html">일정보관함</a></li>
                                         
@@ -49,7 +49,7 @@
                                 <li><a href="./faq.html">FAQ</a></li>
                                 <li><a href="./blog.html">커뮤니티</a></li>
                                
-                                <li><a href="./login.html">로그인</a></li>
+                                <li><a href="./views/member/login.jsp">로그인</a></li>
                                 <li><a href="./signUp.html">회원가입</a></li>
                             </ul>
                         </nav>
