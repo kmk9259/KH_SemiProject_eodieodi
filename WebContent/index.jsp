@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -15,10 +15,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="resources/resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="resources/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="resources/resources/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="resources/css/flaticon.css" type="text/css">
     <link rel="stylesheet" href="resources/css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="resources/css/barfiller.css" type="text/css">
     <link rel="stylesheet" href="resources/css/magnific-popup.css" type="text/css">
@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="resources/img/logo.png" alt=""></a>
+                        <a href="semiProject/WebContent/index.jsp"><img src="resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -395,7 +395,7 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="resources/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="resources/js/jquery-3.3.1.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
     <script src="resources/js/jquery.nice-select.min.js"></script>
     <script src="resources/js/jquery-ui.min.js"></script>
