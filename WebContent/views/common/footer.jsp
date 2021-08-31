@@ -29,7 +29,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="resources/img/Logo_D_1.png" alt=""></a>
+                            <a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/resources/img/Logo_D_1.png" alt=""></a>
                         </div>
                         <p>어디갈까 고민될 때는 어디어디!! &#128150;<br>
                         어디어디와 함께라면 지루한 일상도 특별하게
