@@ -44,12 +44,13 @@
                             <ul>
                              
                                 
-                                <li><a href="./selectPlan.html">일정플래너</a>
+                                <li><a href="./views/plan/selectPlan.jsp">일정플래너</a>
                                     
                                     <ul class="dropdown">
                                         <li><a href="<%=contextPath %>/views/board/about.jsp">마음대로일정</a></li>
                                         <li><a href="<%=contextPath %>/views/board/adminRecommend.jsp">추천일정</a></li>
                                         <li><a href="<%=contextPath %>/views/board/blog-details.jsp">일정보관함</a></li>
+
                                         
                                     </ul>
                                 </li>
