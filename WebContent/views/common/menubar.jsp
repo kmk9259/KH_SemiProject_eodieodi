@@ -1,25 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="semiProject.com.kh.member.model.vo.Member" %>
+    <%
+    Member loginUser = (Member)session.getAttribute("loginUser");
+   String contextPath = request.getContextPath();
+   
+%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title></title>
-<!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/style.css" type="text/css">
+
+        <!-- Css Styles -->
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/style.css" type="text/css">
+
 </head>
 <body>
 <!-- Header Section Begin -->
@@ -40,17 +47,17 @@
                                 <li><a href="./selectPlan.html">일정플래너</a>
                                     
                                     <ul class="dropdown">
-                                        <li><a href="./listing.html">마음대로일정</a></li>
-                                        <li><a href="./listing-details.html">추천일정</a></li>
-                                        <li><a href="./blog-details.html">일정보관함</a></li>
+                                        <li><a href="<%=contextPath %>/views/board/about.jsp">마음대로일정</a></li>
+                                        <li><a href="<%=contextPath %>/views/board/adminRecommend.jsp">추천일정</a></li>
+                                        <li><a href="<%=contextPath %>/views/board/blog-details.jsp">일정보관함</a></li>
                                         
                                     </ul>
                                 </li>
-                                <li><a href="./faq.html">FAQ</a></li>
-                                <li><a href="./blog.html">커뮤니티</a></li>
+                                <li><a href="<%=contextPath %>/views/board/faq.jsp">FAQ</a></li>
+                                <li><a href="<%=contextPath %>/views/board/blogListView.jsp">커뮤니티</a></li>
                                
-                                <li><a href="./views/member/login.jsp">로그인</a></li>
-                                <li><a href="./signUp.html">회원가입</a></li>
+                                <li><a href="<%=contextPath %>/views/member/login.jsp">로그인</a></li>
+                                <li><a href="<%=contextPath %>/views/member/signUp.jsp">회원가입</a></li>
                             </ul>
                         </nav>
                         <div class="header__menu__right">
@@ -64,16 +71,23 @@
     </header>
     <!-- Header Section End -->
     
-    <!-- Js Plugins -->
-    <script src="resources/js/jquery-3.3.1.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
-    <script src="resources/js/jquery.nice-select.min.js"></script>
-    <script src="resources/js/jquery-ui.min.js"></script>
-    <script src="resources/js/jquery.nicescroll.min.js"></script>
-    <script src="resources/js/jquery.barfiller.js"></script>
-    <script src="resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="resources/js/jquery.slicknav.js"></script>
-    <script src="resources/js/owl.carousel.min.js"></script>
-    <script src="resources/js/main.js"></script>
+    
+    
+    
+      <!-- Js Plugins -->
+    <script src="<%=contextPath %>/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/bootstrap.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/jquery.nice-select.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/jquery-ui.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/jquery.nicescroll.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/jquery.barfiller.js"></script>
+    <script src="<%=contextPath %>/resources/js/jquery.magnific-popup.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/jquery.slicknav.js"></script>
+    <script src="<%=contextPath %>/resources/js/owl.carousel.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/main.js"></script>
+
+    <script src="<%=contextPath %>/resources/js/modernizr.min.js"></script>
+    <script src="<%=contextPath %>/resources/js/classie.js"></script>
+    <script src="<%=contextPath %>/resources/js/photostack.js"></script>
 </body>
 </html>
