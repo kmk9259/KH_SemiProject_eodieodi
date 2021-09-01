@@ -478,7 +478,7 @@ login
 .login-main-text{
     margin-top: 10%;
     padding: 60px;
-    color: #D34B32;
+    color: #D34B32 !important;
 }
 
 .login-main-text h2{
@@ -846,10 +846,17 @@ object{
     color: #fff;
     background-color: #545554 !important;
 }
+.modal-backdrop{
+	background-color:rgba(0, 0, 0, 0.5)!important;
+}
 
-#no1 {margin-left: -40%; width: 80%; max-height: 460px;}
-#no2 {margin-left: -40%; width: 80%; max-height: 460px;}
-#no3 {margin-left: -40%; width: 80%; max-height: 460px;}
+#success{
+	background-color: #fff !important;
+}
+
+#no1 {max-height: 450px;}
+#no2 {max-height: 450px;}
+#no3 {max-height: 450px;}
 /* .modal-dialog{width: 100%;} */
 /* .pre-cost{text-decoration: line-through; color: #a5a5a5;} */
 .space-ten{padding: 10px 0;}
@@ -857,13 +864,37 @@ object{
 	float: left;
 }
 .modal-content{
-	margin-left: -16%;
-    margin-top: -4%;
-    margin-right: -16%;
-    margin-bottom: -4%;
-	width: 132% !important;
-	height: 460px !important;
+	margin-left: -18%;
+    margin-top: -5%;
+    margin-right: -5%;
+    margin-bottom: -14%;
+	width: 159% !important;
+	height: 450px !important;
 }
+
+.modal {
+    position: fixed;
+    top: 10%;
+    left: 40% !important;
+    z-index: 1050;
+    width: 50% !important;
+    background-color: #ffffff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    *border: 1px solid #999;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 7px rgb(0 0 0 / 30%);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgb(0 0 0 / 30%);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+    outline: none;
+}
+
+
 #contt{
 	max-width: 80%;
 	margin-left: 10%;
@@ -873,6 +904,10 @@ object{
 }
 .mycustom{
 	margin-left: 10%;
+	width: 80% !important;
+}
+
+.col-md-4{
 	max-width: 80% !important;
 }
 .tname{
@@ -5522,7 +5557,7 @@ output {
 .form-control {
     display: block;
     width: 100%;
-    height: 34px;
+    height: 50px !important;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.428571429;
@@ -9196,7 +9231,10 @@ button.close {
 .modal-dialog {
     position: relative;
     width: auto;
-    margin: 10px
+    margin-top: 3% !important;
+    margin-left: 12% !important;
+    max-width: 79% !important;
+    /*margin: 10px*/
 }
 
 .modal-content {
@@ -9274,7 +9312,7 @@ button.close {
 @media (min-width:768px) {
     .modal-dialog {
         width: 600px;
-        margin: 30px auto
+       /* margin: 30px auto*/
     }
     .modal-content {
         -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
