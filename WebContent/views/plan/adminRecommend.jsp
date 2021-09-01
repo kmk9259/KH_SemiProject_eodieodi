@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%
-    String contextPath = request.getContextPath();
-	%>
-	
-	<!--절대경로잡아주기   -->
+  
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -21,22 +17,8 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= contextPath %>/resources/css/style.css" type="text/css">
-    
     <!--JS-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 	<!-- 제이쿼리 피커데이트 -->
@@ -88,8 +70,6 @@
     </div> -->
 
      <%@ include file="../common/menubar.jsp"%>
-
-
 
 
 		<!-- 페이지 상단부  -->
@@ -278,16 +258,7 @@
 
     <%@ include file="../common/footer.jsp"%>
 
-    <!-- Js Plugins -->
-    <script src="<%= contextPath %>/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/bootstrap.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery-ui.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery.nicescroll.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery.barfiller.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="<%= contextPath %>/resources/js/jquery.slicknav.js"></script>
-    <script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
+    
     <script src="<%= contextPath %>/resources/js/main.js"></script>
 </body>
 
