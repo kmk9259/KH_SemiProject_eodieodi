@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="semiProject.com.kh.member.model.vo.Member" %>
+
     <%
-    Member loginUser = (Member)session.getAttribute("loginUser");
+   
    String contextPath = request.getContextPath();
    
 %>
@@ -44,13 +44,12 @@
                             <ul>
                              
                                 
-                                <li><a href="./views/plan/selectPlan.jsp">일정플래너</a>
+                                <li><a href="<%=contextPath %>/views/plan/planSelect.jsp">일정플래너</a>
                                     
                                     <ul class="dropdown">
-                                        <li><a href="<%=contextPath %>/views/board/about.jsp">마음대로일정</a></li>
+                                        <li><a href="<%=contextPath %>/views/plan/planMy.jsp" onclick="goPlan();">마음대로일정</a></li>
                                         <li><a href="<%=contextPath %>/views/board/adminRecommend.jsp">추천일정</a></li>
-                                        <li><a href="<%=contextPath %>/views/board/blog-details.jsp">일정보관함</a></li>
-
+                                        <li><a href="<%=contextPath %>/views/plan/planSave.jsp">일정보관함</a></li>
                                         
                                     </ul>
                                 </li>
@@ -90,5 +89,16 @@
     <script src="<%=contextPath %>/resources/js/modernizr.min.js"></script>
     <script src="<%=contextPath %>/resources/js/classie.js"></script>
     <script src="<%=contextPath %>/resources/js/photostack.js"></script>
+    
+    <script>
+      <%-- function goPlan(){
+         <%if(loginUser == null) {%>
+            alert("로그인 후 이용해주세요");
+            location.href="<%=request.getContextPath()%>";
+         <%}else{ %>
+            location.href="<%=request.getContextPath()%>/list.no";
+         <%} %>
+      } --%>
+   </script>
 </body>
 </html>
