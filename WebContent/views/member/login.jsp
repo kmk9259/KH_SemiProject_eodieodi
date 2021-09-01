@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    String path = request.getContextPath();
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,17 +15,17 @@
 
     <!-- Css Styles -->
     <!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"> -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min333.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/myInfo.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/bootstrap.min333.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/myInfo.css" type="text/css">
        
     <!-- login Section -->
     <!-- 첫 번째 -->
@@ -45,15 +43,15 @@
 
 <body>
 <!-- Page Preloder -->
-	<div id="preloder">
+   <div id="preloder">
         <div class="loader"></div>
     </div>
-
-    <%@ include file="../common/menubar.jsp"%>
+<%@ include file="../common/menubar.jsp"%>
+   
 
 
     <!-- Hero Section Begin -->
-        <section class="hero set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/gyeongbokgung-palace.jpg">
+        <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/gyeongbokgung-palace.jpg">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -93,7 +91,7 @@
             <div class="container">
                 <div class="sidenav">
                 <div class="login-main-text">
-                    <h2>Eodi Eodi<br> Login Page</h2>
+                    <h2 style="color: #D34B32 !important">Eodi Eodi<br> Login Page</h2>
                     <p>Login from here to access.</p>
                 </div>
                 </div>
@@ -127,11 +125,11 @@
                                                 <div class="pp">
                                                     <div class="left">
                                                         <p class="help">아이디나 비밀번호를 잊으셨다면?</p>
-                                                        <a href="find.html" class="linkA">ID/PW 찾기</a>
+                                                        <a href="find.jsp" class="linkA">ID/PW 찾기</a>
                                                     </div>
                                                     <div class="right">
                                                         <p class="help">어디어디 회원이 아니라면?</p>
-                                                        <a href="signUp.html" class="linkB">회원가입</a>
+                                                        <a href="signUp.jsp" class="linkB">회원가입</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,21 +167,21 @@
             </div>
         </section>
 
-	</section>
+   </section>
    
 
     <%@ include file="../common/footer.jsp"%>
     
     <!-- Js Plugins -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nicescroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.barfiller.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/jquery.nice-select.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/jquery-ui.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/jquery.nicescroll.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/jquery.barfiller.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/jquery.magnific-popup.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/jquery.slicknav.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
+    <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 </body>
 </html>
