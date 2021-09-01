@@ -69,17 +69,17 @@
 </head>
 <body class="ov-hid">
     <!-- Page Preloder -->
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
-    <!-- Header Section Begin -->
+   <!-- Header Section Begin -->
     <header class="header header--normal">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo_myplan">
-                        <a href="./index.html"><img src="img/Logo_D_1.png" alt=""></a>
+                        <a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/resources/img/Logo_D_1.png" alt="야호"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -153,17 +153,6 @@
                 <h5>위치 선택</h5>
             </div>
             <div>
-                <!-- <div class="listing_dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div> -->
 
                 <!--select 로 값 받기-->
                 <select name="region" class="planInput" id="region">
@@ -231,7 +220,7 @@
                 <tr>
                     <td rowspan="3">
                         <div id="titleImgArea" align="center">
-                            장소 사진<!-- <img width="500px" height="300px" id="titleImg" src="<%= contextPath %>/resources/board_upfiles/<%= titleImg.getChangeName() %>"> -->
+                            장소 사진
                         </div>
                     </td>
                     <td>장소 명</td>
@@ -249,7 +238,7 @@
                 <tr>
                     <td rowspan="3">
                         <div id="titleImgArea" align="center">
-                            장소 사진<!-- <img width="500px" height="300px" id="titleImg" src="<%= contextPath %>/resources/board_upfiles/<%= titleImg.getChangeName() %>"> -->
+                            장소 사진
                         </div>
                     </td>
                     <td>장소 명</td>
@@ -286,6 +275,18 @@
             window.open('./placeDetail.html');
         }
     </script>
+    
+    <!-- Js Plugins -->
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.nice-select.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-ui.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.nicescroll.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.barfiller.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.magnific-popup.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.slicknav.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/owl.carousel.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 
 </body>
 
