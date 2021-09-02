@@ -14,17 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"> -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/bootstrap.min333.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/myInfo.css" type="text/css">
        
 
@@ -147,15 +136,6 @@
     </script>
     
     <!-- Js Plugins -->
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.nicescroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.barfiller.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>

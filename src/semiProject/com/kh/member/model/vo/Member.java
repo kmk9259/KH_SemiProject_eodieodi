@@ -10,8 +10,7 @@ public class Member {
 	private String userName;
 	private String phone;
 	private String email;
-	private String address;
-	private String interest;
+	private char gender;
 	private Date enrollDate;
 	private Date modifyDate;
 	private String status;
@@ -19,56 +18,56 @@ public class Member {
 	
 	public Member() {}
 	
-
+	//로그인, 로그아웃
 	public Member(String userId, String userPwd) {
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
 	
-	public Member(String userId, String userName, String phone, 
-			String email, String address, String interest) {
-		this.userId = userId;
-		this.userName = userName;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
-		this.interest = interest;
-	}
-	
-	public Member(String userId, String phone, 
-			String email, String address, String interest) {
-		this.userId = userId;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
-		this.interest = interest;
-	}
-	
+	//회원가입
 	public Member(String userId, String userPwd, String userName, String phone, 
-			String email, String address, String interest) {
+			String email, char gender) {
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
 		this.phone = phone;
 		this.email = email;
-		this.address = address;
-		this.interest = interest;
+		this.gender = gender;
 	}
 	
+	//내 정보 조회
+	public Member(String userId, String userName, String phone, 
+			String email) {
+		this.userId = userId;
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
+	}
+
+	//정보수정
+	public Member(String userName, String phone, 
+			String email) {
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
+	}
+	
+	//업데이트..?
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, 
-			String email, String address, String interest, Date enrollDate, Date modifyDate, String status) {
+			String email, char gender, Date enrollDate, Date modifyDate, String status) {
 		this.userNo = userNo;
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
 		this.phone = phone;
 		this.email = email;
-		this.address = address;
-		this.interest = interest;
+		this.gender = gender;
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
+	
+	
 	public int getUserNo() {
 		return userNo;
 	}
@@ -105,17 +104,11 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getAddress() {
-		return address;
+	public char getGender() {
+		return gender;
 	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getInterest() {
-		return interest;
-	}
-	public void setInterest(String interest) {
-		this.interest = interest;
+	public void setGender(char gender) {
+		this.gender = gender;
 	}
 	public Date getEnrollDate() {
 		return enrollDate;
@@ -139,7 +132,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", interest=" + interest
+				+ ", phone=" + phone + ", email=" + email + ", gender=" + gender 
 				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 }
