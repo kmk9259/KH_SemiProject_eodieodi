@@ -10,7 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>어디어디 - 관리자페이지(일정 등록)</title>
-
+<link rel="stylesheet"
+	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
+	type="text/css">
 <style>
 .admin {
     background-color: #FFF3E7;
@@ -108,10 +110,19 @@ height: 500px;
 							<form id="insertForm" action="<%=contextPath%>/insert.pl" method="post"
 								enctype="multipart/form-data">
 								<div class="form-group">
-									<label class="control-label">지역</label> 
-									<input maxlength="100" type="text" name="place" required="required" class="form-control" placeholder="지역을 입력해주세요" /> 
-									<label class="control-label">카테고리</label>
-									<input maxlength="100" type="text" name="category" required="required" class="form-control" placeholder="카테고리를 입력해주세요" /> 
+									<label class="control-label" style="margin-top: 30px;">지역</label><br>									
+									<select name="areaNo" class="planInput" >
+										<option value="0">지역을 선택해주세요</option>
+					                    <option value="1">홍대</option>
+					                    <option value="2">강남</option>					                    
+					                </select><br><br>
+									<label class="control-label">카테고리</label><br>
+									<select name="categoryNo" class="planInput" >
+										<option value="0">카테고리를 선택해주세요</option>
+					                    <option value="1" >먹기</option>
+					                    <option value="2">마시기</option>	
+					                    <option value="3">놀기</option>					                    
+					                </select> <br><br>
 									<label class="control-label">상호명</label> 
 									<input maxlength="100" type="text" name="placeTitle" required="required" class="form-control" placeholder="상호명을 입력해주세요" /> 
 									<label class="control-label">전화번호</label>
@@ -124,11 +135,11 @@ height: 500px;
 									<input maxlength="100" type="text" name="price" required="required" class="form-control" placeholder="대표 금액을 입력해주세요" /> 
 									<label class="control-label">상세주소</label>
 									<input maxlength="100" type="text" name="address" required="required" class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
-									<img name="titleImg" width="150" height="120"> <br> 
+									<img name="titleImg" width="150" height="120" id=titleImg> <br> 
 									<label> 대표 이미지</label>
+									
 									<div id="fileArea">
-										<input type="file" name="file1" id="file1"
-											onchange="loadImg(this, 1);">
+										<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
 									</div>
 								</div>
 
@@ -138,9 +149,9 @@ height: 500px;
 						<script>
 							$(function() {
 								$("#fileArea").hide();
-
+								
 								$("#titleImg").click(function() {
-									$("#file1").click();
+									 $("#file1").click(); 
 								});
 								$("#btn").click(function() {
 									var result = confirm("일정을 등록하시겠습니까?")
@@ -168,11 +179,7 @@ height: 500px;
 									reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
 										console.log(e);
 										switch (num) {
-										case 1:
-											$("#titleImg").attr("src",
-													e.target.result);
-											break;// result :  읽어들이 파일 내용 data:URL 형식 
-
+										case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
 										}
 									};
 

@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*"%>
-<%
-	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");
-%>
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +9,7 @@
 <meta name="keywords" content="Directing, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>어디어디 - 관리자페이지(일정조회)</title>
+<title>어디어디 - 관리자페이지</title>
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
 	type="text/css">
@@ -33,8 +30,9 @@
     border: 1px solid #D34B32;
     
 }
-
-
+.choiceCourse{
+margin-left: 150px;
+}
 </style>
 
 </head>
@@ -54,7 +52,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>일정 삭제</h2>
+							<h2>관리자 페이지</h2>
 						</div>
 					</div>
 				</div>
@@ -79,7 +77,7 @@
             });
             });
         
-    </script>
+        </script>
 
 	<section class="page-start">
 		<section class="admin">
@@ -92,13 +90,13 @@
 										관리</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
-								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
+								<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리</a></li>
 								<li class=" menuB "><a
 									href="<%=contextPath%>/insert.pl">일정 등록</a></li>
-								<li class="active menuB ">
+								<li class="menuB ">
 								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp">코스 삭제</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
 
 							</ul>
@@ -106,42 +104,7 @@
 					</div>
 				</div>	
 				
-			<div class="outer">
-				<br>
-				<h2 align="center">일정 조회</h2>
-				<br>
 				
-				<div class="listPlace">
-					<%for(Place p : list){ %>
-					<div class="thumbnail" align="center">
-						<input type="hidden" value="<%=p.getPlaceNo()%>">
-						<img src="<%=contextPath %>/resources/place_upfiles/<%= p.getTitleImg() %>" width="200px" height="150px"> <br>
-						<p>
-							No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %> <br>
-							조회수 : <%= p.getCount() %>
-						</p>
-					</div>
-					<%} %>
-				
-					
-					<br><br>
-					<div align="center">
-					
-					<%--  <% if(loginUser != null){ %>
-						<button onclick="location.href='<%=contextPath %>/insertForm.th'">작성하기</button>
-					<% } %>  --%>
-					</div>
-				</div>
-				<script>
-				 
-					$(function(){
-						$(".thumbnail").click(function(){
-							var bId = $(this).children().eq(0).val();
-							location.href="<%=contextPath%>/detail.th?bId=" + bId;
-						});
-					});
-				</script>
-			</div>
 		</section><!-- admin -->
 	</section><!-- page- start -->
 

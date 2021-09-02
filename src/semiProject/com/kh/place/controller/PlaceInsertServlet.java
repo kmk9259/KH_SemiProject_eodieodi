@@ -13,7 +13,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import semiProject.com.kh.board.model.vo.Attachment;
+import semiProject.com.kh.board.model.vo.PlaceAttachment;
 import semiProject.com.kh.common.MyFileRenamePolicy;
 import semiProject.com.kh.place.model.service.PlaceService;
 import semiProject.com.kh.place.model.vo.Place;
@@ -47,12 +47,10 @@ public class PlaceInsertServlet extends HttpServlet {
 			System.out.println("savePath "+savePath);
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
+			System.out.println(multiRequest);
 			Place p = new Place();
-			p.setPlace(multiRequest.getParameter("place"));
-			p.setArea(multiRequest.getParameter("area"));
-			p.setTheme(multiRequest.getParameter("theme"));
-			p.setCategory(multiRequest.getParameter("category"));
+			p.setAreaNo(Integer.parseInt(multiRequest.getParameter("areaNo")));
+			p.setCategoryNo(Integer.parseInt(multiRequest.getParameter("categoryNo")));
 			p.setPlaceTitle(multiRequest.getParameter("placeTitle"));
 			p.setPlacePhone(multiRequest.getParameter("placePhone"));
 			p.setDescription(multiRequest.getParameter("description"));
@@ -60,7 +58,7 @@ public class PlaceInsertServlet extends HttpServlet {
 			p.setPrice(Integer.parseInt(multiRequest.getParameter("price")));
 			p.setAddress(multiRequest.getParameter("address"));
 
-			Attachment at = new Attachment();
+			PlaceAttachment pat = new PlaceAttachment();
 			String name = "file01";
 			if(multiRequest.getOriginalFileName(name) != null)
 			{
@@ -68,17 +66,21 @@ public class PlaceInsertServlet extends HttpServlet {
 				String changeName = multiRequest.getFilesystemName(name);
 				
 				
-				at.setFilePath(savePath);
-				at.setChangeName(changeName);
-				at.setOriginName(originName);			
+				pat.setFilePath(savePath);
+				pat.setChangeName(changeName);
+				pat.setOriginName(originName);			
 			}
-			int result = new PlaceService().insertPlace(p, at);
+			int result = new PlaceService().insertPlace(p, pat);
 			
 			if(result > 0)
-				response.sendRedirect("list.pl");
+			{
+//				response.sendRedirect("list.pl");
+				request.setAttribute("msg", "일정 등록에 성공하였습니다.");
+			}
+				
 			else
 			{
-				File failedFile = new File(savePath+at.getChangeName());
+				File failedFile = new File(savePath+pat.getChangeName());
 				failedFile.delete();
 				request.setAttribute("msg", "일정 등록에 실패하였습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

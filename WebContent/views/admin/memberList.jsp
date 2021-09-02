@@ -10,6 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>어디어디 - 관리자페이지(회원관리)</title>
+<link rel="stylesheet"
+	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
+	type="text/css">
 
 <style>
 .admin {
