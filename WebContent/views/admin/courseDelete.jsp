@@ -48,7 +48,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>일정 삭제</h2>
+							<h2>코스 삭제</h2>
 						</div>
 					</div>
 				</div>
@@ -89,10 +89,10 @@
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
 								<li class=" menuB "><a
 									href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
-								<li class="active menuB ">
+								<li class=" menuB ">
 								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp">코스 삭제</a></li>
+								<li class="active menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
 
 							</ul>
@@ -130,8 +130,8 @@
 							<div class="card">
 								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
 								<div class="card-body">
-									<h4 class="card-title">홍대 놀거리</h4>
-									<p class="card-text">방탈출</p>
+									<h4 class="card-title">홍대 코스</h4>
+									<p class="card-text">방탈출 - 홍대개미 - 술집</p>
 	
 									<button class="btn btn-primary">삭제</button>
 								</div>
@@ -145,8 +145,8 @@
 							<div class="card">
 								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
 								<div class="card-body">
-									<h4 class="card-title">강남 놀거리</h4>
-									<p class="card-text">강남 </p>
+									<h4 class="card-title">강남 코스</h4>
+									<p class="card-text">강남 cgv - 밥집</p>
 	
 									<button class="btn btn-primary">삭제</button>
 								</div>
@@ -158,9 +158,9 @@
 					$(function() {
 
 						$(".btn").click(function() {
-							var result = confirm("일정을 삭제하시겠습니까?")
+							var result = confirm("추천 코스를 삭제하시겠습니까?")
 							if (result) {
-								alert("일정이 삭제되었습니다.")
+								alert("추천 코스가 삭제되었습니다.")
 							} else {
 								location.reload();
 							}

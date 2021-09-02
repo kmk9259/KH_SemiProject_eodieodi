@@ -1,4 +1,4 @@
-package com.kh.common;
+package semiProject.com.kh.common;
 
 import java.io.FileReader;
 import java.io.IOException;
