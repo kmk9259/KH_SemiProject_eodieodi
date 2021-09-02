@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String msg = (String)session.getAttribute("msg");
-%>
+<%@ page import = "semiProject.com.kh.member.model.vo.Member" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +36,8 @@
    <div id="preloder">
         <div class="loader"></div>
     </div>
+    
+    
 <%@ include file="../common/menubar.jsp"%>
    
 
@@ -116,20 +117,20 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="caixa">
-                                        <form action="" method="POST">
+                                        <form action="<%=request.getContextPath()%>/login.me" method="post" onsubmit="return loginValidate();">
                                             <div class="row">
                                                 <div class="col-lg-9 col-md-9">
                                                     <fieldset class="formRow">
                                                         <div class="formRow--item" style="margin-top: 8%;">
                                                             <label for="firstname" class="formRow--input-wrapper js-inputWrapper">
-                                                                <input type="text" class="formRow--input js-input" id="userId" placeholder="아이디를 입력하세요">
+                                                                <input type="text" class="formRow--input js-input" name="userId" id="userId" placeholder="아이디를 입력하세요">
                                                             </label>
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="formRow">
                                                         <div class="formRow--item">
                                                             <label for="firstname" class="formRow--input-wrapper js-inputWrapper">
-                                                                <input type="password" class="formRow--input js-input" id="userPwd" placeholder="비밀번호를 입력하세요">
+                                                                <input type="password" class="formRow--input js-input" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요">
                                                             </label>
                                                         </div>
                                                     </fieldset>
@@ -144,14 +145,18 @@
                                                     </div>
                                                     <div class="right" style="margin-right : 17% !important;">
                                                         <p class="help">어디어디 회원이 아니라면?</p>
-                                                        <a href="signUp.jsp" class="linkB">회원가입</a>
+                                                        <a href="signUp.jsp" class="linkB" onclick="enrollPage();">회원가입</a>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             
                                         </form>
-                                        
+                                           <script type="text/javascript">
+											   function enrollPage(){
+												   location.href = "<%= request.getContextPath()%>/enrollForm.me";
+											   }
+											</script>
                                     </div>
                                 </div>
                             </div>

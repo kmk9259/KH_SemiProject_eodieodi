@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "semiProject.com.kh.member.model.vo.Member" %>
 
     <%
 
-    /*Member loginUser = (Member)session.getAttribute("loginUser");*/
+   Member loginUser = (Member)session.getAttribute("loginUser");
+	String msg = (String)session.getAttribute("msg");
    String contextPath = request.getContextPath();
    
 %>
@@ -13,6 +15,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
         <!-- Css Styles -->
@@ -55,13 +58,18 @@
                                 </li>
                                 <li><a href="<%=contextPath %>/views/board/faq.jsp">FAQ</a></li>
                                 <li><a href="<%=contextPath %>/views/board/blogListView.jsp">커뮤니티</a></li>
-                               <%-- <%if(loginUser == null){%>  --%>
-                                <li><a href="<%=contextPath %>/views/member/login.jsp">로그인</a></li>
-                                <li><a href="<%=contextPath %>/views/member/signUp.jsp">회원가입</a></li>
-                                <%-- <%} else { %>
-	                                <li><a href="<%=contextPath %>/views/member/myPage.jsp">마이페이지</a></li>
-	                                <li><a href="<%=contextPath %>/views/member/logout.me">로그아웃</a></li>
-							      <%}%> --%>
+                                
+                                <%if(loginUser == null){%>  
+                                <li><a href="<%=contextPath %>/views/member/login.jsp" onclick="goLogin();">로그인</a></li>
+                                <li><a href="<%=contextPath %>/views/member/signUp.jsp" onclick="enrollPage();">회원가입</a></li>
+                                 <%}else if(loginUser.getUserId().equals("admin")) { %>
+                                <li><a href="<%=contextPath %>/adminPage.ad">관리자페이지</a></li>
+                               	<li><a href="<%=contextPath %>/logout.me">로그아웃</a></li>                                
+                                 <%}
+                                else { %>
+	                                <li><a href = "<%=request.getContextPath() %>/mypage.me">마이페이지</a></li>
+	                                <li><a href = "<%=request.getContextPath() %>/logout.me">로그아웃</a></li>
+							      <%}%>
                             </ul>
                         </nav>
                         <div class="header__menu__right">
@@ -75,7 +83,11 @@
     </header>
     <!-- Header Section End -->
     
-    
+       <script type="text/javascript">
+		   function enrollPage(){
+			   location.href = "<%= request.getContextPath()%>/enrollForm.me";
+		   }
+   		</script>
     
     
       <!-- Js Plugins -->
@@ -95,14 +107,22 @@
     <script src="<%=contextPath %>/resources/js/photostack.js"></script>
     
     <script>
-      <%-- function goPlan(){
+	$(function(){
+		var msg = "<%=msg%>";
+		if(msg != "null"){
+			alert(msg);
+			<%session.removeAttribute("msg");%>
+		}
+	})
+    
+      function goPlan(){
          <%if(loginUser == null) {%>
             alert("로그인 후 이용해주세요");
             location.href="<%=request.getContextPath()%>";
          <%}else{ %>
             location.href="<%=request.getContextPath()%>/list.no";
          <%} %>
-      } --%>
+      } 
    </script>
 </body>
 </html>
