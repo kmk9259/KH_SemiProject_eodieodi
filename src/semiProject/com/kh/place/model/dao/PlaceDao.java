@@ -1,6 +1,6 @@
 package semiProject.com.kh.place.model.dao;
 
-import static semiProject.com.kh.common.JDBCTemplate.*;
+import static semiProject.com.kh.common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,13 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import semiProject.com.kh.board.model.vo.PlaceAttachment;
 import semiProject.com.kh.place.model.vo.Place;
 
 public class PlaceDao {
 	private Properties prop = new Properties();
-	
+
 	public PlaceDao() {
-		String fileName = PlaceDao.class.getResource("/sql/place/place-query.properties").getPath();
+		String fileName = PlaceDao.class.getResource("/semiProject/sql/place/place-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
@@ -35,12 +36,13 @@ public class PlaceDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		//selectPList=SELECT PLACE_NO, PLACE_TITLE, COUNT, CHANGE_NAME \
-//		FROM PLACE JOIN (SELECT * FROM ATTACHMENT \
-//				WHERE FILE_NO IN( \
-//				SELECT MIN(FILE_NO) FILE_NO FROM ATTACHMENT WHERE STATUS='Y' GROUP BY REF_BNO)) ON (REF_BNO = PLACE_NO) \
-//				WHERE PLACE.STATUS='Y' ORDER BY BOARD_NO DESC
-		String sql = prop.getProperty("selectPList");
+//		selectPATList=SELECT PLACE_NO, PLACE_TITLE, COUNT, CHANGE_NAME \
+//		FROM PLACE JOIN (SELECT * FROM PLACE_ATTACHMENT \
+//		WHERE FILE_NO IN( \
+//		SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \
+//		WHERE PLACE.STATUS='Y' ORDER BY PLACE_NO DESC
+
+		String sql = prop.getProperty("selectPATList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -52,7 +54,7 @@ public class PlaceDao {
 				place.setPlaceNo(rset.getInt("PLACE_NO"));
 				place.setPlaceTitle(rset.getString("PLACE_TITLE"));
 				place.setCount(rset.getInt("COUNT"));
-				place.setPlaceImg(rset.getString("CHANGE_NAME"));
+				place.setTitleImg(rset.getString("CHANGE_NAME"));
 				
 				list.add(place);
 			}
@@ -69,17 +71,19 @@ public class PlaceDao {
 	public int insertPlace(Connection conn, Place p) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		//insertPlace=INSERT INTO PLACE VALUES(SEQ_PNO.NEXTVAL, AREA_NO, CATEGORY_NO, ?,?,?,?,?,?,DEFAULT,DEFAULT)
+		//insertPlace=INSERT INTO PLACE VALUES(SEQ_PNO.NEXTVAL,?,?,?,?,?,?,?,?,DEFAULT,DEFAULT)
 		String sql = prop.getProperty("insertPlace");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, p.getPlaceTitle());
-			pstmt.setString(2, p.getPlacePhone());
-			pstmt.setString(3, p.getDescription());
-			pstmt.setString(4, p.getBsHour());
-			pstmt.setInt(5, p.getPrice());
-			pstmt.setString(6, p.getAddress());
+			pstmt.setInt(1, p.getAreaNo());
+			pstmt.setInt(2, p.getCategoryNo());
+			pstmt.setString(3, p.getPlaceTitle());
+			pstmt.setString(4, p.getPlacePhone());
+			pstmt.setString(5, p.getDescription());
+			pstmt.setString(6, p.getBsHour());
+			pstmt.setInt(7, p.getPrice());
+			pstmt.setString(8, p.getAddress());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,4 +116,26 @@ public class PlaceDao {
 	public Place selectPlace(Connection conn, int pno) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public int insertPAttachment(Connection conn, PlaceAttachment pat) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//insertPAttachment=INSERT INTO PLACE_ATTACHMENT VALUES(SEQ_PANO.NEXTVAL, SEQ_PNO.CURRVAL, ?, ?, ?, 2, SYSDATE, DEFAULT)
+		String sql = prop.getProperty("insertPAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pat.getOriginName());
+			pstmt.setString(2, pat.getChangeName());
+			pstmt.setString(3, pat.getFilePath());	
+			result += pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}		
+		return result;	
+	}
+	
 }

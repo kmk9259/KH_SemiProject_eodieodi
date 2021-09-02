@@ -1,11 +1,11 @@
 package semiProject.com.kh.place.model.service;
 
+import static semiProject.com.kh.common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import static semiProject.com.kh.common.JDBCTemplate.*;
-import semiProject.com.kh.board.model.vo.Attachment;
-
+import semiProject.com.kh.board.model.vo.PlaceAttachment;
 import semiProject.com.kh.place.model.dao.PlaceDao;
 import semiProject.com.kh.place.model.vo.Place;
 
@@ -19,16 +19,20 @@ public class PlaceService {
 		return list;
 	}
 
-	public int insertPlace(Place p, Attachment at) {
+	public int insertPlace(Place p, PlaceAttachment pat) {
 		Connection conn = getConnection();
-		int result = new PlaceDao().insertPlace(conn, p);
+		int result1 = new PlaceDao().insertPlace(conn, p);
+		int result2 = new PlaceDao().insertPAttachment(conn, pat);
 		
-		if(result >0)
+		if(result1 > 0 && result2 >0)
+		{
 			commit(conn);
-		else
+		}
+		else {
 			rollback(conn);
+		}
 		close(conn);
-		return result;
+		return result1*result2;
 	}
 
   public Place selectPlace(int pno) {
@@ -46,4 +50,5 @@ public class PlaceService {
 		}
 		
 		return p;
+  }
 }
