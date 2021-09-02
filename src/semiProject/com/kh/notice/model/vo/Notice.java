@@ -25,7 +25,7 @@ public class Notice {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	 
 	
 	public Notice(String noticeTitle, String noticeContent, int noticeWriter) {
 		super();
@@ -35,7 +35,7 @@ public class Notice {
 	}
 
 
-	//수정 
+	
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, int noticeWriter, int count,
 			Date createDate) {
 		super();

@@ -89,7 +89,7 @@
 					<div class="col-sm-2">
 						<nav class="nav-sidebar">
 							<ul class="nav tabs">
-								<li class="menuB parent"><a href="<%=contextPath %>/views/notice/admin_Notice.jsp">커뮤니티
+								<li class="menuB parent"><a href="<%=contextPath %>/views/notice/admin_NoticeList.jsp">커뮤니티
 										관리</a></li>
 								<li class="menuB "><a href="<%=contextPath %>/views/notice/newNotice.jsp">공지사항 등록</a></li>
 								<li class="menuB "><a href="<%=contextPath %>/views/notice/admin_Notice_Update.jsp">공지사항 수정</a></li>
