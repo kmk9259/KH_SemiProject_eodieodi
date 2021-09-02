@@ -2749,7 +2749,7 @@ login
 
 .blog__sidebar__recent__item__text span {
 	display: block;
-	font-size: 30px;
+	font-size: 15px;
 	text-transform: uppercase;
 	font-weight: 700;
 	color: #D958A0;
@@ -3937,3 +3937,65 @@ figure.photostack-current::after {
 
 
 /* 폴라로이드 css end------------------------------------- */
+
+
+/* .form-group{
+	margin: auto;
+	width: 80%;
+	
+} */
+
+/* ================  QnA css ================= */
+
+.faq {
+  padding: 60px 0;
+}
+.faq .faq-list {
+  padding: 0;
+  list-style: none;
+}
+.faq .faq-list li {
+    background-color: #ffee5a;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px 40px;
+}
+.faq .faq-list a {
+    display: block;
+    position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    text-decoration: none;
+}
+
+.faq .faq-list i {
+  font-size: 16px;
+  position: absolute;
+  left: -25px;
+  top: 6px;
+  transition: 1s;
+}
+.faq-title {
+    text-align: center;
+    font-size: 17px;
+    border-bottom: 2px dashed #ffffff;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    color: #ffffff;
+}
+
+.faq .faq-list p {
+  padding-top: 5px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+
+.collapsed i.fas.fa-arrow-up {
+    transform: rotate(180deg);
+}
+
+.bg-color {
+	background: #fff3e7;
+}
