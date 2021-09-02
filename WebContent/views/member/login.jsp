@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	String msg = (String)session.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,17 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"> -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/bootstrap.min333.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/myInfo.css" type="text/css">
        
     <!-- login Section -->
@@ -84,6 +75,30 @@
         
         </script>
 
+<script>
+	$(function(){
+		var msg = "<%=msg%>";
+		if(msg != "null"){
+			alert(msg);
+			<%session.removeAttribute("msg");%>
+		}
+	})
+
+	function loginValidate() {
+		if($("#userId").val().trim().length==0){
+			alert("아이디를 입력하세요");
+			$("#userId").focus();
+			return false;
+		}
+
+		if($("#userPwd").val().trim().length==0){
+			alert("비밀번호를 입력하세요");
+			$("#userPwd").focus();
+			return false;
+		}
+		return true;
+	}
+</script>
     <!-- login -->
     <!------ Include the above in your HEAD tag ---------->
     <section class="page-start">
@@ -105,29 +120,29 @@
                                             <div class="row">
                                                 <div class="col-lg-9 col-md-9">
                                                     <fieldset class="formRow">
-                                                        <div class="formRow--item">
+                                                        <div class="formRow--item" style="margin-top: 8%;">
                                                             <label for="firstname" class="formRow--input-wrapper js-inputWrapper">
-                                                                <input type="text" class="formRow--input js-input" id="inputId" placeholder="아이디를 입력하세요">
+                                                                <input type="text" class="formRow--input js-input" id="userId" placeholder="아이디를 입력하세요">
                                                             </label>
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="formRow">
                                                         <div class="formRow--item">
                                                             <label for="firstname" class="formRow--input-wrapper js-inputWrapper">
-                                                                <input type="password" class="formRow--input js-input" id="pwd" placeholder="비밀번호를 입력하세요">
+                                                                <input type="password" class="formRow--input js-input" id="userPwd" placeholder="비밀번호를 입력하세요">
                                                             </label>
                                                         </div>
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3">
-                                                    <button type="submit" class="vamos_mudar_um_pouco" title="Entrar">로그인</button>
+                                                    <button type="submit" id = "loginBtn" class="vamos_mudar_um_pouco" title="Entrar">로그인</button>
                                                 </div>
                                                 <div class="pp">
                                                     <div class="left">
                                                         <p class="help">아이디나 비밀번호를 잊으셨다면?</p>
                                                         <a href="find.jsp" class="linkA">ID/PW 찾기</a>
                                                     </div>
-                                                    <div class="right">
+                                                    <div class="right" style="margin-right : 17% !important;">
                                                         <p class="help">어디어디 회원이 아니라면?</p>
                                                         <a href="signUp.jsp" class="linkB">회원가입</a>
                                                     </div>
@@ -173,15 +188,6 @@
     <%@ include file="../common/footer.jsp"%>
     
     <!-- Js Plugins -->
-    <script src="<%= request.getContextPath() %>/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.nice-select.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery-ui.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.nicescroll.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.barfiller.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.slicknav.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
     <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 </body>
 </html>

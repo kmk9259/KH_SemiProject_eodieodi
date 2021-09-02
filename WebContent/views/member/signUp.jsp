@@ -15,19 +15,6 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"> -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/bootstrap.min333.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/myInfo.css" type="text/css">
        
        
     <!-- login Section -->
@@ -37,11 +24,10 @@
     <!--CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/myInfo.css" type="text/css">
 
     <!--JS-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     
     
     
@@ -69,6 +55,12 @@
           var iframe_height = parseInt($('html').height()); 
         });
     </script>
+    
+    <style type="text/css">
+	    .modal.fade.in {
+	    		top: 31%;
+		}
+    </style>
 </head>
 
 <body>
@@ -168,18 +160,11 @@
                             <div class="checkbox_group">
                                 <div class="col-md-4 mycustom" style="width: 80%;">
                                 
-                                	이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택), 
-                                	프로모션 안내 메일 수신(선택)에 모두 동의합니다.
- 
-   										<input type="checkbox" name="all" id="all"><hr/>
    										
    										
                                       <div class="thumbnail">
                                           <div class="caption">
-                                            <!-- <input type="checkbox" id="check_1" class="checkbox" name="eodi" value="y"> -->
-                                            
-                                            <input type="checkbox" name="c1" id="c1"/>
-                                            
+                                            <input type="checkbox" name="c1" id="c1" style="float: left;"/>
                                             <h5 class="tname">[필수] 어디어디 이용 약관</h5>
                                             <button type="button" class="btn btn-info more" data-toggle="modal" data-target="#no1">
                                               	자세히 보기
@@ -187,23 +172,18 @@
                                           </div>
                                       </div>
                                       <div class="thumbnail">
-                                          <div class="caption">
-                                            <!--  <input type="checkbox" id="check_2" class="checkbox" name="eodi" value="y">-->
+                                          <div class="caption">                                            
+                                            <input type="checkbox" name="c2" id="c2" style="float: left;"/>
                                             
-                                            
-                                            <input type="checkbox" name="c2" id="c2"/>
-                                            
-                                            <h5 class="tname">[필수] 만 14세 이상입니다.</h5>
+                                            <h5 class="tname">[필수] 서비스 이용약관</h5>
                                             <button type="button" class="btn btn-info more" data-toggle="modal" data-target="#no2">
                                               	자세히 보기
                                             </button>
                                           </div>
                                       </div>
                                       <div class="thumbnail">
-                                          <div class="caption">
-                                             <!-- <input type="checkbox" id="check_3" class="checkbox" name="eodi" value="y">-->
-                                             
-                                            <input type="checkbox" name="c3" id="c3"/>
+                                          <div class="caption">                                             
+                                            <input type="checkbox" name="c3" id="c3" style="float: left;"/>
                                             
                                             <h5 class="tname">[필수] 개인정보 수집 및 이용 동의</h5>
                                             <button type="button" class="btn btn-info more" data-toggle="modal" data-target="#no3">
@@ -211,6 +191,10 @@
                                             </button>
                                           </div>
                                       </div>
+                                      <hr/>
+   										<input type="checkbox" name="all" id="all" style="margin-left: 5%; margin-right:2%; float: left;">
+                                		<h5>[필수] 어디어디 이용 약관, 서비스 이용 약관, 개인정보 수집 및 이용에 모두 동의합니다.</h5>
+ 										<br>
                                   </div>
                               </div>
                             </div>
@@ -237,7 +221,7 @@
                           <div class="modal-dialog">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                      <h3 class="modal-title">나이 정보 제공 및 수집</h3>
+                                      <h3 class="modal-title">서비스 이용 약관</h3>
                                       <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
                                   </div>
                                   <div class="modal-body">
@@ -272,7 +256,7 @@
                     </div>
 
                     <br><br><br><br>
-                        <div style="margin-right:37%; margin-top:40%;">
+                        <div style="margin-right:37%; margin-top:35%;">
                         	<button id="btnNext" disabled="disabled" class="nextBtn btn-ms pull-right" type="button" style="height: 50px; width: 300px;"><h4 style="color: #fff;">다음</h4></button>
                         <br><br>
                         <br><br>
@@ -337,22 +321,27 @@
                     <br><br>
                     <form>
                       <div class="form-group">
-                              <label class="control-label">아이디</label>
-                              <input maxlength="100" type="text" required="required" class="form-control" placeholder="이름을 입력하세요"  />
+                              <label class="control-label">아이디</label><br>
+                              <input style=" width: 80%; float: left;" maxlength="100" type="text" required="required" class="form-control" placeholder="아이디를 입력하세요"  />
+							  <button style="display: inline-block; background-color: #D958A0; color:#fff; border:none; width:200px; height:48px; border-radius: 5px;" type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
                           <!-- </div>
                           <div class="form-group"> -->
+                          <br><br>
                             <label class="control-label">비밀번호</label>
                             <input maxlength="100" type="password" required="required" class="form-control" placeholder="비밀번호를 입력해주세요" />
                             <label class="control-label">비밀번호 확인</label>
                             <input maxlength="100" type="password" required="required" class="form-control" placeholder="비밀번호를 입력해주세요" />
 
                             
-                            <label class="control-label">이메일</label>
-                            <input maxlength="100" type="email" required="required" class="form-control" placeholder="이메일을 입력해주세요" />
                             <label class="control-label">이름</label>
                             <input maxlength="100" type="text" required="required" class="form-control" placeholder="이름을 입력해주세요" />
+                            
                             <label class="control-label">전화번호</label>
                             <input maxlength="100" type="tel" required="required" class="form-control" placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" />
+                            
+                            <label class="control-label">이메일</label>
+                            <input maxlength="100" type="email" required="required" class="form-control" placeholder="이메일을 입력해주세요(hongil@naver.com)" />
+                            
                             <label class="control-label">성별</label><br>
                             <input type="radio" name="gener" value="F" checked="checked" style="margin-left:5%;" /> <span class="up" style="margin-right: 10%;">여자</span>
                             <input type="radio" name="gener" value="M" /> <span class="up">남자</span>
@@ -458,15 +447,6 @@
     <%@ include file="../common/footer.jsp"%>
     
     <!-- Js Plugins -->
-    <script src="<%= request.getContextPath() %>/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.nice-select.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery-ui.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.nicescroll.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.barfiller.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.slicknav.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
     <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 </body>
 </html>

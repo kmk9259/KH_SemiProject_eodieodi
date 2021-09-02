@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 
     <%
-   
+
+    /*Member loginUser = (Member)session.getAttribute("loginUser");*/
    String contextPath = request.getContextPath();
    
 %>
@@ -26,7 +27,6 @@
     <link rel="stylesheet" href="<%=contextPath %>/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="<%=contextPath %>/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="<%=contextPath %>/resources/css/style.css" type="text/css">
-	<link rel="stylesheet" href="<%=contextPath %>/resources/css/myInfo.css" type="text/css">
 </head>
 <body>
 <!-- Header Section Begin -->
@@ -55,9 +55,13 @@
                                 </li>
                                 <li><a href="<%=contextPath %>/views/board/faq.jsp">FAQ</a></li>
                                 <li><a href="<%=contextPath %>/views/board/blogListView.jsp">커뮤니티</a></li>
-                               
+                               <%-- <%if(loginUser == null){%>  --%>
                                 <li><a href="<%=contextPath %>/views/member/login.jsp">로그인</a></li>
                                 <li><a href="<%=contextPath %>/views/member/signUp.jsp">회원가입</a></li>
+                                <%-- <%} else { %>
+	                                <li><a href="<%=contextPath %>/views/member/myPage.jsp">마이페이지</a></li>
+	                                <li><a href="<%=contextPath %>/views/member/logout.me">로그아웃</a></li>
+							      <%}%> --%>
                             </ul>
                         </nav>
                         <div class="header__menu__right">
