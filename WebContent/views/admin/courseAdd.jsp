@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%! int i=0; 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,96 +11,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>어디어디 - 관리자페이지(코스등록)</title>
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
-	rel="stylesheet">
-
-<!-- Css Styles -->
-<!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"> -->
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/bootstrap.min333.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/flaticon.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/barfiller.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/magnific-popup.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
-	type="text/css">
-
-<!-- login Section -->
-<!-- 첫 번째 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!--CSS-->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-	crossorigin="anonymous">
-
-<!--JS-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
 <style>
-.courseAddList {
-	width: 100%;
+.admin {
+    background-color: #FFF3E7;
+    height: 1000px; 
+    padding: 0px 50px 50px 50px;
+}
+.admin-showpage{
+	float: right;
+    width: 1400px;
+    margin-right:50px;
+    height: 900px;
+    padding: 10px;
+    margin-top: 2.5%;
+    background-color: #FFF3E7;
+    border: 1px solid #D34B32;
     
-    display: flex;
 }
-.courseCardList{
-	border: 1px solid red;
-	flex:1;
-    width:10%;
-    box-sizing: border-box;
+.choiceCourse{
+margin-left: 150px;
 }
-.courseTableList {
-	border: 1px solid green;
-    flex:1;
-    
-    margin-top:20%;
-    width:30%;
-    box-sizing: border-box;
-}
-
 </style>
+
 </head>
 
 <body>
@@ -109,10 +42,8 @@
 	</div>
 	<%@ include file="../common/menubar.jsp"%>
 
-
-
 	<!-- Hero Section Begin -->
-	<section class="hero set-bg"
+	<section class="hero set-bg" style="height: 500px"
 		data-setbg="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg">
 		<div class="container">
 			<div class="row">
@@ -147,18 +78,9 @@
         </script>
 
 	<section class="page-start">
-		<section class="login">
-			<div class="container">
-				<div class="sidenav">
-					<div class="login-main-text">
-						<h2>
-							Eodi Eodi<br> Admin Page
-						</h2>
-						<p>Welcome To Admin Page</p>
-					</div>
-				</div>
-				<!------ MENUSIDE BAR ---------->
-				<div class="container menuBar">
+		<section class="admin">
+			<!------ MENUSIDE BAR ---------->
+				<div class=" menuBar">
 					<div class="col-sm-2">
 						<nav class="nav-sidebar">
 							<ul class="nav tabs">
@@ -167,65 +89,141 @@
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class=" menuB "><a href="<%=request.getContextPath()%>/views/admin/placeAdd.jsp"
-									data-toggle="tab">일정 등록</a></li>
 								<li class=" menuB "><a
-									href="<%=request.getContextPath()%>/views/admin/placeDelete.jsp" data-toggle="tab">일정
-										삭제</a></li>
-								<li class="active menuB"><a href="#" >코스 등록</a></li>
-								<li class="menuB"><a href="#" data-toggle="tab">코스 삭제</a></li>
-								<li class="menuB parent"><a href="#">회원 관리</a></li>
+									href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
+								<li class="menuB ">
+								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
+								<li class="active menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
+								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
 
 							</ul>
 						</nav>
 					</div>
-
-				</div>
-				<div class="row">
-	                <div class="col-md-12">
-	                    <div class="section-title">
-	                        <h4>코스 등록 </h4>
-	                    </div>
-	                    <div class="form-group col-sm-5">
-                              <label for="addressKindU">지역선택</label>
-                              <select class="form-control" id="addressKindU" name="addressKindU" onchange="addressKindChange(this)">
-                                <option>지역을 선택하세요</option>
-                                <option value="a">홍대</option>
-                                <option value="b">강남</option>
-                                <option value="c">신림</option>
-                              </select>
-                            </div>
-                            <div class="form-group col-sm-4">
-                              <label for="addressKindD">카테고리</label>
-                              <select class="form-control" id="addressKindD" name="addressKindD">
-                                <option>카테고리를선택해주세요.</option>
-                                <option value="eating">먹기</option>
-                                <option value="drinking">마시기</option>
-                                <option value="playing">놀기</option>
-                              </select>
-                            </div>
-	                </div>
-            	</div>
-				<%@ include file="../admin/courceList.jsp"%>
-
+				</div>	
+				<div class="admin-showpage ">
+				<div class="courseList nice-scroll" style="height: 600px; width: 1500px;">
+					<div class="form-group col-sm-5">
+							<select id="placeChoice" onchange="choicePlace(this)">
+								<option>지역을 선택하세요</option>
+								<option value="h">홍대</option>
+								<option value="g">강남</option>
+							</select>
+					</div>
+						<div class="form-group col-sm-4">
+							<select id="category" onchange="category(this)">
+								<option value="eating">먹기</option>
+								<option value="drinking">마시기</option>
+								<option value="playing">놀기</option>
+							</select>
+						</div><br><br><br><br>
+					<script>
+					function choicePlace(c){
+					    var hong = document.getElementById("hongdae");
+					    var gang = document.getElementById("gangnam");
+					    
+					    if(c.value == "h")
+					    {
+					    	$('#hongdae').show();
+					    	$('#gangnam').hide();
+					    }	
+					    else if(c.value == "g")
+				    	{
+					    	$('#hongdae').hide();
+					    	$('#gangnam').show();
+				    	}					    
+					}
+					
+					</script>
+					
+					<div id="hongdae">
+						<% for(i=0; i<10; i++) {%>
+						
+						<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+							<div class="card">
+								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
+								<div class="card-body">
+									<h4 class="card-title" id="htitle">홍대 놀거리</h4>
+									<p class="card-text">방탈출</p>
+								</div>
+								<input type="checkbox" id="hCheck" value="<%  %>" onclick="check(this)">선택
+							</div>														
+						</div>
+						
+						<%} %>
+					</div><!--홍대  -->
+					<div id="gangnam">
+						<% for(int i=0; i<10; i++) {%>
+						<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+							<div class="card">
+								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
+								<div class="card-body">
+									<h4 class="card-title" id="gtitle">강남 놀거리</h4>
+									<p class="card-text">강남 </p>
+								</div>
+								<input type="checkbox" id="gCheck" value="<% %>" onclick="check(this)">선택
+							</div>							
+						</div>
+						<%} %>
+						
+					</div><!--강남  -->
+					
+				</div><!-- courseList nice-scroll -->
 				
-		</section>
+				<div class="courseName">
+					<br>
+					
+					<form action="경로넣기" method="get">
+						코스 이름 : <input maxlength="100"	type="text" required="required" id="courseName" placeholder="코스의 이름을 입력해주세요" /><br><br>
+					    <textarea name="opinion" cols="80" rows="6" style="width: 300px;"></textarea><br>
+					    <input type="submit" value="코스 등록" id="courseAdd">
+					</form>
+				</div>
+				<script>
+					function check(){
+						if($('input:checkbox[id="hCheck"]').is(":checked") == true)
+						{
+							var htitle = $("#htitle" ).text();
+							document.querySelector("textarea").innerHTML+=htitle+"\n";							
+						}
+						else if($('input:checkbox[id="gCheck"]').is(":checked") == true)
+						{
+							var gtitle = $("#gtitle" ).text();
+							document.querySelector("textarea").innerHTML+=gtitle+"\n";							
+						}
+					}
+					$(function() {
 
-	</section>
+						$("#courseAdd").click(function() {
+							var courseName = document.getElementsByName('courseName').value; 
+							if(courseName!= null)
+							{
+								var result = confirm("선택한 일정대로 코스를 등록하겠습니까?")
+								if (result) {
+									alert("추천 코스가 등록되었습니다.")
+								} else {
+									location.reload();
+								}
+							}
+							else
+							{
+								alert("추천 코스의 이름을 적어주세요.")
+							}
+						
+
+						});
+
+					});
+					</script>
+				</div><!-- admin-showpage -->
+		</section><!-- admin -->
+	</section><!-- page- start -->
+
+
+
 
 	<%@ include file="../common/footer.jsp"%>
 
-	<!-- Js Plugins -->
-	<script src="<%=contextPath%>/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/bootstrap.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery-ui.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.nicescroll.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.barfiller.js"></script>
-	<script
-		src="<%= contextPath %>/resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.slicknav.js"></script>
-	<script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
 	<script src="<%= contextPath %>/resources/js/main.js"></script>
 
 </body>

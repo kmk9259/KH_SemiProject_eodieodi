@@ -16,16 +16,6 @@
 
     <!-- Css Styles -->
     <!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"> -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/bootstrap.min333.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/css/myInfo.css" type="text/css">
        
 
@@ -112,9 +102,9 @@
                                 <li class="active menuB parent"><a href="#mInfo" data-toggle="tab">내 정보</a></li>
                                 <li class="menuB "><a href="#mInfoUp" data-toggle="tab">내 정보 수정</a></li>
                                 <li class="menuB"><a href="#pwUp" data-toggle="tab">비밀번호 변경</a></li>
-                                <li class="menuB parent"><a href="<%= request.getContextPath() %>/views/board/blog.jsp">커뮤니티</a></li>
+                                <li class="menuB parent"><a href="<%=contextPath %>/views/board/blogListView.jsp">커뮤니티</a></li>
                                 <li class="menuB"><a href="#myPost" data-toggle="tab">내가 쓴 글</a></li>
-                                <li class="menuB parent"><a href="<%= request.getContextPath() %>/views/plan/selectPlan.jsp">일정 플래너</a></li>
+                                <li class="menuB parent"><a href="<%=contextPath %>/views/plan/planSave.jsp">일정 보관함</a></li>
                                 <li class="menuB parent"><a href="#wd" data-toggle="tab">회원 탈퇴</a></li>
                                 <li class="menuB"><a href="#wd" data-toggle="tab">탈퇴하기</a></li>
                             </ul>
@@ -122,17 +112,32 @@
                     </div>
 
                 </div>
+                
+                
+                <!-- 화면단 -->
                 <div class="container-showpage">
                     <!-- tab content -->
                     <div class="tab-content">
+                    
                         <!-- 내 정보 -->
                         <div class="tab-pane active text-style" id="mInfo">
                             <h2 class="tInfo">내 정보</h2>
                             <br><br>
-                            <label class="conInfo">아이디 : ㅇㅇㅇ</label><br>
-                            <label class="conInfo">이름 : ㅇㅇㅇ</label><br>
-                            <label class="conInfo">전화번호 : 010-XXXX-XXXX</label><br>
-                            <label class="conInfo">이메일 : ㅇㅇㅇ@naver.com</label><br>
+                            	<label style="width: 80px; margin-left: 10%;"><h5>아이디</h5></label>
+                            	<input class="conInfo" value="" readonly="readonly"
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
+                            	 
+                            	<label style="width: 80px; margin-left: 10%;"><h5>이름</h5></label>
+                            	<input class="conInfo" value="" readonly="readonly"
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
+                            	 
+                            	<label style="width: 80px; margin-left: 10%;"><h5>전화번호</h5></label>
+                            	<input class="conInfo" value="" readonly="readonly"
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
+                            	 
+                            	<label style="width: 80px; margin-left: 10%;"><h5>이메일</h5></label>
+                            	<input class="conInfo" value="" readonly="readonly"
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
                         </div>
 
                         <!-- 내 정보 수정 -->
@@ -144,45 +149,66 @@
                                     <label class="control-label">이름</label>
                                     <input maxlength="100" type="text" required="required" class="form-control"
                                         placeholder="이름을 입력해주세요" />
+                                        
                                     <label class="control-label">전화번호</label>
                                     <input maxlength="100" type="tel" required="required" class="form-control"
-                                        placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" />
-                                    <label class="control-label">이메일</label>
+                                        placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" /><br>
+                                        
+                                    <label class="control-label">이메일</label><br>
                                     <input maxlength="100" type="email" required="required" class="form-control"
-                                        placeholder="이메일을 입력해주세요" />
-                                    <label class="control-label">인증확인</label>
+                                        placeholder="이메일을 입력해주세요" style=" width: 80%; float: left;" /><br>
+                                        
+								  <button style="float: right; background-color: #D958A0; color:#fff;
+								   border:none; width:100px; height:48px; border-radius: 5px; margin-top : -21px;"
+								    type="button" id="emailCheckBtn" onclick="checkEmail();"><h6 style="color:#fff;">이메일인증</h6></button><br><br>
+								    
+                                    <!-- <label class="control-label">인증확인</label>
                                     <input maxlength="100" type="text" required="required" class="form-control"
-                                        placeholder="인증번호를 입력해주세요" />
+                                        placeholder="인증번호를 입력해주세요" /> -->
                                     <br><br>
-                                    <button type="submit">저장하기</button>
+                                    
+                                    <center><button type="submit" style=" background-color: #D958A0; color:#fff;
+							   				border:none; width:100px; height:48px; border-radius: 5px; ">저장하기</button></center>
                                 </div>
                             </form>
                         </div>
 
+						<!-- 비밀번호 변경 -->
                         <div class="tab-pane text-style" id="pwUp">
                             <h2 class="tInfo">비밀번호 변경</h2>
                             <br><br>
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form method="post" id="passwordForm">
-                                    <input type="password" class="input-lg form-control" name="password1" id="password1"
-                                        placeholder="변경할 비밀번호를 입력하세요" autocomplete="off">
-                                    <span id="6char" class="glyphicon glyphicon-remove"></span>6자리 이상<br>
-                                    <input type="password" class="input-lg form-control" name="password2" id="password2"
-                                        placeholder="한 번 더 입력하세요" autocomplete="off">
+                                    	<label>변경할 비밀번호 </label>
+                                    		<input type="password" class="input-lg form-control" name="password1" id="password1"
+                                        				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required>
+				                                    <span id="6char" class="glyphicon glyphicon-remove" style="float: right;"> 6자리 이상</span><br>
+				                                    <br>
+                                    
+                                    
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <span span id="pwmatch" class="glyphicon glyphicon-remove"></span>비밀번호 일치
+                                        	<label>비밀번호 </label>
+                                        	<input type="password" class="input-lg form-control" name="password2" id="password2"
+                                        		placeholder="한 번 더 입력하세요" autocomplete="off" required>
+                                            <span span id="pwmatch" class="glyphicon glyphicon-remove" style="float: right;">비밀번호 일치</span>
                                         </div>
                                     </div>
-                                    <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg"
+                                    
+                                    <br><br>
+                                    
+                                    <input type="submit" class="col-xs-12 btn-lg"
+                                    style="background-color: #D958A0; color:#fff; border:none; margin-left: 25%;"
                                         data-loading-text="비밀번호 변경하기" value="비밀번호 변경하기">
                                 </form>
                             </div>
                         </div>
 
+
+						<!-- 내가 쓴 글 -->
                         <div class="tab-pane text-style" id="myPost">
                             <h2 class="tInfo">내가 쓴 글</h2>
-
+							<br><br>
                             <div class="span5" style="padding-left: 10%; width: 80%;">
                                 <table class="table table-striped table-condensed" style="text-align: center;">
                                     <thead>
@@ -219,14 +245,17 @@
                             </div>
                         </div>
 
+                        
+                        <!-- 회원탈퇴 -->
                         <div class="tab-pane text-style" id="wd">
                             <h2 class="tInfo">회원 탈퇴</h2>
+                            <br><br><br><br>
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form method="post" id="passwordForm">
                                     <input type="password" class="input-lg form-control" name="password2" id="outpw"
                                         placeholder="현재 비밀번호를 입력하세요" autocomplete="off">
-                                    <input type="submit" class="col-xs-12 btn btn-danger btn-load btn-lg"
-                                        data-loading-text="회원탈퇴" value="회원탈퇴하기">
+                                        <br><br>
+                                    <input type="submit" class="col-xs-12 btn-danger btn-load btn-ms" style="margin-left:30%;" data-loading-text="회원탈퇴" value="회원탈퇴하기"/>
                                 </form>
                             </div>
                         </div>
@@ -235,8 +264,8 @@
         </section>
 
     </section>
-    <!-- Footer Section Begin -->
     
+    <!-- Footer Section Begin -->
     <%@ include file="../common/footer.jsp"%>
     <!-- Footer Section End -->
 
@@ -288,15 +317,6 @@
     </script>
     
     <!-- Js Plugins -->
-    <script src="<%= request.getContextPath() %>/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.nice-select.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery-ui.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.nicescroll.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.barfiller.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/jquery.slicknav.js"></script>
-    <script src="<%= request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
     <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 </body>
 

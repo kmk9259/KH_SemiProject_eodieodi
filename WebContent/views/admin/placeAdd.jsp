@@ -10,78 +10,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>어디어디 - 관리자페이지(일정 등록)</title>
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
-	rel="stylesheet">
 
-<!-- Css Styles -->
-<!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css"> -->
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/bootstrap.min333.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/flaticon.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/barfiller.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/magnific-popup.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
-	type="text/css">
-
-<!-- login Section -->
-<!-- 첫 번째 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!--CSS-->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-	crossorigin="anonymous">
-
-<!--JS-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
 <style>
-#insertForm img {
-	border: 1px dashed darkgray;
+.admin {
+    background-color: #FFF3E7;
+    height: 1000px; 
+    padding: 0px 50px 50px 50px;
 }
+.admin-showpage{
+	float: right;
+    width: 1400px;
+    margin-right:50px;
+    height: 900px;
+    padding: 10px;
+    margin-top: 2.5%;
+    background-color: #FFF3E7;
+    border: 1px solid #D34B32;
+    
+}
+.placeAddForm{
+width:800px;
+height: 500px;
+}
+
 </style>
 </head>
 
@@ -98,7 +49,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>어디어디?!</h2>
+							<h2>일정 등록</h2>
 						</div>
 					</div>
 				</div>
@@ -123,76 +74,58 @@
 			});
 		});
 	</script>
-
 	<section class="page-start">
-		<section class="login">
-			<div class="container">
-				<div class="sidenav">
-					<div class="login-main-text">
-						<h2>
-							Eodi Eodi<br> Admin Page
-						</h2>
-						<p>Welcome To Admin Page</p>
-					</div>
+		<section class="admin">
+			<!------ MENUSIDE BAR ---------->
+			<div class=" menuBar">
+				<div class="col-sm-2">
+					<nav class="nav-sidebar">
+						<ul class="nav tabs">
+							<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티
+									관리</a></li>
+							<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
+							<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
+							<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
+							<li class="active menuB "><a
+								href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
+							<li class=" menuB "><a
+								href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
+							<li class="menuB"><a
+								href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
+							<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
+							<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
+
+						</ul>
+					</nav>
 				</div>
-				<!------ MENUSIDE BAR ---------->
-				<div class="container menuBar">
-					<div class="col-sm-2">
-						<nav class="nav-sidebar">
-							<ul class="nav tabs">
-								<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티
-										관리</a></li>
-								<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
-								<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
-								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class="active menuB "><a
-									href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
-								<li class="menuB "><a
-									href="<%=contextPath%>/views/admin/placeDelete.jsp"
-									data-toggle="tab">일정 삭제</a></li>
-								<li class="menuB"><a href="#" data-toggle="tab">코스 등록</a></li>
-								<li class="menuB"><a href="#" data-toggle="tab">코스 삭제</a></li>
-								<li class="menuB parent"><a href="#">회원 관리</a></li>
-
-							</ul>
-						</nav>
-					</div>
-
-				</div>
-
-
-				<div class="container-showpage" style="height: 900px">
-					<!-- tab content -->
+			</div>
+			<!--menu bar  -->
+			<div class="admin-showpage nice-scroll">
 					<div class="tab-content">
 						<!-- 일정 등록 -->
-						<div class="tab-pane active text-style" id="Info">
-							<h2>일정 등록</h2>
-							<br> <br>
-							<form id="insertForm" action="" method="post"
+						<div class="tab-pane active text-style placeAddForm">
+							
+							<form id="insertForm" action="<%=contextPath%>/insert.pl" method="post"
 								enctype="multipart/form-data">
 								<div class="form-group">
-									<label class="control-label">지역</label> <input maxlength="100"
-										type="text" required="required" class="form-control"
-										placeholder="지역을 입력해주세요" /> <label class="control-label">카테고리</label>
-									<input maxlength="100" type="text" required="required"
-										class="form-control" placeholder="카테고리를 입력해주세요" /> <label
-										class="control-label">상호명</label> <input maxlength="100"
-										type="text" required="required" class="form-control"
-										placeholder="상호명을 입력해주세요" /> <label class="control-label">전화번호</label>
-									<input maxlength="100" type="tel" required="required"
-										class="form-control" placeholder="전화번호를 입력해주세요" /> <label
-										class="control-label">주요 메뉴</label> <input maxlength="100"
-										type="text" required="required" class="form-control"
-										placeholder="주요 메뉴를 입력해주세요" /> <label class="control-label">영업
-										시간</label> <input maxlength="100" type="text" required="required"
-										class="form-control" placeholder="영업 시간을 입력해주세요" /> <label
-										class="control-label">대표 금액</label> <input maxlength="100"
-										type="text" required="required" class="form-control"
-										placeholder="대표 금액을 입력해주세요" /> <label class="control-label">상세주소</label>
-									<input maxlength="100" type="text" required="required"
-										class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
-									<img id="titleImg" width="150" height="120"> <br> <label>
-										대표 이미지</label>
+									<label class="control-label">지역</label> 
+									<input maxlength="100" type="text" name="place" required="required" class="form-control" placeholder="지역을 입력해주세요" /> 
+									<label class="control-label">카테고리</label>
+									<input maxlength="100" type="text" name="category" required="required" class="form-control" placeholder="카테고리를 입력해주세요" /> 
+									<label class="control-label">상호명</label> 
+									<input maxlength="100" type="text" name="placeTitle" required="required" class="form-control" placeholder="상호명을 입력해주세요" /> 
+									<label class="control-label">전화번호</label>
+									<input maxlength="100" type="tel" name="placePhone" required="required" class="form-control" placeholder="전화번호를 입력해주세요" /> 
+									<label class="control-label">설명</label> 
+									<input maxlength="100" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
+									<label class="control-label">영업 시간</label> 
+									<input maxlength="100" type="text" name="bsHour" required="required" class="form-control" placeholder="영업 시간을 입력해주세요" /> 
+									<label class="control-label">대표 금액</label> 
+									<input maxlength="100" type="text" name="price" required="required" class="form-control" placeholder="대표 금액을 입력해주세요" /> 
+									<label class="control-label">상세주소</label>
+									<input maxlength="100" type="text" name="address" required="required" class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
+									<img name="titleImg" width="150" height="120"> <br> 
+									<label> 대표 이미지</label>
 									<div id="fileArea">
 										<input type="file" name="file1" id="file1"
 											onchange="loadImg(this, 1);">
@@ -246,23 +179,19 @@
 								}
 							}
 						</script>
+					</div>
+				</div> <!-- admin-showpage -->
+			
 		</section>
-
+		<!-- admin -->
 	</section>
+	<!-- page- start -->
+
+
+
 
 	<%@ include file="../common/footer.jsp"%>
 
-	<!-- Js Plugins -->
-	<script src="<%= contextPath %>/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/bootstrap.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.nice-select.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery-ui.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.nicescroll.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.barfiller.js"></script>
-	<script
-		src="<%= contextPath %>/resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="<%= contextPath %>/resources/js/jquery.slicknav.js"></script>
-	<script src="<%= contextPath %>/resources/js/owl.carousel.min.js"></script>
 	<script src="<%= contextPath %>/resources/js/main.js"></script>
 
 </body>
