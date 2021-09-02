@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, semiProject.com.kh.place.model.vo.Place"%>
 <!DOCTYPE html>
+<%
+	ArrayList<Place> list = (ArrayList<Place>)request.getParameter("list",list);  
+%>
+
 <html lang="en">
 
 <head>
@@ -116,7 +120,7 @@
 
     <!-- Filter Begin -->
     <div class="filter nice-scroll">
-        <form action="" method="POST">
+        <form action="create.pl" method="POST">
             <div class="filter__title">
                 <h5>일정 제목</h5>
             </div>
@@ -155,10 +159,9 @@
             <div>
 
                 <!--select 로 값 받기-->
-                <select name="region" class="planInput" id="region">
-                    <option value="1" selected>가로수길</option>
+                <select name="area" class="planInput" id="region" onchange="choicePlace(this)">
+                    <option value="1" selected>홍대</option>
                     <option value="2">강남</option>
-                    <option value="3">홍대</option>
                 </select>
             </div>
 
@@ -173,7 +176,7 @@
                         <th width="50"></th>
                     </tr>
                 </thead>
-                <tr>
+                <!-- <tr>
 					<td>뚱이네 고기</td>
 					<td>서울시 홍대 어딘가 11-1번지</td>
 					<td><button onClick="rowDelete(this)">빼기</button></td>
@@ -187,7 +190,7 @@
 					<td>뚱이네 고기</td>
 					<td>서울시 홍대 어딘가 11-1번지</td>
 					<td><button onClick="rowDelete(this)">빼기</button></td>
-				</tr>
+				</tr> -->
             </table>
             
             <div class="filter__btns">
@@ -198,6 +201,23 @@
                 function rowDelete(obj){
                     $(obj).parent().parent().remove();
                 }
+                
+                
+                function choicePlace(c){
+        		    var hong = document.getElementById("hongdae");
+        		    var gang = document.getElementById("gangnam");
+        		    
+        		    if(c.value == "1")
+        		    {
+        		    	$('#hongdae').show();
+        		    	$('#gangnam').hide();
+        		    }	
+        		    else if(c.value == "2")
+        	    	{
+        		    	$('#hongdae').hide();
+        		    	$('#gangnam').show();
+        	    	}					    
+        		}
             </script>
             
         </form>
@@ -215,7 +235,61 @@
             </div>
             <!-- <div class="listing__text__top__right">Nearby <i class="fa fa-sort-amount-asc"></i></div> -->
         </div>
-        <table class="listArea">
+        
+        모든 place들 조회해와서 화면에 띄워주기
+        <%for(Place p : list) {%>
+        	<form action="insert.pm">  <!-- 넘기기 -->
+        		<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+				<input type="hidden" name="pno" value="<%=p.getPlaceNo()%>">
+					<div class="card">
+					<img class="card-img-top" src="<%= request.getContextPath() %>/resources/place_upfiles/<%= p.getPlaceImg() %>>" alt="Card image" style="width: 100%">
+						<div class="card-body">
+							<h4 class="card-title"><%=p.getPlaceTitle() %></h4>
+							<p class="card-text"><%=p.getPlaceAddress() %></p>
+	
+							<button type="submit" class="btn btn-primary">추가</button>
+							<button class="btn btn-primary">더보기</button>
+						</div>
+					</div>							
+				</div>
+        	</form>
+		<%} %> 
+        	
+        
+        <div id="hongdae">
+			<% for(int i=0; i<10; i++) {%>
+				<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+					<div class="card">
+						<img class="card-img-top" src="<%= request.getContextPath() %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
+						<div class="card-body">
+							<h4 class="card-title">홍대 놀거리</h4>
+							<p class="card-text">방탈출</p>
+	
+							<button class="btn btn-primary">추가</button>
+							<button class="btn btn-primary">더보기</button>
+						</div>
+					</div>							
+				</div>
+			<%} %>
+		</div><!--홍대  -->
+		<div id="gangnam">
+			<% for(int i=0; i<10; i++) {%>
+				<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+					<div class="card">
+						<img class="card-img-top" src="<%= request.getContextPath() %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
+						<div class="card-body">
+							<h4 class="card-title">강남 놀거리</h4>
+							<p class="card-text">강남 </p>
+	
+							<button class="btn btn-primary">추가</button>
+							<button class="btn btn-primary">더보기</button>
+						</div>
+					</div>							
+				</div>
+			<%} %>
+		</div><!--강남  -->
+            <!-- 
+            <table class="listArea">
             <form>
                 <tr>
                     <td rowspan="3">
@@ -252,7 +326,7 @@
                     <td colspan="3">상세 설명</td>
                 </tr>
             </form>
-        </table>
+        </table> -->
     </section>
     <!-- Listing Section End -->
 
@@ -274,6 +348,7 @@
         function newPage()  {
             window.open('./placeDetail.html');
         }
+
     </script>
     
     <!-- Js Plugins -->
