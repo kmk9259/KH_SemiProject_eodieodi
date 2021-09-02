@@ -246,8 +246,8 @@
                         </div>
                         
                         <div class="total_btn">
-                            <a href="./index.html"><button type="button" class="btn btn-dark">메인으로</button></a>
-                            <a href="./adminPlan_detail.html"><button type="button" class="btn btn-dark">다음으로</button></a>
+                            <a href="<%= contextPath %>/index.jsp"><button type="button" class="btn btn-dark">메인으로</button></a>
+                            <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"><button type="button" class="btn btn-dark">다음으로</button></a>
                         </div>
 
 
