@@ -1,4 +1,4 @@
-package semiProject.com.kh.planMy.vo;
+package semiProject.com.kh.planMy.model.vo;
 
 import java.sql.Date;
 
