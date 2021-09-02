@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	Member m = (Member)request.getAttribute("loginUser");
+
+	String userId = m.getUserId();
+	String userPwd = m.getUserPwd();
+	String userName = m.getUserName();
+	String originPwd = (String)session.getAttribute("originPwd");
+	
+	String phone = m.getPhone() != null? m.getPhone() : "";
+	String email = m.getEmail() != null? m.getEmail() : "";
+
+	
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -124,19 +139,19 @@
                             <h2 class="tInfo">내 정보</h2>
                             <br><br>
                             	<label style="width: 80px; margin-left: 10%;"><h5>아이디</h5></label>
-                            	<input class="conInfo" value="" readonly="readonly"
+                            	<input class="conInfo" value="<%= userId %>" readonly="readonly"
                             	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>이름</h5></label>
-                            	<input class="conInfo" value="" readonly="readonly"
+                            	<input class="conInfo" value="<%= userName %>" readonly="readonly"
                             	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>전화번호</h5></label>
-                            	<input class="conInfo" value="" readonly="readonly"
+                            	<input class="conInfo" value="<%= phone %>" readonly="readonly"
                             	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>이메일</h5></label>
-                            	<input class="conInfo" value="" readonly="readonly"
+                            	<input class="conInfo" value="<%= email %>" readonly="readonly"
                             	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
                         </div>
 
@@ -144,19 +159,19 @@
                         <div class="tab-pane text-style" id="mInfoUp">
                             <h2 class="tInfo">정보 수정</h2>
                             <br>
-                            <form>
+                            <form id="updateForm" action="<%=request.getContextPath() %>/update.me" method="post">
                                 <div class="form-group infoUp">
-                                    <label class="control-label">이름</label>
+                                    <label class="control-label">변경할 이름을 입력해주세요</label>
                                     <input maxlength="100" type="text" required="required" class="form-control"
-                                        placeholder="이름을 입력해주세요" />
+                                        value="<%= userName %>" />
                                         
-                                    <label class="control-label">전화번호</label>
+                                    <label class="control-label">변경할 전화번호를 입력해주세요(010-XXXX-XXXX)</label>
                                     <input maxlength="100" type="tel" required="required" class="form-control"
-                                        placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" /><br>
+                                        value="<%= phone %>" /><br>
                                         
-                                    <label class="control-label">이메일</label><br>
+                                    <label class="control-label">변경할 이메일을 입력해주세요(hongil@naver.com)</label><br>
                                     <input maxlength="100" type="email" required="required" class="form-control"
-                                        placeholder="이메일을 입력해주세요" style=" width: 80%; float: left;" /><br>
+                                        value="<%= email %>" style=" width: 80%; float: left;" /><br>
                                         
 								  <button style="float: right; background-color: #D958A0; color:#fff;
 								   border:none; width:100px; height:48px; border-radius: 5px; margin-top : -21px;"
@@ -179,11 +194,15 @@
                             <br><br>
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form method="post" id="passwordForm">
+                                		
+                                		<label>현재 비밀번호</label>
+											<input type="password" class="input-lg form-control" name="userPwd" id="userPwd"><br>
+                                
                                     	<label>변경할 비밀번호 </label>
                                     		<input type="password" class="input-lg form-control" name="password1" id="password1"
                                         				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required>
 				                                    <span id="6char" class="glyphicon glyphicon-remove" style="float: right;"> 6자리 이상</span><br>
-				                                    <br>
+				                                   
                                     
                                     
                                     <div class="row">

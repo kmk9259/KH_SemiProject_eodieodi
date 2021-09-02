@@ -13,7 +13,7 @@
 <body>
 	<h1 align="center"><%= message %></h1>
 	<div align = "center">
-		<button onclick = "location.href='<%= request.getContextPath()%>/views/common/menubar.jsp'" style ="width:50%">홈으로 돌아가기</button>
+		<button onclick = "location.href='<%= request.getContextPath()%>/index.jsp'" style ="width:50%">홈으로 돌아가기</button>
 	</div>
 </body>
 </html>

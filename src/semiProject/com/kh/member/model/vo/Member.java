@@ -10,7 +10,7 @@ public class Member {
 	private String userName;
 	private String phone;
 	private String email;
-	private char gender;
+	private String gender;
 	private Date enrollDate;
 	private Date modifyDate;
 	private String status;
@@ -26,7 +26,7 @@ public class Member {
 	
 	//회원가입
 	public Member(String userId, String userPwd, String userName, String phone, 
-			String email, char gender) {
+			String email, String gender) {
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
@@ -34,6 +34,25 @@ public class Member {
 		this.email = email;
 		this.gender = gender;
 	}
+	
+	//실습
+	public Member(String userId, String userName, String phone, 
+			String email, String gender) {
+		this.userId = userId;
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+	}
+	
+	//실습
+	public Member(String userId, String phone, 
+			String email) {
+		this.userId = userId;
+		this.phone = phone;
+		this.email = email;
+	}
+	
 	
 	//내 정보 조회
 	public Member(String userId, String userName, String phone, 
@@ -45,16 +64,14 @@ public class Member {
 	}
 
 	//정보수정
-	public Member(String userName, String phone, 
-			String email) {
-		this.userName = userName;
-		this.phone = phone;
-		this.email = email;
-	}
+	/*
+	 * public Member(String userName, String phone, String email) { this.userName =
+	 * userName; this.phone = phone; this.email = email; }
+	 */
 	
 	//업데이트..?
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, 
-			String email, char gender, Date enrollDate, Date modifyDate, String status) {
+			String email, String gender, Date enrollDate, Date modifyDate, String status) {
 		this.userNo = userNo;
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -104,10 +121,10 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	public Date getEnrollDate() {
