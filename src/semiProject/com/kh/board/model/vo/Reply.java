@@ -1,50 +1,43 @@
-package com.kh.board.model.vo;
+package semiProject.com.kh.board.model.vo;
 
 import java.sql.Date;
 
 public class Reply {
-	private int replyId;
+	private int replyNo;
 	private String replyContent;
 	private int refBoardId;
-	private String replyWriter; // 조회시 : 작성자 이름,  댓글작성시 : 회원번호로 쓰일 것!!
+	private int replyWriter; // 조회시 : 작성자 이름, 댓글작성시 : 회원번호로 쓰일 것!!
 	private Date createDate;
-	private Date modifyDate;
 	private String status;
-	
-	public Reply() {
-		
-	}
-	
-	
 
-	public Reply(int replyId, String replyContent, String replyWriter, Date createDate) {
+	public Reply() {
+
+	}
+
+	public Reply(int replyNo, String replyContent, int replyWriter, Date createDate) {
 		super();
-		this.replyId = replyId;
+		this.replyNo = replyNo;
 		this.replyContent = replyContent;
 		this.replyWriter = replyWriter;
 		this.createDate = createDate;
 	}
 
-
-
-	public Reply(int replyId, String replyContent, int refBoardId, String replyWriter, Date createDate, Date modifyDate,
-			String status) {
+	public Reply(int replyNo, String replyContent, int refBoardId, int replyWriter, Date createDate, String status) {
 		super();
-		this.replyId = replyId;
+		this.replyNo = replyNo;
 		this.replyContent = replyContent;
 		this.refBoardId = refBoardId;
 		this.replyWriter = replyWriter;
 		this.createDate = createDate;
-		this.modifyDate = modifyDate;
 		this.status = status;
 	}
 
-	public int getReplyId() {
-		return replyId;
+	public int getReplyNo() {
+		return replyNo;
 	}
 
-	public void setReplyId(int replyId) {
-		this.replyId = replyId;
+	public void setReplyId(int replyNo) {
+		this.replyNo = replyNo;
 	}
 
 	public String getReplyContent() {
@@ -63,11 +56,11 @@ public class Reply {
 		this.refBoardId = refBoardId;
 	}
 
-	public String getReplyWriter() {
+	public int getReplyWriter() {
 		return replyWriter;
 	}
 
-	public void setReplyWriter(String replyWriter) {
+	public void setReplyWriter(int replyWriter) {
 		this.replyWriter = replyWriter;
 	}
 
@@ -77,14 +70,6 @@ public class Reply {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
-	}
-
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
 	}
 
 	public String getStatus() {
@@ -97,10 +82,8 @@ public class Reply {
 
 	@Override
 	public String toString() {
-		return "Reply [replyId=" + replyId + ", replyContent=" + replyContent + ", refBoardId=" + refBoardId
-				+ ", replyWriter=" + replyWriter + ", createDate=" + createDate + ", modifyDate=" + modifyDate
-				+ ", status=" + status + "]";
+		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", refBoardId=" + refBoardId
+				+ ", replyWriter=" + replyWriter + ", createDate=" + createDate + ", status=" + status + "]";
 	}
-	
-	
+
 }

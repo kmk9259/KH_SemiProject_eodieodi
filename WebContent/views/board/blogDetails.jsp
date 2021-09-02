@@ -92,7 +92,10 @@
                     <div class="blog__details__comment__form">
                         
                         <form action="#">
-                        <% if(loginUser != null) { %>
+                        
+                        <%-- <% if(loginUser != null) { %> --%>
+                        
+                        
                            <div class="blog__details__comment__title">
                             <h4>댓글 달기</h4>
                             
@@ -104,7 +107,7 @@
                             </div>
                             <button type="submit" class="site-btn">댓글 등록</button>
                             
-                            <% }else{ %>
+                       <%--      <% }else{ %> --%>
                             
                             <div class="input-comment">
                                 <p>Comment</p>
@@ -112,7 +115,7 @@
                             </div>
                             <button type="submit" class="site-btn" disabled>댓글 등록</button>
                             
-                            <% } %>
+                     <%--        <% } %> --%>
                         </form>
                     </div>
                 </div>

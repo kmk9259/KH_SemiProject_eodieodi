@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="semiProject.com.kh.board.model.vo.*"%>
+	pageEncoding="UTF-8" %>
 	
-	<%
-	
-	Board bno = (Board)session.getAttribute("bno");
 
-
-%>
 
 
 <!DOCTYPE html>
@@ -16,17 +11,57 @@
 <meta name="description" content="Directing Template">
 <meta name="keywords" content="Directing, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Directing | Template</title>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+ <meta charset="UTF-8">
+    <title>community</title>
+    
+    <style type="text/css">
+    
+    .page-start{
+    	background-color: #FFF3E7;
+    	margin: 0;
+    	padding: 0;
+    }
+    
+  
+    
+    .btns {
+    margin: 15px 15px;
+    text-align: center; 
+    }
+    
+    .outer{
+		width:900px;
+		height:1500px;
+		color:white;
+		margin:auto;
+	}
+	
+	.note-codable{
+	resize: none;
+	height: 1000px;
+	
+	}
+	
+	
+    
+    
+    
+    
+    .panel-default>.panel-heading{
+    
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    border: 1px;
+    
+    }
+    
+    
+    
+    </style>
+    
+    
+</head>
 
 
 </head>
@@ -60,6 +95,11 @@
 				$header.toggleClass('down', scrolled); //클래스 토글
 			});
 		});
+		
+		
+		$(document).ready(function() {
+			  $('#summernote').summernote();
+			});
 	</script>
 
 
@@ -84,26 +124,32 @@
 <section class="page-start">
 	
 	<!--insert page -->
+	<div class="outer">
+	<br><br><br>
+	<form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
+	 <div id="summernote"></div>
+	 <div class="btns">
+	 <button type="reset">취소하기</button>
+	 <button type="submit">등록하기</button>
+	 </div>
+	 </form>
+	 
+	 </div>
+    
+    
+      
+   
 
-	<div id="summernote"></div>
-    <script>
-      $('#summernote').summernote({
-        placeholder: 'Hello Bootstrap 4',
-        tabsize: 2,
-        height: 100
-      });
-    </script>
-
-	</section>
 
 
-
-
+</section>
 
 	<!-- Js Plugins -->
 
 
 	<script src="<%=contextPath%>/resources/js/main.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 
 	<%@ include file="../common/footer.jsp"%>

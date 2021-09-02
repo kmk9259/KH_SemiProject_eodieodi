@@ -1,4 +1,4 @@
-package com.kh.board.model.vo;
+package semiProject.com.kh.board.model.vo;
 
 public class PageInfo {
 	
