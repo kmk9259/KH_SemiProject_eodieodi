@@ -89,4 +89,27 @@ public class PlaceDao {
 		return result;
 	}
 
+	public int increaseCount(Connection conn, int pno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE PLACE SET ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Place selectPlace(Connection conn, int pno) {
+		// TODO Auto-generated method stub
+		return null;
 }
