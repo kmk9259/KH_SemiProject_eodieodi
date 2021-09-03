@@ -16,7 +16,7 @@ public class Notice {
 	private int noticeNo;
 	private String noticeTitle;
 	private String noticeContent;
-	private int noticeWriter; // 근데 작성자..? 인데 어차피 관리자만 쓸꺼라서 넘버로 써도 되나
+	private String noticeWriter; //sql은 int 형임을 간과하지 말것 
 	private int count;
 	private Date createDate;
 	private String status;
@@ -27,7 +27,7 @@ public class Notice {
 	
 	 
 	
-	public Notice(String noticeTitle, String noticeContent, int noticeWriter) {
+	public Notice(String noticeTitle, String noticeWriter, String noticeContent) {
 		super();
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
@@ -36,7 +36,7 @@ public class Notice {
 
 
 	
-	public Notice(int noticeNo, String noticeTitle, String noticeContent, int noticeWriter, int count,
+	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, int count,
 			Date createDate) {
 		super();
 		this.noticeNo = noticeNo;
@@ -47,9 +47,20 @@ public class Notice {
 		this.createDate = createDate;
 	}
 
-
 	
-	public Notice(int noticeNo, String noticeTitle, String noticeContent, int noticeWriter, int count, Date createDate,
+	
+	public Notice(int noticeNo, String noticeTitle, String noticeWriter, int count, Date createDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeWriter = noticeWriter;
+		this.count = count;
+		this.createDate = createDate;
+	}
+
+
+
+	public Notice(int noticeNo, String noticeTitle, String noticeContent, String noticeWriter, int count, Date createDate,
 			String status) {
 		super();
 		this.noticeNo = noticeNo;
@@ -61,6 +72,10 @@ public class Notice {
 		this.status = status;
 	}
 	
+
+
+
+
 
 	public int getNoticeNo() {
 		return noticeNo;
@@ -86,11 +101,11 @@ public class Notice {
 		this.noticeContent = noticeContent;
 	}
 
-	public int getNoticeWriter() {
+	public String getNoticeWriter() {
 		return noticeWriter;
 	}
 
-	public void setNoticeWriter(int noticeWriter) {
+	public void setNoticeWriter(String noticeWriter) {
 		this.noticeWriter = noticeWriter;
 	}
 

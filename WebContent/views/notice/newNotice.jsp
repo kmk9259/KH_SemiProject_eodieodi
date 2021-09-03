@@ -82,7 +82,7 @@
 					<div class="col-sm-2">
 						<nav class="nav-sidebar">
 							<ul class="nav tabs">
-								<li class="menuB parent"><a href="<%=contextPath %>/views/notice/admin_Notice.jsp">커뮤니티
+								<li class="menuB parent"><a href="<%=contextPath %>/list.no">커뮤니티
 										관리</a></li>
 								<li class="menuB "><a href="<%=contextPath %>/views/notice/newNotice.jsp">공지사항 등록</a></li>
 								<li class="menuB "><a href="<%=contextPath %>/views/notice/admin_Notice_Update.jsp">공지사항 수정</a></li>
@@ -105,18 +105,19 @@
 				 <div class="container">
                             <div class="row">
                                 <div class="col-md-8 mt-5">
-                                    <form method="post" th:object="${post}">
+                                    <form method="post" th:object="${post}" action=" <%= contextPath %>/insert.no">
+                                     <!-- th:object="${post}" 이게뭐지 무튼  -->
                                     
                                      	   <h2>공지사항 등록</h2>
                                         <div class="form-group">
                                             <label for="title">제목</label>
-                                            <input type="text" id="title" placeholder="제목을 입력하세요" autocomplete="off" class="form-control"
+                                            <input type="text" id="title" name="title" placeholder="제목을 입력하세요" autocomplete="off" class="form-control"
                                                    th:field="*{title}"/>
                                         </div>
                         
                                         <div class="form-group">
                                             <label for="content">내용 </label>
-                                            <textarea type="text" rows="4" id="content" placeholder="내용을 입력하세요 " class="form-control"
+                                            <textarea type="text" rows="4" id="content" name="content" placeholder="내용을 입력하세요 " class="form-control"
                                                       th:field="*{content}" autocomplete="off"></textarea>
                                         </div>
                                         <button class="btn btn-dark">이전으로</button>
@@ -134,7 +135,7 @@
 				
 				</div>
 		</section><!-- admin -->
-	</section><!-- page- start -->
+	</section><!-- page- end -->
 
 
 
