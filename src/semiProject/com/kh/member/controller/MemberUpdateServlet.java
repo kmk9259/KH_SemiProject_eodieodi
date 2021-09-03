@@ -44,9 +44,10 @@ public class MemberUpdateServlet extends HttpServlet {
 		if(updateMem != null) {
 			request.getSession().setAttribute("msg", "성공적으로 회원정보를 수정하였습니다.");
 			request.getSession().setAttribute("loginUser", updateMem);
-			response.sendRedirect(request.getContextPath());
+	         RequestDispatcher view = request.getRequestDispatcher("/mypage.me");
+	         view.forward(request, response);
 		}else {
-	         request.setAttribute("msg", "로그인에 실패했습니다.");
+	         request.setAttribute("msg", "회원 정보 수정에 실패했습니다.");
 	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 	         view.forward(request, response);
 		}

@@ -319,37 +319,38 @@
                 <div class="col-md-12">
                     <h2 style="text-align: center;">정보 입력</h2>
                     <br><br>
-                    <form>
+                    <form id="enrollForm" action="<%=request.getContextPath() %>/insert.me" method="post" onsubmit="return joinValidate();">
                       <div class="form-group">
                               <label class="control-label">아이디</label><br>
-                              <input style=" width: 80%; float: left;" maxlength="100" type="text" required="required" class="form-control" placeholder="아이디를 입력하세요"  />
-							  <button style="display: inline-block; background-color: #D958A0; color:#fff; border:none; width:200px; height:48px; border-radius: 5px;" type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
+                              <input style=" width: 80%; float: left;" maxlength="100"
+                              	 type="text" required="required" name="userId" class="form-control" placeholder="아이디를 입력하세요"  />
+							  <button style="display: inline-block; background-color: #D958A0; color:#fff; border:none; width:200px; height:48px; border-radius: 5px;" type="button" name="idCheckBtn" id="idCheckBtn" onclick="checkId();">중복확인</button>
                           <!-- </div>
                           <div class="form-group"> -->
                           <br><br>
                             <label class="control-label">비밀번호</label>
-                            <input maxlength="100" type="password" required="required" class="form-control" placeholder="비밀번호를 입력해주세요" />
+                            <input maxlength="100" type="password" required="required" name="userPwd" class="form-control" placeholder="비밀번호를 입력해주세요" />
                             <label class="control-label">비밀번호 확인</label>
-                            <input maxlength="100" type="password" required="required" class="form-control" placeholder="비밀번호를 입력해주세요" />
+                            <input maxlength="100" type="password" required="required" name="checkPwd" class="form-control" placeholder="비밀번호를 입력해주세요" />
 
                             
                             <label class="control-label">이름</label>
-                            <input maxlength="100" type="text" required="required" class="form-control" placeholder="이름을 입력해주세요" />
+                            <input maxlength="100" type="text" required="required" name="userName" class="form-control" placeholder="이름을 입력해주세요" />
                             
                             <label class="control-label">전화번호</label>
-                            <input maxlength="100" type="tel" required="required" class="form-control" placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" />
+                            <input maxlength="100" type="tel" required="required" name="phone" class="form-control" placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" />
                             
                             <label class="control-label">이메일</label>
-                            <input maxlength="100" type="email" required="required" class="form-control" placeholder="이메일을 입력해주세요(hongil@naver.com)" />
+                            <input maxlength="100" type="email" required="required" name="email" class="form-control" placeholder="이메일을 입력해주세요(hongil@naver.com)" />
                             
                             <label class="control-label">성별</label><br>
-                            <input type="radio" name="gener" value="F" checked="checked" style="margin-left:5%;" /> <span class="up" style="margin-right: 10%;">여자</span>
-                            <input type="radio" name="gener" value="M" /> <span class="up">남자</span>
+                            <input type="radio" id="gender" name="gender" value="F" checked="checked" style="margin-left:5%;" /> <span class="up" style="margin-right: 10%;">여자</span>
+                            <input type="radio" id="gender" name="gender" value="M" /> <span class="up">남자</span>
                             <br><br>
                       </div>
                       <div style="margin-bottom:10%;">
                       	<button class="prevBtn btn-ms pull-left" type="button" style="height: 50px; width: 300px;"><h5 style="color: #fff;">이전</h5></button>
-                      	<button class="nextBtn btn-ms pull-right" style="height: 50px; width: 300px;"><h5 style="color: #fff;">다음</h5></button>
+                      	<button class="nextBtn btn-ms pull-right" type="submit" id="joinBtn" style="height: 50px; width: 300px;"><h5 style="color: #fff;">다음</h5></button>
                       </div>
                     </form>
                 </div>
@@ -375,6 +376,67 @@
             </div>
         </section>
     </section>
+
+
+<script>
+	   function main(){
+		   location.href = "<%= request.getContextPath()%>";
+	   }
+	function joinValidate(){
+		
+		if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#enrollForm input[name=userId]").val()))){
+			$("#enrollForm input[name=userId]").focus();
+	        return false;
+		}
+		
+		if($("#enrollForm input[name=userPwd]").val() != $("#enrollForm input[name=checkPwd]").val()){
+			$("#pwdResult").text("비밀번호 불일치").css("color", "red");
+			return false;			
+		}
+		
+		 if(!(/^[가-힣]{2,}$/.test($("#enrollForm input[name=userName]").val()))){
+			 $("#enrollForm input[name=userName]").focus();
+	        return false;
+		 }
+		 
+		 return true;
+		
+		
+	}
+	
+	function checkId(){
+		var userId = $("#enrollForm input[name=userId]");
+		if(userId.val()==""){
+			alert("아이디를 입력해주세요.");
+			return false;
+		}
+		
+		$.ajax({
+			url : "idCheck.me",
+			type : "post",
+			data : {userId : userId.val()},
+			success : function(result){
+				if(result == "fail"){
+					alert("사용할 수 없는 아이디 입니다.");
+					userId.focus();
+				}else{
+					if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
+						userId.attr("readonly", "true");
+						$("#joinBtn").removeAttr("disabled");
+					}else{
+						userId.focus();
+					}
+				}
+			},
+			error:function(){
+				console.log("서버통신실패");
+			}
+		})
+		
+	}
+	
+	</script>
+
 
 <!-- form js -->
 

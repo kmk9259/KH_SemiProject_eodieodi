@@ -32,8 +32,9 @@ public class IdCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		int result = new MemberService().idCheck(userId);
-		
+		System.out.println("되니?");
 		PrintWriter out = response.getWriter();
+		System.out.println("out" + out);
 		if(result > 0) {
 			out.print("fail");
 		}else {

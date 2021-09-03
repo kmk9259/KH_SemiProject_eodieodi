@@ -37,9 +37,9 @@ public class MemberUpdatePwdServlet extends HttpServlet {
 		
 		Member updateMem = new MemberService().updatePwd(userId, userPwd, newPwd);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/member/pwdUpdateForm.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/mypage.me");
 		if(updateMem != null) {
-			request.setAttribute("sTag", "Y");
+			//request.setAttribute("sTag", "Y");
 			request.setAttribute("msg", "성공적으로 비밀번호를 변경하였습니다.");
 			request.getSession().setAttribute("loginUser", updateMem);
 		}else {

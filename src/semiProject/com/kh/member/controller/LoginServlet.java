@@ -38,8 +38,11 @@ public class LoginServlet extends HttpServlet {
       //앞에 폼에서 넘겨주는 name으로 getParameter 해주기 getParameter(String name)
       String userId = request.getParameter("userId");
       String userPwd = request.getParameter("userPwd");
-//      String originPwd = request.getParameter("userPwd");
-      String originPwd = (String)request.getParameter("originPwd");
+      String originPwd = request.getParameter("userPwd");
+     // String originPwd = (String)request.getParameter("originPwd");
+
+      System.out.println(userPwd);
+      System.out.println(originPwd);
       
       Member loginUser = new MemberService().loginMember(userId, userPwd);
       System.out.println("로그인 전" + loginUser);
