@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, semiProject.com.kh.place.model.vo.Place"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, semiProject.com.kh.place.model.vo.Place,
+    semiProject.com.kh.member.model.vo.Member"%>
 <!DOCTYPE html>
 <%
-	ArrayList<Place> list = (ArrayList<Place>)request.getParameter("list",list);  
+	String contextPath = request.getContextPath();
+	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");  
+	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
 
 <html lang="en">
@@ -19,17 +22,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="<%=contextPath %>/resources/css/style.css" type="text/css">
 
     <!-- 제이쿼리 피커데이트 -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -92,19 +95,29 @@
                             <ul>
                 
                 
-                                <li><a href="./selectPlan.html">일정플래너</a>
+                                <li><a href="<%=contextPath %>/views/plan/planSelect.jsp">일정플래너</a>
                 
                                     <ul class="dropdown">
-                                        <li><a href="./listing.html">마음대로일정</a></li>
-                                        <li><a href="./listing-details.html">추천일정</a></li>
-                                        <li><a href="./planSave.html">일정보관함</a></li>
+                                        <li><a href="#" onclick="goPlan();">마음대로일정</a></li>
+                                        <li><a href="<%=contextPath %>/views/plan/adminRecommend.jsp">추천일정</a></li>
+                                        <li><a href="<%=contextPath %>/views/plan/planSave.jsp">일정보관함</a></li>
+                                        
                                     </ul>
                                 </li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="./blog.html">커뮤니티</a></li>
-                
-                                <li><a href="#">로그인</a></li>
-                                <li><a href="#">회원가입</a></li>
+                                <li><a href="<%=contextPath %>/views/board/faq.jsp">FAQ</a></li>
+                                <li><a href="<%=contextPath %>/views/board/blogListView.jsp">커뮤니티</a></li>
+                                
+                                <%if(loginUser == null){%>  
+                                <li><a href="<%=contextPath %>/views/member/login.jsp" onclick="goLogin();">로그인</a></li>
+                                <li><a href="<%=contextPath %>/views/member/signUp.jsp" onclick="enrollPage();">회원가입</a></li>
+                                 <%}else if(loginUser.getUserId().equals("admin")) { %>
+                                <li><a href="<%=contextPath %>/adminPage.ad">관리자페이지</a></li>
+                               	<li><a href="<%=contextPath %>/logout.me">로그아웃</a></li>                                
+                                 <%}
+                                else { %>
+	                                <li><a href = "<%=contextPath%>/mypage.me">마이페이지</a></li>
+	                                <li><a href = "<%=contextPath%>/logout.me">로그아웃</a></li>
+							      <%}%>
                             </ul>
                         </nav>
                         <div class="header__menu__right">
@@ -176,7 +189,7 @@
                         <th width="50"></th>
                     </tr>
                 </thead>
-                <!-- <tr>
+                 <tr>
 					<td>뚱이네 고기</td>
 					<td>서울시 홍대 어딘가 11-1번지</td>
 					<td><button onClick="rowDelete(this)">빼기</button></td>
@@ -190,7 +203,7 @@
 					<td>뚱이네 고기</td>
 					<td>서울시 홍대 어딘가 11-1번지</td>
 					<td><button onClick="rowDelete(this)">빼기</button></td>
-				</tr> -->
+				</tr> 
             </table>
             
             <div class="filter__btns">
@@ -235,32 +248,38 @@
             </div>
             <!-- <div class="listing__text__top__right">Nearby <i class="fa fa-sort-amount-asc"></i></div> -->
         </div>
-        
-        모든 place들 조회해와서 화면에 띄워주기
+        <%System.out.println("list_planMy.jsp : " +list); %>
+        <% if(list.size() == 0) {%>
+        	<h4>해당 지역에 등록된 장소가 없습니다.</h4>
+        <%} %>
+        <%-- 모든 place들 조회해와서 화면에 띄워주기
         <%for(Place p : list) {%>
-        	<form action="insert.pm">  <!-- 넘기기 -->
+        	<!-- form, btn type:submit 삭제  thumbnailView.jsp에서는 없어도 됐어서 삭제해봄-->
         		<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-				<input type="hidden" name="pno" value="<%=p.getPlaceNo()%>">
+					<input type="hidden" value="<%=p.getPlaceNo()%>">
+					<input type="hidden" value="<%=p.getAreaNo()%>">
+					<input type="hidden" value="<%=p.getCategoryNo()%>">
 					<div class="card">
-					<img class="card-img-top" src="<%= request.getContextPath() %>/resources/place_upfiles/<%= p.getPlaceImg() %>>" alt="Card image" style="width: 100%">
+					<img class="card-img-top" src="<%= contextPath%>/resources/place_upfiles/<%= p.getPlaceImg() %>>" alt="Card image" style="width: 100%">
 						<div class="card-body">
 							<h4 class="card-title"><%=p.getPlaceTitle() %></h4>
 							<p class="card-text"><%=p.getPlaceAddress() %></p>
-	
-							<button type="submit" class="btn btn-primary">추가</button>
-							<button class="btn btn-primary">더보기</button>
+							<p class="card-text"><%=p.getDescription() %></p>
+							
+							<button class="btn btn-primary insertPlace">추가</button>
+							<button class="btn btn-primary placeDetail">더보기</button>
 						</div>
 					</div>							
 				</div>
-        	</form>
-		<%} %> 
+        	
+		<%} %>  --%>
         	
         
         <div id="hongdae">
 			<% for(int i=0; i<10; i++) {%>
 				<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
 					<div class="card">
-						<img class="card-img-top" src="<%= request.getContextPath() %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
+						<img class="card-img-top" src="<%= contextPath%>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
 						<div class="card-body">
 							<h4 class="card-title">홍대 놀거리</h4>
 							<p class="card-text">방탈출</p>
@@ -271,12 +290,12 @@
 					</div>							
 				</div>
 			<%} %>
-		</div><!--홍대  -->
-		<div id="gangnam">
+		</div> <!--홍대  -->
+		<%-- <div id="gangnam">
 			<% for(int i=0; i<10; i++) {%>
 				<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
 					<div class="card">
-						<img class="card-img-top" src="<%= request.getContextPath() %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
+						<img class="card-img-top" src="<%= contextPath%>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
 						<div class="card-body">
 							<h4 class="card-title">강남 놀거리</h4>
 							<p class="card-text">강남 </p>
@@ -287,9 +306,9 @@
 					</div>							
 				</div>
 			<%} %>
-		</div><!--강남  -->
-            <!-- 
-            <table class="listArea">
+		</div> --%><!--강남  -->
+             
+            <!-- <table class="listArea">
             <form>
                 <tr>
                     <td rowspan="3">
@@ -326,7 +345,7 @@
                     <td colspan="3">상세 설명</td>
                 </tr>
             </form>
-        </table> -->
+        </table>  -->
     </section>
     <!-- Listing Section End -->
 
@@ -345,10 +364,35 @@
              })
         })
 
-        function newPage()  {
+        /* function newPage()  {
             window.open('./placeDetail.html');
-        }
+        } */
 
+        function goPlan(){
+            <%if(loginUser == null) {%>
+               alert("로그인 후 이용해주세요");
+               location.href="<%=request.getContextPath()%>";
+            <%}else{ %>
+               location.href="<%=request.getContextPath()%>/list.pm";
+            <%} %>
+         } 
+        
+        //insertplace.pm(PlanMyPlaceTableServlet으로 가서 해당 Place 받아오기)
+        $(function(){
+			$(".insertPlace").click(function(){
+				var pNo = $(this).children().eq(0).val();
+				console.log("pNo : " + pNo);
+				location.href="<%=contextPath%>/insertplace.pm?pNo=" + pNo;
+			});
+		});
+        
+        $(function(){
+			$(".placeDetail").click(function(){
+				var pNo = $(this).children().eq(0).val();
+				console.log("pNo : " + pNo);
+				window.open("./detail.pl?pNo="+pNo);  //장소상세페이지 새창으로 열기
+			});
+		});
     </script>
     
     <!-- Js Plugins -->

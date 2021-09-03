@@ -52,6 +52,14 @@ public class PlaceService {
 		return p;
   }
 
+  	public PlaceAttachment selectAttachment(int pNo) {
+		Connection conn = getConnection();
+		PlaceAttachment pAttchment = new PlaceDao().selectAttachment(conn, pNo);
+		close(conn);
+		return pAttchment;
+	}
+  
+
 	public int deletePlace(int pno) {
 		Connection conn = getConnection();
 		

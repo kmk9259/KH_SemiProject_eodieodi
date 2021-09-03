@@ -37,12 +37,17 @@ public class PlanMyDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectList");
-		//selectPList=SELECT PLACE_NO, PLACE_TITLE, ADDRESS, COUNT, CHANGE_NAME \
+		System.out.println("list11 : "+list);
+		
+		String sql = prop.getProperty("selectPlaceList");
+		//하나의 BOARD에 사진 여러 개 등록했을 경우로 짠 쿼리인데 될 것 같아서 그대로 넣음
+//		selectPlaceList=SELECT PLACE_NO, AREA_NO, CATEGORY_NO, PLACE_TITLE, ADDRESS, DESCRIPTION, COUNT, CHANGE_NAME \
 //		FROM PLACE JOIN (SELECT * FROM PLACE_ATTACHMENT \
-//				WHERE FILE_NO IN( \
-//				SELECT MIN(FILE_NO) FILE_NO FROM ATTACHMENT WHERE STATUS='Y' GROUP BY REF_BNO)) ON (REF_BNO = PLACE_NO) \
-//				WHERE PLACE.STATUS='Y' ORDER BY BOARD_NO DESC
+//		WHERE FILE_NO IN( \
+//		SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \
+//		WHERE PLACE.STATUS='Y' ORDER BY PLACE_NO DESC
+		
+		System.out.println("list22 : "+list);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -52,10 +57,13 @@ public class PlanMyDao {
 			{
 				Place place = new Place();
 				place.setPlaceNo(rset.getInt("PLACE_NO"));
+				place.setAreaNo(rset.getInt("AREA_NO"));
+				place.setCategoryNo(rset.getInt("CATEGORY_NO"));
 				place.setPlaceTitle(rset.getString("PLACE_TITLE"));
-				place.setPlaceAddress(rset.getString("ADDRESS"));
+				place.setAddress(rset.getString("ADDRESS"));
+				place.setDescription(rset.getString("DESCRIPTION"));
 				place.setCount(rset.getInt("COUNT"));
-				place.setPlaceImg(rset.getString("CHANGE_NAME"));
+				place.setTitleImg(rset.getString("CHANGE_NAME"));
 				
 				list.add(place);
 			}
@@ -67,6 +75,7 @@ public class PlanMyDao {
 			close(pstmt);
 		}
 		
+		System.out.println("list33 : "+list);
 		return list;
 	}
 

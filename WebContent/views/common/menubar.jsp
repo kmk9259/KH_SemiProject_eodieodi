@@ -50,7 +50,7 @@
                                 <li><a href="<%=contextPath %>/views/plan/planSelect.jsp">일정플래너</a>
                                     
                                     <ul class="dropdown">
-                                        <li><a href="<%=contextPath %>/views/plan/planMy.jsp" onclick="goPlan();">마음대로일정</a></li>
+                                        <li><a href="#" onclick="goPlan();">마음대로일정</a></li>
                                         <li><a href="<%=contextPath %>/views/plan/adminRecommend.jsp">추천일정</a></li>
                                         <li><a href="<%=contextPath %>/views/plan/planSave.jsp">일정보관함</a></li>
                                         
@@ -120,7 +120,7 @@
             alert("로그인 후 이용해주세요");
             location.href="<%=request.getContextPath()%>";
          <%}else{ %>
-            location.href="<%=request.getContextPath()%>/list.no";
+            location.href="<%=request.getContextPath()%>/list.pm";
          <%} %>
       } 
    </script>

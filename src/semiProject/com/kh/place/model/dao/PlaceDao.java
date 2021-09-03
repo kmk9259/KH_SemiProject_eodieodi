@@ -105,14 +105,37 @@ public class PlaceDao {
 		return result;
 	}
 
+  public PlaceAttachment selectAttachment(Connection conn, int pNo) {
+		PlaceAttachment pAttachment = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//String sql = prop.getProperty("selectAttachment");
+		String sql = "SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM PLACE_ATTACHMENT WHERE REF_PNO=? AND STATUS='Y'";
+				
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(pNo, pNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pAttachment = new PlaceAttachment();
+				pAttachment.setFileNo(rset.getInt("FILE_NO"));
+				pAttachment.setOriginName(rset.getString("ORIGIN_NAME"));
+				pAttachment.setChangeName(rset.getString("CHANGE_NAME"));
+			}
+  
 	public int increaseCount(Connection conn, int pno) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = "UPDATE PLACE SET ";
+		//String sql = prop.getProperty("increaseCount");
+		String sql = "UPDATE PLACE SET COUNT=COUNT+1 WHERE PLACE_NO=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pno);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -147,6 +170,7 @@ public class PlaceDao {
 		}		
 		return result;	
 	}
+
 	public Place selectPlace(Connection conn, int pno) {
 		// TODO Auto-generated method stub
 		return null;
@@ -185,6 +209,7 @@ public class PlaceDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+
 			close(pstmt);
 		}
 		

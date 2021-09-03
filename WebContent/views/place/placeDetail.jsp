@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "semiProject.com.kh.place.model.vo.Place, 
+    semiProject.com.kh.board.model.vo.PlaceAttachment"%>
 <!DOCTYPE html>
+<%
+	Place p = (Place)request.getAttribute("place");
+	PlaceAttachment pAt= (PlaceAttachment)request.getAttribute("at");
+%>
 <html lang="en">
 
 <head>
@@ -13,19 +18,6 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css" type="text/css">
 
     <style>
         .categories-area .single-cat {
@@ -141,7 +133,7 @@
     <%@ include file="../common/menubar.jsp"%>
 
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-area set-bg" data-setbg="<%=request.getContextPath()%>/resources/img/breadcrumb/breadcrumb-blog2.gif">
+    <div class="breadcrumb-area set-bg" data-setbg="<%=contextPath%>/resources/img/breadcrumb/breadcrumb-blog2.gif">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -173,35 +165,36 @@
                         <a href="#" class="primary-btn">Contact Us</a>
                     </div> -->
                     <div class="listing__item">
-                        <div class="listing__item__pic set-bg" data-setbg="<%=request.getContextPath()%>/resources/img/listing/list-2.jpg">
+                        <div class="listing__item__pic set-bg" data-setbg="<%=contextPath%>/resources/img/listing/list-2.jpg">
+                        <!-- src="<%= contextPath %>/resources/place_upfiles/<%= pAt.getChangeName() %>" -->
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-8">
                     <table border="1px solid black">
                         <tr>
-                            <td>상호명</td>
-                            <td>미스터리룸 이스케이프 홍대본점</td>
+                            <th>상호명</th>  
+                            <td>미스터리룸 이스케이프 홍대본점</td>  <!-- <%=p.getPlaceTitle()%> -->
                         </tr>
                         <tr>
-                            <td>상세주소</td>
-                            <td>서울 마포구 잔다리로 5-1</td>
+                            <th>상세주소</th>
+                            <td>서울 마포구 잔다리로 5-1</td>  <!-- <%=p.getAddress()%> -->
                         </tr>
                         <tr>
-                            <td>영업 시간</td>
-                            <td>매일 10:30 ~ 23:30</td>
+                            <th>영업 시간</th>
+                            <td>매일 10:30 ~ 23:30</td>  <!-- <%=p.getBsHour()%> -->
                         </tr>
                         <tr>
-                            <td>전화번호</td>
-                            <td>0507-1328-1314</td>
+                            <th>전화번호</th>
+                            <td>0507-1328-1314</td>  <!-- <%=p.getPlacePhone()%> -->
                         </tr>
                         <tr>
-                            <td>대표 금액</td>
-                            <td>18,000원</td>
+                            <th>대표 금액</th>
+                            <td>18,000원</td>  <!-- <%=p.getPrice()%> -->
                         </tr>
                         <tr>
-                            <td>장소 설명</td>
-                            <td>홍대 미스터리룸 이스케이프 방탈출카페</td>
+                            <th>장소 설명</th>
+                            <td>홍대 미스터리룸 이스케이프 방탈출카페</td>  <!-- <%=p.getDescription()%> -->
                         </tr>
                     </table>
                 </div>
@@ -217,16 +210,7 @@
     <%@ include file="../common/footer.jsp"%>
 
     <!-- Js Plugins -->
-    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery.nice-select.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery-ui.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery.nicescroll.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery.barfiller.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery.slicknav.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/owl.carousel.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
+    <script src="<%=contextPath%>/resources/js/main.js"></script>
 </body>
 
 <script>

@@ -18,6 +18,7 @@
         .user_planDetail{
             padding-top: 50px;
             padding-bottom: 40px;
+            text-align: center;
         }
         .planDetail_title{
             padding-bottom: 40px;
@@ -30,8 +31,13 @@
             text-align: right;
         }
         .planDetail_contents{
-            width: 80%;
-            align-items: center;
+            width: 85%;
+            display: inline-block;
+            background-color: yellowgreen;
+        }
+        .planDetail_detail{
+        	text-align: left;
+        	margin: 10px 0px 20px;
         }
     </style>
    
@@ -79,15 +85,16 @@
             </div>
 
             <div class="planDetail_contents">
-                <div>
-                    <h4>일정 메모</h4>
-                </div>
-                <div>
-                    <input type="textArea" readonly>
-                </div>
-                <div>
+            	<div class="planDetail_detail">
                     <h4>날짜 : 09/30/2021</h4>
                 </div>
+                <div class="planDetail_detail">
+                    <h4>일정 메모</h4>
+                </div>
+                <div class="planDetail_detail">
+                    <input type="textArea" readonly>
+                </div>
+  
                 <table class="listArea">
                     <thead>
                         <tr>
@@ -118,12 +125,12 @@
 
     <div class="categories-area section-padding30 user_planDetail">
         <div class="container">
-            <div class="total_btn btn_left btn_right"> 
+            <div class="total_btn"> 
                 <div class="row">
                     <div class="col-lg-6 btn_left">
                         <a href="./index.html"><button type="button" class="btn btn-primary">이메일 전송</button></a>
                     </div>          
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 btn_right">
                         <a href="./listing.html"><button type="button" class="btn btn-primary">수정</button></a>
                         <a href="#"><button type="button" class="btn btn-primary">삭제</button></a>
 

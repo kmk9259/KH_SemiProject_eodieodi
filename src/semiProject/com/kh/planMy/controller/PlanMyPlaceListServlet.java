@@ -1,23 +1,29 @@
 package semiProject.com.kh.planMy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semiProject.com.kh.place.model.vo.Place;
+import semiProject.com.kh.planMy.model.service.PlanMyService;
+
 /**
- * Servlet implementation class PlanTableInsertServlet
+ * Servlet implementation class PlanMyListServlet
  */
-@WebServlet("/insert.pm")
-public class PlanTableInsertServlet extends HttpServlet {
+@WebServlet("/list.pm")
+public class PlanMyPlaceListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlanTableInsertServlet() {
+    public PlanMyPlaceListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +32,13 @@ public class PlanTableInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		//ThumbnailListServlet참조
+		ArrayList<Place> list = new PlanMyService().selectList();
+		request.setAttribute("list", list);
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/plan/planMyInsert.jsp");
+		view.forward(request, response);
 	}
 
 	/**
