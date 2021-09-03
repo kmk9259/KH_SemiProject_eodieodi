@@ -33,7 +33,16 @@
     border: 1px solid #D34B32;
     
 }
-
+.thumbnail{
+		display:inline-block;
+		width:220px;
+		border:1px solid white;
+		margin:10px;
+	}
+.thumbnail:hover{
+	opacity:0.7;
+	cursor:pointer;
+}
 
 </style>
 
@@ -54,7 +63,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>일정 삭제</h2>
+							<h2>일정 관리</h2>
 						</div>
 					</div>
 				</div>
@@ -92,11 +101,9 @@
 										관리</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
-								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class=" menuB "><a
-									href="<%=contextPath%>/insert.pl">일정 등록</a></li>
-								<li class="active menuB ">
-								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
+								<li class="active menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
+								<li class=" menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+								<li class=" menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp">코스 삭제</a></li>
 								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
@@ -105,21 +112,23 @@
 						</nav>
 					</div>
 				</div>	
-				
+			<div class="admin-showpage nice-scroll">
 			<div class="outer">
 				<br>
 				<h2 align="center">일정 조회</h2>
 				<br>
 				
-				<div class="listPlace">
-					<%for(Place p : list){ %>
-					<div class="thumbnail" align="center">
-						<input type="hidden" value="<%=p.getPlaceNo()%>">
-						<img src="<%=contextPath %>/resources/place_upfiles/<%= p.getTitleImg() %>" width="200px" height="150px"> <br>
-						<p>
-							No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %> <br>
-							조회수 : <%= p.getCount() %>
-						</p>
+				<div class=listPlace>
+					<%for(Place p : list){ %>					
+					<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+						<div class="card">
+							<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
+							<div class="card-body">
+								<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
+								<p class="card-text">조회수 : <%= p.getCount() %></p>
+								
+							</div>
+						</div>							
 					</div>
 					<%} %>
 				
@@ -133,15 +142,16 @@
 					</div>
 				</div>
 				<script>
-				 
 					$(function(){
-						$(".thumbnail").click(function(){
+						$(".card").click(function(){
 							var bId = $(this).children().eq(0).val();
-							location.href="<%=contextPath%>/detail.th?bId=" + bId;
+							location.href="<%=contextPath%>/detail.pl?bId=" + bId;
 						});
 					});
 				</script>
 			</div>
+			</div>
+			
 		</section><!-- admin -->
 	</section><!-- page- start -->
 
