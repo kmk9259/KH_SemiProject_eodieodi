@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semiProject.com.kh.board.model.vo.PlaceAttachment;
 import semiProject.com.kh.place.model.service.PlaceService;
 import semiProject.com.kh.place.model.vo.Place;
 
 /**
  * Servlet implementation class PlaceDetailServlet
  */
-@WebServlet("/detail.pl")
+@WebServlet("/detail.pl")  //더보기 버튼 -> detail.pl로 이동하도록!
 public class PlaceDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,14 +33,15 @@ public class PlaceDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		Place p = new PlaceService().selectPlace(pno);
-		//Attachment at = new PlaceService().selectAttachment(pno);
+		//ThumnailDetailServelt() 참고
+		int pNo = Integer.parseInt(request.getParameter("pNo"));  //앞 페이지에서 pNo setAttribute해줘야 함
+		Place p = new PlaceService().selectPlace(pNo);
+		PlaceAttachment at = new PlaceService().selectAttachment(pNo);  //대표사진 한개?!
 		
 		if(p != null)
 		{
 			request.setAttribute("p", p);
-			//request.setAttribute("at", at);
+			request.setAttribute("at", at);
 			request.getRequestDispatcher("views/place/placeDetail.jsp").forward(request, response);
 		}
 		else

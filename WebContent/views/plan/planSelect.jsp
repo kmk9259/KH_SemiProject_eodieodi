@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "semiProject.com.kh.member.model.vo.Member"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -128,7 +129,7 @@
     <%@ include file="../common/menubar.jsp"%>
 
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-area set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb/breadcrumb-blog2.gif">
+    <div class="breadcrumb-area set-bg" data-setbg="<%=contextPath %>/resources/img/breadcrumb/breadcrumb-blog2.gif">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -169,10 +170,21 @@
                             <span class="flaticon-bed"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="listing.html">내 맘대로 일정 계획</a></h5>
+                            <h5><a href="#" onclick="goPlan()">내 맘대로 일정 계획</a></h5>
                             <p>사용자가 원하는 대로 일정을 계획할 수 있습니다</p>
                             <!-- <a href="#">View Details</a> -->
                         </div>
+                        
+                        <script>
+	                        function goPlan(){
+	                            <%if(loginUser == null) {%>
+	                               alert("로그인 후 이용해주세요");
+	                               location.href="<%=contextPath%>/index.jsp";  <!--왜 여기서는 index.jsp로 안가지..?-->
+	                            <%}else{ %>
+	                               location.href="<%=contextPath%>/list.pm";
+	                            <%} %>
+	                         } 
+                        </script>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">

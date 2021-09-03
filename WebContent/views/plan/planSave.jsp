@@ -158,7 +158,7 @@
     });
  	 
     function goPlanSaveDetail() {
-        location.href = './planSaveDetail.jsp'
+        location.href = '<%=contextPath%>/views/plan/planSaveDetail.jsp' //servlet으로 바꾸기
     }
 </script>
 
