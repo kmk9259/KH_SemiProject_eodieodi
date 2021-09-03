@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="semiProject.com.kh.notice.model.vo.Notice"%>
     
-  
+  <%
+	Notice n = (Notice)request.getAttribute("notice");
+%>
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -99,16 +101,7 @@
     <!--메뉴바 같이 내려오는 시작점 -->
 
     <section class="most-search spad">
-        <section class="most-search spad">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title">
-                            <h2>STEP 1</h2>
-                            <p>아래에서 원하시는 테마를 선택해주세요</p>
-                        </div>
-                    </div>
-                </div>
+     
 
 
 
@@ -121,13 +114,13 @@
     <table id="detailArea" border="1" align="center">
         <tr>
             <td>제목</td>
-            <td colspan="3">제목을쓰는 곳 입니다 </td>
+            <td colspan="3"><%= n.getNoticeTitle() %> </td>
         </tr>
         <tr>
             <td>작성자</td>
-            <td>미소</td>
+            <td><%= n.getNoticeWriter() %></td>
             <td>작성일</td>
-            <td>2021-08-021</td>
+            <td><%= n.getCreateDate() %></td>
         </tr>
         <tr>
             <td colspan="4">내용</td>
@@ -135,7 +128,7 @@
         </tr>
         <tr>
             <td colspan="4">
-                <p>내용이 있는 란입니다 </p>
+                <p><%= n.getNoticeContent() %> </p>
             </td>
         </tr>	
     </table>
@@ -154,7 +147,7 @@
         
     </div>
 </div>
-</section>
+
 
      </section>
                         
@@ -175,27 +168,6 @@
 
 <!-- 자바스크립트 함수부분  -->
 		
-		<script>
-		
-		    // 위치 선택 출력 
-		    function handleOnChange(e) {
-		        // 선택된 데이터 가져오기
-		        const value = e.value;
-		
-		        // 데이터 출력
-		        document.getElementById('result').innerText
-		            = value;
-		    }
-		</script>
-		
-		<script> // 달력 날짜 선택 
-		    $(function () {
-		        $('#startDate').datepicker({
-		        
-		        })
-		      
-		    })
-		</script>
 		
 <script>
     $(function () {

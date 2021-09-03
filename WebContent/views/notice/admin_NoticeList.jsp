@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.notice.model.vo.Notice"%>
+	
+	<%	ArrayList <Notice> list = (ArrayList<Notice>)request.getAttribute("list");  %>
 
 <!DOCTYPE html>
 <html>
@@ -27,9 +29,9 @@
 }
 .admin-showpage{
 	float: right;
-    width: 1250px;
+    width: 1200px;
     margin-right:50px;
-    height: 900px;
+    height: 500px;
     padding: 10px;
     margin-top: 2.5%;
     background-color: #FFF3E7;
@@ -137,11 +139,12 @@
                           
                                                       </tr>
                                                   </thead>
+                                                  
                                                   <tbody>
-                                                      <tr>
+                                                 <!--      <tr>
                                                           <th scope="row">
                                                               <label class="control control--checkbox">
-                                                                  <!-- <input type="checkbox" /> -->
+                                                                  <input type="checkbox" />
                                                                   <div class="control__indicator"></div>
                                                               </label>
                                                           </th>
@@ -151,7 +154,7 @@
                                                           <td>[공지] 안녕하세요 여러분 </td>
                                                           <td>
                                                               여기에 뭘 적으면 내용이 들어옵니다
-                                                              <!-- <small class="d-block">ar farF away, behind the word mountains</small> -->
+                                                              <small class="d-block">ar farF away, behind the word mountains</small>
                                                           </td>
                                                           <td>100</td>
                           
@@ -176,7 +179,7 @@
                                                       <tr>
                                                           <th scope="row">
                                                               <label class="control control--checkbox">
-                                                                  <!-- <input type="checkbox" /> -->
+                                                                  <input type="checkbox" />
                                                                   <div class="control__indicator"></div>
                                                               </label>
                                                           </th>
@@ -208,7 +211,7 @@
                                                       <tr>
                                                           <th scope="row">
                                                               <label class="control control--checkbox">
-                                                                  <!-- <input type="checkbox" /> -->
+                                                                  <input type="checkbox" />
                                                                   <div class="control__indicator"></div>
                                                               </label>
                                                           </th>
@@ -233,10 +236,38 @@
                                                                   <a href=""><button type="button" class="btn btn-dark">삭제</button></a>
                                                               </a>
                                                           </td>
-                          
-                                                      </tr>
+                   
+                                                      </tr> -->
+                                                      
+                                                      
+                                                      <!-- 위에 방식으로 하면 하드 코딩인디.. -->
+                                                
+                                                      <!--위에서 받아온 리스트가 비어있으면 이걸 띄워주고   -->
+                                                    		 <% if(list.isEmpty()){ %>
+														 	<tr>
+																<td colspan="7"><center>존재하는 공지사항이 없습니다.</center></td>
+															</tr>
+															
+															<!--  아니면 엘스로 해서 하나씩 띄워준다 -->
+														 <% }else{  %>
+														 	<% for(Notice n : list){ %>
+														 		<tr>
+														 			<td><%= n.getNoticeNo() %></td>
+																	<td><%= n.getNoticeTitle() %></td>
+																	<td><%= n.getNoticeWriter() %></td>
+																	<td><%= n.getCount() %></td>
+																	<td><%= n.getCreateDate() %></td>
+																	<td><button type="button" class="btn btn-dark">수정</button></td>
+																	<td><button type="button" class="btn btn-dark">삭제</button></td>
+																	
+														 		</tr>
+														 	<% } %>
+														 <% } %>
+										                                                      
                                                   </tbody>
                                               </table>
+                       
+                          
                                           </div>
                           
                           
@@ -247,9 +278,13 @@
                               
                               
                        <!-- 새공지사항 등록 버튼  -->       
+                       
 				<div class="new_noti_update"> 
-				    <a href="<%=contextPath%>/views/notice/newNotice.jsp"><button type="button" class="btn btn-dark">새 공지 등록하기 </button></a>
-				
+				<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+				<!--로그인 한 사람중에 admin만 글을 작성할 수 있음   -->
+				<button onclick="location.href='<%=contextPath%>/enrollForm.no'" type="button" class="btn btn-dark">새 공지 등록하기 </button>
+					
+					<% } %>
 				</div>
 				                              
                   
@@ -260,7 +295,8 @@
 				
 				</div>
 		</section><!-- admin -->
-	</section><!-- page- start -->
+		
+	</section><!-- page- end -->
 
 
 
@@ -270,4 +306,25 @@
 	<script src="<%= contextPath %>/resources/js/main.js"></script>
 
 </body>
+
+
+
+<script>
+
+	//eq(0)은 위의 getNoticeNo임 
+		<%if(!list.isEmpty()){%>
+		$(function(){
+			$(".listArea>tbody>tr").click(function(){
+				var nno = $(this).children().eq(0).text();
+				
+				location.href="<%=contextPath%>/detail.no?nno="+nno; 
+			})
+		})
+		//위의 번호 방식으로 조회를 하러 갈것임 
+		<% } %>
+		
+	</script>
+	
+	
+	
 </html>
