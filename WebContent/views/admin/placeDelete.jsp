@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*"%>
+<%
+	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,11 +91,9 @@
 										관리</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
-								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class=" menuB "><a
-									href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
-								<li class="active menuB ">
-								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
+								<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
+								<li class=" menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+								<li class="active menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp">코스 삭제</a></li>
 								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
@@ -102,75 +102,93 @@
 						</nav>
 					</div>
 				</div>	
+				
 				<div class="admin-showpage nice-scroll">
 					<select id="placeChoice" onchange="choicePlace(this)">
 						<option value="none" selected="selected">지역선택</option>
 						<option value="h">홍대</option>
 						<option value="g">강남</option>
 					</select><br><br><br><br>
+					
 					<script>
 					function choicePlace(c){
-					    var hong = document.getElementById("hongdae");
-					    var gang = document.getElementById("gangnam");
-					    
+						
 					    if(c.value == "h")
 					    {
 					    	$('#hongdae').show();
 					    	$('#gangnam').hide();
+					    	
 					    }	
 					    else if(c.value == "g")
 				    	{
 					    	$('#hongdae').hide();
 					    	$('#gangnam').show();
-				    	}					    
-					}
-					
+				    	}					     
+					}					
 					</script>
+					<div id="hongdae" style="display: none">
+					<%for(Place p :list){ %>
+						<%if(p.getAreaNo()==1) {%>
+						<div id="placeList" style="display: inline-block;">
+							<div class="card-group card-deck" style="width: 300px; " >
+								<div class="card">
+									<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
+									<div class="card-body">
+										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
+										<p class="card-text">주요 메뉴: <%= p.getDescription() %></p>	
+										
+										<form action="<%=contextPath%>/deleteP.pl" id="deleteForm" method="post">
+											<input type="hidden" name="pno" value="<%= p.getPlaceNo() %>">
+											<button type="submit" id="btn" class="btn-primary">삭제하기</button>
+										</form>									
+										
+									</div>
+								</div>							
+							</div>
+						</div>
+						
+						<%} %>
+					<%} %>
+					</div>
 					
-					<div id="hongdae">
-						<% for(int i=0; i<10; i++) {%>
-						<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-							<div class="card">
-								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
-								<div class="card-body">
-									<h4 class="card-title">홍대 놀거리</h4>
-									<p class="card-text">방탈출</p>
-	
-									<button class="btn btn-primary">삭제</button>
-								</div>
-							</div>							
+					<div id="gangnam" style="display: none">
+					<%for(Place p :list){ %>
+						<%if(p.getAreaNo()==2) {%>
+						<div id="placeList" style="display: inline-block;">
+							<div class="card-group card-deck" style="width: 300px; " >
+								<div class="card">
+									<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
+									<div class="card-body">
+										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
+										<p class="card-text">주요 메뉴 : <%= p.getDescription() %></p>
+										
+										<%-- <form action="<%=contextPath%>/deleteP.pl" id="deleteForm" method="post">
+											<input type="hidden" name="pno" value="<%= p.getPlaceNo() %>">
+											<button type="submit" id="btn" class="btn-primary">삭제하기</button>
+										</form>	 --%>
+									</div>
+								</div>							
+							</div>
 						</div>
 						<%} %>
-					</div><!--홍대  -->
-					<div id="gangnam">
-						<% for(int i=0; i<10; i++) {%>
-						<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-							<div class="card">
-								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
-								<div class="card-body">
-									<h4 class="card-title">강남 놀거리</h4>
-									<p class="card-text">강남 </p>
-	
-									<button class="btn btn-primary">삭제</button>
-								</div>
-							</div>							
-						</div>
-						<%} %>
-					</div><!--강남  -->
+					<%} %>
+					
+					</div>
 					<script>				
 					$(function() {
 
-						$(".btn").click(function() {
+						$("#btn").click(function() {
 							var result = confirm("일정을 삭제하시겠습니까?")
 							if (result) {
 								alert("일정이 삭제되었습니다.")
 							} else {
 								location.reload();
 							}
-
 						});
 
-						});
+					});
+					
+					
 					</script>
 				</div><!-- admin-showpage -->
 		</section><!-- admin -->

@@ -24,7 +24,7 @@ public class PlaceService {
 		int result1 = new PlaceDao().insertPlace(conn, p);
 		int result2 = new PlaceDao().insertPAttachment(conn, pat);
 		
-		if(result1 > 0 && result2 >0)
+		if(result1 > 0 && result2>0)
 		{
 			commit(conn);
 		}
@@ -32,7 +32,7 @@ public class PlaceService {
 			rollback(conn);
 		}
 		close(conn);
-		return result1*result2;
+		return result1 * result2;
 	}
 
   public Place selectPlace(int pno) {
@@ -52,10 +52,29 @@ public class PlaceService {
 		return p;
   }
 
-	public PlaceAttachment selectAttachment(int pNo) {
+  	public PlaceAttachment selectAttachment(int pNo) {
 		Connection conn = getConnection();
 		PlaceAttachment pAttchment = new PlaceDao().selectAttachment(conn, pNo);
 		close(conn);
 		return pAttchment;
 	}
+  
+
+	public int deletePlace(int pno) {
+		Connection conn = getConnection();
+		
+		int result1 = new PlaceDao().deletePlace(conn, pno);
+		int result2 = new PlaceDao().deletePAttachment(conn, pno);
+		
+		if(result1 >0 )
+		{
+			commit(conn);
+		}
+		else
+			rollback(conn);
+		close(conn);
+		return result1;
+	}
+
+	
 }

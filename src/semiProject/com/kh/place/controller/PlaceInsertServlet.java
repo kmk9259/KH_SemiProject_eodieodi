@@ -59,7 +59,7 @@ public class PlaceInsertServlet extends HttpServlet {
 			p.setAddress(multiRequest.getParameter("address"));
 
 			PlaceAttachment pat = new PlaceAttachment();
-			String name = "file01";
+			String name = "file1";
 			if(multiRequest.getOriginalFileName(name) != null)
 			{
 				String originName = multiRequest.getOriginalFileName(name);
@@ -74,8 +74,8 @@ public class PlaceInsertServlet extends HttpServlet {
 			
 			if(result > 0)
 			{
-//				response.sendRedirect("list.pl");
-				request.setAttribute("msg", "일정 등록에 성공하였습니다.");
+				response.sendRedirect("list.pl");
+				
 			}
 				
 			else
