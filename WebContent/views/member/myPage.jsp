@@ -161,16 +161,25 @@
                             <br>
                             <form id="updateForm" action="<%=request.getContextPath() %>/update.me" method="post">
                                 <div class="form-group infoUp">
+                                	<label class="control-label">아이디</label>
+                                    <input maxlength="100" type="text" required="required" class="form-control"
+                                    	name="userId"
+                                        value="<%= userId %>" readonly />
+                                
+                                
                                     <label class="control-label">변경할 이름을 입력해주세요</label>
                                     <input maxlength="100" type="text" required="required" class="form-control"
+                                    	name="userName"
                                         value="<%= userName %>" />
                                         
                                     <label class="control-label">변경할 전화번호를 입력해주세요(010-XXXX-XXXX)</label>
                                     <input maxlength="100" type="tel" required="required" class="form-control"
+                                    	name="phone"
                                         value="<%= phone %>" /><br>
                                         
                                     <label class="control-label">변경할 이메일을 입력해주세요(hongil@naver.com)</label><br>
                                     <input maxlength="100" type="email" required="required" class="form-control"
+                                    	name="email"
                                         value="<%= email %>" style=" width: 80%; float: left;" /><br>
                                         
 								  <button style="float: right; background-color: #D958A0; color:#fff;
@@ -180,10 +189,12 @@
                                     <!-- <label class="control-label">인증확인</label>
                                     <input maxlength="100" type="text" required="required" class="form-control"
                                         placeholder="인증번호를 입력해주세요" /> -->
+                                        <br>
+                                    <center><button type="submit" style=" background-color: #D958A0; color:#fff;
+							   				border:none; width:100px; height:48px; border-radius: 5px; "
+                                    		 id="updateBtn">저장하기</button></center>
                                     <br><br>
                                     
-                                    <center><button type="submit" style=" background-color: #D958A0; color:#fff;
-							   				border:none; width:100px; height:48px; border-radius: 5px; ">저장하기</button></center>
                                 </div>
                             </form>
                         </div>
@@ -191,15 +202,16 @@
 						<!-- 비밀번호 변경 -->
                         <div class="tab-pane text-style" id="pwUp">
                             <h2 class="tInfo">비밀번호 변경</h2>
+                                		 <input type="hidden" id="nowPwd" name="nowPwd" value="<%= userPwd %>">
                             <br><br>
                             <div class="col-sm-6 col-sm-offset-3">
-                                <form method="post" id="passwordForm">
-                                		
+                                <form  id="updatePwdForm" action="<%= request.getContextPath() %>/updatePwd.me" method="post">
                                 		<label>현재 비밀번호</label>
-											<input type="password" class="input-lg form-control" name="userPwd" id="userPwd"><br>
+											<input type="password" class="input-lg form-control" name="userPwd" id="userPwd" placeholder = "현재 비밀번호를 입력하세요" required><br>
+				                                    <span id="chUserPw" class="glyphicon glyphicon-remove" style="float: right;"> 현재 비밀번호와 일치</span><br>
                                 
                                     	<label>변경할 비밀번호 </label>
-                                    		<input type="password" class="input-lg form-control" name="password1" id="password1"
+                                    		<input type="password" class="input-lg form-control" name="newPwd" id="newPwd"
                                         				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required>
 				                                    <span id="6char" class="glyphicon glyphicon-remove" style="float: right;"> 6자리 이상</span><br>
 				                                   
@@ -207,8 +219,8 @@
                                     
                                     <div class="row">
                                         <div class="col-sm-12">
-                                        	<label>비밀번호 </label>
-                                        	<input type="password" class="input-lg form-control" name="password2" id="password2"
+                                        	<label>변경할 비밀번호 확인</label>
+                                        	<input type="password" class="input-lg form-control" name="checkPwd" id="checkPwd"
                                         		placeholder="한 번 더 입력하세요" autocomplete="off" required>
                                             <span span id="pwmatch" class="glyphicon glyphicon-remove" style="float: right;">비밀번호 일치</span>
                                         </div>
@@ -218,7 +230,7 @@
                                     
                                     <input type="submit" class="col-xs-12 btn-lg"
                                     style="background-color: #D958A0; color:#fff; border:none; margin-left: 25%;"
-                                        data-loading-text="비밀번호 변경하기" value="비밀번호 변경하기">
+                                        data-loading-text="비밀번호 변경하기" value="비밀번호 변경하기 " onclick="fnCheckPwd()">
                                 </form>
                             </div>
                         </div>
@@ -270,8 +282,9 @@
                             <h2 class="tInfo">회원 탈퇴</h2>
                             <br><br><br><br>
                             <div class="col-sm-6 col-sm-offset-3">
-                                <form method="post" id="passwordForm">
-                                    <input type="password" class="input-lg form-control" name="password2" id="outpw"
+                                <form method="post" id="deleteForm" action="<%= request.getContextPath() %>/delete.me">
+                                		 <input type="hidden" id="userId" name="userId" value="<%= userId %>">
+                                    <input type="password" class="input-lg form-control" name="deleteUser" id="deleteUser"
                                         placeholder="현재 비밀번호를 입력하세요" autocomplete="off">
                                         <br><br>
                                     <input type="submit" class="col-xs-12 btn-danger btn-load btn-ms" style="margin-left:30%;" data-loading-text="회원탈퇴" value="회원탈퇴하기"/>
@@ -309,11 +322,55 @@
 
     </script>
 
+
+
     <!-- pwUp -->
     <script>
+    function fnCheckPwd(){
+		var nowPwd = $("input[name='nowPwd']");
+		var userPwd = $("input[name='userPwd']");
+		var newPwd = $("input[name='newPwd']");
+		var checkPwd = $("input[name='checkPwd']");
+		
+		
+		if(userPwd.val().trim() == "" || newPwd.val().trim() == "" || checkPwd.val().trim() == ""){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+
+		if(nowPwd.val() != userPwd.val()){
+			alert("현재 비밀번호가 다릅니다");
+			userPwd.val('');
+			userPwd.focus();
+			return false;
+		}else if(newPwd.val().length < 6){
+			alert("비밀번호는 6자 이상 입력해주세요.");
+			newPwd.val('');
+			newPwd.focus();
+			return false;
+		}else if(newPwd.val() != checkPwd.val()){
+			alert("비밀번호가 다릅니다");
+			checkPwd.val('');
+			checkPwd.focus();
+			return false;
+		}
+		
+		$("#updatePwdForm").submit();
+		alert("비밀번호가 성공적으로 변경되었습니다.");
+	}
         $("input[type=password]").keyup(function () {
 
-            if ($("#password1").val().length >= 6) {
+        	if ($("#nowPwd").val() == $("#userPwd").val()) {
+                $("#chUserPw").removeClass("glyphicon-remove");
+                $("#chUserPw").addClass("glyphicon-ok");
+                $("#chUserPw").css("color", "#00A41E");
+            } else {
+                $("#chUserPw").removeClass("glyphicon-ok");
+                $("#chUserPw").addClass("glyphicon-remove");
+                $("#chUserPw").css("color", "#FF0004");
+            }
+        	
+            if ($("#newPwd").val().length >= 6) {
                 $("#6char").removeClass("glyphicon-remove");
                 $("#6char").addClass("glyphicon-ok");
                 $("#6char").css("color", "#00A41E");
@@ -323,7 +380,7 @@
                 $("#6char").css("color", "#FF0004");
             }
 
-            if ($("#password1").val() == $("#password2").val()) {
+            if ($("#newPwd").val() == $("#checkPwd").val()) {
                 $("#pwmatch").removeClass("glyphicon-remove");
                 $("#pwmatch").addClass("glyphicon-ok");
                 $("#pwmatch").css("color", "#00A41E");
@@ -334,7 +391,25 @@
             }
         });
     </script>
-    
+    <script>
+
+	
+		function deleteMember(){
+			if($("#nowPwd").val() == $("#deleteUser").val()){
+				var val = confirm("정말로 탈퇴하시겠습니까?");
+				
+				if(!val){
+					alert("취소하였습니다");
+				}
+			}else{
+				alert("비밀번호를 잘못입력하였습니다.");
+			}
+			
+		}
+	
+	
+	
+	</script>
     <!-- Js Plugins -->
     <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>
 </body>
