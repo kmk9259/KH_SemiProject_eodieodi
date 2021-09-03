@@ -90,11 +90,9 @@ margin-left: 150px;
 										관리</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
-								<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리</a></li>
-								<li class=" menuB "><a
-									href="<%=contextPath%>/insert.pl">일정 등록</a></li>
-								<li class="menuB ">
-								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
+								<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
+								<li class=" menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
