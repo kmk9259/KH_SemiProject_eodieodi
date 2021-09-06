@@ -17,12 +17,12 @@
     <style type="text/css">
     
     .page-start{
-    	background-color: #FFF3E7;
+    	background-color: white;
     	margin: 0;
     	padding: 0;
     }
     
-  
+
     
     .btns {
     margin: 15px 15px;
@@ -36,26 +36,9 @@
 		margin:auto;
 	}
 	
-	.note-codable{
-	resize: none;
-	height: 1000px;
-	
+
 	}
-	
-	
-    
-    
-    
-    
-    .panel-default>.panel-heading{
-    
-    color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
-    border: 1px;
-    
-    }
-    
+
     
     
     </style>
@@ -98,8 +81,26 @@
 		
 		
 		$(document).ready(function() {
-			  $('#summernote').summernote();
+			  $('#summernote').summernote({
+				// set editor height
+				    height:1000,                 // set editor height
+				    minHeight: 1000,             // set minimum height of editor
+				    maxHeight: 1000,       
+				    disableResizeEditor: true,
+				    callbacks:{
+				      onChange: function(){
+				        if($(".note-editable")[0].scrollHeight>1000){
+				          $(".note-status-output").html('<div class="alert alert-danger">내용이 영역을 벗어났습니다. 스크롤를 이용하세요</div>');
+				        }else{
+				          $(".note-status-output").html("");
+				        }
+				      }
+				    }
+			  });
 			});
+		
+		
+		$('p').attr('name', 'content');
 	</script>
 
 
@@ -126,11 +127,15 @@
 	<!--insert page -->
 	<div class="outer">
 	<br><br><br>
+	
+	<!-- 이미지요청시 enctype="multipart/form-data 명시해줘야한다. -->
 	<form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
+	<div>제목</div><input type="text" name="title">
+
 	 <div id="summernote"></div>
 	 <div class="btns">
-	 <button type="reset">취소하기</button>
-	 <button type="submit">등록하기</button>
+	 <button type="reset" class="site-btn">취소하기</button>
+	 <button type="submit" class="site-btn">등록하기</button>
 	 </div>
 	 </form>
 	 

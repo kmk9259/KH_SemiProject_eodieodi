@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
     
+<%
+ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
+PageInfo pi = (PageInfo)request.getAttribute("pi");
 
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +19,7 @@
     <meta name="keywords" content="Directing, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Directing | Template</title>
+    <title>Blog</title>
 
 
  
@@ -286,7 +295,19 @@
                                 mistakes made during the making of a movie.</p>
                         </div>
                     </div>
+                    
+                    
                     <div class="row">
+                    
+                    
+                    <%if(list.isEmpty()){ %>
+				
+					<p>조회된 리스트가 없습니다.</p>
+				
+					<%}else{ %>
+					<% for(Board b : list){ %>
+                    
+                    
                         <div class="col-lg-6 col-md-6">
                             <div class="blog__item">
                                 <a href="blog-details.html">
@@ -294,105 +315,96 @@
                                 </a>
                                 <div class="blog__item__text">
                                    
-                                    <h5><a href="#">Florida for 20 YEARS swims in the Gulf for the FIRST</a></h5>
+                                    <h5><a href="#"><%= b.getBoardTitle() %></a></h5>
                                     <ul class="blog__item__widget">
-                                        <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                        <li><i class="fa fa-user"></i> John Smith</li>
+                                        <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
+                                        <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <a href="blog-details.html">
-                                <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/bp-2.jpg"></div>
-                                </a>
-  
-                                <div class="blog__item__text">
-                                   
-                                    <h5><a href="#">Florida Bar Removes Famous Dollar Bill Decor</a></h5>
-                                    <ul class="blog__item__widget">
-                                        <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                        <li><i class="fa fa-user"></i> John Smith</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <a href="blog-details.html">
-                                <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/bp-3.jpg"></div>
-                                </a>
-                                <div class="blog__item__text">
-                                    
-                                    <h5><a href="#">'Junior detectives' help Roseville, Calif police</a></h5>
-                                    <ul class="blog__item__widget">
-                                        <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                        <li><i class="fa fa-user"></i> John Smith</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <a href="blog-details.html">
-                                <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/bp-4.jpg">
-                                   
-                                </div>
-                                </a>
-                                <div class="blog__item__text">
-                                    
-                                    <h5><a href="#">Dog Rescues Florida Woman After Her iPad Catches</a></h5>
-                                    <ul class="blog__item__widget">
-                                        <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                        <li><i class="fa fa-user"></i> John Smith</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <a href="blog-details.html">
-                                <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/bp-5.jpg"></div>
-                                </a>
-                                <div class="blog__item__text">
-                                   
-                                    <h5><a href="#">Citrus Heights Snack Man Helps Feed The Homeless</a></h5>
-                                    <ul class="blog__item__widget">
-                                        <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                        <li><i class="fa fa-user"></i> John Smith</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <a href="blog-details.html">
-                                <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/bp-6.jpg"></div>
-                                </a>
-                                <div class="blog__item__text">
-                                   
-                                    <h5><a href="#">Homeless woman’s viral subway opera performance</a></h5>
-                                    <ul class="blog__item__widget">
-                                        <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                        <li><i class="fa fa-user"></i> John Smith</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        <%} %>
+				<%} %>
+                      
+                        
+                        
                     </div>
-                    <div class="blog__pagination">
-                        <a href="#"><i class="fa fa-long-arrow-left"></i> Pre</a>
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
-                    </div>
-                     <br><br><br>
-                    <button type="submit" class="site-btn" onclick="location.href='blogInsertPage.jsp'">글쓰기</button>
+                    
+                    
+
+<!----------------------- 페이징바 만들기 -------------------------------->
+
+
+		<div class="blog__pagination" >
+			<!-- 맨 처음으로 (<<) -->
+			<a href="<%=contextPath%>/list.bo?currentPage=1"> &lt;&lt; </a>
+			
+		
+			<!-- 이전페이지로(<) -->
+			<%if(currentPage == 1){ %>
+			<a class="noHover"> &lt; </a>
+			<%}else{ %>
+			<a href="<%= contextPath %>/list.bo?currentPage=<%= currentPage-1 %>"> &lt; </a>
+			<%} %>
+			
+			<!-- 페이지 목록 -->
+			<%for(int p=startPage; p<=endPage; p++){ %>
+				
+				<%if(p == currentPage){ %>
+				<a class="noHover"> <%= p %> </a>
+				<%}else{ %>
+				<a href="<%=contextPath %>/list.bo?currentPage=<%= p %>"> <%= p %> </a>
+				<%} %>
+				
+			<%} %>
+			
+			<!-- 다음페이지로(>) -->
+			<%if(currentPage == maxPage){ %>
+			<a class="noHover"> &gt; </a>
+			<%}else { %>
+			<a href="<%= contextPath %>/list.bo?currentPage=<%= currentPage+1 %>"> &gt; </a>
+			<%} %>
+		
+			<!-- 맨 끝으로 (>>) -->
+			<a href="<%=contextPath%>/list.bo?currentPage=<%=maxPage%>"> &gt;&gt; </a>
+		</div> 
+                    
+          <br><br><br>          
+           <% if(loginUser != null){ %>
+			<button  type="submit" class="site-btn" onclick="location.href='enroll.bo'">글쓰기</button>
+		<% }else {%>         
+                    
+			<button type="submit" class="site-btn" onclick="pop();">글쓰기</button>
+                    
+            <% } %>        
+                    
+           
+           
+           <script type="text/javascript">
+				function pop(){
+					alert("로그인후 사용가능합니다.")
+				}
+	
+	
+				
+				
+				<%if(!list.isEmpty()){%>
+				$(function(){
+					$(".blog__item>a").click(function(){
+						var bno = $(this).children().eq(0).text();
+						location.href="<%= contextPath%>/detail.bo?bno="+bno;
+					})
+				})
+				<%}%>
+			
+		</script>
+           
+                    
+                    
+ 
+                    
+                    
                 </div>
                 <div class="col-lg-4">
                     <div class="blog__sidebar">
@@ -466,7 +478,7 @@
 </section>
 
     
-
+	
     
    
     <!-- Js Plugins -->
