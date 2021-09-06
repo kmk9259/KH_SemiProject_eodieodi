@@ -41,7 +41,7 @@ public class NoticeDetailSevlet extends HttpServlet {
 		String view ="";
 		if(notice !=null) {
 			request.setAttribute("notice",notice); 
-			view = "view/notice/admin_Notice_DetailPage.jsp"; //널이 아니면 상세페이지로 넘어감
+			view = "views/notice/admin_Notice_DetailPage.jsp"; //널이 아니면 상세페이지로 넘어감
 			
 		}else {
 			

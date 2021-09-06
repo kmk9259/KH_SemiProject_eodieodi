@@ -2,10 +2,9 @@ package semiProject.com.kh.notice.model.service;
 
 
 import static semiProject.com.kh.common.JDBCTemplate.close;
-import static semiProject.com.kh.common.JDBCTemplate.getConnection;
 import static semiProject.com.kh.common.JDBCTemplate.commit;
+import static semiProject.com.kh.common.JDBCTemplate.getConnection;
 import static semiProject.com.kh.common.JDBCTemplate.rollback;
-
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ public class NoticeService {
 		ArrayList<Notice> list = new NoticeDao().selectList(conn);
 		close(conn);
 		
-		System.out.println("리스트 서비스에 있는 리스트 값 담기느니 볼라고 " + list);
 		
 		return list;
 	}
@@ -45,7 +43,7 @@ public class NoticeService {
 		return result;
 	}
 
-	//조회하기 
+	//게시글 조회하기 
 	public Notice selelctNotice(int nno) {
 		
 		//연결한 후에 
@@ -66,9 +64,57 @@ public class NoticeService {
 			rollback(conn);
 		}
 		close(conn); //닫아주고 
+		
+		System.out.println(n + "여기는 서비슨데 연결은 잘 되고 있는건가? ");
 		return n; // 담은 것 리턴 
 	}
 
 	
+	//조회 게시글 수정..? 으로 가는..? 
+	public Notice selectUpdateNotice(int nno) {
+
+		Connection conn = getConnection();		
+
+		Notice n = new NoticeDao().selectNotice(conn, nno);
+		close(conn);
+		
+		return n;
+	}
+
+	//게시글 수정하기 
+	public int updateNotice(Notice n) {
+
+		Connection conn = getConnection();		
+
+		int result = new NoticeDao().updateNotice(conn, n);
+
+		if (result > 0) {
+			commit(conn);
+
+		} else {
+			rollback(conn);
+
+		}
+		close(conn);
+		return result;
+	}
+
+	//게시글 삭제하기 
+	public int deleteNotice(int nno) {
+		Connection conn = getConnection();
+
+		int result = new NoticeDao().deleteNotice(conn, nno);
+
+		if (result > 0) {
+			commit(conn);
+
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+		
+		return result;
+	}
 
 }

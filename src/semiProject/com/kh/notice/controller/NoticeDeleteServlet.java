@@ -1,7 +1,6 @@
 package semiProject.com.kh.notice.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semiProject.com.kh.notice.model.service.NoticeService;
-import semiProject.com.kh.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeListServlet
+ * Servlet implementation class NoticeDeleteServlet
  */
-@WebServlet("/list.no")
-public class NoticeListServlet extends HttpServlet {
+@WebServlet("/delete.no")
+public class NoticeDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public NoticeDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +30,25 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		ArrayList<Notice> list = new NoticeService().selectList();
-		request.setAttribute("list", list);
 		
-//		System.out.println("******** " +list + "********");
 
-		RequestDispatcher view = request.getRequestDispatcher("views/notice/admin_NoticeList.jsp");
-		view.forward(request, response);
+		
+		int nno = Integer.parseInt(request.getParameter("nno")); //nno 받아오기
+		int result = new NoticeService().deleteNotice(nno);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "공지사항 삭제 성공");
+			response.sendRedirect("list.no"); // 공지사항 삭제 성공시 목록으로 넘겨주기 
+		}else {
+			request.setAttribute("msg", "공지사항 삭제 실패 ");
+			
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+			
+		}
+		
+	
+		
 	}
 
 	/**
