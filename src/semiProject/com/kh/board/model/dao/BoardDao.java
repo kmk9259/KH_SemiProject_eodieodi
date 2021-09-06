@@ -128,6 +128,7 @@ public class BoardDao {
 		String sql = prop.getProperty("insertBoard");
 		System.out.println("sql : " + sql);
 		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

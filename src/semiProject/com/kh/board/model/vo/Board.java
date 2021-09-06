@@ -17,6 +17,7 @@ public class Board {
 	private String titleImg;		// 게시글의 타이틀 이미지 (실제 서버에 업로드되어있는 이름)
 	
 	
+	
 	public Board() {
 		
 	}

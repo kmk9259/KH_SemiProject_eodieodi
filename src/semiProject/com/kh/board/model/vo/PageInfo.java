@@ -16,6 +16,7 @@ public class PageInfo {
 
 	public PageInfo(int listCount, int currentPage, int startPage, int endPage, int maxPage, int pageLimit,
 			int boardLimit) {
+		
 		super();
 		this.listCount = listCount;
 		this.currentPage = currentPage;

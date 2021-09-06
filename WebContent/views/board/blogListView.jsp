@@ -388,6 +388,7 @@ int endPage = pi.getEndPage();
 	
 	
 				
+			
 				
 				<%if(!list.isEmpty()){%>
 				$(function(){
@@ -398,6 +399,7 @@ int endPage = pi.getEndPage();
 				})
 				<%}%>
 			
+				
 		</script>
            
                     

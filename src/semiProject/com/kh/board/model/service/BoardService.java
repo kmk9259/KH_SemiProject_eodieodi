@@ -44,6 +44,7 @@ public class BoardService {
 			rollback(conn);
 		}
 		return result1 * result2;
+		
 	}
 
 

@@ -90,6 +90,7 @@ public class boardInsertServlet extends HttpServlet {
 	         
 	         int result = new BoardService().insertBoard(b, at);
 	         
+	         
 	         if(result > 0) {
 	            request.getSession().setAttribute("msg", "게시글등록성공");
 	            response.sendRedirect("list.bo");

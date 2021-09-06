@@ -26,6 +26,7 @@ public class boardDetailServlet extends HttpServlet {
     public boardDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
+        
     }
 
 	/**

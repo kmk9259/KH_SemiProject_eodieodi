@@ -96,6 +96,7 @@ public class boardListServlet extends HttpServlet {
 				startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 				
 				
+				
 				// * endPage : 현재 페이지에 보여지는 페이징 바의 끝 수
 				// startPage : 1	=> endPage : 10
 				// startPage : 11	=> endPage : 20
