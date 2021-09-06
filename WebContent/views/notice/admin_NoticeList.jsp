@@ -12,6 +12,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>어디어디 - 관리자페이지(공지삭제및수정가능)</title>
+<link rel="stylesheet"
+	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
+	type="text/css">
 <style>
 
   ul{
@@ -35,8 +38,15 @@
     padding: 10px;
     margin-top: 2.5%;
     background-color: #FFF3E7;
-    border: 1px solid #D34B32;
-}
+/*     border: 1px solid #D34B32;
+ */}
+
+	
+	#listArea>tbody>tr:hover{
+		background:pink;
+		cursor:pointer
+	}
+	
 
 </style>
 
@@ -121,7 +131,7 @@
                           
                                           <div class="table-responsive">
                           
-                                              <table class="table custom-table">
+                                              <table class="table custom-table" id="listArea">
                                                   <thead>
                                                       <tr>
                                                           <th scope="col">
@@ -141,107 +151,7 @@
                                                   </thead>
                                                   
                                                   <tbody>
-                                                 <!--      <tr>
-                                                          <th scope="row">
-                                                              <label class="control control--checkbox">
-                                                                  <input type="checkbox" />
-                                                                  <div class="control__indicator"></div>
-                                                              </label>
-                                                          </th>
-                                                          <td>
-                                                              1
-                                                          </td>
-                                                          <td>[공지] 안녕하세요 여러분 </td>
-                                                          <td>
-                                                              여기에 뭘 적으면 내용이 들어옵니다
-                                                              <small class="d-block">ar farF away, behind the word mountains</small>
-                                                          </td>
-                                                          <td>100</td>
                           
-                                                          <td>
-                          
-                                                              <ul class="">
-                                                                  <li>
-                                                                      <a href="#">
-                                                                          <a href=""><button type="button" class="btn btn-dark">수정</button></a>
-                                                                      </a>
-                                                                  </li>
-                                                              </ul>
-                                                          </td>
-                                                          <td>
-                                                              <a href="#">
-                                                                  <a href=""><button type="button" class="btn btn-dark">삭제</button></a>
-                                                              </a>
-                                                          </td>
-                          
-                                                      </tr>
-                          
-                                                      <tr>
-                                                          <th scope="row">
-                                                              <label class="control control--checkbox">
-                                                                  <input type="checkbox" />
-                                                                  <div class="control__indicator"></div>
-                                                              </label>
-                                                          </th>
-                                                          <td>2</td>
-                                                          <td>[공지]새로운 공지사항 </td>
-                                                          <td>
-                                                              넘 여려운 공지사항이넵...
-                                                          </td>
-                                                          <td>10</td>
-                          
-                                                          <td>
-                                                              <ul class="">
-                                                                  <li>
-                                                                      <a href="#">
-                                                                          <a href=""><button type="button" class="btn btn-dark">수정</button></a>
-                                                                      </a>
-                                                                  </li>
-                                                              </ul>
-                                                          </td>
-                          
-                                                          <td>
-                                                              <a href="#">
-                                                                  <a href=""><button type="button" class="btn btn-dark">삭제</button></a>
-                                                              </a>
-                                                          </td>
-                          
-                                                      </tr>
-                          
-                                                      <tr>
-                                                          <th scope="row">
-                                                              <label class="control control--checkbox">
-                                                                  <input type="checkbox" />
-                                                                  <div class="control__indicator"></div>
-                                                              </label>
-                                                          </th>
-                                                          <td>3</td>
-                                                          <td>[공지]개인정보 이용약관..</td>
-                                                          <td>
-                                                              넘나 어려운것..
-                                                          </td>
-                                                          <td>0</td>
-                                                          <td>
-                                                              <ul class="">
-                                                                  <li>
-                                                                      <a href="#">
-                                                                          <a href=""><button type="button" class="btn btn-dark">수정</button></a>
-                                                                      </a>
-                                                                  </li>
-                                                              </ul>
-                                                          </td>
-                          
-                                                          <td>
-                                                              <a href="#">
-                                                                  <a href=""><button type="button" class="btn btn-dark">삭제</button></a>
-                                                              </a>
-                                                          </td>
-                   
-                                                      </tr> -->
-                                                      
-                                                      
-                                                      <!-- 위에 방식으로 하면 하드 코딩인디.. -->
-                                                
                                                       <!--위에서 받아온 리스트가 비어있으면 이걸 띄워주고   -->
                                                     		 <% if(list.isEmpty()){ %>
 														 	<tr>
@@ -257,8 +167,8 @@
 																	<td><%= n.getNoticeWriter() %></td>
 																	<td><%= n.getCount() %></td>
 																	<td><%= n.getCreateDate() %></td>
-																	<td><button type="button" class="btn btn-dark">수정</button></td>
-																	<td><button type="button" class="btn btn-dark">삭제</button></td>
+																	<td><button  id="update_button" onclick="updateForm.no?nno=<%=n.getNoticeNo()%>" type="button" class="btn btn-primary">수정</button></td>
+																	<td><button type="button" class="btn btn-primary">삭제</button></td>
 																	
 														 		</tr>
 														 	<% } %>
@@ -282,7 +192,8 @@
 				<div class="new_noti_update"> 
 				<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
 				<!--로그인 한 사람중에 admin만 글을 작성할 수 있음   -->
-				<button onclick="location.href='<%=contextPath%>/enrollForm.no'" type="button" class="btn btn-dark">새 공지 등록하기 </button>
+				
+				<button onclick="location.href='<%=contextPath%>/enrollForm.no'" type="button" class="btn btn-primary">새 공지 등록하기 </button>
 					
 					<% } %>
 				</div>
@@ -310,11 +221,11 @@
 
 
 <script>
-
+	//해당게시물을 클릭하면 상세조회할수있는 자바스크립트 
 	//eq(0)은 위의 getNoticeNo임 
 		<%if(!list.isEmpty()){%>
 		$(function(){
-			$(".listArea>tbody>tr").click(function(){
+			$("#listArea>tbody>tr").click(function(){
 				var nno = $(this).children().eq(0).text();
 				
 				location.href="<%=contextPath%>/detail.no?nno="+nno; 
@@ -324,6 +235,21 @@
 		<% } %>
 		
 	</script>
+	
+	
+<script>
+
+//리스트에서 버튼을 클릭하는거 
+	$(function(){
+		$("#update_button").click(function(){
+			var nno = $(this).children().eq(0).text();
+			location.href="<%=contextPath%>/detail.no?nno="+nno; 
+			
+		})
+	})
+
+</script>
+
 	
 	
 	

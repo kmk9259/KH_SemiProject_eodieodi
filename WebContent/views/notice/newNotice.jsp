@@ -10,6 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>어디어디 - 관리자페이지(새 공지사항 등록하기 )</title>
+	<link rel="stylesheet"
+	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
+	type="text/css">
 
 <style>
 .admin {
@@ -84,7 +87,7 @@
 							<ul class="nav tabs">
 								<li class="menuB parent"><a href="<%=contextPath %>/list.no">커뮤니티
 										관리</a></li>
-								<li class="menuB "><a href="<%=contextPath %>/views/notice/newNotice.jsp">공지사항 등록</a></li>
+								<li class="menuB "><a href="<%=contextPath %>/insert.no">공지사항 등록</a></li>
 								<li class="menuB "><a href="<%=contextPath %>/views/notice/admin_Notice_Update.jsp">공지사항 수정</a></li>
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
 								<li class=" menuB "><a

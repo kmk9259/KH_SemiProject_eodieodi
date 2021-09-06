@@ -8,21 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.member.model.vo.Member;
 import semiProject.com.kh.notice.model.service.NoticeService;
 import semiProject.com.kh.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeInsertServlet
+ * Servlet implementation class Notice_UpdateFormServlet
  */
-@WebServlet("/insert.no")
-public class NoticeInsertServlet extends HttpServlet {
+@WebServlet("/updateForm.no")
+public class Notice_UpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeInsertServlet() {
+    public Notice_UpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,33 +29,25 @@ public class NoticeInsertServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	      request.setCharacterEncoding("UTF-8");
-
-	
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo()); //작성한 사람만 수정할수있다면
-		//작성한 사람만 작성할 수 있게 
-	
-		Notice n = new Notice(title,writer,content.replaceAll("\n", "<br>"));
+		int nno = Integer.parseInt(request.getParameter("nno")); // 조회할 게시글 가져오기 
+		Notice n = new NoticeService().selectUpdateNotice(nno);
 		
-		int result = new NoticeService().insertNotice(n);
+		String view ="";
 		
-		
-		
-		if(result>0) {
-			request.getSession().setAttribute("msg", "공지사항이 성공적으로 등록되었습니다. ");
-			response.sendRedirect("list.no"); // 다시 조회하면 호출해서 리스트로 돌아감 
+		if(n != null) {
+			request.setAttribute("n", n);
+			view = "views/notice/admin_Notice_Update.jsp"; // 만약 널이 아니라면 공지사항 수정 상세페이지로 넘어가고 
+			
 			
 		}else {
-			request.setAttribute("msg", "공지사항 등록 실패");
-			
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("msg", "공지사항 수정조회 실패");
+			view = "views/common/errorPage.jsp";
+
 		}
+		request.getRequestDispatcher(view).forward(request, response);
+
 	}
 
 	/**

@@ -102,46 +102,44 @@
 
     <section class="most-search spad">
      
-
-
-
-<div class="outer">
-    <br>
-    
-    <h2 align="center">공지사항 상세보기</h2>
-    
-
-    <table id="detailArea" border="1" align="center">
-        <tr>
-            <td>제목</td>
-            <td colspan="3"><%= n.getNoticeTitle() %> </td>
-        </tr>
-        <tr>
-            <td>작성자</td>
-            <td><%= n.getNoticeWriter() %></td>
-            <td>작성일</td>
-            <td><%= n.getCreateDate() %></td>
-        </tr>
-        <tr>
-            <td colspan="4">내용</td>
-        
-        </tr>
-        <tr>
-            <td colspan="4">
-                <p><%= n.getNoticeContent() %> </p>
-            </td>
-        </tr>	
-    </table>
-    
-    <br>
-    
-    <div class="btns" align="center">
-    
-        <a href="#">목록으로</a> &nbsp;&nbsp;
-        <a href="./notice_update.html">수정하기</a> &nbsp;&nbsp;
-        <a href="#">삭제하기</a>  
-        <!-- 수정하기 및 삭제하기 버튼은 관리자만 뜨기  -->
-        <!-- 삭제하기 이후 목록으로 돌아가기 걸어주기  -->
+		
+		<div class="outer">
+		    <br>
+		    
+		    <h2 align="center">공지사항 상세보기</h2>
+		    
+		
+		    <table id="detailArea" border="1" align="center">
+		        <tr>
+		            <td>제목</td>
+		            <td colspan="3"><%= n.getNoticeTitle() %> </td>
+		        </tr>
+		        <tr>
+		            <td>작성자</td>
+		            <td><%= n.getNoticeWriter() %></td>
+		            <td>작성일</td>
+		            <td><%= n.getCreateDate() %></td>
+		        </tr>
+		        <tr>
+		            <td colspan="4">내용</td>
+		        
+		        </tr>
+		        <tr>
+		            <td colspan="4">
+		                <p><%= n.getNoticeContent() %> </p>
+		            </td>
+		        </tr>	
+		    </table>
+		    
+		    <br>
+		    
+		    <div class="btns" align="center">
+		    
+		        <a href="list.no">목록으로</a> &nbsp;&nbsp;
+		        <a href="updateForm.no?nno=<%=n.getNoticeNo()%>">수정하기</a> &nbsp;&nbsp;
+		        <a href="#">삭제하기</a>  
+		        <!-- 수정하기 및 삭제하기 버튼은 관리자만 뜨기  -->
+		        <!-- 삭제하기 이후 목록으로 돌아가기 걸어주기  -->
     
      
         

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="semiProject.com.kh.notice.model.vo.Notice" %>
+	
+<%
+	Notice n = (Notice)request.getAttribute("notice");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +13,14 @@
 <meta name="keywords" content="Directing, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>어디어디 - 관리자페이지(새 공지사항 등록하기 )</title>
+<title>어디어디 - 관리자페이지( 공지사항 수정하기 )</title>
+
+<link rel="stylesheet"
+	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
+	type="text/css">
+
+
+
 <style>
 .admin {
     background-color: #FFF3E7;
@@ -104,22 +115,25 @@
 				 <div class="container">
                             <div class="row">
                                 <div class="col-md-8 mt-5">
-                                    <form method="post" th:object="${post}">
+                                
+                                    <form method="post" th:object="${post}" id="updateForm" action="<%=contextPath%>/update.no">
+                                    <input type="hidden" name="nno" value= "<%=n.getNoticeNo()%>"> 
                                     
+                                 
                                      	   <h2>공지사항 수정 </h2>
                                         <div class="form-group">
                                             <label for="title">제목</label>
-                                            <input type="text" id="title" placeholder="제목을 입력하세요" autocomplete="off" class="form-control"
-                                                   th:field="*{title}"/>
+                                            <input type="text" name="title" value="<%=n.getNoticeTitle() %>" autocomplete="off" class="form-control"
+                                                   th:field="*{title}" />
                                         </div>
                         
                                         <div class="form-group">
                                             <label for="content">내용 </label>
-                                            <textarea type="text" rows="4" id="content" placeholder="내용을 입력하세요 " class="form-control"
+                                            <textarea type="text" rows="4" name="content" value="<%=n.getNoticeContent() %>" class="form-control"
                                                       th:field="*{content}" autocomplete="off"></textarea>
                                         </div>
                                         <button class="btn btn-dark">이전으로</button>
-                                        <button class="btn btn-dark" type="submit" >등록</button> 
+                                        <button class="btn btn-dark" type="submit" onclick="Notice_confirm()" >등록</button> 
                                         <button class="btn btn-dark">취소</button>
                     
                                       
@@ -138,9 +152,19 @@
 
 
 
-	<%@ include file="../common/footer.jsp"%>
+	<%@ include file="../common/footer.jsp" %>
 
 	<script src="<%= contextPath %>/resources/js/main.js"></script>
 
 </body>
+
+
+	<script>
+	
+	function Notice_comfirm(){
+		alert("정말 등록하시겠습니까?");
+	}
+	
+	</script>
+
 </html>
