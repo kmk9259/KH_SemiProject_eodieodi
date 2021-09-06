@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="semiProject.com.kh.board.model.vo.*"%>
+    
+   <%
+   	Board b = (Board)request.getAttribute("b");
+	Attachment at = (Attachment)request.getAttribute("at");
+   
+   %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,10 +51,10 @@
                 <div class="col-lg-7">
                     <div class="blog__hero__text">
                         <div class="label">Trending</div>
-                        <h2>Gray Computer Set With Tablet And Eyeglasses</h2>
+                        <h2><%= b.getBoardTitle() %></h2>
                         <ul>
-                            <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                            <li><i class="fa fa-user"></i> John Smith</li>
+                            <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
+                            <li><i class="fa fa-user"></i><%= b.getBoardWriter() %></li>
                         </ul>
                     </div>
                 </div>
@@ -56,6 +62,7 @@
         </div>
     </div>
     <!-- Blog Hero End -->
+    
 
     <!-- Blog Details Section Begin -->
     <section class="blog-details spad">
@@ -66,26 +73,20 @@
                         <div class="blog__details__video set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/details/blog-video-bg.jpg">
                             
                         </div>
-                        <p>You have finished building your own website. You have introduced your company and presented
-                            your products and services. You have added propositions and promos to catch your target
-                            audience’s attention. You think you are doing everything “right”, but all your promotions
-                            have failed to produce growth in your new internet business. There are many ways for your
-                            web site to be promoted, but maybe you’re missing the “key” to the “best” promotion. Here
-                            are some things to consider: – If you have started to promote your web site, keep it
-                            constant. If you promote your site with persistence, it will catch your audience’s
-                            attention. – Be patient. Try each different promotion until you find the best.</p>
-                        <h5>Cattle She’d Days Lights Light Saw Spirit Shall</h5>
-                        <p>Free promotions such as search engines and directories would give your web site the deserved
-                            traffic you always wanted. Make sure to check your web site’s ranking to know whether or not
-                            this type of free promotion is right for you. – Make a deal with other web sites on trading
-                            links which could help both web sites. Make sure to use words that could easily interest the
-                            audience.</p>
+                        <p><%= b.getBoardContent() %></p>
                         <img src="<%= request.getContextPath() %>/resources/img/blog/details/blog-item.jpg" alt="">
-                        <p>Analyze your techniques, keep track of your customers and learn what works. Then be ready to
-                            try new methods and repeat those methods that are already working. It has been said that the
-                            best things in life are free and this saying also applies to the many forms of free
-                            advertising that are available on the internet. Give this form of advertising a try and you
-                            also may become a true believer in the power of free internet advertising.</p>
+                        
+                        <table>
+                        <th>첨부파일</th>
+						<td>
+							<% if(at != null){ %>
+							<a download="<%= at.getOriginName() %>" href="<%=contextPath%>/resources/board_upfiles/<%=at.getChangeName()%>"><%= at.getOriginName() %></a>
+							<% }else{ %>
+							첨부파일이 없습니다.
+							<% } %>
+						</td> 
+						</table>
+						
                     </div>
                    
                     
