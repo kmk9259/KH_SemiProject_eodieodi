@@ -51,6 +51,22 @@ public class Place{
 		this.price = price;
 		this.address = address;
 	}
+	
+	//detail.pl 생성자()
+	public Place(int placeNo, String placeTitle, String placePhone, String description,
+			String bsHour, int price, String address, String titleImg) {
+		super();
+		this.placeNo = placeNo;
+		this.areaNo = areaNo;
+		this.categoryNo = categoryNo;
+		this.placeTitle = placeTitle;
+		this.placePhone = placePhone;
+		this.description = description;
+		this.bsHour = bsHour;
+		this.price = price;
+		this.address = address;
+		this.titleImg = titleImg;
+	}
 
 	public int getPlaceNo() {
 		return placeNo;

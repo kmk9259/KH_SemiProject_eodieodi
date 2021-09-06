@@ -144,10 +144,8 @@
                 <h5>일정 날짜</h5>
             </div>
             <div>
-                <!-- <input type="text" class="planInput" id="start"> -->
                 <input type="text" class="planInput" name="planDate" id="startDate" required>
-                <!-- <button type="submit" class="btn btn-primary">확인</button> -->
-                <button id="dateBtn">확인</button>
+                <input type="button" id="dateBtn" value="확인">확인</input>
             </div>
 
             <script> 
@@ -189,28 +187,15 @@
                         <th width="50"></th>
                     </tr>
                 </thead>
-                 <tr>
-					<td>뚱이네 고기</td>
-					<td>서울시 홍대 어딘가 11-1번지</td>
-					<td><button onClick="rowDelete(this)">빼기</button></td>
-				</tr>
-                <tr>
-					<td>뚱이네 고기</td>
-					<td>서울시 홍대 어딘가 11-1번지</td>
-					<td><button onClick="rowDelete(this)">빼기</button></td>
-				</tr>
-                <tr>
-					<td>뚱이네 고기</td>
-					<td>서울시 홍대 어딘가 11-1번지</td>
-					<td><button onClick="rowDelete(this)">빼기</button></td>
-				</tr> 
+                <tbody id="my_tbody"></tbody>
             </table>
             
             <div class="filter__btns">
                 <button type="submit">일정 저장하기</button>
-            </div>
-
-            <script>
+            </div>            
+        </form>
+        
+        <script>
                 function rowDelete(obj){
                     $(obj).parent().parent().remove();
                 }
@@ -231,11 +216,8 @@
         		    	$('#gangnam').show();
         	    	}					    
         		}
+                
             </script>
-            
-        </form>
-        
-        
     </div>
     <!-- Filter End -->
 
@@ -251,101 +233,69 @@
         <%System.out.println("list_planMy.jsp : " +list); %>
         <% if(list.size() == 0) {%>
         	<h4>해당 지역에 등록된 장소가 없습니다.</h4>
-        <%} %>
-        <%-- 모든 place들 조회해와서 화면에 띄워주기
-        <%for(Place p : list) {%>
-        	<!-- form, btn type:submit 삭제  thumbnailView.jsp에서는 없어도 됐어서 삭제해봄-->
-        		<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-					<input type="hidden" value="<%=p.getPlaceNo()%>">
-					<input type="hidden" value="<%=p.getAreaNo()%>">
-					<input type="hidden" value="<%=p.getCategoryNo()%>">
-					<div class="card">
-					<img class="card-img-top" src="<%= contextPath%>/resources/place_upfiles/<%= p.getPlaceImg() %>>" alt="Card image" style="width: 100%">
-						<div class="card-body">
-							<h4 class="card-title"><%=p.getPlaceTitle() %></h4>
-							<p class="card-text"><%=p.getPlaceAddress() %></p>
-							<p class="card-text"><%=p.getDescription() %></p>
-							
-							<button class="btn btn-primary insertPlace">추가</button>
-							<button class="btn btn-primary placeDetail">더보기</button>
-						</div>
-					</div>							
-				</div>
-        	
-		<%} %>  --%>
-        	
-        
-        <div id="hongdae">
-			<% for(int i=0; i<10; i++) {%>
-				<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-					<div class="card">
-						<img class="card-img-top" src="<%= contextPath%>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
-						<div class="card-body">
-							<h4 class="card-title">홍대 놀거리</h4>
-							<p class="card-text">방탈출</p>
-	
-							<button class="btn btn-primary">추가</button>
-							<button class="btn btn-primary">더보기</button>
-						</div>
-					</div>							
-				</div>
-			<%} %>
-		</div> <!--홍대  -->
-		<%-- <div id="gangnam">
-			<% for(int i=0; i<10; i++) {%>
-				<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-					<div class="card">
-						<img class="card-img-top" src="<%= contextPath%>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
-						<div class="card-body">
-							<h4 class="card-title">강남 놀거리</h4>
-							<p class="card-text">강남 </p>
-	
-							<button class="btn btn-primary">추가</button>
-							<button class="btn btn-primary">더보기</button>
-						</div>
-					</div>							
-				</div>
-			<%} %>
-		</div> --%><!--강남  -->
-             
-            <!-- <table class="listArea">
-            <form>
-                <tr>
-                    <td rowspan="3">
-                        <div id="titleImgArea" align="center">
-                            장소 사진
-                        </div>
-                    </td>
-                    <td>장소 명</td>
-                    <td><button onclick="newPage()">돋</button></td>
-                    <td><button>+</button></td>
-                </tr>
-                <tr>
-                    <td colspan="3">주소</td>
-                </tr>
-                <tr>
-                    <td colspan="3">상세 설명</td>
-                </tr>
-            </form>
-            <form>
-                <tr>
-                    <td rowspan="3">
-                        <div id="titleImgArea" align="center">
-                            장소 사진
-                        </div>
-                    </td>
-                    <td>장소 명</td>
-                    <td><button onclick="newPage()">돋</button></td>
-                    <td><button>+</button></td>
-                </tr>
-                <tr>
-                    <td colspan="3">주소</td>
-                </tr>
-                <tr>
-                    <td colspan="3">상세 설명</td>
-                </tr>
-            </form>
-        </table>  -->
+
+        <!-- 모든 place들 조회해와서 화면에 띄워주기 -->
+        <%}else{ %>
+	        <%for(Place p : list) {%>
+	        	<!-- form, btn type:submit 삭제  thumbnailView.jsp에서는 없어도 됐어서 삭제해봄-->
+	        		<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+						<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
+						<input type="hidden" value="<%=p.getAreaNo()%>" id="areaNo">
+						<div class="card">
+							<img class="card-img-top" src="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
+							<div class="card-body">
+								<h4 class="card-title" id="placeTitle"><%=p.getPlaceTitle()%></h4>
+								<p class="card-text" id="placeAddress"><%=p.getAddress()%></p>
+								<p class="card-text"><%=p.getDescription() %></p>
+								
+								<button class="btn btn-primary addPlace">추가</button>
+								<button class="btn btn-primary placeDetail">더보기</button>
+							</div>
+						</div>							
+					</div>
+			<%} %>  
+        <%} %> 	
+    	
+    	<script>
+    		//'더보기'클릭시 placeDetail창으로 새롭게 열린다.
+		    $(function(){
+				$(".placeDetail").click(function(){
+					var parent = $(this).parent().parent().parent();  //클릭한 버튼의 최상위 부모
+					console.log("parent : " + parent);
+					var pNo = parent.children("#placeNo").val();	//클릭한 버튼의 최상위 부모의 id가 placeNo value값
+					console.log("pNo : " + pNo);
+					window.open("./detail.pl?pNo="+pNo);  //장소상세페이지 새창으로 열기
+				});
+			});
+		    
+		  	//'추가'버튼 클릭시 -> 왼쪽화면에 표 추가되도록 하기
+		    $(function() {
+		        $(".addPlace").click(function() {
+		            var parent = $(this).parent();
+		            console.log("parent11 : " + parent)
+		            var title = parent.children("#placeTitle").text();  //장소명 추출
+		            console.log(title)
+		            var address = parent.children("#placeAddress").text();//장소주소 추출
+		            var placeNo = $(this).parent().parent().parent().children("#placeNo").val();
+		            console.log(placeNo);
+		
+		            var $tr = $("<tr>"); //테이블 행 생성
+		            var hidden = '<td class="hidden" value="' + placeNo + '"' + ' style="display:none";></td>'; //hidden으로 placeNo넘기기
+		            var $title = $("<td>").text(title); 
+		            var $address = $("<td>").text(address); 
+		            var $ageTd = $("<td>").text("1"); 
+		            var btn = '<td><button onClick="rowDelete(this)">빼기</button></td>';
+		
+		            $tr.append(hidden); //placeNo
+		            $tr.append($title); //title
+		            $tr.append($address); //address
+		            $tr.append(btn);    //빼기 버튼
+		
+		            $("#my_tbody:last").append($tr);
+		        })
+		    })
+    	</script>
+    
     </section>
     <!-- Listing Section End -->
 
@@ -364,10 +314,6 @@
              })
         })
 
-        /* function newPage()  {
-            window.open('./placeDetail.html');
-        } */
-
         function goPlan(){
             <%if(loginUser == null) {%>
                alert("로그인 후 이용해주세요");
@@ -385,14 +331,7 @@
 				location.href="<%=contextPath%>/insertplace.pm?pNo=" + pNo;
 			});
 		});
-        
-        $(function(){
-			$(".placeDetail").click(function(){
-				var pNo = $(this).children().eq(0).val();
-				console.log("pNo : " + pNo);
-				window.open("./detail.pl?pNo="+pNo);  //장소상세페이지 새창으로 열기
-			});
-		});
+       
     </script>
     
     <!-- Js Plugins -->
