@@ -8,7 +8,7 @@
   
    <filter>
     <filter-name>encodingFilter</filter-name>
-    <filter-class>com.kh.common.filter.EncodingFilter</filter-class>
+    <filter-class>semiProject.com.kh.common.filter.EncodingFilter</filter-class>
     </filter>
     
     <filter-mapping>
