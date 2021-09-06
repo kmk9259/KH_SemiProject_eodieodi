@@ -31,6 +31,8 @@ public class PlanMyInsertServlet extends HttpServlet {
 		
 		String name = request.getParameter("planTitle");
 		String date = request.getParameter("planDate");  //Date로 변환 필요
+		System.out.println("date-------- : " + date);
+		
 		String memo = request.getParameter("planMemo");
 		String area = request.getParameter("area");		 //int로 변환해야한다.
 		

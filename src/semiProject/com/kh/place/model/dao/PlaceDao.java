@@ -110,12 +110,12 @@ public class PlaceDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		//String sql = prop.getProperty("selectAttachment");
-		String sql = "SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM PLACE_ATTACHMENT WHERE REF_PNO=? AND STATUS='Y'";
+		String sql = prop.getProperty("selectAttachment");
+		//selectAttachment="SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM PLACE_ATTACHMENT WHERE REF_PNO=? AND STATUS='Y'";
 				
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(pNo, pNo);
+			pstmt.setInt(1, pNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -139,8 +139,8 @@ public class PlaceDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		//String sql = prop.getProperty("increaseCount");
-		String sql = "UPDATE PLACE SET COUNT=COUNT+1 WHERE PLACE_NO=?";
+		String sql = prop.getProperty("increaseCount");
+		//increaseCount = "UPDATE PLACE SET COUNT=COUNT+1 WHERE PLACE_NO=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -180,9 +180,44 @@ public class PlaceDao {
 		return result;	
 	}
 
-	public Place selectPlace(Connection conn, int pno) {
-		// TODO Auto-generated method stub
-		return null;
+	public Place selectPlace(Connection conn, int pno) {  //조회수(COUNT)도 들고와서 화면에 뿌릴까?(09.05)
+		Place p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPlace");
+		
+		System.out.println("p에 값이 아예 안들어가는거같은데...11111 : " + p);	
+		
+//		SELECT PLACE_NO, PLACE_TITLE, ADDRESS, BSHOUR, PLACE_PHONE, PRICE, DESCRIPTION, CHANGE_NAME
+//		FROM PLACE A JOIN (SELECT * FROM PLACE_ATTACHMENT WHERE STATUS='Y') ON (PLACE_NO = REF_PNO) 
+//		WHERE A.STATUS='Y' AND PLACE_NO=?;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pno);
+			
+			rset = pstmt.executeQuery();
+			System.out.println("p에 값이 아예 안들어가는거같은데...222222 : " + p);	
+			
+			if(rset.next()) {
+				p = new Place(rset.getInt("PLACE_NO"),rset.getString("PLACE_TITLE"), rset.getString("PLACE_PHONE"), 
+							  rset.getString("DESCRIPTION"), rset.getString("BSHOUR"), rset.getInt("PRICE"), 
+							  rset.getString("ADDRESS"), rset.getString("CHANGE_NAME")
+							 );
+			System.out.println("p에 값이 아예 안들어가는거같은데...33333 : " + p);	
+			/*Place(int placeNo, String placeTitle, String placePhone, String description,
+			String bsHour, int price, String address, String titleImg)*/
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		return p;
 	}
 	public int deletePlace(Connection conn, int pno) {
 		int result =0;

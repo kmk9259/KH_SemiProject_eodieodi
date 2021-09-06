@@ -3,7 +3,7 @@
     semiProject.com.kh.board.model.vo.PlaceAttachment"%>
 <!DOCTYPE html>
 <%
-	Place p = (Place)request.getAttribute("place");
+	Place p = (Place)request.getAttribute("p");
 	PlaceAttachment pAt= (PlaceAttachment)request.getAttribute("at");
 %>
 <html lang="en">
@@ -165,7 +165,7 @@
                         <a href="#" class="primary-btn">Contact Us</a>
                     </div> -->
                     <div class="listing__item">
-                        <div class="listing__item__pic set-bg" data-setbg="<%=contextPath%>/resources/img/listing/list-2.jpg">
+                        <div class="listing__item__pic set-bg" data-setbg="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>">
                         <!-- src="<%= contextPath %>/resources/place_upfiles/<%= pAt.getChangeName() %>" -->
                         </div>
                     </div>
@@ -174,27 +174,27 @@
                     <table border="1px solid black">
                         <tr>
                             <th>상호명</th>  
-                            <td>미스터리룸 이스케이프 홍대본점</td>  <!-- <%=p.getPlaceTitle()%> -->
+                            <td><%=p.getPlaceTitle()%></td> 
                         </tr>
                         <tr>
                             <th>상세주소</th>
-                            <td>서울 마포구 잔다리로 5-1</td>  <!-- <%=p.getAddress()%> -->
+                            <td><%=p.getAddress()%></td> 
                         </tr>
                         <tr>
                             <th>영업 시간</th>
-                            <td>매일 10:30 ~ 23:30</td>  <!-- <%=p.getBsHour()%> -->
+                            <td><%=p.getBsHour()%></td> 
                         </tr>
                         <tr>
                             <th>전화번호</th>
-                            <td>0507-1328-1314</td>  <!-- <%=p.getPlacePhone()%> -->
+                            <td><%=p.getPlacePhone()%></td>  
                         </tr>
                         <tr>
                             <th>대표 금액</th>
-                            <td>18,000원</td>  <!-- <%=p.getPrice()%> -->
+                            <td> <%=p.getPrice()%>원</td> 
                         </tr>
                         <tr>
                             <th>장소 설명</th>
-                            <td>홍대 미스터리룸 이스케이프 방탈출카페</td>  <!-- <%=p.getDescription()%> -->
+                            <td><%=p.getDescription()%> </td>  
                         </tr>
                     </table>
                 </div>

@@ -35,8 +35,11 @@ public class PlaceDetailServlet extends HttpServlet {
 		
 		//ThumnailDetailServelt() 참고
 		int pNo = Integer.parseInt(request.getParameter("pNo"));  //앞 페이지에서 pNo setAttribute해줘야 함
+		System.out.println("pNo값은 되게 잘 넘어갔었네..? pNo : " + pNo);
 		Place p = new PlaceService().selectPlace(pNo);
-		PlaceAttachment at = new PlaceService().selectAttachment(pNo);  //대표사진 한개?!
+		System.out.println("p(pNo로 잘 불러와졌을까?) : " + p);
+		PlaceAttachment at = new PlaceService().selectAttachment(pNo);  //대표사진 한개
+		System.out.println("at(pNo로 사진은! 잘 불러와졌을까?) : " + at);
 		
 		if(p != null)
 		{
@@ -46,7 +49,7 @@ public class PlaceDetailServlet extends HttpServlet {
 		}
 		else
 		{
-			request.setAttribute("msg", "게시판 상세 조회 실패");
+			request.setAttribute("msg", "일정 상세보기 실패");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
