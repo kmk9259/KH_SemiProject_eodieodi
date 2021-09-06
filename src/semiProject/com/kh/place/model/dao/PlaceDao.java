@@ -1,6 +1,6 @@
 package semiProject.com.kh.place.model.dao;
 
-import static semiProject.com.kh.common.JDBCTemplate.*;
+import static semiProject.com.kh.common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -125,6 +125,15 @@ public class PlaceDao {
 				pAttachment.setOriginName(rset.getString("ORIGIN_NAME"));
 				pAttachment.setChangeName(rset.getString("CHANGE_NAME"));
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pAttachment;
+  }
   
 	public int increaseCount(Connection conn, int pno) {
 		int result = 0;
