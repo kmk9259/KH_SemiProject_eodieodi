@@ -53,7 +53,7 @@
                                     <ul class="dropdown">
                                         <li><a href="#" onclick="goPlan();">마음대로일정</a></li>
                                         <li><a href="<%=contextPath %>/views/plan/adminRecommend.jsp">추천일정</a></li>
-                                        <li><a href="<%=contextPath %>/views/plan/planSave.jsp">일정보관함</a></li>
+                                        <li><a href="<%=contextPath %>/list.ps">일정보관함</a></li>
                                         
                                     </ul>
                                 </li>

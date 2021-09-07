@@ -75,11 +75,6 @@
     </style>
 </head>
 <body class="ov-hid">
-    <!-- Page Preloder -->
-    <!-- <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
    <!-- Header Section Begin -->
     <header class="header header--normal">
         <div class="container-fluid">
@@ -93,15 +88,12 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                
-                
                                 <li><a href="<%=contextPath %>/views/plan/planSelect.jsp">일정플래너</a>
                 
                                     <ul class="dropdown">
                                         <li><a href="#" onclick="goPlan();">마음대로일정</a></li>
                                         <li><a href="<%=contextPath %>/views/plan/adminRecommend.jsp">추천일정</a></li>
                                         <li><a href="<%=contextPath %>/views/plan/planSave.jsp">일정보관함</a></li>
-                                        
                                     </ul>
                                 </li>
                                 <li><a href="<%=contextPath %>/views/board/faq.jsp">FAQ</a></li>
@@ -120,7 +112,7 @@
 							      <%}%>
                             </ul>
                         </nav>
-                        <div class="header__menu__right">
+                       	<div class="header__menu__right">
                 
                         </div>
                     </div>
@@ -145,18 +137,7 @@
             </div>
             <div>
                 <input type="text" class="planInput" name="planDate" id="startDate" required>
-                <input type="button" id="dateBtn" value="확인">확인</input>
             </div>
-
-            <script> 
-                //날짜 확인 버튼 -> h5태그 값 변경
-                $('#dateBtn').click(function(){
-                    var value = $("#startDate").val();
-                    console.log(value);
-                    $("#planDate").text('선택하신 날짜 : ' + value);
-                });
-            </script>
-
             <div class="filter__title">
                 <h5>메모</h5>
             </div>
@@ -168,16 +149,11 @@
                 <h5>위치 선택</h5>
             </div>
             <div>
-
                 <!--select 로 값 받기-->
-                <select name="area" class="planInput" id="region" onchange="choicePlace(this)">
+                <select name="planArea" class="planInput" id="region" onchange="choicePlace(this)">
                     <option value="1" selected>홍대</option>
                     <option value="2">강남</option>
                 </select>
-            </div>
-
-            <div class="filter__title">
-                <h5 id="planDate" class="planInput">선택하신 날짜 : </h5>
             </div>
             <table class="listArea" align="center">
                 <thead>
@@ -196,28 +172,26 @@
         </form>
         
         <script>
-                function rowDelete(obj){
-                    $(obj).parent().parent().remove();
-                }
-                
-                
-                function choicePlace(c){
-        		    var hong = document.getElementById("hongdae");
-        		    var gang = document.getElementById("gangnam");
+            function rowDelete(obj){
+                $(obj).parent().parent().remove();
+            }
+                 
+            function choicePlace(c){
+        	    var hong = document.getElementById("hongdae");
+        		var gang = document.getElementById("gangnam");
         		    
-        		    if(c.value == "1")
-        		    {
-        		    	$('#hongdae').show();
-        		    	$('#gangnam').hide();
-        		    }	
-        		    else if(c.value == "2")
-        	    	{
-        		    	$('#hongdae').hide();
-        		    	$('#gangnam').show();
-        	    	}					    
-        		}
-                
-            </script>
+        		if(c.value == "1")
+        		{
+        		 	$('#hongdae').show();
+        		   	$('#gangnam').hide();
+        		}	
+        		else if(c.value == "2")
+        	    {
+        		  	$('#hongdae').hide();
+        		   	$('#gangnam').show();
+        	    }					    
+        	}    
+        </script>
     </div>
     <!-- Filter End -->
 
@@ -237,22 +211,21 @@
         <!-- 모든 place들 조회해와서 화면에 띄워주기 -->
         <%}else{ %>
 	        <%for(Place p : list) {%>
-	        	<!-- form, btn type:submit 삭제  thumbnailView.jsp에서는 없어도 됐어서 삭제해봄-->
-	        		<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-						<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
-						<input type="hidden" value="<%=p.getAreaNo()%>" id="areaNo">
-						<div class="card">
-							<img class="card-img-top" src="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
-							<div class="card-body">
-								<h4 class="card-title" id="placeTitle"><%=p.getPlaceTitle()%></h4>
-								<p class="card-text" id="placeAddress"><%=p.getAddress()%></p>
-								<p class="card-text"><%=p.getDescription() %></p>
-								
-								<button class="btn btn-primary addPlace">추가</button>
-								<button class="btn btn-primary placeDetail">더보기</button>
-							</div>
-						</div>							
-					</div>
+	        	<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+					<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo" >
+					<input type="hidden" value="<%=p.getAreaNo()%>" id="areaNo" name="areaNo">
+					<div class="card">
+						<img class="card-img-top" src="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
+						<div class="card-body">
+							<h4 class="card-title" id="placeTitle"><%=p.getPlaceTitle()%></h4>
+							<p class="card-text" id="placeAddress"><%=p.getAddress()%></p>
+							<p class="card-text"><%=p.getDescription() %></p>
+							
+							<button class="btn btn-primary addPlace">추가</button>
+							<button class="btn btn-primary placeDetail">더보기</button>
+						</div>
+					</div>							
+				</div>
 			<%} %>  
         <%} %> 	
     	
@@ -280,16 +253,15 @@
 		            console.log(placeNo);
 		
 		            var $tr = $("<tr>"); //테이블 행 생성
-		            var hidden = '<td class="hidden" value="' + placeNo + '"' + ' style="display:none";></td>'; //hidden으로 placeNo넘기기
+		            var hidden = '<input type="hidden" name="placeNo" value="'+placeNo+'">'; //hidden으로 placeNo넘기기
 		            var $title = $("<td>").text(title); 
 		            var $address = $("<td>").text(address); 
-		            var $ageTd = $("<td>").text("1"); 
 		            var btn = '<td><button onClick="rowDelete(this)">빼기</button></td>';
 		
-		            $tr.append(hidden); //placeNo
-		            $tr.append($title); //title
+		            $tr.append(hidden);   //placeNo
+		            $tr.append($title);   //title
 		            $tr.append($address); //address
-		            $tr.append(btn);    //빼기 버튼
+		            $tr.append(btn);      //빼기 버튼
 		
 		            $("#my_tbody:last").append($tr);
 		        })
@@ -306,7 +278,6 @@
     </div>
     <!-- Map End -->
 
-    
     <script> 
         // 달력 날짜 선택 
         $(function () {
@@ -323,15 +294,12 @@
             <%} %>
          } 
         
-        //insertplace.pm(PlanMyPlaceTableServlet으로 가서 해당 Place 받아오기)
-        $(function(){
-			$(".insertPlace").click(function(){
-				var pNo = $(this).children().eq(0).val();
-				console.log("pNo : " + pNo);
-				location.href="<%=contextPath%>/insertplace.pm?pNo=" + pNo;
-			});
-		});
-       
+      	//날짜 확인 버튼 -> h5태그 값 변경
+        $('#dateBtn').click(function(){
+            var value = $("#startDate").val();
+            console.log(value);
+            $("#planDate").text('선택하신 날짜 : ' + value);
+        });
     </script>
     
     <!-- Js Plugins -->
@@ -345,7 +313,5 @@
     <script src="<%=request.getContextPath()%>/resources/js/jquery.slicknav.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/owl.carousel.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
-
 </body>
-
 </html>
