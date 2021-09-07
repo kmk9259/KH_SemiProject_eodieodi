@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy
+    ,semiProject.com.kh.member.model.vo.Member"%>
 <!DOCTYPE html>
+<%
+	ArrayList<PlanMy> list = (ArrayList<PlanMy>)request.getAttribute("list"); 
+%>
 <html lang="en">
 
 <head>
@@ -90,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="planDetail_title">
-                        <a href="#"><h4>내일정 보관함</h4></a>
+                        <a href="<%=contextPath%>/list.ps"><h4>내일정 보관함</h4></a>
                         <a href="#"><h4>추천일정 보관함</h4></a>
                     </div>
                 </div>
@@ -101,35 +105,26 @@
                 </div> 버튼 이상해서 일단 지웠음-->
             </div>
 
-            <div class="listArea">
-                <div class="thumbnail" align="center">
-                    <input type="checkbox" class="checkBox"><br>
-                    <img src="<%=request.getContextPath()%>/resources/img/chun.png" width="350px" height="250px" onclick="goPlanSaveDetail()"> <br>
-                    <p>
-                        우리가족 나들이
-                    </p>
-                </div>
-                <div class="thumbnail" align="center">
-                    <input type="checkbox" class="checkBox"><br>
-                    <img src="<%=request.getContextPath()%>/resources/img/chun.png" width="350px" height="250px" onclick="goPlanSaveDetail()"> <br>
-                    <p>
-                        토요일 데이트
-                    </p>
-                </div>
-                <div class="thumbnail" align="center">
-                    <input type="checkbox" class="checkBox"><br>
-                    <img src="<%=request.getContextPath()%>/resources/img/chun.png" width="350px" height="250px" onclick="goPlanSaveDetail()"> <br>
-                    
-                    <p>
-                        토요일 데이트
-                    </p>
-                </div>
-            </div>
+			<%if(list == null){%>
+			<h2>저장하신 일정이 없습니다.</h2>
+			<%}else{ %>
+				<div class="listArea">
+					<%for(PlanMy pm : list) {%>
+						<div class="thumbnail" align="center">
+							<input type="hidden" name= value="<%=pm.getPlanNo()%>" id="placeNo" >
+                    		<input type="checkbox" class="checkBox"><br>
+                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="350px" height="250px" onclick="goPlanSaveDetail()"> <br>
+                    		<p>
+                        	<%=pm.getPlanTitle()%>
+                    		</p>
+                		</div>
+                	<%} %>
+				</div>
+			<%} %>>
             
             <div class=" deleteBtn">
-                <a href="#"><button type="button" class="btn btn-primary">삭제하기</button></a>
+                <button type="submit" class="btn btn-primary">삭제하기</button>
             </div>
-            
         </div>
     </div>
 

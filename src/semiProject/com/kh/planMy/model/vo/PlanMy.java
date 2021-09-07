@@ -9,27 +9,49 @@ public class PlanMy {
 	private int areaNo;
 	private String planTitle;
 	private Date planDate;
-	private String planContent;
+	//private String planPlace; -> MYPLAN_PLACE 테이블 (09.07)
 	private String planMemo;
 	private Date createDate;
 	private String status;
+	private String titleImg;  //PlanSaveList에 쓰기위한 필드추가->테이블과 다르다.(09.07)
 	
 	public PlanMy() {
 		// TODO Auto-generated constructor stub
 	}
-
 	
-	public PlanMy(int planNo, String planTitle, Date planDate, String planContent, String planMemo) {
+	
+	//for 일정보관함 리스트뷰 (09.07)
+	public PlanMy(int planNo, String planTitle,	String titleImg) {
+		super();
+		this.planNo = planNo;
+		this.planTitle = planTitle;
+		this.titleImg = titleImg;
+	}
+
+	//for 일정상세보기
+	public PlanMy(int planNo, String planTitle, Date planDate, String planMemo) {
 		super();
 		this.planNo = planNo;
 		this.planTitle = planTitle;
 		this.planDate = planDate;
-		this.planContent = planContent;
+		//this.planPlace = planPlace;
+		this.planMemo = planMemo;
+	}
+	
+	//for 일정생성
+	public PlanMy(int userNo, int areaNo, String planTitle, Date planDate, 
+			String planMemo) {
+		super();
+		this.userNo = userNo;
+		this.areaNo = areaNo;
+		this.planTitle = planTitle;
+		this.planDate = planDate;
+		//this.planPlace = planPlace;
 		this.planMemo = planMemo;
 	}
 
-
-	public PlanMy(int planNo, int userNo, int areaNo, String planTitle, Date planDate, String planContent,
+	//전체 필드 생성자
+	public PlanMy(int planNo, int userNo, int areaNo, String planTitle, Date planDate, 
 			String planMemo, Date createDate, String status) {
 		super();
 		this.planNo = planNo;
@@ -37,10 +59,19 @@ public class PlanMy {
 		this.areaNo = areaNo;
 		this.planTitle = planTitle;
 		this.planDate = planDate;
-		this.planContent = planContent;
+		//this.planPlace = planPlace;
 		this.planMemo = planMemo;
 		this.createDate = createDate;
 		this.status = status;
+	}
+
+	
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
 	}
 
 	public int getPlanNo() {
@@ -83,13 +114,13 @@ public class PlanMy {
 		this.planDate = planDate;
 	}
 
-	public String getPlanContent() {
-		return planContent;
-	}
-
-	public void setPlanContent(String planContent) {
-		this.planContent = planContent;
-	}
+//	public String getplanPlace() {
+//		return planPlace;
+//	}
+//
+//	public void setplanPlace(String planPlace) {
+//		this.planPlace = planPlace;
+//	}
 
 	public String getPlanMemo() {
 		return planMemo;
@@ -119,7 +150,7 @@ public class PlanMy {
 	public String toString() {
 		
 		return "PlanMy [planNo=" + planNo + ", userNo=" + userNo + ", areaNo=" + areaNo
-				+ ", planTitle=" + planTitle + ", planDate=" + planDate + ", planContent=" + planContent + ", "
+				+ ", planTitle=" + planTitle + ", planDate=" + planDate + ", "
 				+ "planMemo="+ planMemo +"createDate="+ createDate + "status="+ status + "]";
 	}
 	
