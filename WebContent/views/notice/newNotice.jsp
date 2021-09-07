@@ -32,6 +32,7 @@
    	
 }
 
+
 </style>
 
 </head>
@@ -75,7 +76,7 @@
                 $header.toggleClass('down', scrolled); //클래스 토글
             });
             });
-        
+         
         </script>
 
 	<section class="page-start">
@@ -120,12 +121,12 @@
                         
                                         <div class="form-group">
                                             <label for="content">내용 </label>
-                                            <textarea type="text" rows="4" id="content" name="content" placeholder="내용을 입력하세요 " class="form-control"
+                                            <textarea type="text" rows="4" cols="100" id="content" name="content" placeholder="내용을 입력하세요 " class="form-control"
                                                       th:field="*{content}" autocomplete="off"></textarea>
                                         </div>
-                                        <button class="btn btn-dark">이전으로</button>
-                                        <button class="btn btn-dark" type="submit" >등록</button> 
-                                        <button class="btn btn-dark">취소</button>
+                                        <button class="btn btn-primary">이전으로</button>
+                                        <button class="btn btn-primary" type="submit" >등록</button> 
+                                        <button class="btn btn-primary">취소</button>
                     
                                       
                                        

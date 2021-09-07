@@ -112,7 +112,7 @@
 
 
                 <!-- step1 form 시작점  -->
-            <form action="">
+            <form action="" method="post" name="theme">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
                         <div class="row">
@@ -183,7 +183,7 @@
                                 </div>
                             </div>
             
-            </form>
+         
 
 
 
@@ -231,12 +231,13 @@
                         
                             <input type="text" name="date_choose" id="startDate">
                         
-                            <button type="submit" class="btn btn-dark">확인</button>
+                            <button type="button" class="btn btn-dark">확인</button>
                         
                         </div>
+                  </form>
+     
      </section>
-                        
-                        
+                         
                         <div>
                             <center>
                                 <h4>확인을 누른후 다음으로 클릭하셔서 일정을 추천 받으세요!</h4>
@@ -247,7 +248,7 @@
                         
                         <div class="total_btn">
                             <a href="<%= contextPath %>/index.jsp"><button type="button" class="btn btn-dark">메인으로</button></a>
-                            <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"><button type="button" class="btn btn-dark">다음으로</button></a>
+                            <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"><button type="submit" class="btn btn-dark">다음으로</button></a>
                         </div>
 
 

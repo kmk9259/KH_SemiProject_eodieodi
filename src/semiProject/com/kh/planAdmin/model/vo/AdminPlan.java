@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class AdminPlan {
 	
+	//관리자가 추천해준 플랜을 저장하는 용도로 쓰겠는디 
 	
 //	PLAN_NO	NUMBER
 //	USER_NO	NUMBER
@@ -28,7 +29,7 @@ public class AdminPlan {
 	}
 
 
-	
+	 
 	public int getPlanNo() {
 		return planNo;
 	}

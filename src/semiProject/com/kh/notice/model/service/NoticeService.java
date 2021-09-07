@@ -65,7 +65,7 @@ public class NoticeService {
 		}
 		close(conn); //닫아주고 
 		
-		System.out.println(n + "여기는 서비슨데 연결은 잘 되고 있는건가? ");
+		//System.out.println(n + "여기는 서비슨데 연결은 잘 되고 있는건가? ");
 		return n; // 담은 것 리턴 
 	}
 
@@ -80,7 +80,7 @@ public class NoticeService {
 		
 		return n;
 	}
-
+ 
 	//게시글 수정하기 
 	public int updateNotice(Notice n) {
 

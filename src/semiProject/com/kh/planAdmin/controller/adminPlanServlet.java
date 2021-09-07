@@ -1,4 +1,4 @@
-package semiProject.com.kh.notice.controller;
+package semiProject.com.kh.planAdmin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,30 +8,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NoticeEnrollForm
+ * Servlet implementation class adminPlan
  */
-@WebServlet("/enrollForm.no") // 
-public class NoticeEnrollForm extends HttpServlet {
+@WebServlet("/adminPlan.ad")
+public class adminPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeEnrollForm() {
+    public adminPlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
- 
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		//공지사항 작성 페이지 이동 
-		request.getRequestDispatcher("views/notice/newNotice.jsp").forward(request, response);
+	
+		
+		String theme = request.getParameter("theme"); //테마 
+		String which = request.getParameter("which"); //위치 얘는 나중에 pno로 받아오나?
+		String date = request.getParameter("date_choose"); //날짜선택 
+		
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -171,7 +171,7 @@
 																	<td><button type="button" class="btn btn-primary">삭제</button></td>
 																	
 														 		</tr>
-														 	<% } %>
+					 									 	<% } %>
 														 <% } %>
 										                                                      
                                                   </tbody>
@@ -241,7 +241,7 @@
 
 //리스트에서 버튼을 클릭하는거 
 	$(function(){
-		$("#update_button").click(function(){
+		$("#update_button").click(function(){ 
 			var nno = $(this).children().eq(0).text();
 			location.href="<%=contextPath%>/detail.no?nno="+nno; 
 			
