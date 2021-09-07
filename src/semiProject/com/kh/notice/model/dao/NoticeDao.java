@@ -195,7 +195,7 @@ public class NoticeDao {
 			close(pstmt);
 		}
 
-		System.out.println("공지사항 상세조회 값 들어오니 ?" + n);
+	//	System.out.println("공지사항 상세조회 값 들어오니 ?" + n);
 
 		return n; // 노티스 객체 담은거 리턴시켜주기 
 	}

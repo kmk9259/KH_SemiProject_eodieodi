@@ -86,15 +86,16 @@
         </script>
 
 	<section class="page-start">
+	
 		<section class="admin">
 			<!------ MENUSIDE BAR ---------->
 				<div class=" menuBar">
 					<div class="col-sm-2">
 						<nav class="nav-sidebar">
 							<ul class="nav tabs">
-							<li class="menuB parent"><a href="<%=contextPath %>/views/notice/admin_Notice.jsp">커뮤니티
+							<li class="menuB parent"><a href="<%=contextPath %>/list.no">커뮤니티
 										관리</a></li>
-								<li class="menuB "><a href="<%=contextPath %>/views/notice/newNotice.jsp">공지사항 등록</a></li>
+								<li class="menuB "><a href="<%=contextPath %>/insert.no">공지사항 등록</a></li>
 								<li class="menuB "><a href="<%=contextPath %>/views/notice/admin_Notice_Update.jsp">공지사항 수정</a></li>
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
 								<li class=" menuB "><a
@@ -109,45 +110,66 @@
 						</nav>
 					</div>
 				</div>	
+				
+				
 				<div class="admin-showpage nice-scroll">
 				
-				
+				<%-- 
 				 <div class="container">
                             <div class="row">
                                 <div class="col-md-8 mt-5">
                                 
-                                    <form method="post" th:object="${post}" id="updateForm" action="<%=contextPath%>/update.no">
-                                    <input type="hidden" name="nno" value= "<%=n.getNoticeNo()%>"> 
+                                 <form method="post" action="<%=contextPath%>/update.no">
+                                   <!-- th:object="${post}" -->
+                                    <input type="hidden" name="nno" value="<%=n.getNoticeNo()%>"> 
                                     
                                  
                                      	   <h2>공지사항 수정 </h2>
                                         <div class="form-group">
-                                            <label for="title">제목</label>
-                                            <input type="text" name="title" value="<%=n.getNoticeTitle() %>" autocomplete="off" class="form-control"
-                                                   th:field="*{title}" />
+                                            <label for="">제목</label>
+                                            <input type="text" name="title" value="<%=n.getNoticeTitle()%>" autocomplete="off" class="form-control"
+                                                   />
+                                   
                                         </div>
                         
                                         <div class="form-group">
-                                            <label for="content">내용 </label>
-                                            <textarea type="text" rows="4" name="content" value="<%=n.getNoticeContent() %>" class="form-control"
-                                                      th:field="*{content}" autocomplete="off"></textarea>
+                                            <label for="">내용 </label>
+                                            <textarea type="text" rows="4" cols="100" style="resize:none;" name="content" value="<%=n.getNoticeContent()%>" class="form-control"
+                                                     ></textarea>
                                         </div>
                                         <button class="btn btn-dark">이전으로</button>
-                                        <button class="btn btn-dark" type="submit" onclick="Notice_confirm()" >등록</button> 
+                                        <button class="btn btn-dark" type="submit" >등록</button> 
                                         <button class="btn btn-dark">취소</button>
                     
                                       
                                        
-                                    </form>
+              </form>
                                 </div>
                             </div>
                         
-                        </div>
+                        </div> --%>
         
+        
+ 	<form method="post" action="<%=contextPath%>/update.no">
+ 	<input type="hidden" name ="nno" value="<%=n.getNoticeNo()%>">
+ 
+ 제목: 	<input type="text" name="title" value="<%=n.getNoticeTitle()%>">
+ 내용: 	<textarea type="text" rows="4" cols="100" style="resize:none;" name="content" value="<%=n.getNoticeContent()%>" class="form-control"
+           ></textarea>
+        
+        
+<!--             <button class="btn btn-dark">이전으로</button>
+ -->            <button class="btn btn-dark" type="submit" >등록</button> 
+            <button class="btn btn-dark" type="reset">취소</button>
+                                  
+ </form>
+
 				
 				</div>
 		</section><!-- admin -->
-	</section><!-- page- start -->
+		
+		
+	</section><!-- page- end -->
 
 
 
@@ -159,12 +181,6 @@
 </body>
 
 
-	<script>
 	
-	function Notice_comfirm(){
-		alert("정말 등록하시겠습니까?");
-	}
-	
-	</script>
 
 </html>

@@ -14,6 +14,8 @@ import semiProject.com.kh.notice.model.vo.Notice;
 /**
  * Servlet implementation class Notice_UpdateFormServlet
  */
+
+//게시글 수정 
 @WebServlet("/updateForm.no")
 public class Notice_UpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,12 +33,16 @@ public class Notice_UpdateFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		int nno = Integer.parseInt(request.getParameter("nno")); // 조회할 게시글 가져오기 
+		//조회할 게시글을 가져오기 
+		int nno = Integer.parseInt(request.getParameter("nno")); 
 		Notice n = new NoticeService().selectUpdateNotice(nno);
 		
+	
+
 		String view ="";
 		
 		if(n != null) {
+			//리퀘스트에 노티스 데이터 담기 
 			request.setAttribute("n", n);
 			view = "views/notice/admin_Notice_Update.jsp"; // 만약 널이 아니라면 공지사항 수정 상세페이지로 넘어가고 
 			
