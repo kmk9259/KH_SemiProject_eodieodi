@@ -1,6 +1,9 @@
 package semiProject.com.kh.place.model.service;
 
-import static semiProject.com.kh.common.JDBCTemplate.*;
+import static semiProject.com.kh.common.JDBCTemplate.close;
+import static semiProject.com.kh.common.JDBCTemplate.commit;
+import static semiProject.com.kh.common.JDBCTemplate.getConnection;
+import static semiProject.com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -61,11 +64,11 @@ public class PlaceService {
 	}
   
 
-	public int deletePlace(int pno) {
+	public int deletePlace(int pNo) {
 		Connection conn = getConnection();
 		
-		int result1 = new PlaceDao().deletePlace(conn, pno);
-		int result2 = new PlaceDao().deletePAttachment(conn, pno);
+		int result1 = new PlaceDao().deletePlace(conn, pNo);
+		int result2 = new PlaceDao().deletePAttachment(conn, pNo);
 		
 		if(result1 >0 )
 		{
@@ -76,6 +79,8 @@ public class PlaceService {
 		close(conn);
 		return result1;
 	}
+
+	
 
 	
 }

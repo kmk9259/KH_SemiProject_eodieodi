@@ -18,42 +18,58 @@ import semiProject.com.kh.place.model.vo.Place;
 @WebServlet("/deleteP.pl")
 public class PlaceDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PlaceDeleteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Place> list = new PlaceService().selectPList();
-		request.setAttribute("list", list);
-		
-		int pno = Integer.parseInt(request.getParameter("pno"));
-		
-		System.out.println(pno+"pno");
-		int result = new PlaceService().deletePlace(pno);
-		if(result > 0)
-		{
-			request.getRequestDispatcher("views/admin/placeDelete.jsp").forward(request, response);
-		}
-		else {
-			request.setAttribute("msg", "일정 삭제에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
-		//request.getRequestDispatcher("views/admin/placeDelete.jsp").forward(request, response);
-		
+	public PlaceDeleteServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ArrayList<Place> list = new PlaceService().selectPList();
+		request.setAttribute("list", list);
+		String tmp = request.getParameter("pNo");
+		if(tmp != null)
+		{
+			int pNo = Integer.parseInt(request.getParameter("pNo"));
+			System.out.println(pNo);
+			int result = new PlaceService().deletePlace(pNo);
+			if(result >0)
+			{
+				request.getRequestDispatcher("views/admin/placeDelete.jsp").forward(request, response);
+				return;
+			}
+			else
+			{
+				request.setAttribute("msg", "게시글 삭제에 실패하였습니다.");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
+			
+		}
+		else
+		{
+			System.out.println("tmp "+tmp);
+		}
+		request.getRequestDispatcher("views/admin/placeDelete.jsp").forward(request, response);
+
+		
+
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

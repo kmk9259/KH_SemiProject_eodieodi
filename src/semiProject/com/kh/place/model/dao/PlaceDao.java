@@ -219,7 +219,7 @@ public class PlaceDao {
 	
 		return p;
 	}
-	public int deletePlace(Connection conn, int pno) {
+	public int deletePlace(Connection conn, int pNo) {
 		int result =0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deletePlace");
@@ -227,7 +227,7 @@ public class PlaceDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, pno);
+			pstmt.setInt(1, pNo);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -238,7 +238,7 @@ public class PlaceDao {
 		}		
 		return result;
 	}
-	public int deletePAttachment(Connection conn, int pno) {
+	public int deletePAttachment(Connection conn, int pNo) {
 		int result =0;
 		PreparedStatement pstmt = null;
 		
@@ -246,7 +246,7 @@ public class PlaceDao {
 		//deletePAttachment=UPDATE PLACE_ATTACHMENT SET STATUS='N' WHERE REF_PNO=?
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, pno);
+			pstmt.setInt(1, pNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -259,6 +259,7 @@ public class PlaceDao {
 		
 		return result;
 	}
+	
 	
 	
 }
