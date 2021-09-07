@@ -1,28 +1,27 @@
-package semiProject.com.kh.place.controller;
+package semiProject.com.kh.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.place.model.service.PlaceService;
-import semiProject.com.kh.place.model.vo.Place;
+import semiProject.com.kh.member.model.service.MemberService;
 
 /**
- * Servlet implementation class PlaceListServlet
+ * Servlet implementation class MemberDeleteAdminServlet
  */
-@WebServlet("/list.pl")
-public class PlaceListServlet extends HttpServlet {
+@WebServlet("/deleteMember.ad")
+public class MemberDeleteAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlaceListServlet() {
+    public MemberDeleteAdminServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +30,19 @@ public class PlaceListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Place> list = new PlaceService().selectPList();
-		request.setAttribute("list", list);
-		
-
-		
-		request.getRequestDispatcher("views/place/placeListView.jsp").forward(request, response);
+		String mId = request.getParameter("mId");
+		System.out.println("mid : "+mId);
+		int result = new MemberService().deleteMember(mId);
+		if(result > 0)
+		{
+			response.sendRedirect("adminPage.ad");
+		}
+		else
+		{			
+			request.setAttribute("msg", "회원삭제에 실패했습니다");
+	        RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+	        view.forward(request, response);
+		}
 	}
 
 	/**

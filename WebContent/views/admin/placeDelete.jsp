@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*"%>
 <%
 	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -92,11 +93,11 @@
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
 								<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
 								<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
-								<li class=" menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
 								<li class="active menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp">코스 삭제</a></li>
-								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/ccAdd.co">코스 등록</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
+								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
 							</ul>
 						</nav>
@@ -117,18 +118,29 @@
 					    {
 					    	$('#hongdae').show();
 					    	$('#gangnam').hide();
+					    	$('#none').hide();
 					    	
 					    }	
 					    else if(c.value == "g")
 				    	{
 					    	$('#hongdae').hide();
 					    	$('#gangnam').show();
-				    	}					     
+					    	$('#none').hide();
+				    	}
+					    else{
+					    	$('#hongdae').hide();
+					    	$('#gangnam').hide();
+					    	$('#none').show();
+					    }
 					}					
 					</script>
-					<div id="hongdae" style="display: none">
+					<div id="none" style="display: none" style="display: inline-block;">지역을 선택해주세요</div>
+					<div id="hongdae" style="display: none" style="display: inline-block;">
 					<%for(Place p :list){ %>
+					
 						<%if(p.getAreaNo()==1) {%>
+						<form action="<%=contextPath%>/deleteP.pl" id="postForm" method="post">
+						<input type="hidden" id="placeNo" name="pNo" value="<%= p.getPlaceNo() %>">
 						<div id="placeList" style="display: inline-block;">
 							<div class="card-group card-deck" style="width: 300px; " >
 								<div class="card">
@@ -137,59 +149,41 @@
 										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
 										<p class="card-text">주요 메뉴: <%= p.getDescription() %></p>	
 										
-										<form action="<%=contextPath%>/deleteP.pl" id="deleteForm" method="post">
-											<input type="hidden" name="pno" value="<%= p.getPlaceNo() %>">
-											<button type="submit" id="btn" class="btn-primary">삭제하기</button>
-										</form>									
+										<button type="submit" id="btn" class="btn-primary">삭제하기</button>
 										
 									</div>
 								</div>							
 							</div>
 						</div>
+						</form>
 						
 						<%} %>
 					<%} %>
 					</div>
 					
-					<div id="gangnam" style="display: none">
+					<div id="gangnam" style="display: none" style="display: inline-block;">
 					<%for(Place p :list){ %>
 						<%if(p.getAreaNo()==2) {%>
-						<div id="placeList" style="display: inline-block;">
+						<form action="<%=contextPath%>/deleteP.pl" id="postForm" method="post">
+						<input type="hidden" id="placeNo" name="pNo" value="<%= p.getPlaceNo() %>">
+						<div id="placeList" >
 							<div class="card-group card-deck" style="width: 300px; " >
 								<div class="card">
 									<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
 									<div class="card-body">
 										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
 										<p class="card-text">주요 메뉴 : <%= p.getDescription() %></p>
-										
-										<%-- <form action="<%=contextPath%>/deleteP.pl" id="deleteForm" method="post">
-											<input type="hidden" name="pno" value="<%= p.getPlaceNo() %>">
-											<button type="submit" id="btn" class="btn-primary">삭제하기</button>
-										</form>	 --%>
+										<button type="submit" id="btn2" class="btn-primary ">삭제하기</button>
 									</div>
 								</div>							
 							</div>
 						</div>
+						</form>
 						<%} %>
 					<%} %>
 					
 					</div>
-					<script>				
-					$(function() {
-
-						$("#btn").click(function() {
-							var result = confirm("일정을 삭제하시겠습니까?")
-							if (result) {
-								alert("일정이 삭제되었습니다.")
-							} else {
-								location.reload();
-							}
-						});
-
-					});
 					
-					
-					</script>
 				</div><!-- admin-showpage -->
 		</section><!-- admin -->
 	</section><!-- page- start -->

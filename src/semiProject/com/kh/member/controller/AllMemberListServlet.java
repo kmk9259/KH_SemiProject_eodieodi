@@ -1,4 +1,4 @@
-package semiProject.com.kh.place.controller;
+package semiProject.com.kh.member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.place.model.service.PlaceService;
-import semiProject.com.kh.place.model.vo.Place;
+import semiProject.com.kh.member.model.service.MemberService;
+import semiProject.com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class PlaceListServlet
+ * Servlet implementation class AllMemberListServlet
  */
-@WebServlet("/list.pl")
-public class PlaceListServlet extends HttpServlet {
+@WebServlet("/allmemberList.me")
+public class AllMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlaceListServlet() {
+    public AllMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +31,14 @@ public class PlaceListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Place> list = new PlaceService().selectPList();
+		ArrayList<Member> list = new MemberService().selectAllMember();
+		ArrayList<Member> dlist = new MemberService().selectAllDeleteMember();
 		request.setAttribute("list", list);
+		request.setAttribute("dlist", dlist);
 		
 
 		
-		request.getRequestDispatcher("views/place/placeListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/memberList.jsp").forward(request, response);
 	}
 
 	/**

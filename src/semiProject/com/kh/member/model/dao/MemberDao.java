@@ -5,12 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import semiProject.com.kh.member.model.vo.Member;
+import semiProject.com.kh.place.model.vo.Place;
 
 public class MemberDao {
 
@@ -225,4 +228,94 @@ public class MemberDao {
 		return result;
 	}
 
+	public ArrayList<Member> selectAllMember(Connection conn) {
+		ArrayList<Member> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		/*
+		 * selectAllMember=SELECT USER_NO, USER_ID, USER_PWD, USER_NAME, PHONE, EMAIL, GENDER, ENROLL_date FROM MEMBER WHERE STATUS='Y'
+		 */
+		String sql = prop.getProperty("selectAllMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next())
+			{
+				Member m = new Member();
+				m.setUserNo(rset.getInt("USER_NO"));
+				m.setUserId(rset.getString("USER_ID"));
+				m.setUserPwd(rset.getString("USER_PWD"));			
+				m.setUserName(rset.getString("USER_NAME"));
+				m.setPhone(rset.getString("PHONE"));
+				m.setEmail(rset.getString("EMAIL"));
+				m.setGender(rset.getString("GENDER"));				
+				m.setEnrollDate(rset.getDate("ENROLL_date"));
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Member> selectAllDeleteMember(Connection conn) {
+		ArrayList<Member> dlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		/*
+		 * selectAllDeleteMember=SELECT USER_NO, USER_ID, USER_PWD, USER_NAME, PHONE, EMAIL, GENDER, ENROLL_date FROM MEMBER WHERE STATUS='N'
+		 */
+		String sql = prop.getProperty("selectAllDeleteMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next())
+			{
+				Member m = new Member();
+				m.setUserNo(rset.getInt("USER_NO"));
+				m.setUserId(rset.getString("USER_ID"));
+				m.setUserPwd(rset.getString("USER_PWD"));			
+				m.setUserName(rset.getString("USER_NAME"));
+				m.setPhone(rset.getString("PHONE"));
+				m.setEmail(rset.getString("EMAIL"));
+				m.setGender(rset.getString("GENDER"));				
+				m.setEnrollDate(rset.getDate("ENROLL_date"));
+				dlist.add(m);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dlist;
+	}
+
+	public int updateMemberAdmin(Connection conn, String mId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		//updateMemberAdmin=UPDATE MEMBER SET STATUS='Y' WHERE USER_ID=?
+		String sql = prop.getProperty("updateMemberAdmin");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

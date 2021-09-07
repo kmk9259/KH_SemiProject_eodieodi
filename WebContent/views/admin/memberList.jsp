@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.member.model.vo.*"%>
+<%
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	ArrayList<Member> dlist = (ArrayList<Member>)request.getAttribute("dlist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,8 +41,9 @@ height: 500px;
 .memberList > thead{
 text-align: center;
 font-size: large;
-
-
+}
+#updatebtn, #deletebtn{
+margin-top: 20px;
 }
 
 </style>
@@ -94,15 +98,12 @@ font-size: large;
 									관리</a></li>
 							<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
 							<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
-							<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-							<li class="menuB "><a
-								href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
-							<li class=" menuB "><a
-								href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
-							<li class="menuB"><a
-								href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
+							<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
+							<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+							<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
+							<li class="menuB"><a href="<%=contextPath%>/ccAdd.co">코스 등록</a></li>
 							<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
-							<li class="active menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
+							<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
 						</ul>
 					</nav>
@@ -111,51 +112,104 @@ font-size: large;
 			<!--menu bar  -->
 			<div class="admin-showpage nice-scroll">
 					<div class="tab-content">
+					<h3>회원 가입 멤버</h3><hr><br>
 					<table class="table table-hover">
 					    <thead>
 					      <tr>
 					        <th width="50">NO.</th>
+					        <th width="150">회원 이름</th>
 							<th width="150">회원 아이디</th>
-							<th width="150">회원 이름</th>
-							<th width="300">회원 이메일</th>
+							<th width="150">회원 비밀번호</th>
 							<th width="200">회원 전화번호</th>
+							<th width="300">회원 이메일</th>
 							<th width="150">회원 성별</th>
+							<th width="150">회원 가입 날짜</th>
 							<th width="150">회원 삭제</th>
 					      </tr>
 					    </thead>
 					    <tbody>
-							<%-- <%if(list.isEmpty()){ %> --%>
+					    	
+					    	
+							<%if(list.isEmpty()){ %>
 							<tr>
-								<td colspan="7">조회된 리스트가 없습니다.</td>
+								<td colspan="9">조회된 리스트가 없습니다.</td>
 							</tr>
 							
-							 <%-- <%}else{ %>
-								<% for(Board b : list){ %> 
+							 <%}else{ %>
+								<% for(Member m : list){ %> 
 								<tr>
-									<td><%= b.getBoardNo() %> </td>
-									<td><%= b.getCategory() %></td>
-									<td><%= b.getBoardTitle() %></td>
-									<td><%= b.getBoardWriter() %></td>
-									<td><%= b.getCount() %> </td>
-									<td><%= b.getCreateDate() %></td>
-									<td><%= b.getCreateDate() %> </td>
+									<td><%= m.getUserNo() %> </td>
+									<td><%= m.getUserName()%></td>
+									<td><%= m.getUserId() %></td>
+									<td><%= m.getUserPwd() %></td>
+									<td><%= m.getPhone() %> </td>
+									<td><%= m.getEmail() %></td>
+									<td><%= m.getGender() %> </td>
+									<td><%= m.getEnrollDate() %> </td>									
+									<td>
+										<form action="<%= request.getContextPath() %>/deleteMember.ad" id="deleteMember" method="post">
+										<input type="hidden" name="mId" value="<%= m.getUserId() %>">
+										<button type="submit" id="deletebtn">회원 삭제</button>
+										</form>
+									</td>
+									
 								</tr>
 								 <%} %>
-							<%} %>  --%>
-							<tr>
-						        <td>1</td>
-								<td>kmk9259</td>
-								<td>김민경</td>
-								<td>kmk9259@naver.com</td>
-								<td>010-1111-1111</td>
-								<td>여</td>
-								<td><button>회원 삭제</button></td>
-					     	 </tr>
+							<%} %> 
+							
 						</tbody>
 					      
-					  </table>
-						
-						
+					  </table>	
+					</div><br><br>
+					<div class="tab-content">
+					<h3>회원 탈퇴 멤버</h3><hr><br>
+					<table class="table table-hover">
+					    <thead>
+					      <tr>
+					        <th width="50">NO.</th>
+					        <th width="150">회원 이름</th>
+							<th width="150">회원 아이디</th>
+							<th width="150">회원 비밀번호</th>
+							<th width="200">회원 전화번호</th>
+							<th width="300">회원 이메일</th>
+							<th width="150">회원 성별</th>
+							<th width="150">회원 가입 날짜</th>
+							<th width="150">회원 삭제</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					    	
+					    	
+							<%if(list.isEmpty()){ %>
+							<tr>
+								<td colspan="9">조회된 리스트가 없습니다.</td>
+							</tr>
+							
+							 <%}else{ %>
+								<% for(Member m : dlist){ %> 
+								<tr>
+									<td><%= m.getUserNo() %> </td>
+									<td><%= m.getUserName()%></td>
+									<td><%= m.getUserId() %></td>
+									<td><%= m.getUserPwd() %></td>
+									<td><%= m.getPhone() %> </td>
+									<td><%= m.getEmail() %></td>
+									<td><%= m.getGender() %> </td>
+									<td><%= m.getEnrollDate() %> </td>									
+									<td>
+										<form action="<%= request.getContextPath() %>/updateMember.ad" id="updateMember" method="post">
+										<input type="hidden" name="mId2" value="<%= m.getUserId() %>">
+										<button type="submit" id="updatebtn">회원 복구</button>
+										</form>
+									</td>
+									
+								</tr>
+								 <%} %>
+							<%} %> 
+							
+						</tbody>
+					      
+					  </table>	
 					</div>
 				</div> <!-- admin-showpage -->
 			

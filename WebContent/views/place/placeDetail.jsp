@@ -204,7 +204,7 @@
     <!-- About Section End -->
 
     <div class="total_btn">           
-        <a href="./index.html"><button type="button" class="btn btn-primary">이전으로</button></a>
+        <button type="button" class="btn btn-primary" onClick="history.back()">이전으로</button></a>
     </div>
 
     <%@ include file="../common/footer.jsp"%>

@@ -104,7 +104,7 @@
 								<li class="active menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
 								<li class=" menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
 								<li class=" menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/ccAdd.co">코스 등록</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp">코스 삭제</a></li>
 								<li class="menuB parent"><a href="<%=contextPath%>/views/admin/memberList.jsp">회원 관리</a></li>
 
@@ -121,11 +121,14 @@
 				<div class=listPlace>
 					<%for(Place p : list){ %>					
 					<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
+						<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
 						<div class="card">
 							<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
 							<div class="card-body">
 								<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
 								<p class="card-text">조회수 : <%= p.getCount() %></p>
+								
+								
 								
 							</div>
 						</div>							
@@ -134,18 +137,15 @@
 				
 					
 					<br><br>
-					<div align="center">
 					
-					<%--  <% if(loginUser != null){ %>
-						<button onclick="location.href='<%=contextPath %>/insertForm.th'">작성하기</button>
-					<% } %>  --%>
-					</div>
 				</div>
 				<script>
 					$(function(){
 						$(".card").click(function(){
-							var bId = $(this).children().eq(0).val();
-							location.href="<%=contextPath%>/detail.pl?bId=" + bId;
+							
+							var parent = $(this).parent(); 
+							var pNo = parent.children("#placeNo").val();
+							window.open("./detail.pl?pNo="+pNo);
 						});
 					});
 				</script>

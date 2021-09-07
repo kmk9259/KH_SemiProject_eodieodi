@@ -1,4 +1,4 @@
-package semiProject.com.kh.place.controller;
+package semiProject.com.kh.course.couple.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,20 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semiProject.com.kh.category.model.service.CategoryService;
+import semiProject.com.kh.category.model.vo.Category;
 import semiProject.com.kh.place.model.service.PlaceService;
 import semiProject.com.kh.place.model.vo.Place;
+import semiProject.com.kh.theme.model.vo.Theme;
+import semiProject.com.kh.theme.service.ThemeService;
 
 /**
- * Servlet implementation class PlaceListServlet
+ * Servlet implementation class CoupleCourseAddServlet
  */
-@WebServlet("/list.pl")
-public class PlaceListServlet extends HttpServlet {
+@WebServlet("/ccAdd.co")
+public class CoupleCourseAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlaceListServlet() {
+    public CoupleCourseAddServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +35,14 @@ public class PlaceListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Place> list = new PlaceService().selectPList();
-		request.setAttribute("list", list);
+		ArrayList<Place> plist = new PlaceService().selectPList();
+		ArrayList<Theme> tlist = new ThemeService().selectThemeList();
+		ArrayList<Category> clist = new CategoryService().selectCategoryList();
 		
-
-		
-		request.getRequestDispatcher("views/place/placeListView.jsp").forward(request, response);
+		request.setAttribute("plist", plist);
+		request.setAttribute("tlist", tlist);
+		request.setAttribute("clist", clist);
+		request.getRequestDispatcher("views/admin/courseAdd.jsp").forward(request, response);
 	}
 
 	/**

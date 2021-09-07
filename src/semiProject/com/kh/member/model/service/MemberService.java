@@ -1,11 +1,16 @@
 package semiProject.com.kh.member.model.service;
 
-import static semiProject.com.kh.common.JDBCTemplate.*;
+import static semiProject.com.kh.common.JDBCTemplate.close;
+import static semiProject.com.kh.common.JDBCTemplate.commit;
+import static semiProject.com.kh.common.JDBCTemplate.getConnection;
+import static semiProject.com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import semiProject.com.kh.member.model.dao.MemberDao;
 import semiProject.com.kh.member.model.vo.Member;
+import semiProject.com.kh.place.model.dao.PlaceDao;
 
 public class MemberService {
 
@@ -92,5 +97,35 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	public ArrayList<Member> selectAllMember() {
+		Connection conn = getConnection();
+		ArrayList<Member> list = new MemberDao().selectAllMember(conn);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Member> selectAllDeleteMember() {
+		Connection conn = getConnection();
+		ArrayList<Member> list = new MemberDao().selectAllDeleteMember(conn);
+		
+		close(conn);
+		return list;
+	}
+
+	public int updateMemberAdmin(String mId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMemberAdmin(conn, mId);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;	}
 
 }
