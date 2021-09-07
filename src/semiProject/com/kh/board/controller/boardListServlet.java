@@ -112,9 +112,12 @@ public class boardListServlet extends HttpServlet {
 				
 				ArrayList<Board> list = new BoardService().selectList(pi);
 				
+				
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi); // 담아온 페이지 정보도 넘겨준다. 
 				request.getRequestDispatcher("views/board/blogListView.jsp").forward(request, response);
+				
+				
 	}
 
 	/**

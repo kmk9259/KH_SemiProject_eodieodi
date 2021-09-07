@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
-	
-
-
-
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
+<% 
+Board b = (Board)request.getAttribute("b");
+ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Filelist");
+	%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,32 @@
 <meta name="keywords" content="Directing, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta charset="UTF-8">
-    <title>community</title>
+    <title>커뮤니티</title>
+    
+    
+    
+   
+	
+	<script type="text/javascript">
+		function checkValue(){
+			var form = document.forms[0];
+			var board_subject = form.board_subject.value;
+			var board_content = form.board_content.value;
+			
+			if(!board_subject){
+				alert("제목을 입력해주세요.")
+				return false;
+			}
+			else if(!board_content){
+				alert("내용을 입력해주세요.")
+				return false;
+			}
+		}
+	
+	</script>
+    
+    
+    
     
     <style type="text/css">
     
@@ -23,11 +48,11 @@
     }
     
 
-    
-    .btns {
-    margin: 15px 15px;
-    text-align: center; 
+    .btns{
+    	margin: 100px;
+    	padding: 100px;
     }
+  
     
     .outer{
 		width:900px;
@@ -37,8 +62,15 @@
 	}
 	
 
+	.image-form{
+	
+	width: 900px;
 	}
 
+	.title{
+	
+	color: black;
+	}
     
     
     </style>
@@ -80,13 +112,15 @@
 		});
 		
 		
-		$(document).ready(function() {
+		/* $(document).ready(function() {
 			  $('#summernote').summernote({
 				// set editor height
 				    height:1000,                 // set editor height
 				    minHeight: 1000,             // set minimum height of editor
 				    maxHeight: 1000,       
 				    disableResizeEditor: true,
+				    focus: true,
+				    lang: "ko-KR",
 				    callbacks:{
 				      onChange: function(){
 				        if($(".note-editable")[0].scrollHeight>1000){
@@ -97,10 +131,10 @@
 				      }
 				    }
 			  });
-			});
+			}); */
 		
 		
-		$('p').attr('name', 'content');
+		
 	</script>
 
 
@@ -129,16 +163,155 @@
 	<div class="outer">
 	<br><br><br>
 	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("textarea").attr('name', 'content');
+	})
+	
+	 
+	
+	</script>
+	
+	
+	
 	<!-- 이미지요청시 enctype="multipart/form-data 명시해줘야한다. -->
-	<form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
-	<div>제목</div><input type="text" name="title">
+	
+	
+	
+	<div class="container">
+  <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">                        
+        <h2>글 작성</h2>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+      
+      
+          <form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">
+              <div class="form-group">
+                  <label class="form-label" for="title">Title</label>
+                  <input type="text" class="form-control" id="name" name="title" placeholder="제목을 입력하세요" tabindex="1" required>
+              </div>                            
+                                        
+                                         
+              <div class="form-group">
+                  
+                  <textarea rows="15" cols="150" name="content" class="form-control" id="message" placeholder="글을 작성하세요." tabindex="4" required></textarea>                                 
+              </div>
+              
+              
+              <div class="text-center">
+              <label class="title">사진 첨부</label>
+              <div>
+              <img id="titleImg" width="200px" height="180">
+              <img id="contentImg1" width="200px" height="180">
+              <img id="contentImg2" width="200px" height="180">
+              <img id="contentImg3" width="200px" height="180">
+              </div>
+              
+              
+              
+              <div id="fileArea">
+				<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
+				<input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
+				<input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
+				<input type="file" name="file4" id="file4" onchange="loadImg(this, 4);">
+			  </div>
+              
+              </div>
+              
+              
+              <div class="text-center btns">
+              
+              <%if(Filelist != null) {%>
+              <button type="submit" class="site-btn" >등록하기</button>
+              
+              <% }else { %>
+              
+              <button type="submit" class="site-btn" disable>사진등록</button>
+              
+              <% } %>
+              
+              
+                 
+                  <button type="reset" class="site-btn">취소하기</button>
+                  <button type="history" class="site-btn">목록으로</button>
+              </div>
+              
+          </form>
+      </div>
+  </div>
+</div>
+	
+	
+	
+	
+	<script>
+	$(function(){
+		$("#fileArea").hide();
+		
+		$("#titleImg").click(function(){
+			$("#file1").click();
+		});
+		
+		$("#contentImg1").click(function(){
+			$("#file2").click();
+		});
+		
+		$("#contentImg2").click(function(){
+			$("#file3").click();
+		});
+		
+		$("#contentImg3").click(function(){
+			$("#file4").click();
+		});
+		
+	});
+	
+	function loadImg(inputFile, num){// 이미지 미리보기 
+		//inputFile : 현재 변화가 생긴 input type = "file"
+		//num : 조건문을 활용 하기 위해 전달받은 매개변수
+		
+		console.dir(inputFile);
+		
+		if(inputFile.files.length == 1){//file이 존재 할경우 
+			var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
+			
+			reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+			
+			
+			reader.onload = function(e){//파일 읽기가 다완료 되면 실행할 메소드 
+				console.log(e);
+				switch(num){
+				case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
+				case 2 : $("#contentImg1").attr("src", e.target.result); break;
+				case 3 : $("#contentImg2").attr("src", e.target.result); break;
+				case 4 : $("#contentImg3").attr("src", e.target.result); break;
+				}
+			};
+			
+		}
+	}
+	
+	
+	</script>
 
-	 <div id="summernote"></div>
-	 <div class="btns">
-	 <button type="reset" class="site-btn">취소하기</button>
-	 <button type="submit" class="site-btn">등록하기</button>
-	 </div>
-	 </form>
+	 
+	 
+	 
+	 
+
+		<%-- <div style="width: 60%; margin: auto;">
+			<form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
+				<input type="text" name="writer" style="width: 20%;" placeholder="작성자"/><br>
+				<input type="text" name="title" style="width: 40%;" placeholder="제목"/>
+				<br><br> 
+				<textarea id="summernote" name="content"></textarea>
+				<button type="submit">등록하기</button>
+			</form>
+		</div> --%>
 	 
 	 </div>
     
@@ -154,8 +327,8 @@
 
 
 	<script src="<%=contextPath%>/resources/js/main.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	<!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> -->
 
 
 	<%@ include file="../common/footer.jsp"%>
