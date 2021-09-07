@@ -173,12 +173,12 @@
                                         value="<%= userName %>" />
                                         
                                     <label class="control-label">변경할 전화번호를 입력해주세요(010-XXXX-XXXX)</label>
-                                    <input maxlength="100" type="tel" required="required" class="form-control"
-                                    	name="phone"
+                                    <input maxlength="100"  type="text" required="required"
+                                     	id="phone" name="phone"class="form-control"
                                         value="<%= phone %>" /><br>
                                         
                                     <label class="control-label">변경할 이메일을 입력해주세요(hongil@naver.com)</label><br>
-                                    <input maxlength="100" type="email" required="required" class="form-control"
+                                    <input maxlength="100" type="text" required="required" class="form-control"
                                     	name="email"
                                         value="<%= email %>" style=" width: 80%; float: left;" /><br>
                                         
@@ -198,6 +198,40 @@
                                 </div>
                             </form>
                         </div>
+
+						<script>
+						
+						$('#phone').keydown(function(event) {
+						    var key = event.charCode || event.keyCode || 0;
+						    $text = $(this);
+						    if (key !== 8 && key !== 9) {
+						        if ($text.val().length === 3) {
+						            $text.val($text.val() + '-');
+						        }
+						        if ($text.val().length === 8) {
+						            $text.val($text.val() + '-');
+						        }
+						    }
+						 
+						    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
+						});
+
+
+						
+	
+							var email = $("input[name='email']");
+							var emailV = email.val();
+							var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+							if(exptext.test(emailV)==false){
+								if(confirm("이메일 형식에 맞추어 입력해주세요.") == true){
+									email.val('');
+									email.focus();
+									return false;
+								}
+							}
+						</script>
+
+
 
 						<!-- 비밀번호 변경 -->
                         <div class="tab-pane text-style" id="pwUp">
@@ -285,9 +319,9 @@
                                 <form method="post" id="deleteForm" action="<%= request.getContextPath() %>/delete.me">
                                 		 <input type="hidden" id="userId" name="userId" value="<%= userId %>">
                                     <input type="password" class="input-lg form-control" name="deleteUser" id="deleteUser"
-                                        placeholder="현재 비밀번호를 입력하세요" autocomplete="off">
+                                        placeholder="현재 비밀번호를 입력하세요" autocomplete="off" required="required">
                                         <br><br>
-                                    <input type="submit" class="col-xs-12 btn-danger btn-load btn-ms" style="margin-left:30%;" data-loading-text="회원탈퇴" value="회원탈퇴하기"/>
+                                    <button type="submit" class="btn-load btn-lg" style="background-color: #D958A0; color:#fff; border:none; margin-left: 30%;" onclick="deleteMember()">탈퇴하기</button>
                                 </form>
                             </div>
                         </div>
@@ -395,20 +429,30 @@
 
 	
 		function deleteMember(){
-			if($("#nowPwd").val() == $("#deleteUser").val()){
+			var deleteU = $("#deleteUser");
+			if("<%= userPwd %>" == deleteU.val()){
 				var val = confirm("정말로 탈퇴하시겠습니까?");
 				
-				if(!val){
+				if(val){
+					$("#updateForm").submit();
+				}else if(!val){
 					alert("취소하였습니다");
+					deleteU.val('');
+					deleteU.focus();
+					return false;
 				}
+				
+			}else if($("#deleteUser").val() == ""){
+				alert("비밀번호를 입력해주세요.");
 			}else{
 				alert("비밀번호를 잘못입력하였습니다.");
+				deleteU.val('');
+				deleteU.focus();
+				return false;
 			}
 			
 		}
-	
-	
-	
+
 	</script>
     <!-- Js Plugins -->
     <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>

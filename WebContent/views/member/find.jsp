@@ -83,10 +83,10 @@
                             <h3>아이디 찾기</h3>
                             <form class="findId" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" value="" />
+                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="findEmail" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" value="" />
+                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="FindName" />
                                 </div>
                                 <div class="form-group-btn">
                                     <input type="submit" class="btnSubmit" value="ID 찾기" />
@@ -97,10 +97,10 @@
                             <h3>비밀번호 찾기</h3>
                             <form class="findPwd" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" value="" />
+                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="FindEmail" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="아이디를 입력하세요" value="" />
+                                    <input type="password" class="form-control" placeholder="아이디를 입력하세요" name="FindId" />
                                 </div>
                                 <div class="form-group-btn">
                                     <input type="submit" class="btnSubmit" value="PW 찾기" />
