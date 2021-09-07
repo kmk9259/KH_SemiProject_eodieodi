@@ -44,8 +44,11 @@ public class MemberInsertServlet extends HttpServlet {
 		int result = new MemberService().insetMember(mem);
 		
 		if(result > 0) {
+			response.sendRedirect("views/member/login.jsp");
 			request.getSession().setAttribute("msg", "회원가입 성공");
-			response.sendRedirect(request.getContextPath());
+			//response.sendRedirect(request.getContextPath());
+			//RequestDispatcher view = request.getRequestDispatcher("views/member/signUp.jsp");
+			//view.forward(request, response);
 		}else {
 			request.setAttribute("msg", "회원가입에 실패했습니다");
 	         RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
