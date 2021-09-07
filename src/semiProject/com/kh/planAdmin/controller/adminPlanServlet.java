@@ -33,7 +33,7 @@ public class adminPlanServlet extends HttpServlet {
 		String date = request.getParameter("date_choose"); //날짜선택 
 		
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

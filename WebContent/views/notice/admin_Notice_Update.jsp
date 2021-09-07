@@ -82,7 +82,7 @@
                 $header.toggleClass('down', scrolled); //클래스 토글
             });
             });
-        
+         
         </script>
 
 	<section class="page-start">

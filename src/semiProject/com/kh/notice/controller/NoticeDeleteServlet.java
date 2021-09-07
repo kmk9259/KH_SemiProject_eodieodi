@@ -32,7 +32,7 @@ public class NoticeDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 
-		
+	 	
 		int nno = Integer.parseInt(request.getParameter("nno")); //nno 받아오기
 		int result = new NoticeService().deleteNotice(nno);
 		

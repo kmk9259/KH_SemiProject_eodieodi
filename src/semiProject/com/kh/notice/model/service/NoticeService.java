@@ -80,7 +80,7 @@ public class NoticeService {
 		
 		return n;
 	}
-
+ 
 	//게시글 수정하기 
 	public int updateNotice(Notice n) {
 

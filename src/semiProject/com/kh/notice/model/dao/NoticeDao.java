@@ -228,7 +228,7 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		
-		
+		 
 		return result;
 	}
 

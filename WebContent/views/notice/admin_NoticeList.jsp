@@ -171,7 +171,7 @@
 																	<td><button type="button" class="btn btn-primary">삭제</button></td>
 																	
 														 		</tr>
-														 	<% } %>
+					 									 	<% } %>
 														 <% } %>
 										                                                      
                                                   </tbody>

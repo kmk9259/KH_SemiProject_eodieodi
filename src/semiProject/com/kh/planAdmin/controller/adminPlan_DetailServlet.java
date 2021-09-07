@@ -38,7 +38,7 @@ public class adminPlan_DetailServlet extends HttpServlet {
 	request.getRequestDispatcher("views/plan/adminPlansave.jsp").forward(request, response);
 	
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

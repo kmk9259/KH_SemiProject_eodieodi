@@ -26,7 +26,7 @@ public class Notice_UpdateFormServlet extends HttpServlet {
     public Notice_UpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    } 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

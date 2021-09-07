@@ -29,7 +29,7 @@ public class AdminPlan {
 	}
 
 
-	
+	 
 	public int getPlanNo() {
 		return planNo;
 	}

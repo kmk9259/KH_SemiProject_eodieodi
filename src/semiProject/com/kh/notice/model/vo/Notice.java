@@ -74,7 +74,7 @@ public class Notice {
 	
 
 
-
+ 
 
 
 	public int getNoticeNo() {
