@@ -33,6 +33,7 @@ public class boardDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		Board b = new BoardService().selectBoard(bno);
 		Attachment at = new BoardService().selectAttachment(bno);
@@ -40,7 +41,7 @@ public class boardDetailServlet extends HttpServlet {
 		if(b != null) {
 			request.setAttribute("b", b);
 			request.setAttribute("at", at);
-			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);
+			request.getRequestDispatcher("views/board/blogDetail.jsp").forward(request, response);
 		}else {
 		
 		request.setAttribute("msg", "게시판 상세조회 실패");

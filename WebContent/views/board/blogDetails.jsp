@@ -51,10 +51,10 @@
                 <div class="col-lg-7">
                     <div class="blog__hero__text">
                         <div class="label">Trending</div>
-                        <h2><%= b.getBoardTitle() %></h2>
+                        <h2>제목</h2>
                         <ul>
-                            <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
-                            <li><i class="fa fa-user"></i><%= b.getBoardWriter() %></li>
+                            <li><i class="fa fa-clock-o"></i> 날짜</li>
+                            <li><i class="fa fa-user"></i> 작성자 </li>
                         </ul>
                     </div>
                 </div>
@@ -70,13 +70,16 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog__details__text">
+                    <form action="" id="postForm" method="post">
+			<input type="hidden" name="bno" value="글번호">
+		</form>
                         <div class="blog__details__video set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/details/blog-video-bg.jpg">
                             
                         </div>
-                        <p><%= b.getBoardContent() %></p>
+                        <p> 내용</p>
                         <img src="<%= request.getContextPath() %>/resources/img/blog/details/blog-item.jpg" alt="">
                         
-                        <table>
+                       <%--  <table>
                         <th>첨부파일</th>
 						<td>
 							<% if(at != null){ %>
@@ -85,7 +88,7 @@
 							첨부파일이 없습니다.
 							<% } %>
 						</td> 
-						</table>
+						</table> --%>
 						
                     </div>
                    
@@ -94,7 +97,7 @@
                         
                         <form action="#">
                         
-                        <%-- <% if(loginUser != null) { %> --%>
+                        <% if(loginUser != null) { %> 
                         
                         
                            <div class="blog__details__comment__title">
@@ -108,7 +111,7 @@
                             </div>
                             <button type="submit" class="site-btn">댓글 등록</button>
                             
-                       <%--      <% }else{ %> --%>
+                            <% }else{ %> 
                             
                             <div class="input-comment">
                                 <p>Comment</p>
@@ -116,7 +119,7 @@
                             </div>
                             <button type="submit" class="site-btn" disabled>댓글 등록</button>
                             
-                     <%--        <% } %> --%>
+                             <% } %> 
                         </form>
                     </div>
                 </div>

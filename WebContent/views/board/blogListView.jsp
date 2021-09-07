@@ -2,15 +2,15 @@
     pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
     
 <%
-ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
-PageInfo pi = (PageInfo)request.getAttribute("pi");
-
-int listCount = pi.getListCount();
-int currentPage = pi.getCurrentPage();
-int maxPage = pi.getMaxPage();
-int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
-%>
+	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,67 +206,7 @@ int endPage = pi.getEndPage();
             </div>
           </li>
 
-          <li data-aos="fade-up" data-aos-delay="200" class="aos-init aos-animate">
-            <a data-toggle="collapse" href="#faq2" class="collapsed">Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque? <i class="fas fa-arrow-up"></i></a>
-            <div id="faq2" class="collapse" data-parent=".faq-list">
-              <p>
-                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-              </p>
-            </div>
-          </li>
-
-          <li data-aos="fade-up" data-aos-delay="300" class="aos-init aos-animate">
-            <a data-toggle="collapse" href="#faq3" class="collapsed">Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi? <i class="fas fa-arrow-up"></i></a>
-            <div id="faq3" class="collapse" data-parent=".faq-list">
-              <p>
-                Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-                 Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                  Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                   Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                    Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                     Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                      Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                       Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                        Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                         Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                          Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                           Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                            Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                             Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                              Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                               Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                                Eleifend mi in nulla posuere sollicitudin aliquam ultr
-                                 Eleifend mi in nulla posuere sollicitudin aliquam ultr Eleifend mi in nulla posuere sollicitudin aliquam ultr
-              </p>
-            </div>
-          </li>
-
-          <li data-aos="fade-up" data-aos-delay="400" class="aos-init aos-animate">
-            <a data-toggle="collapse" href="#faq4" class="collapsed">Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla? <i class="fas fa-arrow-up"></i></a>
-            <div id="faq4" class="collapse" data-parent=".faq-list">
-              <p>
-                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-              </p>
-            </div>
-          </li>
-
-          <li data-aos="fade-up" data-aos-delay="500" class="aos-init aos-animate">
-            <a data-toggle="collapse" href="#faq5" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="fas fa-arrow-up"></i></a>
-            <div id="faq5" class="collapse" data-parent=".faq-list">
-              <p>
-                Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
-              </p>
-            </div>
-          </li>
-
-          <li data-aos="fade-up" data-aos-delay="600" class="aos-init aos-animate">
-            <a data-toggle="collapse" href="#faq6" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="fas fa-arrow-up"></i></a>
-            <div id="faq6" class="collapse" data-parent=".faq-list">
-              <p>
-                Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
-              </p>
-            </div>
-          </li>
+          
         </ul>
       </div>
     </section>
@@ -281,7 +221,9 @@ int endPage = pi.getEndPage();
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog__item__large">
+                    
                         <a href="<%= request.getContextPath() %>/views/board/blogDetails.jsp">
+                        
                         <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/seoul.jpg"></div>
                         </a>
                         <div class="blog__item__text">
@@ -291,7 +233,7 @@ int endPage = pi.getEndPage();
                                 <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
                                 <li><i class="fa fa-user"></i> John Smith</li>
                             </ul>
-                            <p>One of my favourite things I like to watch is the bloopers and outtakes that are shown of
+                            <p>One of my favorite things I like to watch is the bloopers and outtakes that are shown of
                                 mistakes made during the making of a movie.</p>
                         </div>
                     </div>
@@ -310,15 +252,21 @@ int endPage = pi.getEndPage();
                     
                         <div class="col-lg-6 col-md-6">
                             <div class="blog__item">
-                                <a href="blog-details.html">
-                                <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/bp-1.jpg"></div>
+                                <a href="<%=request.getContextPath() %>/detail.bo">
+                                <input type="hidden" value="<%=b.getBoardNo()%>">
+                                <div class="blog__item__pic set-bg" ><img src="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %>">
+				               
+				               <input type="hidden" value="<%=b.getBoardNo()%>">
+				               
+                                </div>
                                 </a>
                                 <div class="blog__item__text">
                                    
-                                    <h5><a href="#"><%= b.getBoardTitle() %></a></h5>
+                                    <h5><a href="<%=request.getContextPath() %>/detail.bo"><%= b.getBoardTitle() %></a></h5>
                                     <ul class="blog__item__widget">
                                         <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
                                         <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
+                                        <li><i class="fa fa-heart"></i> <%= b.getCount() %></li>
                                     </ul>
                                 </div>
                             </div>
@@ -395,6 +343,7 @@ int endPage = pi.getEndPage();
 					$(".blog__item>a").click(function(){
 						var bno = $(this).children().eq(0).text();
 						location.href="<%= contextPath%>/detail.bo?bno="+bno;
+						console.log(bno);
 					})
 				})
 				<%}%>

@@ -2,6 +2,7 @@ package semiProject.com.kh.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -62,48 +63,58 @@ public class boardInsertServlet extends HttpServlet {
 	         MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 	         //시스템파일명 -> 올린날짜 시간 들어간다. 중복되지 않게
 	         
-	         
-	         String title = multiRequest.getParameter("title");
-	         String content = multiRequest.getParameter("content");
-	         
 	         int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 	         
 	         Board b = new Board();
-	         b.setBoardTitle(title);
-	         b.setBoardContent(content);
-	         b.setBoardWriter(String.valueOf(userNo));
 	         
-	         Attachment at = null;
+	         b.setBoardTitle(multiRequest.getParameter("title"));
+	         b.setBoardContent(multiRequest.getParameter("content"));
+	         b.setBoardWriter(multiRequest.getParameter("writer"));
 	         
-	         if(multiRequest.getOriginalFileName("files") != null) {
-	            String originName = multiRequest.getOriginalFileName("files");
-	            String changeName = multiRequest.getFilesystemName("files");  //시스템파일명
-	            
-	            at = new Attachment();
-	            
-	            at.setFilePath(savePath);
-	            at.setOriginName(originName);
-	            at.setChangeName(changeName);
-	            
-	            
+	         System.out.println("b 객체 안에 : "+ b);
+	         
+	         request.setAttribute("b", b);
+	         
+	         ArrayList<Attachment> fileList = new ArrayList<>();
+	         
+	         request.setAttribute("fileList", fileList);
+	         
+	         for(int i = 1; i <=4; i++) {
+	        	 
+	        	 String name  = "file" + i;
+	        	 if(multiRequest.getOriginalFileName(name) != null) {
+	        		 
+	        		 String originName = multiRequest.getOriginalFileName(name);
+	        		 String changeName = multiRequest.getFilesystemName(name);
+	        		 
+	        		 Attachment at = new Attachment();
+	        		 
+	        		 at.setFilePath(savePath);
+	        		 at.setChangeName(changeName);
+	        		 at.setOriginName(originName);
+	        		 
+	        		 fileList.add(at);
+	        		 
+	        		 System.out.println("fileList 객체 안에 : "+ fileList);
+	        		 
+	        	 }
 	         }
 	         
-	         int result = new BoardService().insertBoard(b, at);
-	         
-	         
+	         int result = new BoardService().insertThumbnail(b, fileList);
+	        
+	         System.out.println("result 객체 안에 : "+ result);
 	         if(result > 0) {
-	            request.getSession().setAttribute("msg", "게시글등록성공");
-	            response.sendRedirect("list.bo");
+	        	 
+	        	 response.sendRedirect("list.bo");
+	        	 System.out.println("fileList b 객체 안에 둘다 : "+ fileList + "b 객체 안에 : " + b);
 	         }else {
-	            if(at != null) {
-	               File failedFile = new File(savePath+ at.getChangeName());
-	               failedFile.delete();
-	            }
-	            
-	            request.setAttribute("msg", "게시판 등록 실패");
-	            
-	            RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-	            view.forward(request, response);
+	        	 for(int i=0; i<fileList.size(); i++) {
+	        		 File failedFile = new File(savePath + fileList.get(i).getChangeName());
+	        		 failedFile.delete();
+	        	 }
+	        	 
+	        	 request.setAttribute("msg", "사진 등록실패하였습니다.");
+	           	 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 	         }
 	         
 	      }
