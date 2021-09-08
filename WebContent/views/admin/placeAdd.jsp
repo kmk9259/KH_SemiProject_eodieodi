@@ -104,8 +104,7 @@ height: 500px;
 						<!-- 일정 등록 -->
 						<div class="tab-pane active text-style placeAddForm">
 							
-							<form id="insertForm" action="<%=contextPath%>/insert.pl" method="post"
-								enctype="multipart/form-data">
+							<form id="insertForm" action="<%=contextPath%>/insert.pl" method="post"	enctype="multipart/form-data">
 								<div class="form-group">
 									<label class="control-label" style="margin-top: 30px;">지역</label><br>									
 									<select name="areaNo" class="planInput" >
