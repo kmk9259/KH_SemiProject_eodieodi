@@ -35,16 +35,15 @@ public class Notice_UpdateFormServlet extends HttpServlet {
 	
 		//조회할 게시글을 가져오기 
 		int nno = Integer.parseInt(request.getParameter("nno")); 
-		Notice n = new NoticeService().selectUpdateNotice(nno);
+		Notice notice = new NoticeService().selectUpdateNotice(nno);
 		
-	
-
 		String view ="";
 		
-		if(n != null) {
+		if(notice != null) {
 			//리퀘스트에 노티스 데이터 담기 
-			request.setAttribute("n", n);
-			view = "views/notice/admin_Notice_Update.jsp"; // 만약 널이 아니라면 공지사항 수정 상세페이지로 넘어가고 
+			request.setAttribute("notice", notice);
+			view = "views/notice/admin_Notice_Form.jsp"; 
+			// 만약 널이 아니라면 공지사항 수정 상세페이지로 넘어가고 
 			
 			
 		}else {

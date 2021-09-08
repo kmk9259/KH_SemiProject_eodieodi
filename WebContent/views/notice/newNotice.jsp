@@ -124,9 +124,9 @@
                                             <textarea type="text" rows="4" cols="100" id="content" name="content" placeholder="내용을 입력하세요 " class="form-control"
                                                       th:field="*{content}" autocomplete="off"></textarea>
                                         </div>
-                                        <button class="btn btn-primary">이전으로</button>
-                                        <button class="btn btn-primary" type="submit" >등록</button> 
-                                        <button class="btn btn-primary">취소</button>
+                                       
+                                        <button class="site-btn" type="submit" >등록</button> 
+                                        <button class="site-btn"type="reset">취소</button>
                     
                                       
                                        

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="semiProject.com.kh.notice.model.vo.Notice"%>
     
   <%
-	Notice n = (Notice)request.getAttribute("notice");
+	Notice notice = (Notice)request.getAttribute("notice");
 %>
 	
 <!DOCTYPE html>
@@ -116,32 +116,48 @@
 					 <br>
 						<h2 align="center">공지사항 상세보기 </h2>
 						<br>
-						<form>
-					   <input type="hidden" name ="nno" value="<%=n.getNoticeNo()%>">
-						<div>게시글 No. <%=n.getNoticeNo() %></div>
-						<hr/>
-						<div >게시글 제목 : <h3><%= n.getNoticeTitle() %></h3> </div>
-						<hr/>
-						<div id="wr">작성자 : <%=n.getNoticeWriter() %></div><br>
-						<div id="dt">작성날짜 : <%=n.getCreateDate()%></div>
+						
+			<form method="post" action="<%=contextPath %>/updateForm.no">
+			
+					   <input type="hidden" name ="nno" value="<%=notice.getNoticeNo()%>">
 					
-						<div id="content"><%= n.getNoticeContent() %></div>
-					
-					
-					 		<div class="btns" align="center">
-							    
-							        <a href="list.no">목록으로</a> &nbsp;&nbsp;
-							        	<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
-							       	<a href="updateForm.no?nno=<%=n.getNoticeNo()%>">수정하기</a> &nbsp;&nbsp;
-							        <a href="delete.no?nno=<%=n.getNoticeNo()%>">삭제하기</a>  
-							        <!-- 수정하기 및 삭제하기 버튼은 관리자만 뜨기  -->
-							        <!-- 삭제하기 이후 목록으로 돌아가기 걸어주기  -->
-					    
-								<% } %>
+						   
+							<div>게시글 No. <%=notice.getNoticeNo() %></div>
+							<hr/>
+							<div name="title" >게시글 제목 : <h3><%= notice.getNoticeTitle() %></h3> </div>
+							<hr/>
+							<div id="wr">작성자 : <%=notice.getNoticeWriter() %></div><br>
+							<div id="dt">작성날짜 : <%=notice.getCreateDate()%></div>
+						
+							<div id="content" name="content"><%= notice.getNoticeContent() %></div>
+						
+							
+						 
+						 	<div class="btns" align="center"> <!-- 버튼만 있는 애들  -->
+						 		
+												    
+							<!-- <button class="site-btn" onclick="location.href='/list.no'">목록으로</button> -->
+						    <a href="list.no">목록으로</a> &nbsp;&nbsp; 
+												        
+							<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+												       
+							<button type="submit" class="site-btn">수정하기</button> &nbsp;&nbsp;
+								
+							<%-- <a href="updateForm.no?nno=<%=n.getNoticeNo()%>">수정하기</a> &nbsp;&nbsp; --%>
+							<a href="delete.no?nno=<%=notice.getNoticeNo()%>">삭제하기</a>  
+							<%-- 
+							<button class="site-btn" onclick="location.href='delete.no?nno=<%=n.getNoticeNo()%>'">삭제하기</button>
+							 --%>
+													<% } %>
 								
 					    	 </div>
-						</form>
-					 </section>
+		
+		
+			</form>
+			
+			
+			
+			 </section>
 
    
      </section>

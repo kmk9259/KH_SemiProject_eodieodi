@@ -167,8 +167,8 @@
 																	<td><%= n.getNoticeWriter() %></td>
 																	<td><%= n.getCount() %></td>
 																	<td><%= n.getCreateDate() %></td>
-																	<td><button  id="update_button" onclick="updateForm.no?nno=<%=n.getNoticeNo()%>" type="button" class="btn btn-primary">수정</button></td>
-																	<td><button type="button" class="btn btn-primary">삭제</button></td>
+											<td><button  id="update_button" type="button" class="site-btn">수정</button></td>
+																	<td><button type="button" class="site-btn">삭제</button></td>
 																	
 														 		</tr>
 					 									 	<% } %>
@@ -193,7 +193,7 @@
 				<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
 				<!--로그인 한 사람중에 admin만 글을 작성할 수 있음   -->
 				
-				<button onclick="location.href='<%=contextPath%>/enrollForm.no'" type="button" class="btn btn-primary">새 공지 등록하기 </button>
+				<button onclick="location.href='<%=contextPath%>/enrollForm.no'" type="button" class="site-btn">새 공지 등록하기 </button>
 					
 					<% } %>
 				</div>

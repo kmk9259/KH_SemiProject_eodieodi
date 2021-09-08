@@ -82,11 +82,11 @@ public class NoticeService {
 	}
  
 	//게시글 수정하기 
-	public int updateNotice(Notice n) {
+	public int updateNotice(Notice notice) {
 
 		Connection conn = getConnection();		
 
-		int result = new NoticeDao().updateNotice(conn, n);
+		int result = new NoticeDao().updateNotice(conn, notice);
 
 		if (result > 0) {
 			commit(conn);
