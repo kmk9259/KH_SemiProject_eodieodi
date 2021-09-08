@@ -31,7 +31,7 @@ public class NoticeEnrollForm extends HttpServlet {
 		//공지사항 작성 페이지 이동 
 		request.getRequestDispatcher("views/notice/newNotice.jsp").forward(request, response);
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

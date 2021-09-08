@@ -247,8 +247,8 @@
                         </div>
                         
                         <div class="total_btn">
-                            <a href="<%= contextPath %>/index.jsp"><button type="button" class="btn btn-dark">메인으로</button></a>
-                            <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"><button type="submit" class="btn btn-dark">다음으로</button></a>
+                            <a href="<%= contextPath %>/index.jsp"><button type="button" class="site-btn">메인으로</button></a>
+                            <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"><button type="submit" class="site-btn">다음으로</button></a>
                         </div>
 
 
@@ -288,6 +288,7 @@
 		        })
 		      
 		    })
+		
 		</script>
 		
 <script>

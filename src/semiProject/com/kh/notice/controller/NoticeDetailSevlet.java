@@ -36,7 +36,7 @@ public class NoticeDetailSevlet extends HttpServlet {
 		
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		 
+		  
 		Notice notice = new NoticeService().selelctNotice(nno); //nno 받아온걸 조회메소드로 가지고 감  
 	
 		String view ="";

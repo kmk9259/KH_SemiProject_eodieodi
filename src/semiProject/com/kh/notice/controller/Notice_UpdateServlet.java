@@ -35,44 +35,33 @@ public class Notice_UpdateServlet extends HttpServlet {
 				
 		// getparameter은 항상 스트링형태로 반환해줘서 형변환 해주는데 뭐가 문제임 ㅠ 
 		
-		// int nno = Integer.parseInt(request.getParameter("nno"));  // 조회한 게시글 가져오기 
+		int nno = Integer.parseInt(request.getParameter("nno"));  // 조회한 게시글 가져오기 
 		
-		String nno = request.getParameter("nno");
-		
-		
-		System.out.println(nno+"nno 잘들고 오는지 ");
-		System.out.println(nno+"nno 잘들고 오는지 ");
-		System.out.println(nno+"nno 잘들고 오는지 ");
-		System.out.println(nno+"nno 잘들고 오는지 ");
-	
-		
-	
-		
-		
+//		System.out.println(nno + "nno 잘들고 오는지 ");
+//		System.out.println(nno + "nno 잘들고 오는지 ");
+//		System.out.println(nno + "nno 잘들고 오는지 ");
+//		System.out.println(nno + "nno 잘들고 오는지 ");
+
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
-		
-			Notice n = new Notice(); 
-	//		n.setNoticeNo(nno);
-			n.setNoticeTitle(title);
-			n.setNoticeContent(content.replaceAll("\n", "<br>"));
-		
 	
-		System.out.println(n+"조회된 n 잘 들고 오는지? ");
-		System.out.println(n+"조회된 n 잘 들고 오는지? ");
-		System.out.println(n+"조회된 n 잘 들고 오는지? ");
-	
-		int result = new NoticeService().updateNotice(n);
+		System.out.println(title+content+"컨텐츠랑 타이틀 잘 들ㅇ고오는지 ");
+		
+	 		Notice notice = new Notice(); 
+			notice.setNoticeNo(nno);
+			notice.setNoticeTitle(title);
+			notice.setNoticeContent(content.replaceAll("\n", "<br>"));
+			
+			int result = new NoticeService().updateNotice(notice);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "공지사항이 성공적으로 수정되었습니다.");
-			response.sendRedirect("detail.no?nno="+nno);
-			//수정된 페이지의 번호 상세페이지로 보여줄려고 
+			response.sendRedirect("detail.no?nno=" + nno);
+			//수정된 내용을 상세페이지에 보여줄려고 nno를 같이 넘긴다. 
 			
+
 		}else {
 			request.setAttribute("msg", "공지사항 수정에 실패하였습니다 ");
-			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			
 		}

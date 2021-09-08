@@ -96,7 +96,7 @@ public class NoticeDao {
 	
 	
 	//공지 등록 
-	public int insertNotice(Connection conn, Notice n) {
+	public int insertNotice(Connection conn, Notice notice) {
 
 //insertNotice=INSERT INTO NOTICE VALUES(SEQ_NNO.NEXTVAL, ?, ?, ?, DEFAULT, SYSDATE, DEFAULT)
 		
@@ -108,9 +108,9 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeContent());
-			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter()));
+			pstmt.setString(1, notice.getNoticeTitle());
+			pstmt.setString(2, notice.getNoticeContent());
+			pstmt.setInt(3, Integer.parseInt(notice.getNoticeWriter()));
 			
 			
 			result =pstmt.executeUpdate();
@@ -194,43 +194,45 @@ public class NoticeDao {
 			close(rset);
 			close(pstmt);
 		}
-
-	//	System.out.println("공지사항 상세조회 값 들어오니 ?" + n);
-
+		
 		return n; // 노티스 객체 담은거 리턴시켜주기 
 	}
 
 
 	//게시글 수정하기 
-	public int updateNotice(Connection conn, Notice n) {
+	public int updateNotice(Connection conn, Notice notice) {
 
-	//updateNotice=UPDATE NOTICE SET NOTICE_TITLE=?, NOTICE_CONTENT=? WHERE NOTICE_NO=?
+		//updateNotice=UPDATE NOTICE SET NOTICE_TITLE=?, NOTICE_CONTENT=? WHERE NOTICE_NO=?
 
-		int result = 0;
-		PreparedStatement pstmt = null; 
-		
+			int result = 0;
+			PreparedStatement pstmt = null;
 
-		String sql = prop.getProperty("updateNotice");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
+
+			String sql = prop.getProperty("updateNotice");
 			
-			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeContent());
-			pstmt.setInt(3, n.getNoticeNo());
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, notice.getNoticeTitle());
+				pstmt.setString(2, notice.getNoticeContent());
+				pstmt.setInt(3, notice.getNoticeNo());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
 			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
+			System.out.println("값은 잘 들어오나 result " + result) ;
+			System.out.println("값은 잘 들어오나 result " + result) ;
+			System.out.println("값은 잘 들어오나 result " + result) ;
+			System.out.println("값은 잘 들어오나 result " + result) ;
+
+			return result;
 		}
-		
-		 
-		return result;
-	}
 
 
 	//게시글 삭제하기 

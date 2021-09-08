@@ -11,8 +11,9 @@ public class AdminPlan {
 //	PLAN_TITLE	VARCHAR2(100 BYTE)
 //	CREATE_DATE	DATE
 	
-	private int planNo; //일정 번호 
+	private int planNo; //일정 번호 (
 	private int userNo; //사용자 번호  
+	private int areaNo; // 먼가 플레이스를 참조하는 fk 키가 있어야되지 않을까...?
 	private String planTitle; //일정 제목 
 	private Date createDate; // 생성일자 
 	
@@ -20,16 +21,36 @@ public class AdminPlan {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminPlan(int planNo, int userNo, String planTitle, Date createDate) {
+
+
+
+	public AdminPlan(int planNo, int userNo, int areaNo, String planTitle, Date createDate) {
 		super();
 		this.planNo = planNo;
 		this.userNo = userNo;
+		this.areaNo = areaNo;
 		this.planTitle = planTitle;
 		this.createDate = createDate;
 	}
+ 
 
 
-	 
+
+
+	public int getAreaNo() {
+		return areaNo;
+	}
+
+
+
+
+	public void setAreaNo(int areaNo) {
+		this.areaNo = areaNo;
+	}
+
+
+
+
 	public int getPlanNo() {
 		return planNo;
 	}

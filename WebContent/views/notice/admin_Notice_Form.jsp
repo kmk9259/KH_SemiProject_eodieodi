@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="semiProject.com.kh.notice.model.vo.Notice" %>
 	
 <%
-	Notice n = (Notice)request.getAttribute("notice");
+	Notice notice = (Notice)request.getAttribute("notice");
 %>
 
 <!DOCTYPE html>
@@ -33,12 +33,12 @@
     margin-right:50px;
     height: 400px;
     padding: 10px;
-    margin-top: 2.5%;
+    margin-top: 2.5%; 
     background-color: #FFF3E7;
     border: 1px solid #D34B32;
    	
 }
-
+ 
 </style>
 
 </head>
@@ -112,66 +112,38 @@
 				</div>	
 				
 				
+				
+				
 				<div class="admin-showpage nice-scroll">
-				
-				<%-- 
-				 <div class="container">
-                            <div class="row">
-                                <div class="col-md-8 mt-5">
-                                
-                                 <form method="post" action="<%=contextPath%>/update.no">
-                                   <!-- th:object="${post}" -->
-                                    <input type="hidden" name="nno" value="<%=n.getNoticeNo()%>"> 
-                                    
-                                 
-                                     	   <h2>공지사항 수정 </h2>
-                                        <div class="form-group">
-                                            <label for="">제목</label>
-                                            <input type="text" name="title" value="<%=n.getNoticeTitle()%>" autocomplete="off" class="form-control"
-                                                   />
-                                   
-                                        </div>
+			
+
+   		 <form method="post" action=" <%= contextPath %>/update.no"> 
+                      	<input type ="hidden" name="nno" value="<%=notice.getNoticeNo()%>">
+ 		<br><br>
+                       	   <h2>공지사항 수정</h2>
+                       	   
+                           <div class="form-group">
+                               <label for="title">제목</label>
+                               <input type="text" id="title" name="title" value="<%=notice.getNoticeTitle() %>"  class="form-control"/>
+                               
+                           </div>
+           
+                           <div class="form-group">
+                               <label for="content">내용 </label>
+                               <input type="textArea" rows="4" cols="100" id="content" name="content" value="<%=notice.getNoticeContent()%>" class="form-control"
+                                        ></input>
+                           </div>
+                           <button class="btn btn-primary">이전으로</button>
+                           <button class="btn btn-primary" type="submit" >수정등록</button> 
+                           <button class="btn btn-primary">취소</button>
+       
+      </form>  
                         
-                                        <div class="form-group">
-                                            <label for="">내용 </label>
-                                            <textarea type="text" rows="4" cols="100" style="resize:none;" name="content" value="<%=n.getNoticeContent()%>" class="form-control"
-                                                     ></textarea>
-                                        </div>
-                                        <button class="btn btn-dark">이전으로</button>
-                                        <button class="btn btn-dark" type="submit" >등록</button> 
-                                        <button class="btn btn-dark">취소</button>
-                    
-                                      
-                                       
-              </form>
-                                </div>
-                            </div>
-                        
-                        </div> --%>
-        
-        
- 	<form method="post" action="<%=contextPath%>/update.no">
- 	<input type="hidden" name ="nno" value="<%=n.getNoticeNo()%>">
- 
- 제목: 	<input type="text" name="title" value="<%=n.getNoticeTitle()%>">
- 내용: 	<textarea type="text" rows="4" cols="100" style="resize:none;" name="content" value="<%=n.getNoticeContent()%>" class="form-control"
-           ></textarea>
-        
-        
-<!--             <button class="btn btn-dark">이전으로</button>
- -->            <button class="btn btn-dark" type="submit" >등록</button> 
-            <button class="btn btn-dark" type="reset">취소</button>
-                                  
- </form>
-
+					</div>
+						</section><!-- admin -->
+					</section><!-- page- end -->
 				
-				</div>
-		</section><!-- admin -->
-		
-		
-	</section><!-- page- end -->
-
-
+				
 
 
 	<%@ include file="../common/footer.jsp" %>

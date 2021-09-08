@@ -40,7 +40,7 @@ public class NoticeListServlet extends HttpServlet {
 
 		RequestDispatcher view = request.getRequestDispatcher("views/notice/admin_NoticeList.jsp");
 		view.forward(request, response);
-	}
+	} 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
