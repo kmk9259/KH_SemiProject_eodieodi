@@ -40,7 +40,7 @@
     background-color: #FFF3E7;
 /*     border: 1px solid #D34B32;
  */}
-
+ 
 	
 	#listArea>tbody>tr:hover{
 		background:pink;

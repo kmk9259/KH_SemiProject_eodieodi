@@ -32,7 +32,7 @@ public class AdminPlan {
 		this.planTitle = planTitle;
 		this.createDate = createDate;
 	}
-
+ 
 
 
 

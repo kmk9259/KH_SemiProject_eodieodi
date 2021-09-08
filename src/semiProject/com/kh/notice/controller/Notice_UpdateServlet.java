@@ -47,7 +47,7 @@ public class Notice_UpdateServlet extends HttpServlet {
 	
 		System.out.println(title+content+"컨텐츠랑 타이틀 잘 들ㅇ고오는지 ");
 		
-			Notice notice = new Notice(); 
+	 		Notice notice = new Notice(); 
 			notice.setNoticeNo(nno);
 			notice.setNoticeTitle(title);
 			notice.setNoticeContent(content.replaceAll("\n", "<br>"));

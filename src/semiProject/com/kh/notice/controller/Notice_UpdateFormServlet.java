@@ -45,7 +45,7 @@ public class Notice_UpdateFormServlet extends HttpServlet {
 			view = "views/notice/admin_Notice_Form.jsp"; 
 			// 만약 널이 아니라면 공지사항 수정 상세페이지로 넘어가고 
 			
-			
+			 
 		}else {
 			request.setAttribute("msg", "공지사항 수정조회 실패");
 			view = "views/common/errorPage.jsp";

@@ -38,7 +38,7 @@
 	border: 1px solid #D34B32;
 }
 
- #dt,#wr{
+ #dt,#wr{ 
 	
 	float: right;
 

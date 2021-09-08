@@ -46,5 +46,5 @@ public class adminPlan_DetailServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+ 
 }

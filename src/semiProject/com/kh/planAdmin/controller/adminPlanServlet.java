@@ -48,7 +48,7 @@ public class adminPlanServlet extends HttpServlet {
 		//Date planDate=  java.sql.Date.valueOf(aDate);
 		Date adminDate = Date.valueOf(aDate);
 		
-		
+		 
 	//	AdminPlan ap = new AdminPlan(theme,which, planTitle, adminDate);
 	}
  

@@ -33,12 +33,12 @@
     margin-right:50px;
     height: 400px;
     padding: 10px;
-    margin-top: 2.5%;
+    margin-top: 2.5%; 
     background-color: #FFF3E7;
     border: 1px solid #D34B32;
    	
 }
-
+ 
 </style>
 
 </head>
