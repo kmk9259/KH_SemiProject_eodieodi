@@ -16,6 +16,7 @@ import java.util.Properties;
 import semiProject.com.kh.board.model.vo.Attachment;
 import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.board.model.vo.PageInfo;
+import semiProject.com.kh.notice.model.vo.Notice;
 
 public class BoardDao {
 
@@ -68,19 +69,24 @@ public class BoardDao {
 		return listCount;
 	}
 
-	public ArrayList<Board> selectList(Connection conn, PageInfo pi) {
+	public ArrayList<Board> selectThList(Connection conn, PageInfo pi) {
 		ArrayList<Board> list = new ArrayList<>();
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-//selectList=SELECT * FROM 
-//(SELECT ROWNUM RNUM, A.* FROM 
-//(SELECT BOARD_NO, CATEGORY_NAME, BOARD_TITLE, USER_ID, COUNT, CREATE_DATE FROM BOARD B JOIN CATEGORY 
-//USING(CATEGORY_NO) JOIN MEMBER ON (BOARD_WRITER=USER_NO) 
-//WHERE BOARD_TYPE=1 AND B.STATUS='Y' ORDER BY BOARD_NO DESC) A) WHERE RNUM BETWEEN ? AND ?
+		/*
+		 * selectThList=SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT BOARD_NO,
+		 * BOARD_TITLE, USER_ID, COUNT, CREATE_DATE, CHANGE_NAME FROM BOARD B JOIN
+		 * (SELECT * FROM ATTACHMENT WHERE FILE_NO IN( SELECT MIN(FILE_NO) FILE_NO FROM
+		 * ATTACHMENT WHERE STATUS = 'Y' GROUP BY REF_BNO)) ON (REF_BNO = BOARD_NO) JOIN
+		 * MEMBER ON (BOARD_WRITER=USER_NO) WHERE B.STATUS='Y' ORDER BY BOARD_NO DESC)
+		 * A) WHERE RNUM BETWEEN ? AND ?
+		 */
 
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("selectThList");
+		
+		System.out.println("sql 문 보려구!!: " + sql);
 
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -98,13 +104,17 @@ public class BoardDao {
 			System.out.println("sql : " + sql);
 
 			while (rset.next()) {
-				list.add(new Board(rset.getInt("BOARD_NO"),
-							rset.getString("BOARD_TITLE"),
-							rset.getString("USER_ID"),
-							rset.getInt("COUNT"),
-							rset.getDate("CREATE_DATE")
-
-				));
+				
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setCreateDate(rset.getDate("CREATE_DATE"));
+				b.setTitleImg(rset.getString("CHANGE_NAME"));
+						
+				list.add(b);
+				
 
 				System.out.println("list : " + list);
 
@@ -137,6 +147,7 @@ public class BoardDao {
 			pstmt.setInt(3, Integer.parseInt(b.getBoardWriter()));
 			
 			result = pstmt.executeUpdate();
+			System.out.println("======result====="+result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,6 +155,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return result;
+		
 	}
 
 	public int insertAttachment(Connection conn, Attachment at) {
@@ -267,7 +279,7 @@ public class BoardDao {
 				at.setOriginName(rset.getString("ORIGIN_NAME"));
 				at.setChangeName(rset.getString("CHANGE_NAME"));
 				
-			
+				System.out.println("첨부파일 : "+ at);
 				
 			}
 		} catch (SQLException e) {
@@ -279,5 +291,185 @@ public class BoardDao {
 		}
 		return at;
 	}
+	
+	public ArrayList<Board> selectThList(Connection conn) {
+		
+//		selectThList=SELECT BOARD_NO, BOARD_TITLE, COUNT, CHANGE_NAME \
+//				FROM BOARD JOIN (SELECT * FROM ATTACHMENT \
+//				WHERE FILE_NO IN( \
+//				SELECT MIN(FILE_NO) FILE_NO FROM ATTACHMENT WHERE STATUS='Y' GROUP BY REF_BNO)) ON (REF_BNO = BOARD_NO) \
+//				WHERE BOARD.STATUS='Y' AND BOARD.BOARD_TYPE=2 ORDER BY BOARD_NO DESC
+//		
+		
+		ArrayList<Board> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		String sql = prop.getProperty("selectThList");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setTitleImg(rset.getString("CHANGE_NAME"));
+						
+				list.add(b);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
+	public int insertThBoard(Connection conn, Board b) {
+		int result =0;
+	      PreparedStatement pstmt = null;
+	      //insertThBoard=INSERT INTO BOARD VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, DEFAULT, SYSDATE, DEFAULT)
+	      String sql = prop.getProperty("insertThBoard");
+	      System.out.println("내용 등록 퀴리문 : "+ sql);
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         
+//	         BOARD_TITLE
+//	         BOARD_CONTENT
+//	         BOARD_WRITER
+	         
+	         
+	         pstmt.setString(1, b.getBoardTitle());
+	         pstmt.setString(2, b.getBoardContent());
+	         pstmt.setInt(3,  Integer.parseInt(b.getBoardWriter()));
+	         
+	         result= pstmt.executeUpdate();
+	         
+	         System.out.println("내용등록 : "+ result);
+	         
+	         
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	      }
+	      return result;
+	}
+
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, SEQ_BNO.CURRVAL, ?, ?, ?, SYSDATE, DEFAULT)
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertAttachment");
+
+		System.out.println("퀴리문 : "+ sql);
+		try {
+			System.out.println("for 문 전 size : "+fileList.size());
+			
+			
+			
+			for(int i = 0; i<fileList.size(); i++) {
+				
+				Attachment at = fileList.get(i);
+				
+				System.out.println(at.getOriginName());
+				System.out.println(at.getChangeName());
+				System.out.println(at.getFilePath());
+				
+				
+				System.out.println("파일번호" + fileList.get(0).getFileNo());
+				System.out.println("참조번호" + fileList.get(0).getRefBoardNo());
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				
+				
+				result += pstmt.executeUpdate();
+				
+				System.out.println(at.getOriginName());
+				System.out.println(at.getChangeName());
+				System.out.println(at.getFilePath());
+				System.out.println("첨부파일 여러개 : "+ result);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
+
+	
+//커뮤니에 오를 공지사항
+	public ArrayList<Notice> selectNList(Connection conn) {
+		//selectNList=SELECT NOTICE_TITLE, NOTICE_CONTENT FROM NOTICE
+
+
+		
+		
+		ArrayList<Notice> nlist = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		//selectNList=SELECT NOTICE_TITLE, NOTICE_CONTENT FROM NOTICE
+		String sql = prop.getProperty("selectNList");
+		
+		System.out.println("sql 문은 읽히는지 : " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery(); // 쿼리문 실행 
+			
+			System.out.println("==1==="+rset);
+			
+			
+			// 두개만 목록을 가져와서 객체로 생성함 
+			while(rset.next()) {
+				
+				nlist.add(new Notice(rset.getString("NOTICE_TITLE"),
+									rset.getString("NOTICE_CONTENT")
+									
+						
+						));
+				
+				System.out.println("보드 다오에서 넘겨보기 : " +  nlist);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		return nlist;
+	}
+
+	
 }
