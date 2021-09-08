@@ -3885,7 +3885,7 @@ mypage
 .container-showpage{
 	float: right;
 	width: 70%;
-	height: 550px;
+	height: 660px !important; 
 	padding: 10px;
 	margin-top: 2.5%;
 	background-color: #FFF3E7; 
@@ -3898,6 +3898,7 @@ mypage
 }
 .tInfo{
 	margin-left: 5%;
+	margin-top: 5%;
 }
 .infoUp{
 	width: 80%;
