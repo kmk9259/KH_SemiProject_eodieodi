@@ -108,7 +108,7 @@
                         <h2 style="color: #D34B32 !important">Eodi Eodi<br> My Page</h2>
                         <p>Welcome To MyPage</p>
                     </div>
-                </div>
+                </div>	
                 <!------ MENUSIDE BAR ---------->
                 <div class="container menuBar">
                     <div class="col-sm-2">
@@ -117,9 +117,9 @@
                                 <li class="active menuB parent"><a href="#mInfo" data-toggle="tab">내 정보</a></li>
                                 <li class="menuB "><a href="#mInfoUp" data-toggle="tab">내 정보 수정</a></li>
                                 <li class="menuB"><a href="#pwUp" data-toggle="tab">비밀번호 변경</a></li>
-                                <li class="menuB parent"><a href="<%=contextPath %>/views/board/blogListView.jsp">커뮤니티</a></li>
+                                <li class="menuB parent"><a href="<%=contextPath %>/list.bo">커뮤니티</a></li>
                                 <li class="menuB"><a href="#myPost" data-toggle="tab">내가 쓴 글</a></li>
-                                <li class="menuB parent"><a href="<%=contextPath %>/views/plan/planSave.jsp">일정 보관함</a></li>
+                                <li class="menuB parent"><a href="<%=contextPath %>/list.ps">일정 보관함</a></li>
                                 <li class="menuB parent"><a href="#wd" data-toggle="tab">회원 탈퇴</a></li>
                                 <li class="menuB"><a href="#wd" data-toggle="tab">탈퇴하기</a></li>
                             </ul>
@@ -138,21 +138,23 @@
                         <div class="tab-pane active text-style" id="mInfo">
                             <h2 class="tInfo">내 정보</h2>
                             <br><br>
+                            <br><br>
+                            
                             	<label style="width: 80px; margin-left: 10%;"><h5>아이디</h5></label>
                             	<input class="conInfo" value="<%= userId %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>이름</h5></label>
                             	<input class="conInfo" value="<%= userName %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>전화번호</h5></label>
                             	<input class="conInfo" value="<%= phone %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>이메일</h5></label>
                             	<input class="conInfo" value="<%= email %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br>
+                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
                         </div>
 
                         <!-- 내 정보 수정 -->
@@ -173,23 +175,32 @@
                                         value="<%= userName %>" />
                                         
                                     <label class="control-label">변경할 전화번호를 입력해주세요(010-XXXX-XXXX)</label>
-                                    <input maxlength="100"  type="text" required="required"
+                                    <input maxlength="100" type="text" required="required"
                                      	id="phone" name="phone"class="form-control"
                                         value="<%= phone %>" /><br>
                                         
-                                    <label class="control-label">변경할 이메일을 입력해주세요(hongil@naver.com)</label><br>
+                                    <label class="control-label">변경할 이메일을 입력해주세요(xxxx@naver.com)</label><br>
                                     <input maxlength="100" type="text" required="required" class="form-control"
                                     	name="email"
                                         value="<%= email %>" style=" width: 80%; float: left;" /><br>
                                         
-								  <button style="float: right; background-color: #D958A0; color:#fff;
-								   border:none; width:100px; height:48px; border-radius: 5px; margin-top : -21px;"
-								    type="button" id="emailCheckBtn" onclick="checkEmail();"><h6 style="color:#fff;">이메일인증</h6></button><br><br>
+								  <input style="float: right; background-color: #D958A0; color:#fff;
+								   border:none; width:110px; height:48px; border-radius: 5px; margin-top : -21px; color:#fff;"
+								    type="button" id="emailCheckBtn" onclick="emailChk();" value="이메일인증"/><br><br>
 								    
-                                    <!-- <label class="control-label">인증확인</label>
+								    <!-- </button>
+                                   <label class="control-label">인증확인</label><br>
                                     <input maxlength="100" type="text" required="required" class="form-control"
-                                        placeholder="인증번호를 입력해주세요" /> -->
+                                    	name = "email_chk_result"
+                                        placeholder="인증번호를 입력해주세요 "style=" width: 80%; float: left;" disabled="disabled"/>
                                         <br>
+                                        
+                                         <button style="float: right; background-color: #D958A0; color:#fff;
+										   border:none; width:100px; height:48px; border-radius: 5px; margin-top : -21px;"
+										   name = "email_chk"
+								    		type="button" id="checkMail" onclick="checkMail();" disabled="disabled"><h6 style="color:#fff;">인증하기</h6></button><br><br>
+								     -->
+								    
                                     <center><button type="submit" style=" background-color: #D958A0; color:#fff;
 							   				border:none; width:100px; height:48px; border-radius: 5px; "
                                     		 id="updateBtn">저장하기</button></center>
@@ -201,34 +212,20 @@
 
 						<script>
 						
-						$('#phone').keydown(function(event) {
-						    var key = event.charCode || event.keyCode || 0;
-						    $text = $(this);
-						    if (key !== 8 && key !== 9) {
-						        if ($text.val().length === 3) {
-						            $text.val($text.val() + '-');
-						        }
-						        if ($text.val().length === 8) {
-						            $text.val($text.val() + '-');
-						        }
-						    }
-						 
-						    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
-						});
-
-
-						
-	
-							var email = $("input[name='email']");
-							var emailV = email.val();
-							var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-							if(exptext.test(emailV)==false){
-								if(confirm("이메일 형식에 맞추어 입력해주세요.") == true){
-									email.val('');
-									email.focus();
-									return false;
-								}
+						function emailChk() {
+							
+							var mail = $("input[name='email']");
+							   if(mail.val() == "" || mail.val() == null) {
+							      alert("이메일을 입력해주세요.");
+							   } else {
+							      var url ="<%=request.getContextPath() %>/views/member/emailChkController.jsp?command=emailChk&email=" + mail.val();
+						            var name = "인증번호 입력";
+						            var option = "width = 500, height = 500, top = 100, left = 200"
+							      open(url, name, option);
+							   }
+							   
 							}
+						
 						</script>
 
 
@@ -318,6 +315,8 @@
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form method="post" id="deleteForm" action="<%= request.getContextPath() %>/delete.me">
                                 		 <input type="hidden" id="userId" name="userId" value="<%= userId %>">
+                                		 
+                                		  <br><br>
                                     <input type="password" class="input-lg form-control" name="deleteUser" id="deleteUser"
                                         placeholder="현재 비밀번호를 입력하세요" autocomplete="off" required="required">
                                         <br><br>
