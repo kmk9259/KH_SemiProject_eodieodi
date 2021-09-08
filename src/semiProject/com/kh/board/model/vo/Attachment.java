@@ -10,14 +10,14 @@ public class Attachment {
 	private String filePath; // 파일이 저장된 폴더 경로
 	private Date uploadDate; // 파일 업로드일
 	private String status; // 파일 상태값
-	private int fileLevel; // 1:타이틀이미지, 2:내용이미지
+	
 
 	public Attachment() {
 
 	}
 
 	public Attachment(int fileNo, int refBoardNo, String originName, String changeName, String filePath,
-			Date uploadDate, String status, int fileLevel) {
+			Date uploadDate, String status) {
 		super();
 		this.fileNo = fileNo;
 		this.refBoardNo = refBoardNo;
@@ -26,7 +26,6 @@ public class Attachment {
 		this.filePath = filePath;
 		this.uploadDate = uploadDate;
 		this.status = status;
-		this.fileLevel = fileLevel;
 	}
 
 	public int getFileNo() {
@@ -85,19 +84,13 @@ public class Attachment {
 		this.status = status;
 	}
 
-	public int getFileLevel() {
-		return fileLevel;
-	}
-
-	public void setFileLevel(int fileLevel) {
-		this.fileLevel = fileLevel;
-	}
+	
 
 	@Override
 	public String toString() {
 		return "Attachment [fileNo=" + fileNo + ", refBoardNo=" + refBoardNo + ", originName=" + originName
 				+ ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", status="
-				+ status + ", fileLevel=" + fileLevel + "]";
+				+ status + "]";
 	}
 
 	

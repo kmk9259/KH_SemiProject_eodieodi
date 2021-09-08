@@ -3,6 +3,7 @@ package semiProject.com.kh.board.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import semiProject.com.kh.board.model.service.BoardService;
 import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.board.model.vo.PageInfo;
+import semiProject.com.kh.notice.model.service.NoticeService;
+import semiProject.com.kh.notice.model.vo.Notice;
 
 
 
@@ -109,13 +112,32 @@ public class boardListServlet extends HttpServlet {
 				
 				//생성자 순서대로 인자 넣어서 담아줬다.
 				PageInfo pi = new PageInfo(listCount,currentPage,startPage,endPage,maxPage, pageLimit, boardLimit);
+				Board b = new Board();
 				
-				ArrayList<Board> list = new BoardService().selectList(pi);
+			
 				
 				
+				ArrayList<Board> list = new BoardService().selectThList(pi);
+				
+				//공지사항도 넘겨줘야 하니깐
+				ArrayList<Notice> nlist = new BoardService().selectNList();
+				
+				
+				
+				//값이 없다는 것은.... 
+				System.out.println("******** " +nlist + "********");
+
+				
+				
+				//VIEW 단으로 넘겨주는 객체들 
+				request.setAttribute("nlist", nlist);
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi); // 담아온 페이지 정보도 넘겨준다. 
 				request.getRequestDispatcher("views/board/blogListView.jsp").forward(request, response);
+				
+				
+				
+				
 				
 				
 	}
