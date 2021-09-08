@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, semiProject.com.kh.place.model.vo.Place"%>
+<%
+	PlanMy pm = (PlanMy)request.getAttribute("pm");
+	ArrayList<Place> pList = (ArrayList<Place>)request.getAttribute("pList");
+%> 	
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,20 +84,20 @@
             <div class="row">
                 <div class="col-lg-10">
                     <div class="planDetail_title">
-                        <h3>일정 제목</h3>
+                        <h3><%=pm.getPlanTitle()%></h3>
                     </div>
                 </div>
             </div>
 
             <div class="planDetail_contents">
             	<div class="planDetail_detail">
-                    <h4>날짜 : 09/30/2021</h4>
+                    <h4>날짜 : <%=pm.getPlanDate()%></h4>
                 </div>
                 <div class="planDetail_detail">
                     <h4>일정 메모</h4>
                 </div>
                 <div class="planDetail_detail">
-                    <input type="textArea" readonly>
+                    <input type="textArea" value="<%=pm.getPlanMemo()%>" readonly>
                 </div>
   
                 <table class="listArea">
@@ -100,24 +105,26 @@
                         <tr>
                             <th width="150">장소명</th>
                             <th width="500">주소</th>
-                            <th width="50"></th>
+                            <th width="100">1인금액</th>
+                            <th width="100"></th>
                         </tr>
                     </thead>
-                    <tr>
-                        <td>뚱이네 고기</td>
-                        <td>서울시 홍대 어딘가 11-1번지</td>
-                        <td><button onclick="newPage()">돋</button></td>
-                    </tr>
-                    <tr>
-                        <td>뚱이네 고기</td>
-                        <td>서울시 홍대 어딘가 11-1번지</td>
-                        <td><button onclick="newPage()">돋</button></td>
-                    </tr>
-                    <tr>
-                        <td>뚱이네 고기</td>
-                        <td>서울시 홍대 어딘가 11-1번지</td>
-                        <td><button onclick="newPage()">돋</button></td>
-                    </tr>
+                    <tbody>
+                    	<%if(pList != null) {%>
+                    		<%for(Place p : pList){%>
+                    			<tr>
+			                        <td><%=p.getPlaceTitle()%></td>
+			                        <td><%=p.getAddress()%></td>
+			                        <td><%=p.getPrice()%></td>
+			                        <td><button>돋</button></td>
+			                    </tr>
+                    		<%} %>
+                    	<%}else{ %>
+                    		<tr>
+                    			<td colspan="2">일정이 없습니다.
+                    		</tr>
+                    	<%} %>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -131,13 +138,30 @@
                         <a href="./index.html"><button type="button" class="btn btn-primary">이메일 전송</button></a>
                     </div>          
                     <div class="col-lg-6 btn_right">
-                        <a href="./listing.html"><button type="button" class="btn btn-primary">수정</button></a>
-                        <a href="#"><button type="button" class="btn btn-primary">삭제</button></a>
-
+                        <button type="button" class="btn btn-primary" onclick="updateForm()">수정</button>
+                        <button type="button" class="btn btn-primary" onclick="deleteBoard()">삭제</button>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <form action="" id="postForm" method="post">
+			<input type="hidden" name="planNo" value="<%=pm.getPlanNo()%>">
+		</form>
+		<script>
+			function updateForm(){
+				$("#postForm").attr("action", "<%=contextPath%>/updateForm.pl");
+				$("#postForm").submit();
+			}
+			
+			function deleteBoard(){
+				if(confirm("삭제하시겠습니까?")){
+					$("#postForm").attr("action", "<%=contextPath%>/deleteP.ps");
+					$("#postForm").submit();
+				}
+			}
+			
+		</script>
     </div>
 
 
@@ -164,11 +188,6 @@
             $header.toggleClass('down', scrolled); //클래스 토글
         });
     });
-    
- 	 //새 창 열기
-    function newPage()  {
-        window.open('./placeDetail.html');
-    }
 </script>
 
 </html>

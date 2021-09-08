@@ -38,8 +38,6 @@ public class PlanMyDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		System.out.println("list11 : "+list);
-		
 		String sql = prop.getProperty("selectPlaceList");
 		//하나의 BOARD에 사진 여러 개 등록했을 경우로 짠 쿼리인데 될 것 같아서 그대로 넣음
 //		selectPlaceList=SELECT PLACE_NO, AREA_NO, CATEGORY_NO, PLACE_TITLE, ADDRESS, DESCRIPTION, COUNT, CHANGE_NAME \
@@ -47,8 +45,6 @@ public class PlanMyDao {
 //		WHERE FILE_NO IN( \
 //		SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \
 //		WHERE PLACE.STATUS='Y' ORDER BY PLACE_NO DESC
-		
-		System.out.println("list22 : "+list);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -75,7 +71,6 @@ public class PlanMyDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		System.out.println("list33 : "+list);
 		return list;
 	}
@@ -83,16 +78,7 @@ public class PlanMyDao {
 	public int insertPlanMy(Connection conn, PlanMy pm) {
 		int result =0;
 		PreparedStatement pstmt = null;
-		
-//		PLAN_NO
-//		USER_NO
-//		AREA_NO
-//		PLAN_TITLE
-//		PLAN_DATE
 
-//		MEMO
-//		CREATE_DATE
-//		STATUS
 		String sql = prop.getProperty("insertPlanMy");
 		//insertPlanMy = INSERT INTO MYPLAN VALUES(SEQ_MPNO.NEXTVAL, ?, ?, ?, ?, ?, SYSDATE, DEFAULT)
 		
@@ -102,7 +88,6 @@ public class PlanMyDao {
 			pstmt.setInt(2, pm.getAreaNo());
 			pstmt.setString(3, pm.getPlanTitle());
 			pstmt.setDate(4, pm.getPlanDate());
-//			pstmt.setString(5, pm.getplanPlace());
 			pstmt.setString(5, pm.getPlanMemo());
 			
 			result = pstmt.executeUpdate();
@@ -144,6 +129,7 @@ public class PlanMyDao {
 		return result;
 	}
 
+	//유저에 맞는 일정보관함 불러오기
 	public ArrayList<PlanMy> selectPlanSaveList(Connection conn, int userNo) {
 		ArrayList<PlanMy> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -160,7 +146,7 @@ public class PlanMyDao {
 //		       ON (PLACE_NO = REF_PNO)
 //		       WHERE PLACE_ATTACHMENT.STATUS='Y') T2
 //		ON (T2.REF_MPNO = PLAN_NO)
-//		WHERE P.STATUS='Y' AND T2.RNUMM=1 AND USER_NO=3;
+//		WHERE P.STATUS='Y' AND T2.RNUMM=1 AND USER_NO=?;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -173,7 +159,6 @@ public class PlanMyDao {
 				
 				list.add(planMy);
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -184,6 +169,126 @@ public class PlanMyDao {
 		System.out.println("planSaveList보기 : " + list);
 		
 		return list;
+	}
+
+	public int deletePlanMy(Connection conn, String[] planNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+	    String sql = prop.getProperty("deletePlanMy");
+	    //deletePlanMy=UPDATE MYPLAN SET STATUS='N' WHERE PLAN_NO=?
+	    
+	    try {
+			for(int i=0; i<planNo.length; i++) {
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(planNo[i]));
+				
+				System.out.println("일정 삭제하기------planNO[i] : " + planNo[i]);
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+	    
+		return result;
+	}
+
+	public int deletePlanMy_Place(Connection conn, String[] planNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+	    String sql = prop.getProperty("deletePlanMy_Place");
+	    //deletePlanMy_Place=UPDATE MYPLAN_PLACE SET STATUS='N' WHERE REF_MPNO=?
+	    
+	    try {
+			for(int i=0; i<planNo.length; i++) {
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(planNo[i]));
+				
+				System.out.println("일정 삭제하기------planNO[i] : " + planNo[i]);
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public PlanMy selectPlanMy(Connection conn, int planNo) {
+		PlanMy pm = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPlanMy");
+		//selectPlanMy=SELECT PLAN_NO, PLAN_TITLE, PLAN_DATE, MEMO, AREA_NO FROM MYPLAN WHERE PLAN_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pm = new PlanMy(rset.getInt("PLAN_NO"),rset.getString("PLAN_TITLE"),rset.getDate("PLAN_DATE"),rset.getString("MEMO"));
+				pm.setAreaNo(rset.getInt("AREA_NO"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pm;
+	}
+
+	public ArrayList<Place> selectPlace_planMy(Connection conn, int planNo) {
+		ArrayList<Place> plist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPlace_planMy");
+//		selectPlace_planMy=
+//		SELECT PLACE_NO, PLACE_TITLE, ADDRESS, PRICE 
+//		FROM PLACE
+//		WHERE PLACE_NO IN (SELECT PLACE_NO 
+//		                  FROM MYPLAN_PLACE
+//		                  WHERE REF_MPNO=?);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Place p = new Place();
+				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				p.setAddress(rset.getString("ADDRESS"));
+				p.setPrice(rset.getInt("PRICE"));
+				
+				plist.add(p);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return plist;
 	}
 
 	
