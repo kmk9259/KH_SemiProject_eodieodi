@@ -26,7 +26,15 @@ public class Notice {
 	}
 	
 	 
-	
+	//커뮤니티로 보내지는 생성자
+	public Notice(String noticeTitle, String noticeContent) {
+		super();
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+	}
+
+
+
 	public Notice(String noticeTitle, String noticeWriter, String noticeContent) {
 		super();
 		this.noticeTitle = noticeTitle;
