@@ -1,6 +1,7 @@
-package semiProject.com.kh.place.controller;
+package semiProject.com.kh.planMy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.board.model.vo.PlaceAttachment;
-import semiProject.com.kh.place.model.service.PlaceService;
 import semiProject.com.kh.place.model.vo.Place;
+import semiProject.com.kh.planMy.model.service.PlanMyService;
+import semiProject.com.kh.planMy.model.vo.PlanMy;
 
 /**
- * Servlet implementation class PlaceDetailServlet
+ * Servlet implementation class PlanMyDetailServlet
  */
-@WebServlet("/detail.pl")  //더보기 버튼 -> detail.pl로 이동하도록!
-public class PlaceDetailServlet extends HttpServlet {
+@WebServlet("/detailP.ps")
+public class PlanMyDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlaceDetailServlet() {
+    public PlanMyDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,20 +34,16 @@ public class PlaceDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//ThumnailDetailServelt() 참고
-		int pNo = Integer.parseInt(request.getParameter("pNo"));  //앞 페이지에서 pNo setAttribute해줘야 함
-
-		Place p = new PlaceService().selectPlace(pNo);
-		PlaceAttachment at = new PlaceService().selectAttachment(pNo);  //대표사진 한개
+		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		
-		if(p != null)
-		{
-			request.setAttribute("p", p);
-			request.setAttribute("at", at);
-			request.getRequestDispatcher("views/place/placeDetail.jsp").forward(request, response);
-		}
-		else
-		{
+		PlanMy pm = new PlanMyService().selectPlanMy(planNo);
+		ArrayList<Place> pList = new PlanMyService().selectPlace_planMy(planNo);
+		
+		if(pm != null) {
+			request.setAttribute("pm", pm);
+			request.setAttribute("pList", pList);
+			request.getRequestDispatcher("views/plan/planSaveDetail.jsp").forward(request, response);
+		}else {
 			request.setAttribute("msg", "일정 상세보기 실패");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);

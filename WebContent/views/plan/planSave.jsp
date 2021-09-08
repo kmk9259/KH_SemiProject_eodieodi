@@ -96,6 +96,18 @@
                     <div class="planDetail_title">
                         <a href="<%=contextPath%>/list.ps"><h4>내일정 보관함</h4></a>
                         <a href="#"><h4>추천일정 보관함</h4></a>
+                        <input type="checkBox" id="allCheck" name="allCheck"><label>모두 선택</label>
+                        
+                        <script> //맨 위에 체크박스 체크하면 일정보관함의 모든 일정들 체크됨
+                            $("#allCheck").click(function() {
+                                var chk = $("#allCheck").prop("checked");
+                                if (chk) {
+                                    $(".chBox").prop("checked", true);
+                                } else {
+                                    $(".chBox").prop("checked", false);
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
                 <!-- <div class="col-lg-2">
@@ -105,29 +117,51 @@
                 </div> 버튼 이상해서 일단 지웠음-->
             </div>
 
-			<%if(list == null){%>
-			<h2>저장하신 일정이 없습니다.</h2>
+			<%if(list.size()==0){%>
+			 <h2>저장하신 일정이 없습니다.</h2> 
+			
 			<%}else{ %>
+			<form id="delPlanForm" action="" method="post">
 				<div class="listArea">
 					<%for(PlanMy pm : list) {%>
 						<div class="thumbnail" align="center">
-							<input type="hidden" name= value="<%=pm.getPlanNo()%>" id="placeNo" >
-                    		<input type="checkbox" class="checkBox"><br>
-                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="350px" height="250px" onclick="goPlanSaveDetail()"> <br>
+                    		<input type="checkbox" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox"><br>
+                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
                     		<p>
                         	<%=pm.getPlanTitle()%>
                     		</p>
                 		</div>
                 	<%} %>
 				</div>
-			<%} %>>
-            
-            <div class=" deleteBtn">
-                <button type="submit" class="btn btn-primary">삭제하기</button>
-            </div>
+				
+				<div class=" deleteBtn">
+                	<button type="submit" class="btn btn-primary" onclick="delPlan()">삭제하기</button>
+            	</div>
+            	
+            	<script>
+            		//일정 삭제 PlanMyDeleteServlet으로 이동
+            		function delPlan(){
+            			if(confirm("삭제하시겠습니까? ")){
+            				if($('input:checkBox[name=planNo]:checked').length == 0){
+            					alert("아무 일정도 체크되지 않았습니다!! 체크 후 삭제해주세요")
+            				}else{
+            					$("#delPlanForm").attr("action", "<%=contextPath%>/deleteP.ps");
+            				}
+            			}
+            		}
+            		
+            		//일정 상세보기 PlanMyDeleteServlet으로 이동
+            		$(function(){
+            			$(".placeImg").click(function(){
+            				var planNo = $(this).siblings("#planNo").val();
+                		    location.href="<%=contextPath%>/detailP.ps?planNo="+planNo;
+            			})
+            		})
+            	</script>
+			</form>
+			<%} %>
         </div>
     </div>
-
 
     <%@ include file="../common/footer.jsp"%>
 
@@ -151,10 +185,6 @@
             $header.toggleClass('down', scrolled); //클래스 토글
         });
     });
- 	 
-    function goPlanSaveDetail() {
-        location.href = '<%=contextPath%>/views/plan/planSaveDetail.jsp' //servlet으로 바꾸기
-    }
 </script>
 
 </html>
