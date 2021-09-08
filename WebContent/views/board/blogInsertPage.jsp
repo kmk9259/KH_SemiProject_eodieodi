@@ -21,17 +21,23 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 	<script type="text/javascript">
 		function checkValue(){
 			var form = document.forms[0];
-			var board_subject = form.board_subject.value;
-			var board_content = form.board_content.value;
+			var title = form.title.value;
+			var content = form.content.value;
+			var file1 = form.file1.value;
+			var file2 = form.file2.value;
+			var file3 = form.file3.value;
+			var file4 = form.file4.value;
 			
-			if(!board_subject){
+			if(!title){
 				alert("제목을 입력해주세요.")
 				return false;
 			}
-			else if(!board_content){
+			else if(!content){
 				alert("내용을 입력해주세요.")
 				return false;
-			}
+			}else if(!file1)
+				alert("thumnail 사진은 반드시 올려야 합니다.")
+				return false;
 		}
 	
 	</script>
@@ -70,6 +76,11 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 	.title{
 	
 	color: black;
+	}
+	
+	.btns{
+	margin: 10px;
+	padding: 30px;
 	}
     
     
@@ -163,14 +174,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 	<div class="outer">
 	<br><br><br>
 	
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$("textarea").attr('name', 'content');
-	})
 	
-	 
-	
-	</script>
 	
 	
 	
@@ -203,18 +207,26 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
               
               
               <div class="text-center">
-              <label class="title">사진 첨부</label>
+              <label class="title">thumbnail 이미지</label>
               <div>
+             
               <img id="titleImg" width="200px" height="180">
+              
+              </div>
+              
+              <br>
+              <div>
               <img id="contentImg1" width="200px" height="180">
               <img id="contentImg2" width="200px" height="180">
               <img id="contentImg3" width="200px" height="180">
+              
               </div>
               
               
               
               <div id="fileArea">
-				<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
+           
+				<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);" required>
 				<input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
 				<input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
 				<input type="file" name="file4" id="file4" onchange="loadImg(this, 4);">
@@ -225,19 +237,10 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
               
               <div class="text-center btns">
               
-              <%if(Filelist != null) {%>
-              <button type="submit" class="site-btn" >등록하기</button>
               
-              <% }else { %>
-              
-              <button type="submit" class="site-btn" disable>사진등록</button>
-              
-              <% } %>
-              
-              
-                 
-                  <button type="reset" class="site-btn">취소하기</button>
-                  <button type="history" class="site-btn">목록으로</button>
+              <button type="submit" class="site-btn" onclick="checkValue()">등록하기</button>
+       		  <button type="reset" class="site-btn">취소하기</button>
+              <button type="history" class="site-btn" onclick=goBack();>목록으로</button>
               </div>
               
           </form>
@@ -249,6 +252,11 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 	
 	
 	<script>
+	
+	function goBack(){
+		history.back();
+	}
+	
 	$(function(){
 		$("#fileArea").hide();
 		
@@ -275,7 +283,8 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 		//num : 조건문을 활용 하기 위해 전달받은 매개변수
 		
 		console.dir(inputFile);
-		
+	
+	
 		if(inputFile.files.length == 1){//file이 존재 할경우 
 			var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
 			
@@ -293,7 +302,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 			};
 			
 		}
-	}
+	
 	
 	
 	</script>

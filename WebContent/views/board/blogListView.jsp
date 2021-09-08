@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*,
+    semiProject.com.kh.notice.model.vo.*"
+    
+    %>
     
 <%
+      
+    ArrayList<Notice> nlist = (ArrayList<Notice>)request.getAttribute("nlist"); 
 	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -19,7 +24,7 @@
     <meta name="keywords" content="Directing, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog</title>
+    <title>어디어디 커뮤니티</title>
 
 
  
@@ -37,7 +42,8 @@
     </div>
 
    
-<%@ include file="../common/menubar.jsp"%>
+ <%@ include file="../common/menubar.jsp"%> 
+
 
     
 
@@ -190,25 +196,39 @@
 
 <!-- =================QnA =============== -->
 
+<%-- <%@ include file="../board/notice.jsp"%> --%>
+
 <section class="faq bg-color">
       <div class="container">
         <div class="faq-title">
           <h2>공지사항</h2>
           <p>어디어디 공지사항입니다!</p>
         </div>
-        <ul class="faq-list">
+        
+        <% if(nlist.isEmpty()){ %>
+        <% System.out.print(nlist); %>
+        <div><p>공지사항이 없습니다.</p></div>
+        
+        
+        <% }else{  %>
+				 <% for(Notice n : nlist){ %>
+		<ul class="faq-list">
           <li data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate">
-            <a data-toggle="collapse" class="collapsed" href="#faq1" aria-expanded="false">Non consectetur a erat nam at lectus urna duis? <i class="fas fa-arrow-up"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#faq1" aria-expanded="false"><%= n.getNoticeTitle() %> <i class="fas fa-arrow-up"></i></a>
             <div id="faq1" class="collapse" data-parent=".faq-list" style="">
               <p>
-                Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                <%= n.getNoticeContent() %>
               </p>
             </div>
           </li>
-
+          </ul>
+				<% } %>
+			<% } %>
           
-        </ul>
+        
       </div>
+      
+     
     </section>
 
 
@@ -253,10 +273,11 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="blog__item">
                                 <a href="<%=request.getContextPath() %>/detail.bo">
+                                
                                 <input type="hidden" value="<%=b.getBoardNo()%>">
-                                <div class="blog__item__pic set-bg" ><img src="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %>">
+                                <div class="blog__item__pic set-bg" data-setbg="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %>" >
+				               <%-- <img src="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %> --%>
 				               
-				               <input type="hidden" value="<%=b.getBoardNo()%>">
 				               
                                 </div>
                                 </a>
@@ -267,6 +288,7 @@
                                         <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
                                         <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
                                         <li><i class="fa fa-heart"></i> <%= b.getCount() %></li>
+                                       
                                     </ul>
                                 </div>
                             </div>
@@ -436,6 +458,7 @@
    
     
     <script src="<%= contextPath %>/resources/js/main.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     
      <%@ include file="../common/footer.jsp"%> 
