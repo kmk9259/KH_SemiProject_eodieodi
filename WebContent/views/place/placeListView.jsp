@@ -145,7 +145,7 @@
 							
 							var parent = $(this).parent(); 
 							var pNo = parent.children("#placeNo").val();
-							window.open("./detail.pl?pNo="+pNo);
+							location.href='<%=contextPath%>/detail.pl?pNo='+pNo;
 						});
 					});
 				</script>

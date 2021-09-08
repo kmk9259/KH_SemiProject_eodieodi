@@ -1,4 +1,4 @@
-package semiProject.com.kh.theme.dao;
+package semiProject.com.kh.area.model.dao;
 
 import static semiProject.com.kh.common.JDBCTemplate.close;
 
@@ -12,12 +12,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import semiProject.com.kh.theme.model.vo.Theme;
+import semiProject.com.kh.area.model.vo.Area;
+import semiProject.com.kh.category.model.vo.Category;
+import semiProject.com.kh.theme.dao.ThemeDao;
 
-public class ThemeDao {
+public class AreaDao {
 	private Properties prop = new Properties();
-	public ThemeDao() {
-		String fileName = ThemeDao.class.getResource("/semiProject/sql/theme/theme-query.properties").getPath();
+	public AreaDao() {
+		String fileName = ThemeDao.class.getResource("/semiProject/sql/area/area-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
@@ -28,25 +30,25 @@ public class ThemeDao {
 			e.printStackTrace();
 		}
 	}
-	
-	public ArrayList<Theme> selectThemeList(Connection conn) {
-		ArrayList<Theme> tlist = new ArrayList<>();
+
+	public ArrayList<Area> selectAreaList(Connection conn) {
+		ArrayList<Area> alist = new ArrayList<>();
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		//selectTheme=SELECT THEME_NO, THEME_NAME FROM THEME
-		String sql = prop.getProperty("selectTheme");
-		
+		//selectArea=SELECT AREA_NO, AREA_NAME FROM AREA
+		String sql = prop.getProperty("selectArea");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			while(rset.next())
 			{
-				Theme t = new Theme();
+				Area a = new Area();
 				
-				t.setThemeNo(rset.getInt("THEME_NO"));
-				t.setThemeName(rset.getString("THEME_NAME"));
+				a.setAreaNo(rset.getInt("AREA_NO"));
+				a.setAreaName(rset.getString("AREA_NAME"));
 				
-				tlist.add(t);
+				alist.add(a);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -55,10 +57,7 @@ public class ThemeDao {
 			close(rset);
 			close(pstmt);
 		}
-		return tlist;
+		return alist;
 	}
-	
-	
-
 
 }

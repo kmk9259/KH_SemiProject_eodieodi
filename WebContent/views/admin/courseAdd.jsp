@@ -1,12 +1,12 @@
 <%@page import="semiProject.com.kh.theme.model.vo.Theme"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.category.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.category.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
 <%
 	ArrayList<Place> plist = (ArrayList<Place>)request.getAttribute("plist");
 	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");
 	
 	ArrayList<Category> clist = (ArrayList<Category>)request.getAttribute("clist");
-
+	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
 %>
 
 <!DOCTYPE html>
@@ -114,36 +114,12 @@ margin-left: 150px;
 					<div>
 							<select id="placeChoice" onchange="choicePlace(this)">
 								<option value="none">지역을 선택하세요</option>
-								<option value="h">홍대</option>
-								<option value="g">강남</option>
+								<option value="h"><%=alist.get(0).getAreaName() %></option>
+								<option value="g"><%=alist.get(1).getAreaName() %></option>
 							</select><br><br>
 					</div>
 						
-					<script>
-					function choicePlace(c){
-					    
-					    if(c.value == "h")
-					    {
-					    	$('#hongdae').show();
-					    	$('#gangnam').hide();
-					    	$('#none').hide();
-					    	
-					    }	
-					    else if(c.value == "g")
-				    	{
-					    	$('#hongdae').hide();
-					    	$('#gangnam').show();
-					    	$('#none').hide();
-				    	}
-					    else{
-					    	$('#hongdae').hide();
-					    	$('#gangnam').hide();
-					    	$('#none').show();
-					    	
-					    }
-					}
 					
-					</script>
 				
 				<div class="courseName">
 					<br>
@@ -175,7 +151,32 @@ margin-left: 150px;
 							</div>
 						<%} %>
 					<%} %><br><br>
-					</div><br><br>
+					</div><br>
+					<script>
+					function choicePlace(c){
+					    
+					    if(c.value == "h")
+					    {
+					    	$('#hongdae').show();
+					    	$('#gangnam').hide();
+					    	$('#none').hide();
+					    	
+					    }	
+					    else if(c.value == "g")
+				    	{
+					    	$('#hongdae').hide();
+					    	$('#gangnam').show();
+					    	$('#none').hide();
+				    	}
+					    else{
+					    	$('#hongdae').hide();
+					    	$('#gangnam').hide();
+					    	$('#none').show();
+					    	
+					    }
+					}
+					
+					</script>
 					<div id="gangnam" style="display: none">
 					<%for(Place p : plist){ %>
 						<%if(p.getAreaNo()==2 ){ %>					
@@ -201,11 +202,13 @@ margin-left: 150px;
 							</div>
 						<%} %>
 					<%} %><br><br>
-					</div><br><br>
+					</div><br>
 					
 					<form action="경로넣기" method="post">
 						코스 이름 : <input maxlength="100"	type="text" required="required" id="courseName" placeholder="코스의 이름을 입력해주세요" /><br>
-						
+						지역 종류 : <label><input type="radio" name="area" value="<%=alist.get(0).getAreaNo() %>" onclick="checkArea()"> 홍대</label>
+								<label><input type="radio" name="area" value="<%=alist.get(1).getAreaNo() %>"> 강남</label><br><br>
+								
 						테마 종류 : <label><input type="radio" name="theme" value="<%=tlist.get(0).getThemeNo() %>"> 연인과 함께</label>
 								<label><input type="radio" name="theme" value="<%=tlist.get(1).getThemeNo() %>"> 가족과 함께</label>
 								<label><input type="radio" name="theme" value="<%=tlist.get(2).getThemeNo() %>"> 친구와 함께</label><br><br>
@@ -214,23 +217,38 @@ margin-left: 150px;
 					</form>
 				</div>
 				<script>
+				function checkArea(){
+					var val = document.getElementsByName('area');
+					for(i=0; i<val.length; i++)
+					{
+						if(val[i].checked &&(val[i].value == <%=alist.get(0).getAreaNo() %>))
+						{
+							cosole.log(val[i].value);
+							console.log(<%=alist.get(0).getAreaNo() %>);
+							console.log(<%=alist.get(0).getAreaName() %>);
+							document.getElementById("opinion").innerHTML
+	                        += "지역명: "+val[i].value;
+						}
+					}
 					
+				}
+				
 					function checkBox(checked){
 					    var result = document.getElementById("opinion");
-					    var categoryName = "카테고리 :"+document.getElementById("categoryName").value;
-					    var content = "일정명 : "
+					    var categoryName = ", 카테고리 :"+document.getElementById("categoryName").value;
+					    var content = "일정명 : "+checked.getAttribute("value")+categoryName+"\n"
 					    if( checked.checked==true ){
 					        console.log(result.value);
 					        if(result.value == "" ){
-					            result.value = checked.getAttribute("value")+categoryName;
+					            result.value = content;
 					        }else{
-					            result.value += "\n"+ checked.getAttribute("value")+categoryName;
+					            result.value += "\n"+ content;
 					        }
 					    }else {
 
-					        var resultArr = result.value.split("\n");
+					        var resultArr = result.value.split("\n\n");
 					        for(var i=0; i<resultArr.length; i++){
-					            if(resultArr[i] == checked.getAttribute("value")+categoryName){
+					            if(resultArr[i] == content){
 					                resultArr.splice(i,1);
 					                break;
 					            }
@@ -239,28 +257,7 @@ margin-left: 150px;
 
 					    }
 					 }
-					$(function() {
-
-						$("#courseAdd").click(function() {
-							var courseName = document.getElementsByName('courseName').value; 
-							if(courseName!= null)
-							{
-								var result = confirm("선택한 일정대로 코스를 등록하겠습니까?")
-								if (result) {
-									alert("추천 코스가 등록되었습니다.")
-								} else {
-									location.reload();
-								}
-							}
-							else
-							{
-								alert("추천 코스의 이름을 적어주세요.")
-							}
-						
-
-						});
-
-					});
+					
 					</script>
 				</div>
 			</div><!-- admin-showpage -->

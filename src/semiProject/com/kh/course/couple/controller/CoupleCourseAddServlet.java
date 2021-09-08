@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semiProject.com.kh.area.model.service.AreaService;
+import semiProject.com.kh.area.model.vo.Area;
 import semiProject.com.kh.category.model.service.CategoryService;
 import semiProject.com.kh.category.model.vo.Category;
 import semiProject.com.kh.place.model.service.PlaceService;
@@ -38,10 +40,12 @@ public class CoupleCourseAddServlet extends HttpServlet {
 		ArrayList<Place> plist = new PlaceService().selectPList();
 		ArrayList<Theme> tlist = new ThemeService().selectThemeList();
 		ArrayList<Category> clist = new CategoryService().selectCategoryList();
+		ArrayList<Area> alist = new AreaService().selectAreaList();
 		
 		request.setAttribute("plist", plist);
 		request.setAttribute("tlist", tlist);
 		request.setAttribute("clist", clist);
+		request.setAttribute("alist", alist);
 		request.getRequestDispatcher("views/admin/courseAdd.jsp").forward(request, response);
 	}
 
