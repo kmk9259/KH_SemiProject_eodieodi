@@ -27,8 +27,8 @@
 			if(command.equals("emailChk")) {
 				//메일 서버 생성
 				String host = "smtp.naver.com";
-				String user = "hrkang333"; // 자신의 네이버 계정('@naver.com'은 적지 말 것)
-				String password = "ashley0325!";// 자신의 네이버 패스워드
+				String user = ""; // 자신의 네이버 계정('@naver.com'은 적지 말 것)
+				String password = "";// 자신의 네이버 패스워드
 				int port = 465;
 				// 메일 받을 주소ㅜ
 				String email = request.getParameter("email");
