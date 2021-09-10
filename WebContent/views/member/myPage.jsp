@@ -270,10 +270,10 @@
                         </div>
 
 						<!-- 내가 쓴 글 -->
-                        <div class="tab-pane text-style" id="myPost">
+                        <div class="tab-pane text-style nice-scroll" id="myPost">
                             <h2 class="tInfo">내가 쓴 글</h2>
 							<br><br>
-                            <div class="span5" style="padding-left: 10%; width: 80%;">
+                            <div class="span5" style="padding-left: 10%; width: 80%; height: 400px;">
                                 <table class="table table-striped table-condensed" style="text-align: center; table-layout: fixed;">
                                     <thead>
                                         <tr>
@@ -294,44 +294,32 @@
 										<!--  아니면 엘스로 해서 하나씩 띄워준다 -->
 											<% }else{  %>
 												<% for(Board b : list){ %>
-													<% for(int i = 0; i < list.size()-1; i++){ %>
-														<tr>
-															<td style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>"><%= b.getBoardTitle() %></td>
-															<td style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><%= b.getBoardContent() %></td>
-															<td style="text-align: center;"><%= b.getCount() %></td>
-															<td><button type="button" class="site-btn">삭제</button></td>
-														</tr>
-														 <% } %>
+															<tr onClick="showMyPost()" onmouseover="this.style.background='#e4a6c8'" onmouseout="this.style.background='none'">
+															
+																<td style="background: none !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>"><%= b.getBoardTitle() %></td>
+																<td style="background: none !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><%= b.getBoardContent() %></td>
+																<td style="background: none !important; text-align: center;"><%= b.getCount() %></td>
+																<td style="background: none !important;"><button type="button" class="site-btn" onclick="deleteBoard();">삭제</button></td>
+																
+															</tr>
+														
 														 
 												<% } %>
 						 					<% } %>
-											
-                                        <!-- <tr>
-                                            <td style="text-align: center;">1</td>
-                                            <td style="text-align: center;">
-                                                <a href="#">글글글</a>
-                                            </td>
-                                            <td style="text-align: center;">12</td>
-                                            <td style="text-align: center;">
-                                                <span class="btn btn-default">삭제</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">2</td>
-                                            <td style="text-align: center;">
-                                                <a href="#">글글글</a>
-                                            </td>
-                                            <td style="text-align: center;">38</td>
-                                            <td style="text-align: center;">
-                                                <span class="btn btn-default">삭제</span>
-                                            </td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        
+                        <script>
+						
+						//리스트에서 버튼을 클릭하는거 
+						function showMyPost() {
+							var bno = $(this).children().eq(0).val();
+        					location.href="<%=contextPath%>/detail.bo?bno=" + bno;
+						}
+						
+						</script>
                         <!-- 회원탈퇴 -->
                         <div class="tab-pane text-style" id="wd">
                             <h2 class="tInfo">회원 탈퇴</h2>
