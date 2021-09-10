@@ -10,6 +10,8 @@
 	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
+	
+	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
@@ -47,24 +49,7 @@
 
     
 
-    <script>
-        $(function () {
-            var $header = $('header'); //헤더를 변수에 넣기
-            var $page = $('.page-start'); //색상이 변할 부분
-            var $window = $(window);
-            var pageOffsetTop = $page.offset().top;//색상 변할 부분의 top값 구하기
-
-            $window.resize(function () { //반응형을 대비하여 리사이즈시 top값을 다시 계산
-                pageOffsetTop = $page.offset().top;
-            });
-
-            $window.on('scroll', function () { //스크롤시
-                var scrolled = $window.scrollTop() >= pageOffsetTop; //스크롤된 상태; true or false
-                $header.toggleClass('down', scrolled); //클래스 토글
-            });
-        });
-
-    </script>
+    
 
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-area set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb/breadcrumb-blog.jpg">
@@ -211,10 +196,13 @@
         
         
         <% }else{  %>
+        
 				 <% for(Notice n : nlist){ %>
+				 
 		<ul class="faq-list">
           <li data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate">
-            <a data-toggle="collapse" class="collapsed" href="#faq1" aria-expanded="false"><%= n.getNoticeTitle() %> <i class="fas fa-arrow-up"></i></a>
+         <%--  <input type="hidden" name="nno" value="<%= n.getNoticeNo() %>"> --%>
+            <a data-toggle="collapse" class="collapsed" href="#faq1" aria-expanded="true" id="title"><%= n.getNoticeTitle() %> <i class="fas fa-arrow-up"></i></a>
             <div id="faq1" class="collapse" data-parent=".faq-list" style="">
               <p>
                 <%= n.getNoticeContent() %>
@@ -224,10 +212,14 @@
           </ul>
 				<% } %>
 			<% } %>
+			
+			
           
         
       </div>
       
+      
+    
      
     </section>
 
@@ -237,8 +229,10 @@
 
     <!-- Blog Section Begin -->
     <section class="blog-section spad">
+    
         <div class="container">
             <div class="row">
+            
                 <div class="col-lg-8">
                     <div class="blog__item__large">
                     
@@ -258,6 +252,8 @@
                         </div>
                     </div>
                     
+             
+                    
                     
                     <div class="row">
                     
@@ -269,21 +265,19 @@
 					<%}else{ %>
 					<% for(Board b : list){ %>
                     
-                    
+                    <% System.out.print(b); %>
                         <div class="col-lg-6 col-md-6">
                             <div class="blog__item">
-                                <a href="<%=request.getContextPath() %>/detail.bo">
+                               
                                 
-                                <input type="hidden" value="<%=b.getBoardNo()%>">
-                                <div class="blog__item__pic set-bg" data-setbg="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %>" >
-				               <%-- <img src="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %> --%>
-				               
-				               
+                                
+                                <div class="blog__item__pic set-bg thumbnail" data-setbg="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %>" >
+				                <input type="hidden" value="<%=b.getBoardNo()%>">
                                 </div>
-                                </a>
+                                
                                 <div class="blog__item__text">
                                    
-                                    <h5><a href="<%=request.getContextPath() %>/detail.bo"><%= b.getBoardTitle() %></a></h5>
+                                    <h5><a href="<%=request.getContextPath() %>/detail.bo" class="thumbnail"  ><%= b.getBoardTitle() %></a></h5>
                                     <ul class="blog__item__widget">
                                         <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
                                         <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
@@ -301,14 +295,23 @@
                         
                     </div>
                     
-                    
+                    <script>
+		
+                    $(function(){
+        				$(".thumbnail").click(function(){
+        					var bno = $(this).children().eq(0).val();
+        					location.href="<%=contextPath%>/detail.bo?bno=" + bno;
+        				});
+        			});
+		</script>
 
 <!----------------------- 페이징바 만들기 -------------------------------->
 
 
 		<div class="blog__pagination" >
 			<!-- 맨 처음으로 (<<) -->
-			<a href="<%=contextPath%>/list.bo?currentPage=1"> &lt;&lt; </a>
+			<a href="<%=contextPath%>/list.bo?currentPage=1"> &lt;&lt; </a> 
+			
 			
 		
 			<!-- 이전페이지로(<) -->
@@ -343,50 +346,30 @@
           <br><br><br>          
            <% if(loginUser != null){ %>
 			<button  type="submit" class="site-btn" onclick="location.href='enroll.bo'">글쓰기</button>
-		<% }else {%>         
+		 <% }else {%>         
                     
 			<button type="submit" class="site-btn" onclick="pop();">글쓰기</button>
                     
             <% } %>        
                     
            
-           
-           <script type="text/javascript">
-				function pop(){
-					alert("로그인후 사용가능합니다.")
-				}
-	
-	
-				
+			</div> <!-- col-lg-8 닫는 div -->
 			
-				
-				<%if(!list.isEmpty()){%>
-				$(function(){
-					$(".blog__item>a").click(function(){
-						var bno = $(this).children().eq(0).text();
-						location.href="<%= contextPath%>/detail.bo?bno="+bno;
-						console.log(bno);
-					})
-				})
-				<%}%>
 			
-				
-		</script>
-           
-                    
-                    
- 
-                    
-                    
-                </div>
+			
                 <div class="col-lg-4">
-                    <div class="blog__sidebar">
+                
+                    	<div class="blog__sidebar">
+                        
+                        <!-- ==================== 검색바 ===================== -->
                         <div class="blog__sidebar__search">
                             <form action="#">
                                 <input type="text" placeholder="Searching...">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
+                        
+                        <!-- ==================== 사이드바 좋아요 순 리스트 뿌리기  ===================== -->
                         <div class="blog__sidebar__recent">
                             <h5>Recent Post</h5>
                             <a href="#" class="blog__sidebar__recent__item">
@@ -399,65 +382,52 @@
                                     <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
                                 </div>
                             </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-2.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">2</span>
-                                    <h6>Shrimp floured and fried</h6>
-                                    <p><i class="fa fa-clock-o"></i> 22th March, 2019</p>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-3.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">3</span>
-                                    <h6>Sweet and sour pork ribs</h6>
-                                    <p><i class="fa fa-clock-o"></i> 25th March, 2019</p>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-4.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">4</span>
-                                    <h6>Crab fried with tamarind</h6>
-                                    <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-5.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                <span class="lanking">5</span>
-                                    <h6>Tortoise grilled on salt</h6>
-                                    <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
-                                </div>
-                            </a>
+             
                         </div>
                        
-                    </div>
+                    	</div>
                 </div>
-            </div>
-        </div>
+                
+            </div> <!-- div row ending -->
+        </div> <!-- div container ending -->
     </section>
     <!-- Blog Section End -->
 
-</section>
+	</section><!-- 네비바 스크롤 다운시 검은색으로 변하는 구간 ending -->
 
     
-	
+	<script>
+        $(function () {
+            var $header = $('header'); //헤더를 변수에 넣기
+            var $page = $('.page-start'); //색상이 변할 부분
+            var $window = $(window);
+            var pageOffsetTop = $page.offset().top;//색상 변할 부분의 top값 구하기
+
+            $window.resize(function () { //반응형을 대비하여 리사이즈시 top값을 다시 계산
+                pageOffsetTop = $page.offset().top;
+            });
+
+            $window.on('scroll', function () { //스크롤시
+                var scrolled = $window.scrollTop() >= pageOffsetTop; //스크롤된 상태; true or false
+                $header.toggleClass('down', scrolled); //클래스 토글
+            });
+        });
+        
+        
+        
+        function pop(){
+			alert("로그인후 사용가능합니다.")
+		}
+
+    </script>
     
    
     <!-- Js Plugins -->
    
     
     <script src="<%= contextPath %>/resources/js/main.js"></script>
+    
+    <!-- QnA 부분 아이콘 불러오는 cdn -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     

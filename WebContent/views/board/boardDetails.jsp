@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="semiProject.com.kh.board.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
     
    <%
    	Board b = (Board)request.getAttribute("b");
-	Attachment at = (Attachment)request.getAttribute("at");
+    ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
+	
+	Attachment titleImg = fileList.get(0);
    
    %>
 <!DOCTYPE html>
@@ -50,11 +52,12 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="blog__hero__text">
-                        <div class="label">Trending</div>
-                        <h2>제목</h2>
+                        <div class="label">어디어디 커뮤니티</div>
+                        <h2><%= b.getBoardTitle() %></h2>
                         <ul>
-                            <li><i class="fa fa-clock-o"></i> 날짜</li>
-                            <li><i class="fa fa-user"></i> 작성자 </li>
+                            <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
+                            <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %> </li>
+                            <li><i class="fa fa-heart"></i> <%= b.getCount() %></li>
                         </ul>
                     </div>
                 </div>
@@ -71,27 +74,48 @@
                 <div class="col-lg-8">
                     <div class="blog__details__text">
                     <form action="" id="postForm" method="post">
-			<input type="hidden" name="bno" value="글번호">
+			<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
 		</form>
-                        <div class="blog__details__video set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/details/blog-video-bg.jpg">
+                        <div class="blog__details__video set-bg" data-setbg="<%= contextPath %>/resources/board_upfiles/<%=titleImg.getChangeName()%>">
                             
                         </div>
-                        <p> 내용</p>
-                        <img src="<%= request.getContextPath() %>/resources/img/blog/details/blog-item.jpg" alt="">
+                        <p> <%= b.getBoardContent() %></p>
                         
-                       <%--  <table>
-                        <th>첨부파일</th>
-						<td>
-							<% if(at != null){ %>
-							<a download="<%= at.getOriginName() %>" href="<%=contextPath%>/resources/board_upfiles/<%=at.getChangeName()%>"><%= at.getOriginName() %></a>
-							<% }else{ %>
-							첨부파일이 없습니다.
-							<% } %>
-						</td> 
-						</table> --%>
-						
+                        <% for(int i=1; i<fileList.size(); i++){ %>
+                        <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>">
+                        
+                		<% } %>
                     </div>
                    
+                   <br><br>
+                   <!-- 수정,삭제,목록 -->
+                   <div class="btns" align="center">
+					<button type="button"  class="site-btn" onclick="location.href='<%=contextPath%>/list.bo?currentPage=1';">목록으로</button>
+					
+					<% if(loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())){ %>
+						
+						<button type="button"  class="site-btn" onclick="updateForm();">수정하기</button>
+						<button type="button" class="site-btn" onclick="deleteBoard();">삭제하기</button>
+					<% } %>
+				   </div>
+				   
+				   <!-- 보드 번호 보내주려고  -->
+					<form action="" id="postForm" method="post">
+					<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
+					</form>
+				<script>
+					function updateForm(){
+						$("#postForm").attr("action", "<%=contextPath%>/updateForm.bo");
+						$("#postForm").submit();
+					}
+					
+					function deleteBoard(){
+						$("#postForm").attr("action", "<%=contextPath%>/deleteB.bo");
+						$("#postForm").submit();
+					}
+				</script>
+				   
+				   <br><br>
                     
                     <div class="blog__details__comment__form">
                         
@@ -106,7 +130,7 @@
                             
                            </div>
                             <div class="input-comment">
-                                <p>Comment</p>
+                                
                                 <textarea></textarea>
                             </div>
                             <button type="submit" class="site-btn">댓글 등록</button>

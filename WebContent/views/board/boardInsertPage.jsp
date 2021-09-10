@@ -35,9 +35,11 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 			else if(!content){
 				alert("내용을 입력해주세요.")
 				return false;
-			}else if(!file1)
+			}else if(!file1){
 				alert("thumnail 사진은 반드시 올려야 합니다.")
 				return false;
+			}
+				
 		}
 	
 	</script>
@@ -85,9 +87,6 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
     
     
     </style>
-    
-    
-</head>
 
 
 </head>
@@ -145,6 +144,9 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 			}); */
 		
 		
+			function goBack(){
+				history.back();
+			}
 		
 	</script>
 
@@ -253,9 +255,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 	
 	<script>
 	
-	function goBack(){
-		history.back();
-	}
+	
 	
 	$(function(){
 		$("#fileArea").hide();
@@ -278,11 +278,12 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 		
 	});
 	
+	
 	function loadImg(inputFile, num){// 이미지 미리보기 
 		//inputFile : 현재 변화가 생긴 input type = "file"
 		//num : 조건문을 활용 하기 위해 전달받은 매개변수
 		
-		console.dir(inputFile);
+		//console.dir(inputFile);
 	
 	
 		if(inputFile.files.length == 1){//file이 존재 할경우 
@@ -302,12 +303,9 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 			};
 			
 		}
-	
-	
-	
+	}
 	</script>
 
-	 
 	 
 	 
 	 

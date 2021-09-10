@@ -22,16 +22,16 @@ import semiProject.com.kh.common.MyFileRenamePolicy;
 import semiProject.com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class boardInsertServlet
+ * Servlet implementation class BoardInsertServlet
  */
 @WebServlet("/insert.bo")
-public class boardInsertServlet extends HttpServlet {
+public class BoardInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public boardInsertServlet() {
+    public BoardInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
