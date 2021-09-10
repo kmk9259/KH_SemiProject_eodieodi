@@ -121,6 +121,7 @@ public class BoardListServlet extends HttpServlet {
 				//게시판 리스트 넘겨주기 (페이지와 함께_)
 				ArrayList<Board> list = new BoardService().selectThList(pi);
 				
+				
 				//공지사항도 넘겨줘야 하니깐
 				ArrayList<Notice> nlist = new BoardService().selectNList();
 				

@@ -39,7 +39,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
-			  int maxSize = 10 * 1024 * 1024;  //파일크기 설정
+			     int maxSize = 10 * 1024 * 1024;  //파일크기 설정
 		         
 		         //1_2. 전달된 파일을 저장할 서버의 폴더 경로 알아내기
 		         String resources = request.getSession().getServletContext().getRealPath("/resources");
@@ -84,7 +84,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		         
 		         if(result > 0) {
 		        	 
-		        	 response.sendRedirect("detail.bo?bno=" + bno);
+		        	 response.sendRedirect("detail.bo?bno="+bno);
 		         }else {
 		        	 request.setAttribute("msg", "업데이트 실패하였습니다.");
 		 			 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

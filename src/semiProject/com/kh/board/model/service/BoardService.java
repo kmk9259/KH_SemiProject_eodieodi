@@ -116,8 +116,9 @@ public class BoardService {
 	public int updateBoard(Board b, Attachment at) {
 		Connection conn = getConnection();
 		
-		int result1 = new BoardDao().updateBoard(conn, b);
+		int result1 = new BoardDao().updateThBoard(conn, b);
 		int result2 =1;
+		
 		if(at != null) {
 			if(at.getFileNo() != 0) {
 				result2 = new BoardDao().updateAttachment(conn, at);

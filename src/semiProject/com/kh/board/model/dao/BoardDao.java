@@ -296,6 +296,8 @@ public class BoardDao {
 		return list;
 	}
 
+	
+	//글쓰기 등록 ~~!! 
 	public int insertThBoard(Connection conn, Board b) {
 		int result =0;
 	      PreparedStatement pstmt = null;
@@ -316,7 +318,7 @@ public class BoardDao {
 	         
 	         result= pstmt.executeUpdate();
 	         
-	         System.out.println("내용등록 : "+ result);
+	         System.out.println("내용등록============== : "+ result);
 	         
 	         
 	      } catch (SQLException e) {
@@ -506,30 +508,6 @@ public class BoardDao {
 				return files;
 	}
 
-	public int updateBoard(Connection conn, Board b) {
-		int result =0;
-		PreparedStatement pstmt = null;
-		//updateBoard=UPDATE BOARD SET BOARD_TITLE=?, BOARD_CONTENT=? WHERE BOARD_NO=?
-		String sql = prop.getProperty("updateBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			
-			pstmt.setString(1, b.getBoardTitle());
-			pstmt.setString(2, b.getBoardContent());
-			pstmt.setInt(3, b.getBoardNo());
-			
-			result= pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
 
 	public int updateAttachment(Connection conn, Attachment at) {
 		int result =0;
@@ -545,6 +523,16 @@ public class BoardDao {
 			pstmt.setString(3, at.getFilePath());
 			pstmt.setInt(4, at.getFileNo());
 			
+			
+			System.out.println("보드 카피본 파일 이름 ::: " + at.getChangeName());
+			System.out.println("보드 업데잇 원본 ::: " + at.getOriginName());
+			System.out.println("보드 경로  ::: " + at.getFilePath());
+			System.out.println("보드 파일 번호 ::: " + at.getFileNo());
+			
+			
+			
+			System.out.println("보드에 바뀐 이름 업데잇 ::: " + result);
+			
 			result= pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -556,47 +544,75 @@ public class BoardDao {
 		return result;
 	}
 
-	public int insertNewAttachment(Connection conn, ArrayList<Attachment> fileList) {
-		int result =0;
+	
+	
+
+	
+	//보드 업데이트 할때 
+	public int updateThBoard(Connection conn, Board b) {
+		int result = 0;
 		PreparedStatement pstmt = null;
-		//insertNewAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?, ?, SYSDATE, 1, DEFAULT)
+		String sql = prop.getProperty("updateBoard");
+		//updateBoard=UPDATE BOARD SET BOARD_TITLE=?, BOARD_CONTENT=? WHERE BOARD_NO=?
 		
-//		REF_BNO
-//		ORIGIN_NAME
-//		CHANGE_NAME
-//		FILE_PATH
-		String sql = prop.getProperty("insertNewAttachment");
 		
+		System.out.println("보드 업데이트 할때 쿼리? " + sql);
 		try {
+			pstmt = conn.prepareStatement(sql);
 			
-			for(int i = 0; i<fileList.size(); i++) {
-				
-				Attachment at = fileList.get(i);
-				
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, at.getRefBoardNo());
-				pstmt.setString(2, at.getOriginName());
-				pstmt.setString(3, at.getChangeName());
-				pstmt.setString(4, at.getFilePath());
-				
-				result += pstmt.executeUpdate();
-			}
-				
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, b.getBoardNo());
+			
+			System.out.println("보드 업데이트 값 담기 : " + result);
+			
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+			
 		}
+		
 		return result;
 	}
 
 	public int insertNewAttachment(Connection conn, Attachment at) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewAttachment");
+		
+		
+		System.out.println("새로운 파일 넣기 쿼리? " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, at.getRefBoardNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("insertNewAttachment 결과  : "+ result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
 	}
+
+	
 
 	
 }

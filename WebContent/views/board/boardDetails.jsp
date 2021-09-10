@@ -75,6 +75,7 @@
                     <div class="blog__details__text">
                     <form action="" id="postForm" method="post">
 			<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
+			
 		</form>
                         <div class="blog__details__video set-bg" data-setbg="<%= contextPath %>/resources/board_upfiles/<%=titleImg.getChangeName()%>">
                             

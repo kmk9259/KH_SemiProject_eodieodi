@@ -54,6 +54,7 @@ public class BoardInsertServlet extends HttpServlet {
 	         
 	         int maxSize = 10 * 1024 * 1024;  //파일크기 설정
 	         
+	         
 	         //1_2. 전달된 파일을 저장할 서버의 폴더 경로 알아내기
 	         String resources = request.getSession().getServletContext().getRealPath("/resources");
 	         String savePath = resources + "\\board_upfiles\\";

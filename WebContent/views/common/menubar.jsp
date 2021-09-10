@@ -57,7 +57,7 @@
                                         
                                     </ul>
                                 </li>
-                                <li><a href="<%=contextPath %>/views/board/faq.jsp">FAQ</a></li>
+                                
                                 <li><a href="<%=request.getContextPath() %>/list.bo">커뮤니티</a></li>
                                 
                                 <%if(loginUser == null){%>  

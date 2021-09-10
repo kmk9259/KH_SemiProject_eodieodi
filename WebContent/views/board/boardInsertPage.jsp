@@ -212,15 +212,15 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
               <label class="title">thumbnail 이미지</label>
               <div>
              
-              <img id="titleImg" width="200px" height="180">
+              <img name="files" id="titleImg" width="200px" height="180">
               
               </div>
               
               <br>
               <div>
-              <img id="contentImg1" width="200px" height="180">
-              <img id="contentImg2" width="200px" height="180">
-              <img id="contentImg3" width="200px" height="180">
+              <img name="files" id="contentImg1" width="200px" height="180">
+              <img name="files" id="contentImg2" width="200px" height="180">
+              <img name="files" id="contentImg3" width="200px" height="180">
               
               </div>
               
