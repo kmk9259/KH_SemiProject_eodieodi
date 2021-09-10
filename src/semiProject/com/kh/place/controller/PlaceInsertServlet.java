@@ -43,7 +43,7 @@ public class PlaceInsertServlet extends HttpServlet {
 		{
 			int maxSize = 10 * 1024 * 1024;
 			String resources = request.getSession().getServletContext().getRealPath("/resources");
-			String savePath = resources + "\\place_upFiles\\";
+			String savePath = resources + "/place_upFiles/";
 			System.out.println("savePath "+savePath);
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
