@@ -1,12 +1,12 @@
 <%@page import="semiProject.com.kh.theme.model.vo.Theme"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.category.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.category.model.vo.*,semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
 <%
 	ArrayList<Place> plist = (ArrayList<Place>)request.getAttribute("plist");
-	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");
-	
-	ArrayList<Category> clist = (ArrayList<Category>)request.getAttribute("clist");
+	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");	
 	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
+	ArrayList<Category> clist = (ArrayList<Category>)request.getAttribute("clist");
+
 %>
 
 <!DOCTYPE html>
@@ -101,7 +101,7 @@ margin-left: 150px;
 								<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
 								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
 								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
-								<li class="active menuB"><a href="<%=contextPath%>/ccAdd.co">코스 등록</a></li>
+								<li class="active menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
@@ -112,153 +112,132 @@ margin-left: 150px;
 				<div class="admin-showpage ">
 				<div class="courseList nice-scroll" style="height: 1000px; width: 1500px;">
 					<div>
-							<select id="placeChoice" onchange="choicePlace(this)">
-								<option value="none">지역을 선택하세요</option>
-								<option value="h"><%=alist.get(0).getAreaName() %></option>
-								<option value="g"><%=alist.get(1).getAreaName() %></option>
+							<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
+								<option value="0" selected>지역을 선택하세요</option>
+								<%for(Area a : alist) {%>
+								<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
+								<%} %>
+								
 							</select><br><br>
 					</div>
+					
+					<div id="placeList" style="display: inline-flex;" >
+					
+					</div>
+					
 						
-					
-				
-				<div class="courseName">
-					<br>
-					<div id="none" style="display: none">지역을 선택해주세요</div>
-					
-					<div id="hongdae" style="display: none">
-					<%for(Place p : plist){ %>						
-						<%if(p.getAreaNo()==1 ){ %>					
-							<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-								<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
-								<div class="card">
-									<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
-									<div class="card-body">
-										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
-										<%for (int i=0; i<clist.size(); i++){ %>
-											<% if(p.getCategoryNo()== clist.get(i).getCategoryNo()) {%>
-												<p class="card-text"><b>카테고리 : <%= clist.get(i).getCategoryName() %></p><br>
-												<input type="hidden" value="<%= clist.get(i).getCategoryName() %>" id="categoryName">
-											<%} %>
-										<%} %>
-										<form><!-- 체크밗 -->
-											<input type="checkbox" onchange="checkBox(this)" name="check1" id="check1" value="<%=p.getPlaceTitle() %>">
-											<label for="check">선택</label>
-										</form>
-										
-										
-									</div>
-								</div>							
-							</div>
-						<%} %>
-					<%} %><br><br>
-					</div><br>
-					<script>
-					function choicePlace(c){
-					    
-					    if(c.value == "h")
-					    {
-					    	$('#hongdae').show();
-					    	$('#gangnam').hide();
-					    	$('#none').hide();
-					    	
-					    }	
-					    else if(c.value == "g")
-				    	{
-					    	$('#hongdae').hide();
-					    	$('#gangnam').show();
-					    	$('#none').hide();
-				    	}
-					    else{
-					    	$('#hongdae').hide();
-					    	$('#gangnam').hide();
-					    	$('#none').show();
-					    	
-					    }
-					}
-					
-					</script>
-					<div id="gangnam" style="display: none">
-					<%for(Place p : plist){ %>
-						<%if(p.getAreaNo()==2 ){ %>					
-							<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-								<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
-								<div class="card">
-									<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
-									<div class="card-body">
-										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
-										<%for (int i=0; i<clist.size(); i++){ %>
-											<% if(p.getCategoryNo()== clist.get(i).getCategoryNo()) {%>
-												<p class="card-text"><b>카테고리 : <%= clist.get(i).getCategoryName() %></p><br>
-											<%} %>
-										<%} %>
-										<form><!-- 체크밗 -->
-											<input type="checkbox" onchange="checkBox(this)" name="check1" id="check1" value="<%=p.getPlaceTitle() %>">
-											<label for="check">선택</label>
-										</form>
-										
-										
-									</div>
-								</div>							
-							</div>
-						<%} %>
-					<%} %><br><br>
-					</div><br>
-					
-					<form action="경로넣기" method="post">
-						코스 이름 : <input maxlength="100"	type="text" required="required" id="courseName" placeholder="코스의 이름을 입력해주세요" /><br>
-						지역 종류 : <label><input type="radio" name="area" value="<%=alist.get(0).getAreaNo() %>" onclick="checkArea()"> 홍대</label>
-								<label><input type="radio" name="area" value="<%=alist.get(1).getAreaNo() %>"> 강남</label><br><br>
+					<br><br><br>
+					<form action="cInsert.co" method="post">
+						
+						코스이름: <input maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>
+						지역종류: 	<% for(Area a : alist) {%>
+									<label><input type="radio" name="area" value="<%=a.getAreaNo() %>" ><%=a.getAreaName() %></label>
+								<%} %><br>
 								
-						테마 종류 : <label><input type="radio" name="theme" value="<%=tlist.get(0).getThemeNo() %>"> 연인과 함께</label>
-								<label><input type="radio" name="theme" value="<%=tlist.get(1).getThemeNo() %>"> 가족과 함께</label>
-								<label><input type="radio" name="theme" value="<%=tlist.get(2).getThemeNo() %>"> 친구와 함께</label><br><br>
-					    <textarea id="opinion" cols="80" rows="6" style="width: 300px;"></textarea><br><br>
-					    <input type="submit" value="코스 등록" id="courseAdd">
+						테마종류: 	<% for(Theme t : tlist) {%>
+									<label><input type="radio" name="themeNo" value="<%=t.getThemeNo() %>"> <%=t.getThemeName() %></label>
+								<%} %><br><br>
+						<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br>
+						<input type="submit" value="코스등록" id="courseAdd">
 					</form>
+					
 				</div>
 				<script>
-				function checkArea(){
-					var val = document.getElementsByName('area');
-					for(i=0; i<val.length; i++)
-					{
-						if(val[i].checked &&(val[i].value == <%=alist.get(0).getAreaNo() %>))
-						{
-							cosole.log(val[i].value);
-							console.log(<%=alist.get(0).getAreaNo() %>);
-							console.log(<%=alist.get(0).getAreaName() %>);
-							document.getElementById("opinion").innerHTML
-	                        += "지역명: "+val[i].value;
+				function changeArea(obj)
+				{
+					var placeChoice = document.getElementById('placeChoice');
+					var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
+					$("#placeList").empty();
+					$.ajax({
+						url : "pList.co",
+						type : "post",
+						data:{areaNo : areaNo},
+						success:function(list){
+							console.log(list);
+							var value="";
+							var contextPath = "<%=contextPath%>";
+							for(var i in list)
+							{
+								switch(list[i].categoryNo){
+								case 1 :
+									var categortName="먹기";
+									console.log(categortName);
+									break;
+								case 2 :
+									var categortName="마시기" 
+									console.log(categortName);
+									break;
+								case 3 :
+									var categortName="놀기"
+										console.log(categortName);
+									break;
+								
+								}
+								 value +='<div class="card-group card-deck" style="width: 300px" >'
+										+'<div class="card" style="width: 300px">'
+										+'<img class="card-img-top" src="'+contextPath+'/resources/place_upFiles/'+list[i].titleImg+'" alt="Card image" style="width: 300px">'
+										+'<div class="card-body" style="width: 300px">'
+										+'<h4 class="card-title">No.'+list[i].placeNo+list[i].placeTitle+'</h4>'
+										+'<p class="card-text"><b>카테고리: '+categortName+'</b></p><br>'
+										+'<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택'
+										+'</div></div></div>'; 
+							}
+							 $("#placeList").html(value); 
+						},
+						error:function(){
+							console.log("ajax 통신 실패 - 지역선택 넘겨주기");
 						}
-					}
+					})
 					
 				}
 				
-					function checkBox(checked){
-					    var result = document.getElementById("opinion");
-					    var categoryName = ", 카테고리 :"+document.getElementById("categoryName").value;
-					    var content = "일정명 : "+checked.getAttribute("value")+categoryName+"\n"
-					    if( checked.checked==true ){
-					        console.log(result.value);
-					        if(result.value == "" ){
-					            result.value = content;
-					        }else{
-					            result.value += "\n"+ content;
-					        }
-					    }else {
-
-					        var resultArr = result.value.split("\n\n");
-					        for(var i=0; i<resultArr.length; i++){
-					            if(resultArr[i] == content){
-					                resultArr.splice(i,1);
-					                break;
-					            }
-					        }
-					        result.value  = resultArr.join("\n");
-
-					    }
-					 }
+				function checkbox(check)
+				{				
+					var placeNo = check.value;
 					
-					</script>
+					var result = document.getElementById("textarea");
+					if( check.checked==true )
+					{
+						console.log("체크박스 체크했을 때"+placeNo);
+						if (result.value == "") 
+						{
+							result.value = placeNo;
+						} 
+						else 
+						{
+							result.value += "," + placeNo;
+						}
+					} 
+					else 
+					{
+						var resultArr = result.value.split(",");
+						for (var i = 0; i < resultArr.length; i++) 
+						{
+							if (resultArr[i] == placeNo) 
+							{
+								resultArr.splice(i, 1);
+								break;
+							}
+						}
+						result.value = resultArr.join(",");
+
+					}
+				}
+				
+					$(function() {
+
+						/* $("#courseAdd").click(function() {
+							var result = confirm("추천 코스를 등록하시겠습니까?")
+							if (result) {
+								alert("추천 코스가 등록되었습니다.")
+							} else {
+								location.reload();
+							}
+
+						}); */
+
+					});
+				</script>
 				</div>
 			</div><!-- admin-showpage -->
 				
