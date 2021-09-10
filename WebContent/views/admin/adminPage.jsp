@@ -97,7 +97,7 @@ margin-left: 150px;
 								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
 								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
 								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
 								
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 

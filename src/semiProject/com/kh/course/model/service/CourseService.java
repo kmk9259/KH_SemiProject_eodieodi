@@ -45,5 +45,13 @@ public class CourseService {
 		close(conn);
 		return list;
 	}
+	
+	public ArrayList<Place> selectCoursePlaceList(int cNo) {
+		Connection conn = getConnection();
+		ArrayList<Place> list = new CourseDao().selectCoursePlaceList(conn, cNo);
+		
+		close(conn);
+		return list;
+	}
 
 }
