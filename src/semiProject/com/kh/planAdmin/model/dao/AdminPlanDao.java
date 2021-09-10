@@ -32,37 +32,7 @@ public class AdminPlanDao {
 			}
 	}
 
-	 
-	 
-	 
-	 
-	// 일정들 값 가지고 오는것..?
-	public int insertAdminPlan(Connection conn, AdminPlan ap) {
-
-		int result = 0;
-		PreparedStatement pstmt = null;
-
-		// 아직 쿼리 안짬
-		String sql = prop.getProperty("insertAdminPlan");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			
-			
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
-	
-	
+	 	
 	
 
 	// 추천코스,위치, 날짜 (제목까지) 저장할 테이블..? 
@@ -74,12 +44,9 @@ public class AdminPlanDao {
 		
 		String sql = prop.getProperty("");
 		
-		try {
-			
-			
+		try {			
 			pstmt = conn.prepareStatement(sql);
-			
-			
+	
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -89,6 +56,42 @@ public class AdminPlanDao {
 		}
 		
 		return result;
+	}
+
+
+
+	// 추천일정에서 체크하는 값 받은것들  저장 
+	public int checkAdminPlan(Connection conn, AdminPlan apList) {	
+
+
+		//이건 걍 조회해오는건디 ...
+		
+//		select 
+//		a.user_no 유저넘버 
+//		,b.course_no 코스넘버 
+//		,d.area_no 지역넘버
+//		,b.create_date 
+//
+//		from member a
+//		join admin_plan b on a.user_no = b.user_no
+//		join course c on b.course_no = c.course_no
+//		join area d on c.area_no = d.area_no;
+//		
+//		
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("checkAdminPlan");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
 	}
 
 }

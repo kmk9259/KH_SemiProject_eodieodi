@@ -1,7 +1,6 @@
 package semiProject.com.kh.planAdmin.controller;
-
 import java.io.IOException;
-import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +13,16 @@ import semiProject.com.kh.planAdmin.model.service.AdminPlanService;
 import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
 
 /**
- * Servlet implementation class AdminCreateServlet
+ * Servlet implementation class AdminPlanListServlet
  */
-@WebServlet("/adminCreate.pl")
-public class AdminCreateServlet extends HttpServlet {
+@WebServlet("/adminPlanList.pl")
+public class AdminPlanListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminCreateServlet() {
+    public AdminPlanListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,27 +32,13 @@ public class AdminCreateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//라디오버튼으로 선택된 코스를 가져옴 
-		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo(); // 1. 로그인유저번호
-		int course =Integer.parseInt(request.getParameter("course")); // 2.코스 가져옴
-		int which = Integer.parseInt(request.getParameter("which")); // 3. 위치가져옴
-
-		String bDate = request.getParameter("chooseDate"); // 4. 날짜
-		String m = bDate.substring(0, 2);
-		String d = bDate.substring(3, 5);
-		String y = bDate.substring(6);
-		String aDate = y + "-" + m + "-" + d;
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		// Date planDate= java.sql.Date.valueOf(aDate);
-		Date adminDate = Date.valueOf(aDate);
+		ArrayList<AdminPlan> apList = new AdminPlanService().selectList(userNo);
+		request.setAttribute("apList", apList);
 		
-		AdminPlan apList = new AdminPlan(userNo,course, which, adminDate);// 위에서 받은 리스트들 값을 객체로 만들고 
+		request.getRequestDispatcher("views/plan/adminRecommend.jsp").forward(request, response);
 		
-		
-		
-		int result = new AdminPlanService().checkAdminPlan(apList);
-		
-	
 	}
 
 	/**
