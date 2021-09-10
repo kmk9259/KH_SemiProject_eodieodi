@@ -70,23 +70,37 @@ public class BoardDao {
 	}
 
 	public ArrayList<Board> selectThList(Connection conn, PageInfo pi) {
+		
 		ArrayList<Board> list = new ArrayList<>();
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
+		
+		//쿼리문만 다르다는것? 
 		/*
-		 * selectThList=SELECT * FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT BOARD_NO,
-		 * BOARD_TITLE, USER_ID, COUNT, CREATE_DATE, CHANGE_NAME FROM BOARD B JOIN
-		 * (SELECT * FROM ATTACHMENT WHERE FILE_NO IN( SELECT MIN(FILE_NO) FILE_NO FROM
-		 * ATTACHMENT WHERE STATUS = 'Y' GROUP BY REF_BNO)) ON (REF_BNO = BOARD_NO) JOIN
-		 * MEMBER ON (BOARD_WRITER=USER_NO) WHERE B.STATUS='Y' ORDER BY BOARD_NO DESC)
-		 * A) WHERE RNUM BETWEEN ? AND ?
+		 * b.setBoardNo(rset.getInt("BOARD_NO"));
+		 * b.setBoardTitle(rset.getString("BOARD_TITLE"));
+		 * b.setBoardWriter(rset.getString("USER_ID"));
+		 * b.setCount(rset.getInt("COUNT"));
+		 * b.setCreateDate(rset.getDate("CREATE_DATE"));
+		 * b.setTitleImg(rset.getString("CHANGE_NAME"));
 		 */
+
+		
+//			   SELECT BOARD_NO, BOARD_TITLE,USER_ID, COUNT,CREATE_DATE, CHANGE_NAME \
+//				FROM BOARD JOIN MEMBER ON USER_NO=BOARD_WIRTER
+		//		JOIN (SELECT * FROM ATTACHMENT \
+//				WHERE FILE_NO IN( \
+//				SELECT MIN(FILE_NO) FILE_NO FROM ATTACHMENT WHERE STATUS='Y' GROUP BY REF_BNO)) ON (REF_BNO = BOARD_NO) \
+//				WHERE BOARD.STATUS='Y' ORDER BY BOARD_NO DESC
+//		
+		
+		
 
 		String sql = prop.getProperty("selectThList");
 		
-		System.out.println("sql 문 보려구!!: " + sql);
+		System.out.println("쿼리문 제대로? " + sql);
+		
 
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -96,19 +110,21 @@ public class BoardDao {
 		 * =20; currentPage 3, startRow =21, endRow =30;
 		 */
 		try {
+			
+			//페이지 부분을 우선 진행하고 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 
 			rset = pstmt.executeQuery();
-			System.out.println("sql : " + sql);
+			
 
 			while (rset.next()) {
 				
 				Board b = new Board();
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setBoardWriter(rset.getString("USER_NO"));
 				b.setCount(rset.getInt("COUNT"));
 				b.setCreateDate(rset.getDate("CREATE_DATE"));
 				b.setTitleImg(rset.getString("CHANGE_NAME"));
@@ -116,7 +132,7 @@ public class BoardDao {
 				list.add(b);
 				
 
-				System.out.println("list : " + list);
+				System.out.println("selectThList list : " + list);
 
 			}
 		} catch (SQLException e) {
@@ -129,14 +145,16 @@ public class BoardDao {
 		return list;
 	}
 
+	
+	//게시글 등록 
 	public int insertBoard(Connection conn, Board b) {
 		
 		//insertBoard=INSERT INTO BOARD VALUES(SEQ_BNO.NEXTVAL,?, ?, ?, DEFAULT, SYSDATE, DEFAULT)
-		//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_FNO.NEXTVAL, SEQ_BNO.CURRVAL, ?, ?, ?, SYSDATE, NULL, DEFAULT)
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertBoard");
-		System.out.println("sql : " + sql);
+		System.out.println("insert Board sql : " + sql);
 		
 		
 		try {
@@ -147,7 +165,7 @@ public class BoardDao {
 			pstmt.setInt(3, Integer.parseInt(b.getBoardWriter()));
 			
 			result = pstmt.executeUpdate();
-			System.out.println("======result====="+result);
+			System.out.println("======insert board result====="+result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,30 +176,7 @@ public class BoardDao {
 		
 	}
 
-	public int insertAttachment(Connection conn, Attachment at) {
-	
-				//insertAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_FNO.NEXTVAL, SEQ_BNO.CURRVAL, ?, ?, ?, SYSDATE, NULL, DEFAULT)
-				int result = 0;
-				PreparedStatement pstmt = null;
-				String sql = prop.getProperty("insertAttachment");
-				System.out.println("sql : " + sql);
-				
-				try {
-					pstmt = conn.prepareStatement(sql);
-					
-					pstmt.setString(1, at.getOriginName());
-					pstmt.setString(2, at.getChangeName());
-					pstmt.setString(3, at.getFilePath());
-					
-					result = pstmt.executeUpdate();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally {
-					close(pstmt);
-				}
-				return result;
-	}
+
 
 	public int increaseCount(Connection conn, int bno) {
 		int result = 0;
@@ -256,41 +251,7 @@ public class BoardDao {
 		return b;
 	}
 
-	public Attachment selectAttachment(Connection conn, int bno) {
-		Attachment at = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		//selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME 
-		//FROM ATTACHMENT WHERE REF_BNO=? AND STATUS='Y'
 
-		String sql = prop.getProperty("selectAttachment");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, bno);
-			rset = pstmt.executeQuery();
-			
-
-			if(rset.next()) {
-				at = new Attachment();
-				at.setFileNo(rset.getInt("FILE_NO"));
-				at.setOriginName(rset.getString("ORIGIN_NAME"));
-				at.setChangeName(rset.getString("CHANGE_NAME"));
-				
-				System.out.println("첨부파일 : "+ at);
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return at;
-	}
 	
 	public ArrayList<Board> selectThList(Connection conn) {
 		
@@ -375,9 +336,9 @@ public class BoardDao {
 		
 		String sql = prop.getProperty("insertAttachment");
 
-		System.out.println("퀴리문 : "+ sql);
+		System.out.println("insertAttachment 퀴리문 : "+ sql);
 		try {
-			System.out.println("for 문 전 size : "+fileList.size());
+			System.out.println("insertAttachment for 문 전 size : "+fileList.size());
 			
 			
 			
@@ -385,13 +346,9 @@ public class BoardDao {
 				
 				Attachment at = fileList.get(i);
 				
-				System.out.println(at.getOriginName());
-				System.out.println(at.getChangeName());
-				System.out.println(at.getFilePath());
 				
-				
-				System.out.println("파일번호" + fileList.get(0).getFileNo());
-				System.out.println("참조번호" + fileList.get(0).getRefBoardNo());
+				System.out.println( "insertAttachment 파일번호" + fileList.get(0).getFileNo());
+				System.out.println(" insertAttachment 참조번호" + fileList.get(0).getRefBoardNo());
 				
 				pstmt = conn.prepareStatement(sql);
 				
@@ -402,10 +359,8 @@ public class BoardDao {
 				
 				result += pstmt.executeUpdate();
 				
-				System.out.println(at.getOriginName());
-				System.out.println(at.getChangeName());
-				System.out.println(at.getFilePath());
-				System.out.println("첨부파일 여러개 : "+ result);
+				
+				System.out.println("insertAttachment 첨부파일 여러개 : "+ result);
 				
 			}
 			
@@ -425,9 +380,6 @@ public class BoardDao {
 	public ArrayList<Notice> selectNList(Connection conn) {
 		//selectNList=SELECT NOTICE_TITLE, NOTICE_CONTENT FROM NOTICE
 
-
-		
-		
 		ArrayList<Notice> nlist = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -443,7 +395,7 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery(); // 쿼리문 실행 
 			
-			System.out.println("==1==="+rset);
+			System.out.println("공지사항 result= ==="+rset);
 			
 			
 			// 두개만 목록을 가져와서 객체로 생성함 
@@ -455,7 +407,7 @@ public class BoardDao {
 						
 						));
 				
-				System.out.println("보드 다오에서 넘겨보기 : " +  nlist);
+				System.out.println("공지하사항 보드 다오에서 넘겨보기 : " +  nlist);
 			}
 			
 			
@@ -469,6 +421,181 @@ public class BoardDao {
 
 		
 		return nlist;
+	}
+
+	//선택했을때 디테일로 넘어감 
+	public ArrayList<Attachment> selectThumbnail(Connection conn, int bno) {
+		
+		ArrayList<Attachment>list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachment");
+		
+		//selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME FROM ATTACHMENT WHERE REF_BNO=? AND STATUS='Y'
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Attachment at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				
+						
+				list.add(at);
+				
+				System.out.println("셀렉트어테치먼트  list : " + list);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+
+	//사진 비교해서 다시  넣어주기 (일반 list로 가져와 여러장 뿌려줄 수 있나? )
+	public ArrayList<Attachment> selectAttachment(Connection conn, int bno) {
+		
+		ArrayList<Attachment> files = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//selectAttachment=SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME 
+				//FROM ATTACHMENT WHERE REF_BNO=? AND STATUS='Y'
+
+				String sql = prop.getProperty("selectAttachment");
+
+				try {
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, bno);
+					
+					
+					rset = pstmt.executeQuery();
+					
+
+					while(rset.next()) 
+					{
+						
+						Attachment at = new Attachment();
+						at.setFileNo(rset.getInt("FILE_NO"));
+						at.setOriginName(rset.getString("ORIGIN_NAME"));
+						at.setChangeName(rset.getString("CHANGE_NAME"));
+						
+						files.add(at);
+						System.out.println("다오에서 파일이 담기니? " + files);
+					
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(rset);
+					close(pstmt);
+				}
+				return files;
+	}
+
+	public int updateBoard(Connection conn, Board b) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//updateBoard=UPDATE BOARD SET BOARD_TITLE=?, BOARD_CONTENT=? WHERE BOARD_NO=?
+		String sql = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setInt(3, b.getBoardNo());
+			
+			result= pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateAttachment(Connection conn, Attachment at) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=? WHERE FILE_NO=?
+		String sql = prop.getProperty("updateAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getChangeName());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
+			
+			result= pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertNewAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//insertNewAttachment=INSERT INTO ATTACHMENT VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?, ?, SYSDATE, 1, DEFAULT)
+		
+//		REF_BNO
+//		ORIGIN_NAME
+//		CHANGE_NAME
+//		FILE_PATH
+		String sql = prop.getProperty("insertNewAttachment");
+		
+		try {
+			
+			for(int i = 0; i<fileList.size(); i++) {
+				
+				Attachment at = fileList.get(i);
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, at.getRefBoardNo());
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				
+				result += pstmt.executeUpdate();
+			}
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertNewAttachment(Connection conn, Attachment at) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	
