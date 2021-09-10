@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import=""%>
+  <%
+  
+  
+  
+  %>  
     
   
 	
@@ -59,6 +64,11 @@
 			border-radius: 2em;
 			
 		}
+		
+		.title{
+		
+		
+		}
 		</style>
 
 </head>
@@ -112,7 +122,7 @@
 
 
                 <!-- step1 form 시작점  -->
-            <form action="" method="post" name="theme">
+            <form action="insertAdmin.pl" method="post" name="">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
                         <div class="row">
@@ -127,8 +137,8 @@
                                             <h4>연인과 함께</h4>
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="optionsRadios"
-                                                        id="optionsRadios1" value="option1">
+                                                    <input type="radio" class="form-check-input" name="course"
+                                                        id="optionsRadios1" value="couple" checked="checked">
                                                     2인이상
                                                 </label>
             
@@ -148,8 +158,8 @@
                                             <h4>가족과 함께</h4>
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="optionsRadios"
-                                                        id="optionsRadios2" value="option2">
+                                                    <input type="radio" class="form-check-input" name="course"
+                                                        id="optionsRadios2" value="family">
                                                     4인이상
                                                 </label>
                                             </div>
@@ -170,8 +180,8 @@
                                             <h4>친구와 함께</h4>
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="optionsRadios"
-                                                        id="optionsRadios3" value="option3">
+                                                    <input type="radio" class="form-check-input" name="course"
+                                                        id="optionsRadios3" value="withBF">
                                                     3인이상
                                                 </label>
             
@@ -215,11 +225,9 @@
                         </div> -->
 
                         <h2>위치를 선택해주세요</h2>
-                        <select name="which" onchange="handleOnChange(this)">
-                            <option value="연남동">연남동</option>
-                            <option value="광화문">광화문</option>
-                            <option value="홍대">홍대</option>
-                            <option value="강남">강남</option>
+                        <select name="area" onchange="handleOnChange(this)">
+                            <option value="hongdae">홍대</option>
+                            <option value="gangnam">강남</option>
                         </select>
                         <div id='result'></div>
                         
@@ -229,11 +237,18 @@
                         <div class="date_1" id='result'>
                             <h2>날짜를 선택해주세요</h2>
                         
-                            <input type="text" name="date_choose" id="startDate">
-                        
+                            <input type="text" name="chooseDate" id="startDate">
+                        <!-- 
                             <button type="button" class="btn btn-dark">확인</button>
-                        
+                         -->
                         </div>
+                        
+                         	<!--  혹시모르니 추천일정도 제목을 붙일 수 있게 해둘까 -->
+                        <div class="title">
+                        	<label>추천일정 저장 제목 </label>
+                        	<input type="text" name="title" >
+                        
+                        </div> 
                   </form>
      
      </section>
