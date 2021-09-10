@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import semiProject.com.kh.board.model.vo.PlaceAttachment;
+import semiProject.com.kh.course.model.vo.Course;
 import semiProject.com.kh.place.model.vo.Place;
 
 public class PlaceDao {
