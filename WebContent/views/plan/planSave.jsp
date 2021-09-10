@@ -125,7 +125,7 @@
 				<div class="listArea">
 					<%for(PlanMy pm : list) {%>
 						<div class="thumbnail" align="center">
-                    		<input type="checkbox" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox"><br>
+                    		<input type="checkbox" name="planNo" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox"><br>
                     		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
                     		<p>
                         	<%=pm.getPlanTitle()%>
