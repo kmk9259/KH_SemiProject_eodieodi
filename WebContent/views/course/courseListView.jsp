@@ -129,7 +129,7 @@ text-align:center;
 							
 					</div>
 					<br><br>
-					<table id="courseList" border="1" >
+					<table id="courseList" class="courseList" >
 					</table>
 					
 					
@@ -174,7 +174,7 @@ text-align:center;
 								break;
 							}
 							value += '<thead><tr><th width="100">코스 NO.</th><th width="100">지역</th><th width="100">테마</th><th width="300">코스 제목</th>'
-									+'<th width="200">상세 페이지</th>'
+									
 									+'</tr></thead>'
 									+'<tbody>'
 									+'<tr>'
@@ -182,33 +182,18 @@ text-align:center;
 										+'<td>'+areaName+'</td>'
 										+'<td >'+themeName+'</td>'
 										+'<td >'+list[i].courseTitle+'</td>'
-										+'<td ><button id="detailCourse" onclick="detailCourse()">자세히 보기</button></td>'
+										
 									+'</tr>'
 									+'</tbody>';
+									 
 							
-						}
-						 $("#courseList").html(value); 
-					},
-					error:function(){
-						console.log("ajax 통신 실패 - 지역선택 넘겨주기");
-					}
+						} //for
+						 $("#courseList").html(value);
+						
+					}//success					
 				})
 				
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			

@@ -123,4 +123,40 @@ public class CourseDao {
 		return list;
 	}
 
+	public ArrayList<Place> selectCoursePlaceList(Connection conn, int cNo) {
+		ArrayList<Place> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		/*
+		 * selectCoursePlaceList=SELECT A.PLACE_NO,PLACE_TITLE, PLACE_PHONE,
+		 * DESCRIPTION, BSHOUR, PRICE, ADDRESS \ FROM COURSE_PLACE A JOIN PLACE B ON
+		 * (A.PLACE_NO = B.PLACE_NO) WHERE REF_COURSE=?
+		 */
+		String sql = prop.getProperty("selectCoursePlaceList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			rset = pstmt.executeQuery();
+			while(rset.next())
+			{
+				Place p = new Place();
+				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				p.setPlacePhone(rset.getString("PLACE_PHONE"));
+				p.setDescription(rset.getString("DESCRIPTION"));
+				p.setBsHour(rset.getString("BSHOUR"));
+				p.setPrice(rset.getInt("PRICE"));
+				p.setAddress(rset.getString("ADDRESS"));
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 }

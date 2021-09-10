@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*"%>
 <%
-	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");
+	ArrayList<Place> cplist = (ArrayList<Place>)request.getAttribute("cplist");
 %>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <meta name="keywords" content="Directing, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>어디어디 - 관리자페이지(일정조회)</title>
+<title>어디어디 - 관리자페이지(코스일정 상세페이지)</title>
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
 	type="text/css">
@@ -63,7 +63,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>일정 관리</h2>
+							<h2>코스 조회</h2>
 						</div>
 					</div>
 				</div>
@@ -101,14 +101,14 @@
 								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
+								<li class="active menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
 								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
 								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
 								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
-								<li class="active menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 								
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
@@ -119,40 +119,10 @@
 			<div class="admin-showpage nice-scroll">
 			<div class="outer">
 				<br>
-				<h2 align="center">일정 조회</h2>
+				<h2 align="center">코스 조회</h2>
 				<br>
 				
-				<div class=listPlace>
-					<%for(Place p : list){ %>					
-					<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-						<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
-						<div class="card">
-							<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
-							<div class="card-body">
-								<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
-								<p class="card-text">조회수 : <%= p.getCount() %></p>
-								
-								
-								
-							</div>
-						</div>							
-					</div>
-					<%} %>
 				
-					
-					<br><br>
-					
-				</div>
-				<script>
-					$(function(){
-						$(".card").click(function(){
-							
-							var parent = $(this).parent(); 
-							var pNo = parent.children("#placeNo").val();
-							location.href='<%=contextPath%>/detail.pl?pNo='+pNo;
-						});
-					});
-				</script>
 			</div>
 			</div>
 			
