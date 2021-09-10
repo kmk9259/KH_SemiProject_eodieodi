@@ -321,6 +321,7 @@ public class MemberDao {
 		return result;
 	}
 
+	/*
 	//내가 쓴 글에 보일 커뮤니티 글
 	public ArrayList<Board> selectMyPost(Connection conn, String userId) {
 		//selectMyPost=SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, USER_ID, COUNT, CREATE_DATE
@@ -337,9 +338,9 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  userId);
 			rset = pstmt.executeQuery(); // 쿼리문 실행 
 
-			pstmt.setString(1,  userId);
 			System.out.println("==1==="+rset);
 			
 			
@@ -347,12 +348,10 @@ public class MemberDao {
 			while(rset.next()) {
 				
 				list.add(new Board(
-						rset.getInt("BOARD_NO"),
 						rset.getString("BOARD_TITLE"),
 						rset.getString("BOARD_CONTENT"),
 						rset.getString("USER_ID"),
-						rset.getInt("COUNT"),
-						rset.getDate("CREATE_DATE")
+						rset.getInt("COUNT")
 						));
 				
 				System.out.println("멤버 다오에서 넘겨보기 : " +  list);
@@ -369,7 +368,7 @@ public class MemberDao {
 		
 		return list;
 	}
-
+*/
 	public int emailCheck(Connection conn, String email) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -395,5 +394,50 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	public ArrayList<Board> selectMyPost(Connection conn, String userId) {
+		//selectMyPost=SELECT BOARD_TITLE, BOARD_CONTENT, USER_ID, COUNT
+		//FROM BOARD B JOIN MEMBER ON(BOARD_WRITER = USER_NO)
+		//WHERE B.STATUS = 'Y' AND USER_ID=?
+		
+		ArrayList<Board> list = new ArrayList<Board>();
+				
+				PreparedStatement pstmt = null;
+				ResultSet rset = null;
+				
+				String sql = prop.getProperty("selectMyPost");
+
+				System.out.println("sql 문은 읽히는지 : " + sql);
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1,  userId);
+					rset = pstmt.executeQuery(); // 쿼리문 실행 
+					
+					// 다섯개의 목록을 가져와서 객체로 생성함 
+					while(rset.next()) {
+						
+						list.add(new Board(
+								rset.getString("BOARD_TITLE"),
+								rset.getString("BOARD_CONTENT"),
+								rset.getString("USER_ID"),
+								rset.getInt("COUNT")
+								));
+						
+						System.out.println("멤버 다오에서 넘겨보기 : " +  list);
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(rset);
+					close(pstmt);
+				}
+		
+				
+				return list;
+			}
 
 }

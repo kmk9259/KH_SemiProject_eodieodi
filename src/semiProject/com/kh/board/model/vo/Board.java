@@ -63,7 +63,13 @@ public class Board {
 		this.createDate = createDate;
 	}
 
-
+	
+	public Board(String boardTitle, String boardContent, String boardWriter, int count) {
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardWriter = boardWriter;
+		this.count = count;
+	}
 
 
 
