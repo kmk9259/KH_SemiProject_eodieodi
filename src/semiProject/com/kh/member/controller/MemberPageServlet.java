@@ -43,9 +43,12 @@ public class MemberPageServlet extends HttpServlet {
 		System.out.println("member : " + member);
 		
 		//공지사항 넘겨주자
-		Board b = new Board();
+		//Board bo = new Board();
+		
 		ArrayList<Board> list = new MemberService().selectMyPost(userId);
+		
 		request.setAttribute("list", list);
+		System.out.println("-----------"+list);
 		
 		RequestDispatcher view = null;
 		if(member != null) {
