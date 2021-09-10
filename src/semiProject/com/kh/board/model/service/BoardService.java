@@ -34,23 +34,6 @@ public class BoardService {
 		return list;
 	}
 
-//	public int insertBoard(Board b, Attachment at) {
-//		Connection conn = getConnection();
-//		
-//		int result1 = new BoardDao().insertBoard(conn, b);
-//		int result2 = 1;
-//		if(at != null) {
-//			result2 = new BoardDao().insertAttachment(conn, at);
-//		}
-//		
-//		if(result1 * result2 > 0) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		}
-//		return result1 * result2;
-//		
-//	}
 
 
 	public Board selectBoard(int bno) {
@@ -69,21 +52,18 @@ public class BoardService {
 		
 	}
 
-	public Attachment selectAttachment(int bno) {
-		Connection conn = getConnection();
-		
-		Attachment at = new BoardDao().selectAttachment(conn, bno);
-		close(conn);
-		return at;
-	}
+
 
 	public int insertThumbnail(Board b, ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
 		
 		int result1 = new BoardDao().insertThBoard(conn, b);
 		int result2 = new BoardDao().insertAttachment(conn, fileList);
-		System.out.println("서비스에서 결과"+result1);
-		System.out.println("서비스에서 결과"+result2);
+		
+		
+		System.out.println("인서트섬네일 서비스에 b : " + b);
+		System.out.println("인서트섬네일 서비스에 fileList : " + fileList);
+		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		}else {
@@ -105,13 +85,61 @@ public class BoardService {
 	}
 
 
-//	public ArrayList<Board> selectThList() {
-//		Connection conn = getConnection();
-//		
-//		ArrayList<Board> list = new BoardDao().selectThList(conn);
-//		close(conn);
-//		return list;
-//	}
+	public ArrayList<Attachment> selectThumbnail(int bId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> list = new BoardDao().selectThumbnail(conn, bId);
+		close(conn);
+		return list;
+	}
+
+//게시판 업데이트 부분  ==================
+	public Board selectUpdateBoard(int bno) {
+		Connection conn = getConnection();
+		Board b = new BoardDao().selectBoard(conn, bno);
+		close(conn);
+		
+		return b;
+	}
+
+//게시판 사진 업데이트 하기 위헤 폼에
+	public ArrayList<Attachment> selectAttachment(int bno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> files = new BoardDao().selectAttachment(conn, bno);
+		close(conn);
+		return files;
+		
+	}
+
+//업데이트를 실행한 후 메소드 
+	public int updateBoard(Board b, Attachment at) {
+		Connection conn = getConnection();
+		
+		int result1 = new BoardDao().updateBoard(conn, b);
+		int result2 =1;
+		if(at != null) {
+			if(at.getFileNo() != 0) {
+				result2 = new BoardDao().updateAttachment(conn, at);
+			}else {
+				result2 = new BoardDao().insertNewAttachment(conn, at);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1* result2;
+	}
+
+
+
+	
+
+
 
 
 	
