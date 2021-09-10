@@ -13,6 +13,7 @@ import semiProject.com.kh.area.model.service.AreaService;
 import semiProject.com.kh.area.model.vo.Area;
 import semiProject.com.kh.category.model.service.CategoryService;
 import semiProject.com.kh.category.model.vo.Category;
+import semiProject.com.kh.course.model.service.CourseService;
 import semiProject.com.kh.course.model.vo.Course;
 import semiProject.com.kh.theme.model.vo.Theme;
 import semiProject.com.kh.theme.service.ThemeService;
@@ -55,13 +56,30 @@ public class CourseInsertServlet extends HttpServlet {
 		System.out.println("areaNo"+areaNo);
 		System.out.println("themeNo"+themeNo);
 		System.out.println("textarea"+textarea);
-		if(textarea!= null && areaNo!=null)
+		if(textarea!= null && areaNo!=null && themeNo!= null)
 		{
 			String[] pNo = textarea.split(",");
 			for(int i=0; i<pNo.length; i++)
 			{
 				System.out.println(pNo[i]);
 				Course c = new Course();
+				c.setAreaNo(Integer.parseInt(areaNo));
+				c.setThemeNo(Integer.parseInt(themeNo));
+				c.setCourseTitle(courseTitle);
+				
+				int result = new CourseService().insertCourse(c,pNo);
+				
+				if(result >0)
+				{
+					request.getRequestDispatcher("views/admin/courseAdd.jsp").forward(request, response);
+					return;
+				}
+				else
+				{
+					request.setAttribute("msg", "일정 등록에 실패하였습니다.");
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				}
+				
 				
 			}
 		}

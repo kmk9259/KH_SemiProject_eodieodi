@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.category.model.vo.*,semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
+<%
+	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");	
+	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +14,7 @@
 <meta name="keywords" content="Directing, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>어디어디 - 관리자페이지(일정삭제)</title>
+<title>어디어디 - 관리자페이지(코스 조회)</title>
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
 	type="text/css">
@@ -30,7 +35,14 @@
     border: 1px solid #D34B32;
     
 }
-
+#courseList{
+border:1px solid white;
+text-align:center;
+}
+#courseList>tbody>tr:hover{
+		background:darkgrey;
+		cursor:pointer
+	}
 
 </style>
 
@@ -51,7 +63,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>코스 삭제</h2>
+							<h2>코스 조회</h2>
 						</div>
 					</div>
 				</div>
@@ -76,7 +88,7 @@
             });
             });
         
-        </script>
+    </script>
 
 	<section class="page-start">
 		<section class="admin">
@@ -84,7 +96,8 @@
 				<div class=" menuBar">
 					<div class="col-sm-2">
 						<nav class="nav-sidebar">
-							<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
+							<ul class="nav tabs">
+								<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
 								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
@@ -93,86 +106,114 @@
 								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
+								<li class="active menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
 								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-								<li class="active menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 								
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
+
 							</ul>
 						</nav>
 					</div>
 				</div>	
-				<div class="admin-showpage nice-scroll">
-					<select id="placeChoice" onchange="choicePlace(this)">
-						<option value="none" selected="selected">지역선택</option>
-						<option value="h">홍대</option>
-						<option value="g">강남</option>
-					</select><br><br><br><br>
-					<script>
-					function choicePlace(c){
-					    var hong = document.getElementById("hongdae");
-					    var gang = document.getElementById("gangnam");
-					    
-					    if(c.value == "h")
-					    {
-					    	$('#hongdae').show();
-					    	$('#gangnam').hide();
-					    }	
-					    else if(c.value == "g")
-				    	{
-					    	$('#hongdae').hide();
-					    	$('#gangnam').show();
-				    	}					    
-					}
+			<div class="admin-showpage nice-scroll">
+			<div class="courseList nice-scroll" style="height: 1000px; width: 1500px;">
+					<div >
+							<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
+								<option value="0" selected>지역을 선택하세요</option>
+								<%for(Area a : alist) {%>
+								<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
+								<%} %>
+								
+							</select><br><br>
+							
+					</div>
+					<br><br>
+					<table id="courseList" border="1" >
+					</table>
 					
-					</script>
 					
-					<div id="hongdae">
-						<% for(int i=0; i<10; i++) {%>
-						<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-							<div class="card">
-								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
-								<div class="card-body">
-									<h4 class="card-title">홍대 코스</h4>
-									<p class="card-text">방탈출 - 홍대개미 - 술집</p>
-	
-									<button class="btn btn-primary">삭제</button>
-								</div>
-							</div>							
-						</div>
-						<%} %>
-					</div><!--홍대  -->
-					<div id="gangnam">
-						<% for(int i=0; i<10; i++) {%>
-						<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-							<div class="card">
-								<img class="card-img-top" src="<%= contextPath %>/resources/img/gyeongbokgung-palace.jpg" alt="Card image" style="width: 100%">
-								<div class="card-body">
-									<h4 class="card-title">강남 코스</h4>
-									<p class="card-text">강남 cgv - 밥집</p>
-	
-									<button class="btn btn-primary">삭제</button>
-								</div>
-							</div>							
-						</div>
-						<%} %>
-					</div><!--강남  -->
-					<script>				
-					$(function() {
-
-						$(".btn").click(function() {
-							var result = confirm("추천 코스를 삭제하시겠습니까?")
-							if (result) {
-								alert("추천 코스가 삭제되었습니다.")
-							} else {
-								location.reload();
+					
+			</div>
+			</div><!-- admin-showpage nice-scroll -->
+			<script>
+			function changeArea(obj)
+			{
+				var placeChoice = document.getElementById('placeChoice');
+				var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
+				console.log(areaNo+"   areaNo")
+				$("#courseList").empty();
+				$.ajax({
+					url : "cList.co",
+					type : "post",
+					data:{areaNo : areaNo},
+					success:function(list){
+						console.log(list);
+						var value="";
+						var contextPath = "<%=contextPath%>";
+						
+						for(var i in list)
+						{
+							switch(list[i].areaNo){
+							case 1 :
+								var areaName="홍대";								
+								break;
+							case 2 :
+								var areaName="강남";
+								break;							
 							}
-
-						});
-
-						});
-					</script>
-				</div><!-- admin-showpage -->
+							switch(list[i].themeNo){
+							case 1 :
+								var themeName="연인과함께";								
+								break;
+							case 2 :
+								var themeName="가족과함께";								
+								break;
+							case 3 :
+								var themeName="친구와함께";								
+								break;
+							}
+							value += '<thead><tr><th width="100">코스 NO.</th><th width="100">지역</th><th width="100">테마</th><th width="300">코스 제목</th>'
+									+'<th width="200">상세 페이지</th>'
+									+'</tr></thead>'
+									+'<tbody>'
+									+'<tr>'
+										+'<td >'+list[i].courseNo+'</td>'
+										+'<td>'+areaName+'</td>'
+										+'<td >'+themeName+'</td>'
+										+'<td >'+list[i].courseTitle+'</td>'
+										+'<td ><button id="detailCourse" onclick="detailCourse()">자세히 보기</button></td>'
+									+'</tr>'
+									+'</tbody>';
+							
+						}
+						 $("#courseList").html(value); 
+					},
+					error:function(){
+						console.log("ajax 통신 실패 - 지역선택 넘겨주기");
+					}
+				})
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</script>
+			
 		</section><!-- admin -->
 	</section><!-- page- start -->
 
