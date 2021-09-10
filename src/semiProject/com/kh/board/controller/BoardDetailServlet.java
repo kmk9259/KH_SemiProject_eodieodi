@@ -42,6 +42,7 @@ public class BoardDetailServlet extends HttpServlet {
 		ArrayList<Attachment> fileList = new BoardService().selectThumbnail(bno);
 		
 		if( b != null ) {
+			
 			request.setAttribute("b", b);
 			request.setAttribute("fileList", fileList);
 			

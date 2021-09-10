@@ -47,6 +47,7 @@ public class BoardUpdateFormServlet extends HttpServlet {
 			request.setAttribute("b", b);
 			request.setAttribute("fileList", fileList);
 			request.getRequestDispatcher("views/board/boardUpdateForm.jsp").forward(request, response);
+			
 		}else {
 			request.setAttribute("msg", "업데이트 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

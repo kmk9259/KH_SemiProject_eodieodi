@@ -3,7 +3,12 @@
     
     <% 
 	Board board = (Board)request.getAttribute("b");
-	Attachment fileList = (Attachment)request.getAttribute("Filelist");
+    ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
+
+	Attachment titleImg = fileList.get(0);
+	Attachment contentImg1 = fileList.get(1);
+	Attachment contentImg2 = fileList.get(2);
+	Attachment contentImg3 = fileList.get(3);
 	%>
 <!DOCTYPE html>
 <html>
@@ -163,7 +168,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
       
       
-          <form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
+          <form id="insertForm" action="<%= contextPath %>/update.bo" method="post" enctype="multipart/form-data">
           <input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
               <div class="form-group">
                   <label class="form-label" for="title">Title</label>
@@ -183,37 +188,49 @@
              
                 
              <div>
-              <% if(fileList != null) { %>
+              <% if(fileList != null) { %> <!-- 기존파일 있으면 -->
+              
               <% System.out.print("첨부파일 있니?" + fileList); %>
-              <img src="<%= fileList.getOriginName() %>" id="titleImg" width="200px" height="180">
-             	<input type='hidden' name='originFile' value='<%=fileList.getChangeName()%>'>
-				<input type='hidden' name='originFileNo' value='<%=fileList.getFileNo()%>'>
+              
+              <img name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>" id="titleImg" width="200px" height="180">
+             	<input type='hidden' name='originFile' value='<%=fileList.get(0).getChangeName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(0).getFileNo()%>'>
              </div>
               
               <br>
               <div>
               
-              <img src="<%= fileList.getOriginName()%>"  id="contentImg1" width="200px" height="180">
-              <img src="<%= fileList.getOriginName()%>"  id="contentImg2" width="200px" height="180">
-              <img src="<%= fileList.getOriginName()%>" id="contentImg3" width="200px" height="180">
+              <img name="file2" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(1).getChangeName()%>"  id="contentImg1" width="200px" height="180">
+              <input type='hidden' name='originFile' value='<%=fileList.get(1).getChangeName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(1).getFileNo()%>'>
               
+              <img name="file3" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(2).getChangeName()%>"  id="contentImg2" width="200px" height="180">
+              <input type='hidden' name='originFile' value='<%=fileList.get(2).getChangeName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(2).getFileNo()%>'>
+              
+              <img name="file4"src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(3).getChangeName()%>" id="contentImg3" width="200px" height="180">
+              <input type='hidden' name='originFile' value='<%=fileList.get(3).getChangeName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(3).getFileNo()%>'>
+				
               </div>
               
-              <% }%>
+              <% }else{ %>
               
-               <div>
-             
-              <img id="titleImg" width="200px" height="180">
+	               <div>
+	             
+	              <img id="titleImg" width="200px" height="180">
+	              
+	              </div>
+	              
+	              <br>
+	              <div>
+	              <img id="contentImg1" width="200px" height="180">
+	              <img id="contentImg2" width="200px" height="180">
+	              <img id="contentImg3" width="200px" height="180">
+	              
+	              </div>
               
-              </div>
-              
-              <br>
-              <div>
-              <img id="contentImg1" width="200px" height="180">
-              <img id="contentImg2" width="200px" height="180">
-              <img id="contentImg3" width="200px" height="180">
-              
-              </div>
+              <% } %>
               
               <div id="fileArea">
               
@@ -230,7 +247,7 @@
               <div class="text-center btns">
               
               
-              <button type="submit" class="site-btn" onclick="checkValue()">등록하기</button>
+              <button type="submit" class="site-btn" onclick="checkValue()">수정하기</button>
        		  <button type="reset" class="site-btn">취소하기</button>
               <button type="history" class="site-btn" onclick=goBack();>목록으로</button>
               </div>
