@@ -1,6 +1,7 @@
 package semiProject.com.kh.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semiProject.com.kh.board.model.service.BoardService;
+import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.member.model.service.MemberService;
 import semiProject.com.kh.member.model.vo.Member;
 
@@ -39,9 +42,15 @@ public class MemberPageServlet extends HttpServlet {
 		
 		System.out.println("member : " + member);
 		
+		//공지사항 넘겨주자
+		Board b = new Board();
+		ArrayList<Board> list = new MemberService().selectMyPost(userId);
+		request.setAttribute("list", list);
+		
 		RequestDispatcher view = null;
 		if(member != null) {
 			request.setAttribute("loginUser", member);
+			request.setAttribute("list", list);
 			view = request.getRequestDispatcher("views/member/myPage.jsp");
 		}else {
 			request.setAttribute("msg", "정보 수정에 실패했습니다.");

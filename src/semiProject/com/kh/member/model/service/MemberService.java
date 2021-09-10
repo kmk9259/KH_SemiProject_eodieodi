@@ -8,8 +8,11 @@ import static semiProject.com.kh.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import semiProject.com.kh.board.model.dao.BoardDao;
+import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.member.model.dao.MemberDao;
 import semiProject.com.kh.member.model.vo.Member;
+import semiProject.com.kh.notice.model.vo.Notice;
 import semiProject.com.kh.place.model.dao.PlaceDao;
 
 public class MemberService {
@@ -127,5 +130,24 @@ public class MemberService {
 		
 		close(conn);
 		return result;	}
+
+	
+	public ArrayList<Board> selectMyPost(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new MemberDao().selectMyPost(conn, userId);
+		close(conn);
+		System.out.println("서비스에서 보이는지 : " + list);
+		
+		return list;
+	}
+
+	public int emailCheck(String email) {
+		Connection conn = getConnection();
+		int result = new MemberDao().emailCheck(conn, email);
+		close(conn);
+		return result;
+	}
+
 
 }
