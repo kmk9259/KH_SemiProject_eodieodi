@@ -71,7 +71,7 @@
 				
 				Session e_session = Session.getDefaultInstance(props, new Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication("hrkang333", "ashley0325!");
+						return new PasswordAuthentication("", "");	//아이디, 비번
 					}
 				});
 				
