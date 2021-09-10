@@ -90,7 +90,7 @@ height: 500px;
 							<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
 							<li class="active menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
 							<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
-							<li class="menuB"><a href="<%=contextPath%>/ccAdd.co">코스 등록</a></li>
+							<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
 							<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 							<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 

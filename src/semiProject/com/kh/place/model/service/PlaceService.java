@@ -80,6 +80,14 @@ public class PlaceService {
 		return result1;
 	}
 
+	public ArrayList<Place> selectPList2(int aNo) {
+		Connection conn = getConnection();
+		ArrayList<Place> list = new PlaceDao().selectPList2(conn, aNo);
+		
+		close(conn);
+		return list;
+	}
+
 	
 
 	
