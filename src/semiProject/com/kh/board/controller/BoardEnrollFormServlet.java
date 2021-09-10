@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class boardinsertServlet
+ * Servlet implementation class BoardinsertServlet
  */
 @WebServlet("/enroll.bo")
-public class boardEnrollFormServlet extends HttpServlet {
+public class BoardEnrollFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public boardEnrollFormServlet() {
+    public BoardEnrollFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class boardEnrollFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/board/blogInsertPage.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/boardInsertPage.jsp").forward(request, response);
 	}
 
 	/**

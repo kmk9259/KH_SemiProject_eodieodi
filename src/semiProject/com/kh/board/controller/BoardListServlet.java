@@ -19,16 +19,16 @@ import semiProject.com.kh.notice.model.vo.Notice;
 
 
 /**
- * Servlet implementation class boardListServlet
+ * Servlet implementation class BoardListServlet
  */
 @WebServlet("/list.bo")
-public class boardListServlet extends HttpServlet {
+public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public boardListServlet() {
+    public BoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -59,10 +59,10 @@ public class boardListServlet extends HttpServlet {
 				}
 				
 				// * pageLimit : 한 페이지 하단에 보여질 페이지 최대 갯수 
-				pageLimit = 6;
+				pageLimit = 4;
 				
 				// * boardLimit : 한 페이지에 보여질 게시글 최대 갯수
-				boardLimit = 6;
+				boardLimit = 4;
 				
 				// * maxPage : 총 페이지 수
 				/*
@@ -115,8 +115,10 @@ public class boardListServlet extends HttpServlet {
 				Board b = new Board();
 				
 			
+
 				
 				
+				//게시판 리스트 넘겨주기 (페이지와 함께_)
 				ArrayList<Board> list = new BoardService().selectThList(pi);
 				
 				//공지사항도 넘겨줘야 하니깐
@@ -124,16 +126,15 @@ public class boardListServlet extends HttpServlet {
 				
 				
 				
-				//값이 없다는 것은.... 
-				System.out.println("******** " +nlist + "********");
-
+				
 				
 				
 				//VIEW 단으로 넘겨주는 객체들 
 				request.setAttribute("nlist", nlist);
+				//기존에서 추가된거라곤, 페이징 객체 
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi); // 담아온 페이지 정보도 넘겨준다. 
-				request.getRequestDispatcher("views/board/blogListView.jsp").forward(request, response);
+				request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
 				
 				
 				
