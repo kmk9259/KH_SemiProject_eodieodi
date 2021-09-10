@@ -31,6 +31,21 @@ public class AdminPlan {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+	
+
+	public AdminPlan(int userNo, int areaNo, int courseNo, Date createDate) {
+		super();
+		this.userNo = userNo;
+		this.areaNo = areaNo;
+		this.courseNo = courseNo;
+		this.createDate = createDate;
+	}
+
+
+
+
 
 	public AdminPlan(int planNo, int userNo, int areaNo, int courseNo, String planTitle, Date createDate, String status,
 			String titleImg) {
