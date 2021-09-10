@@ -6,9 +6,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>이메일 인증번호</title>
+		<title>어디어디 이메일 인증번호</title>
 	</head>
-	<body>
+	<body style="background-color: #FFF3E7;">
 		<% 
 			String AuthenticationKey = (String) request.getSession().getAttribute("AuthenticationKey");
 			boolean result = false;
@@ -40,22 +40,20 @@
 				//self.close();
 			}
 		</script>
-		<table border="1">
-			<tr>
-				<td>인증번호를 입력하세요.</td>
-			</tr>
+		<table border="1" style="border: #D34B32; width: 80%; margin-left: 10%; margin-top: 15%; height: 300px;">
+				<caption><h2>인증번호를 입력하세요.</h2></caption>
 			<tr>
 				<td>
-					<input type="text" name="email_chk">
+					<input type="text" name="email_chk" style="text-align:center; width: 99%; height: 100%; font-size: 20px;">
 					<input type="hidden" name="AuthenticationKey" value="<%=AuthenticationKey%>">
 				</td>
-				<td><input type="button" name="chk" value="인증번호 확인" onclick="chk();"></td>
+				<td rowspan="2"><input type="button" name="chk" value="인증번호 확인" onclick="chk();" style="background-color: #D958A0; color: #ffffff; width: 100%; height: 100%; font-size: 20px;"></td>
 			</tr>
 			<tr>
-				<td><input type="text" name="email_chk_result" readonly="readonly" style="color: red;"></td>
+				<td><input type="text" name="email_chk_result" readonly="readonly" style="color: #D34B32; text-align:center; width: 99%; height: 100%; font-size: 19px;"></td>
 			</tr>
 			<tr>
-				<td><input type="button" value="확인" onclick="confirm(<%=result%>);"></td>
+				<td colspan="2" style="height:70px"><input type="button" value="닫기" onclick="confirm(<%=result%>);" style="background-color: #545554; color: #ffffff; width: 100%; height: 100%; font-size: 20px;"></td>
 			</tr>
 		</table>
 	</body>

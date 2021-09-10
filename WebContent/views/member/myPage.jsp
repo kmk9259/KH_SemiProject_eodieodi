@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
     
 <%
 	Member m = (Member)request.getAttribute("loginUser");
@@ -12,7 +12,11 @@
 	String phone = m.getPhone() != null? m.getPhone() : "";
 	String email = m.getEmail() != null? m.getEmail() : "";
 
-	
+	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
+
+   	Board b = (Board)request.getAttribute("b");
+   	//String writer = b.getBoardWriter();
+
 %>
 
 <!DOCTYPE html>
@@ -77,7 +81,6 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
 
 <%@ include file="../common/menubar.jsp"%>
    
@@ -267,11 +270,35 @@
                         </div>
 
 
+	<script type="text/javascript">
+	var userId = $("input[name='userId']");
+	var writer = $("input[name='writer']");
+	
+	if(writer.val() == userId.val()){
+		console.log("writer------>   " + writer.val());
+		console.log("userId------>   " + userId.val());
+	}
+	
+	if(b.getBoardWriter() == userId.val()){
+		console.log("b.getBoardWriter()------>   " + b.getBoardWriter());
+		console.log("userId------>   " + userId.val());
+	}else{
+		console.log("조회 안됨");
+		
+	}
+	
+
+	console.log("writer------>   " + writer);
+	console.log("userId------>   " + userId);
+	</script>
+
 						<!-- 내가 쓴 글 -->
                         <div class="tab-pane text-style" id="myPost">
                             <h2 class="tInfo">내가 쓴 글</h2>
 							<br><br>
                             <div class="span5" style="padding-left: 10%; width: 80%;">
+                            <input type="text" name = "writer" value="<%= b.getBoardWriter() %>"/>
+                            <input type="text" name = "userId" value="<%= userId %>"/>
                                 <table class="table table-striped table-condensed" style="text-align: center;">
                                     <thead>
                                         <tr>
@@ -282,7 +309,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                 <%--  <% if(writer == loginUser){ %>
+                                     <% if("<%= writer() %>" == "<%= loginUser %>"){ %>
+                                    <!--위에서 받아온 리스트가 비어있으면 이걸 띄워주고   -->
+                                        <% if(list.isEmpty()){ %>
                                         <tr>
+											<td colspan="7"><center>존재하는 게시글이 없습니다.</center></td>
+										</tr>
+															
+										<!--  아니면 엘스로 해서 하나씩 띄워준다 -->
+											<% }else{  %>
+												<% for(Board blist : list){ %>
+														<tr>
+															<td><%= b.getBoardTitle() %></td>
+															<td><%= b.getBoardWriter() %></td>
+															<td><%= b.getCount() %></td>
+															<td><%= b.getCreateDate() %></td>
+															<td><button type="button" class="site-btn">삭제</button></td>
+														</tr>
+						 						<% } %>
+											<% } %>
+											
+										<% } %> 
+                                        <!-- <tr>
                                             <td style="text-align: center;">1</td>
                                             <td style="text-align: center;">
                                                 <a href="#">글글글</a>
@@ -301,7 +350,7 @@
                                             <td style="text-align: center;">
                                                 <span class="btn btn-default">삭제</span>
                                             </td>
-                                        </tr>
+                                        </tr> -->--%>
                                     </tbody>
                                 </table>
                             </div>

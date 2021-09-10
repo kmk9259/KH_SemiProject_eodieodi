@@ -81,29 +81,77 @@
                     <div class="findrow">
                         <div class="col-md-6 login-form-1">
                             <h3>아이디 찾기</h3>
-                            <form class="findId" method="POST">
+                            <form id="findIdForm" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="findEmail" />
+                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="findEmail" required="required"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="FindName" />
+                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="findName" required="required" />
                                 </div>
                                 <div class="form-group-btn">
-                                    <input type="submit" class="btnSubmit" value="ID 찾기" />
+                                    <input type="submit" class="btnSubmit" value="ID 찾기" onclick="findID();" />
                                 </div>
                             </form>
                         </div>
+                        
+                        <script type="text/javascript">
+                        	function findID() {
+                        		var email = $("input[name='findEmail']");
+                        		var emailV = email.val();
+                    			var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+                        		var name = $("input[name='findName']");
+
+                        		if(email.val() == ""){
+            						alert("이메일을 입력해주세요.");
+        							email.focus();
+        							return false;
+            					}else if(exptext.test(emailV)==false){
+            						alert("이메일 형식에 맞추어 입력해주세요.");
+            						email.val('');
+            						email.focus();
+            						return false;
+            					}else if( name.val() == "" ) {
+            						alert("이름을 입력해주세요.");
+            						name.focus();
+        							return false;
+            					}
+                        		//$("#findIdForm").submit();
+                        		
+                        		var info = {'email' : email.val(), 'name' : name.val()};
+                        		$.ajax({
+										url : "<%=request.getContextPath() %>/findId.me",
+										type : "post",
+										data : info,
+										success : function(result){
+											if(result == "fail"){
+												alert("입력하신 이메일 주소로 이메일이 발송됩니다.");
+												var url ="<%=request.getContextPath() %>/views/member/emailChkController.jsp?command=emailChk&email=" + email.val();
+									            var wname = "인증번호 입력";
+									            var option = "width = 500, height = 500, top = 100, left = 200"
+										      	window.open(url, wname, option);
+											}else{
+												confirm("등록되지 않은 이메일 주소입니다.");
+												email.focus();
+											}
+										},
+										error:function(){
+											console.log("서버통신실패");
+										}
+									})
+							}
+                        </script>
+                        
                         <div class="col-md-6 login-form-2">
                             <h3>비밀번호 찾기</h3>
                             <form class="findPwd" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="FindEmail" />
+                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="FindEmail" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="아이디를 입력하세요" name="FindId" />
+                                    <input type="password" class="form-control" placeholder="아이디를 입력하세요" name="FindId" required="required" />
                                 </div>
                                 <div class="form-group-btn">
-                                    <input type="submit" class="btnSubmit" value="PW 찾기" />
+                                    <input type="submit" class="btnSubmit" value="PW 찾기" onclick="findPW();" />
                                 </div>
                             </form>
                         </div>

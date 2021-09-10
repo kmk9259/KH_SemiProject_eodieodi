@@ -395,10 +395,13 @@
 				                            <input maxlength="100" type="text" required="required" name="userName" class="form-control" placeholder="이름을 입력해주세요" />
 				                            
 				                            <label class="control-label">전화번호</label>
-				                            <input maxlength="100" type="text" required="required" id="phone" name="phone" class="form-control" placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" />
+				                            <input maxlength="100" type="text" required="required" id="phone" name="phone" class="form-control" placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" /><br>
 				                            
-				                            <label class="control-label">이메일</label>
-				                            <input maxlength="100" type="text" required="required" name="email" class="form-control" placeholder="이메일을 입력해주세요(hongil@naver.com)" />
+				                            <label class="control-label">이메일</label><br>
+				                            <input maxlength="100" style=" width: 80%; float: left;" type="text" required="required" name="email" class="form-control" placeholder="이메일을 입력해주세요(hongil@naver.com)" />
+				                            <input style="float: right; background-color: #D958A0; color:#fff; border:none; width:200px; height:48px; border-radius: 5px; color:#fff;"
+								    			type="button" id="emailCheckBtn" onclick="emailChk();" value="이메일인증"/><br><br><br>
+								    
 				                            
 				                            <label class="control-label">성별</label><br>
 				                            <input type="radio" id="gender1" name="gender" value="F" checked="checked" style="margin-left:5%;" /> <span class="up" style="margin-right: 10%;">여자</span>
@@ -440,7 +443,7 @@
 
 
 var count = 0;
-
+var emailcount = 0;
 	function joinValidate(){
 			var userId = $("input[name='userId']");
 			var userPwd = $("input[name='userPwd']");
@@ -499,6 +502,10 @@ var count = 0;
 							email.focus();
 							return false;
 						}
+					}else if( emailcount <= 0 ) {
+						if(confirm("이메일 인증을 해주세요.") == true){
+							return false;
+						}
 					}
 					
 					$("#enrollForm").submit();
@@ -552,6 +559,46 @@ var count = 0;
 	    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
 	});
 	
+	
+	function emailChk() {
+		
+		var email = $("input[name='email']");
+		   if(email.val() == "" || email.val() == null) {
+			   confirm("이메일을 입력해주세요.");
+				email.val('');
+				email.focus();
+				return false;
+		   } 
+		   
+			$.ajax({
+				url : "<%=request.getContextPath() %>/emailCheck.me",
+				type : "post",
+				data : {email : email.val()},
+				success : function(result){
+					if(result == "fail"){
+						confirm("사용할 수 없는 이메일 입니다.");
+						email.focus();
+					}else{
+						var ask = confirm("사용가능한 이메일 입니다. 사용하시겠습니까?");
+						if(ask == true){
+							var url ="<%=request.getContextPath() %>/views/member/emailChkController.jsp?command=emailChk&email=" + email.val();
+				            var name = "인증번호 입력";
+				            var option = "width = 500, height = 500, top = 100, left = 200"
+					      	window.open(url, name, option);
+				            
+				            emailcount++;
+							email.attr("readonly", "true");
+						}else{
+							email.focus();
+						}
+					}
+				},
+				error:function(){
+					console.log("서버통신실패");
+				}
+			})
+		  
+		}
 	</script>
 
 
