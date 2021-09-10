@@ -150,7 +150,7 @@
 		</form>
 		<script>
 			function updateForm(){
-				$("#postForm").attr("action", "<%=contextPath%>/updateForm.pl");
+				$("#postForm").attr("action", "<%=contextPath%>/updateForm.ps");
 				$("#postForm").submit();
 			}
 			

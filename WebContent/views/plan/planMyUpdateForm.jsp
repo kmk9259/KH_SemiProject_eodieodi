@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, semiProject.com.kh.place.model.vo.Place,
-    semiProject.com.kh.member.model.vo.Member"%>
+    semiProject.com.kh.member.model.vo.Member, java.sql.Date, java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <%
 	//PlanMyupdateFormServlet에서 받아온다.
@@ -9,8 +9,6 @@
 	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");   //전체 장소 리스트 
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
-	
-	
 %>
 
 <html lang="en">
@@ -130,7 +128,8 @@
 
     <!-- Filter Begin -->
     <div class="filter nice-scroll">
-        <form action="create.pl" method="POST">
+        <form action="update.ps" method="POST">
+        	<input type="hidden" name="planNo" value="<%=pm.getPlanNo()%>">
             <div class="filter__title">
                 <h5>일정 제목</h5>
             </div>
@@ -141,7 +140,11 @@
                 <h5>일정 날짜</h5>
             </div>
             <div>
-                <input type="text" class="planInput" name="planDate" id="startDate" value="<%=pm.getPlanDate()%>" required>
+	            <%Date beforDate = pm.getPlanDate();  //Date 형식 -> mm/dd/yyyy로 변환해줌 -> 나중에 request로 받을 때는 String으로 받기때문에 괜찮다.
+	              SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+	    		  String planDate = sdf.format(beforDate);
+	            %>
+                <input type="text" class="planInput" name="planDate" id="startDate" value="<%=planDate%>" required>
             </div>
             <div class="filter__title">
                 <h5>메모</h5>
@@ -168,11 +171,23 @@
                         <th width="50"></th>
                     </tr>
                 </thead>
-                <tbody id="my_tbody"></tbody>
+                <!-- 유저가 저장한 장소들 목록으로 뜬다. -->
+                <tbody id="my_tbody">
+                	<%for(Place p : pList) {%>
+                		<tr>
+                			<td><%=p.getPlaceTitle()%></td>
+                			<td><%=p.getAddress()%></td>
+                			<td>
+                				<button onclick="rowDelete(this)">빼기</button>
+                				<input type="hidden" name="placeNo" value="<%=p.getPlaceNo()%>">
+                			</td>
+                		</tr>
+                	<%} %>
+                </tbody>
             </table>
             
             <div class="filter__btns">
-                <button type="submit">일정 저장하기</button>
+                <button type="submit">일정 수정하기</button>
             </div>            
         </form>
         
@@ -298,13 +313,6 @@
                location.href="<%=request.getContextPath()%>/list.pm";
             <%} %>
          } 
-        
-      	//날짜 확인 버튼 -> h5태그 값 변경
-        $('#dateBtn').click(function(){
-            var value = $("#startDate").val();
-            console.log(value);
-            $("#planDate").text('선택하신 날짜 : ' + value);
-        });
     </script>
     
     <!-- Js Plugins -->

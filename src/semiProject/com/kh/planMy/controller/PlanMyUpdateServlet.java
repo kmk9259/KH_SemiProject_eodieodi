@@ -2,6 +2,8 @@ package semiProject.com.kh.planMy.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.member.model.vo.Member;
 import semiProject.com.kh.planMy.model.service.PlanMyService;
 import semiProject.com.kh.planMy.model.vo.PlanMy;
 
 /**
- * Servlet implementation class PlanMyCreate
+ * Servlet implementation class PlanMyUpdateServlet
  */
-@WebServlet("/create.pl")
-public class PlanMyInsertServlet extends HttpServlet {
+@WebServlet("/update.ps")
+public class PlanMyUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PlanMyInsertServlet() {
+    public PlanMyUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,40 +37,46 @@ public class PlanMyInsertServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();  //1. 로그인유저번호
+		int planNo = Integer.parseInt(request.getParameter("planNo"));    //1. plan번호
 		String planTitle = request.getParameter("planTitle");			  //2. 제목
+		
 		String bDate = request.getParameter("planDate");     			  //3. 날짜 -> sql.Date로 변환
 		String m = bDate.substring(0,2);
 		String d = bDate.substring(3,5);
 		String y = bDate.substring(6);
 		String aDate = y+"-"+m+"-"+d;
-		//Date planDate=  java.sql.Date.valueOf(aDate);
-		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 		  //yyyy-mm-dd 형식으로 맞춰줌 -> 오류남
-//      Date planDate = null;
-//		try {
-//			planDate = (Date) sdf.parse(bDate);
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		Date planDate = Date.valueOf(aDate);
+		
 		String planMemo = request.getParameter("planMemo");  			  //4. 메모
-		int areaNo = Integer.parseInt(request.getParameter("planArea"));  //5.지역	
+		int areaNo = Integer.parseInt(request.getParameter("planArea"));  //5. 지역	
 		
-		PlanMy pm = new PlanMy(userNo, areaNo, planTitle, planDate, planMemo);
 		
-		//planPlace -> MYPLAN_PLACE 테이블에 넣어주기
-		String[] planPlaces = request.getParameterValues("placeNo");
+		//PlanMy pm = new PlanMy(planNo, areaNo, planTitle, planDate, planMemo.replaceAll("\n","<br>"));  //1.pm -> MYPLAN 테이블에 넣어주기
+		PlanMy pm = new PlanMy();
+		pm.setPlanNo(planNo);
+		pm.setAreaNo(areaNo);
+		pm.setPlanTitle(planTitle);
+		pm.setPlanDate(planDate);
+		pm.setPlanMemo(planMemo.replaceAll("\n","<br>"));
+
+		String[] planPlaces = request.getParameterValues("placeNo");            //2.planPlace -> MYPLAN_PLACE 테이블에 넣어주기
+		
+		int result = new PlanMyService().updatePlanMy(pm, planNo, planPlaces);  //planNo도 같이 넘기자->MYPLAN_PLACE에 추가할때를 위해서
+		
+		
+		System.out.println("updateServlet__ pm : " + pm);
+		System.out.println("updateServlet__ planNo : " + planNo);
+		
+		for(String s: planPlaces) {
+			System.out.println("updateServlet__ planPlaces(장소번호) : " + s);
+		}
 
 		
-		int result = new PlanMyService().insertPlanMy(pm, planPlaces);
-		
 		if(result > 0) {
-			request.getSession().setAttribute("msg", "일정이 등록되었습니다.");
+			request.getSession().setAttribute("msg", "일정이 수정되었습니다.");
 			response.sendRedirect("list.ps");  	//일정저장함으로 이동
 		}else {
-			request.setAttribute("msg", "일정 등록 실패");
+			request.setAttribute("msg", "일정 수정 실패");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}

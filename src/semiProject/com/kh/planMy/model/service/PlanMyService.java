@@ -1,9 +1,13 @@
 package semiProject.com.kh.planMy.model.service;
 
-import static semiProject.com.kh.common.JDBCTemplate.*;
+import static semiProject.com.kh.common.JDBCTemplate.close;
+import static semiProject.com.kh.common.JDBCTemplate.commit;
+import static semiProject.com.kh.common.JDBCTemplate.getConnection;
+import static semiProject.com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planMy.model.dao.PlanMyDao;
@@ -73,6 +77,68 @@ public class PlanMyService {
 	public ArrayList<Place> selectPlace_planMy(int planNo) {
 		Connection conn = getConnection();
 		ArrayList<Place> pList = new PlanMyDao().selectPlace_planMy(conn,planNo);
+		
+		close(conn);
+		return pList;
+	}
+
+	//일정 수정
+	public int updatePlanMy(PlanMy pm, int planNo, String[] update) {  //업데이트하려는 장소번호 배열 ex)update : ["7","8"]
+		
+		Connection conn = getConnection();
+
+		int result1 = new PlanMyDao().updatePlanMy(conn, pm);
+		int result2 = 1;  //추가해줘야 하는 장소
+		int result3 = 1;  //update해줘야 하는 장소
+		
+		ArrayList<Place> originPlace = selectPlace_planMy(planNo);  //현재 DB에 저장된 장소들 가져오기
+		
+		String[] origin = new String[originPlace.size()];	//현재 DB에 저장된 장소번호 담는 배열 ex)origin : ["5","6","7"]
+		for(int i=0; i<originPlace.size(); i++) {
+			origin[i] = String.valueOf(originPlace.get(i).getPlaceNo());
+		}
+		
+		//현재 DB에 저장된 장소들과 update하려는 장소들이 다른 경우
+		if(!Arrays.equals(origin, update)) {			
+			ArrayList<String> insertDB = new ArrayList<>();
+			ArrayList<String> deleteDB = new ArrayList<>();
+			
+			for(String u:update) {
+				if(!Arrays.asList(origin).contains(u)) {  //update에서 origin 내용 포함하고 있지 않다면
+					insertDB.add(u);                      //insertDB : ["8"] -> 새롭게 추가해줘야 한다.
+				}
+			}
+			for(String o:origin) {
+				if(!Arrays.asList(update).contains(o)) {  //origin에서 update된 내용 포함하고 있지 않다면
+					deleteDB.add(o);                      //deleteDB " ["5","6"] 
+				}
+			}
+			System.out.println(insertDB);
+			System.out.println(deleteDB);
+			
+			//추가해줘야 하는 장소가 있다면(1개 이상이라면)         insertDB : ["8"]
+			if(insertDB.size() != 0) {
+				result2 = new PlanMyDao().updateAddPlace(conn, planNo, insertDB);
+			}
+			
+			//update로 삭제해줘야 할 장소가 있다면(1개 이상이라면)  deleteDB " ["5","6"] 
+			if(deleteDB.size() != 0) {
+				result3 = new PlanMyDao().updateDelPlace(conn, planNo, deleteDB);
+			}
+		}
+		
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2 * result3;
+	}
+
+	public ArrayList<Place> areaNoPlaceList(int areaNo) {
+		Connection conn = getConnection();
+		ArrayList<Place> pList = new PlanMyDao().areaNoPlaceList(conn, areaNo);
 		
 		close(conn);
 		return pList;

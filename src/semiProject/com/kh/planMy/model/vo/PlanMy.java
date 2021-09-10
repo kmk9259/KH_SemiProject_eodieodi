@@ -151,7 +151,7 @@ public class PlanMy {
 		
 		return "PlanMy [planNo=" + planNo + ", userNo=" + userNo + ", areaNo=" + areaNo
 				+ ", planTitle=" + planTitle + ", planDate=" + planDate + ", "
-				+ "planMemo="+ planMemo +"createDate="+ createDate + "status="+ status + "]";
+				+ "planMemo="+ planMemo +"createDate="+ createDate + "status="+ status + "titleImg : " + titleImg+"]";
 	}
 	
 	

@@ -1289,7 +1289,7 @@ login
 	position: fixed;
 	left: 0;
 	top: 0;
-	width: 450px;
+	width: 480px;
 	height: 100%;
 	background: #ffffff;
 	padding: 30px 34px 30px 30px;
@@ -1302,7 +1302,7 @@ login
 
 .ov-hid {
 	overflow: hidden;
-	padding-left: 450px;
+	padding-left: 480px;
 }
 
 .filter__title h5 {
