@@ -18,7 +18,8 @@
     
 
 	<script type="text/javascript">
-		function checkValue(){
+		
+			function checkValue(){
 			var form = document.forms[0];
 			var title = form.title.value;
 			var content = form.content.value;
@@ -33,9 +34,6 @@
 			}
 			else if(!content){
 				alert("내용을 입력해주세요.")
-				return false;
-			}else if(!file1){
-				alert("thumnail 사진은 반드시 올려야 합니다.")
 				return false;
 			}
 				
@@ -183,73 +181,71 @@
               
               
               <div class="text-center">
-              <label class="title"> thumbnail 이미지</label>
+              
               
              
                 
-             <div>
+             
               <% if(fileList != null) { %> <!-- 기존파일 있으면 -->
               
-              <% System.out.print("첨부파일 있니?" + fileList); %>
-              
-              <img name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>" id="titleImg" width="200px" height="180">
-             	<input type='hidden' name='originFile' value='<%=fileList.get(0).getChangeName()%>'>
-				<input type='hidden' name='originFileNo' value='<%=fileList.get(0).getFileNo()%>'>
-             </div>
-              
-              <br>
+              <% System.out.print("jsp  첨부파일 있니?" + fileList); %>
               <div>
-              
-              <img name="file2" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(1).getChangeName()%>"  id="contentImg1" width="200px" height="180">
-              <input type='hidden' name='originFile' value='<%=fileList.get(1).getChangeName()%>'>
-				<input type='hidden' name='originFileNo' value='<%=fileList.get(1).getFileNo()%>'>
-              
-              <img name="file3" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(2).getChangeName()%>"  id="contentImg2" width="200px" height="180">
-              <input type='hidden' name='originFile' value='<%=fileList.get(2).getChangeName()%>'>
-				<input type='hidden' name='originFileNo' value='<%=fileList.get(2).getFileNo()%>'>
-              
-              <img name="file4"src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(3).getChangeName()%>" id="contentImg3" width="200px" height="180">
-              <input type='hidden' name='originFile' value='<%=fileList.get(3).getChangeName()%>'>
-				<input type='hidden' name='originFileNo' value='<%=fileList.get(3).getFileNo()%>'>
-				
+              <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>"  id="titleImg"  width="200px" height="180">
+              	<input type="hidden" name="fno" value='<%=fileList.get(0).getFileNo() %>' >
+             	<input type='hidden' name='originFile0' value='<%=fileList.get(0).getOriginName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(0).getFileNo()%>'>
+              	<% System.out.print("화면에 담긴 파일 번호는? ?  "+fileList.get(0).getFileNo() ); %>
+              	<% System.out.print("화면에 담긴 파일 번호는? ?  "+fileList.get(3).getFileNo() ); %>
               </div>
               
-              <% }else{ %>
+             	 	<%-- <% for(int i=1; i<fileList.size(); i++){ %> --%>
+                <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(1).getChangeName()%>"  id="contentImg1"   width="200px" height="180">
+             	<input type="hidden" name="fno" value='<%=fileList.get(1).getFileNo() %>' >
+             	<input type='hidden' name='originFile1' value='<%=fileList.get(1).getOriginName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(1).getFileNo()%>'>
+				 
+				
+				<img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(2).getChangeName()%>"  id="contentImg2"   width="200px" height="180">
+             	<input type="hidden" name="fno" value='<%=fileList.get(2).getFileNo() %>' >
+             	<input type='hidden' name='originFile2' value='<%=fileList.get(2).getOriginName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(2).getFileNo()%>'>
+				
+				<img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(3).getChangeName()%>"  id="contentImg3"   width="200px" height="180">
+             	<input type="hidden" name="fno" value='<%=fileList.get(3).getFileNo() %>' >
+             	<input type='hidden' name='originFile3' value='<%=fileList.get(3).getOriginName()%>'>
+				<input type='hidden' name='originFileNo' value='<%=fileList.get(3).getFileNo()%>'>
+				
+				<% System.out.print("화면에 담긴 파일 번호는? ?  "+fileList.get(3).getFileNo() ); %>
+
+					<%-- <% } %> --%>
               
-	               <div>
-	             
-	              <img id="titleImg" width="200px" height="180">
-	              
-	              </div>
-	              
-	              <br>
-	              <div>
-	              <img id="contentImg1" width="200px" height="180">
-	              <img id="contentImg2" width="200px" height="180">
-	              <img id="contentImg3" width="200px" height="180">
-	              
-	              </div>
+              
+               <div id="fileArea">
+    
+				<input type="file" id="file1" onchange="loadImg(this, 1);">
+				<input type="file" id="file2" onchange="loadImg(this, 2);">
+				<input type="file" id="file3" onchange="loadImg(this, 3);">
+				<input type="file" id="file4" onchange="loadImg(this, 4);">
+			    </div>
+              
+              </div>
               
               <% } %>
               
-              <div id="fileArea">
-              
-          
-				<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);" required>
-				<input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
-				<input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
-				<input type="file" name="file4" id="file4" onchange="loadImg(this, 4);">
-			  </div>
-              
-              </div>
+             
+             
+             <input type="file" name="upFile0" value='<%=fileList.get(0).getFileNo()%>' >
+             <input type="file" name="upFile1" value='<%=fileList.get(1).getFileNo()%>'>
+             <input type="file" name="upFile2" value='<%=fileList.get(2).getFileNo()%>'>
+             <input type="file" name="upFile3" value='<%=fileList.get(3).getFileNo()%>'>
+             
               
               
               <div class="text-center btns">
               
               
               <button type="submit" class="site-btn" onclick="checkValue()">수정하기</button>
-       		  <button type="reset" class="site-btn">취소하기</button>
-              <button type="history" class="site-btn" onclick=goBack();>목록으로</button>
+              
               </div>
               
           </form>
@@ -257,7 +253,7 @@
   </div>
 </div>
 	
-	
+</div>
 	
 	
 	<script>
@@ -315,10 +311,10 @@
 	</script>
 
 
-</div>
+
 </section>
 
-	<!-- Js Plugins -->
+
 
 
 	<script src="<%=contextPath%>/resources/js/main.js"></script>

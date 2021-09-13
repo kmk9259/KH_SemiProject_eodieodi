@@ -202,9 +202,9 @@
 				 
 		<ul class="faq-list">
           <li data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate">
-         <%--  <input type="hidden" name="nno" value="<%= n.getNoticeNo() %>"> --%>
+          <input type="hidden" name="nno" value="<%= n.getNoticeNo() %>"> 
             <a data-toggle="collapse" class="collapsed" href="#faq1" aria-expanded="true" id="title"><%= n.getNoticeTitle() %> <i class="fas fa-arrow-up"></i></a>
-            <div id="faq1" class="collapse" data-parent=".faq-list" style="">
+            <div id="faq1" class="collapse" data-parent=".faq-list" >
               <p>
                 <%= n.getNoticeContent() %>
               </p>
@@ -278,11 +278,14 @@
                                 
                                 <div class="blog__item__text">
                                    
-                                    <h5><a href="<%=request.getContextPath() %>/detail.bo" class="thumbnail"  ><%= b.getBoardTitle() %></a></h5>
+                                    <h4 class="thumbnail" ><%= b.getBoardTitle() %>
+                                    <input type="hidden" value="<%=b.getBoardNo()%>">
+                                    </h4>
+                                    <br>
                                     <ul class="blog__item__widget">
                                         <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
                                         <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
-                                        <li><i class="fa fa-heart"></i> <%= b.getCount() %></li>
+                                        <li><i class="fa fa-stars"></i> <%= b.getCount() %></li>
                                        
                                     </ul>
                                 </div>
@@ -304,6 +307,14 @@
         					location.href="<%=contextPath%>/detail.bo?bno=" + bno;
         				});
         			});
+                    
+                    
+                  <%--   $(function(){
+        				$(".collapsed").click(function(){
+        					var nno = $(this).children().eq(0).val();
+        					location.href="<%=contextPath%>/detail.no?nno=" + nno;
+        				});
+        			}); --%>
 		</script>
 
 <!----------------------- 페이징바 만들기 -------------------------------->

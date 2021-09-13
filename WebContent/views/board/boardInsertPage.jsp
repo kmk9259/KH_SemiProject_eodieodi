@@ -36,7 +36,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 				alert("내용을 입력해주세요.")
 				return false;
 			}else if(!file1){
-				alert("thumnail 사진은 반드시 올려야 합니다.")
+				alert("대표 사진은 반드시 올려야 합니다.")
 				return false;
 			}
 				
@@ -209,7 +209,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
               
               
               <div class="text-center">
-              <label class="title">thumbnail 이미지</label>
+              <label class="title">대표 이미지</label>
               <div>
              
               <img name="files" id="titleImg" width="200px" height="180">
