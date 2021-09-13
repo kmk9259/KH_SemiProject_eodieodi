@@ -10,7 +10,7 @@
     <meta name="keywords" content="Directing, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Directing | Template</title>
+    <title>일정 플래너</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -153,7 +153,7 @@
     <!-- Work Section End -->
 
     <!-- Categories Area Start -->
-    <div class="categories-area section-padding30">
+    <div class="categories-area section-padding30" style="margin-bottom: 200px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -170,21 +170,10 @@
                             <span class="flaticon-bed"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="#" onclick="goPlan()">내 맘대로 일정 계획</a></h5>
+                            <h5><a href="#" class="movePage">내 맘대로 일정 계획</a></h5>
                             <p>사용자가 원하는 대로 일정을 계획할 수 있습니다</p>
                             <!-- <a href="#">View Details</a> -->
                         </div>
-                        
-                        <script>
-	                        function goPlan(){
-	                            <%if(loginUser == null) {%>
-	                               alert("로그인 후 이용해주세요");
-	                               location.href="<%=contextPath%>/index.jsp";  <!--왜 여기서는 index.jsp로 안가지..?-->
-	                            <%}else{ %>
-	                               location.href="<%=contextPath%>/list.pm";
-	                            <%} %>
-	                         } 
-                        </script>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
@@ -205,7 +194,7 @@
                             <span class="flaticon-home"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="#">일정 보관함</a></h5>
+                            <h5><a href="#" class="movePage">일정 보관함</a></h5>
                             <p>내가 저장한 모든 일정을 확인할 수 있습니다.</p>
                             <!-- <a href="#">View Details</a> -->
                         </div>
@@ -218,10 +207,26 @@
     <%@ include file="../common/footer.jsp"%>
 
     <!-- Js Plugins -->
-    <script src="<%=contextPath %>/resources/js/main.js"></script>
+    <script src="<%=contextPath%>/resources/js/main.js"></script>
 </body>
 
 <script>
+	//로그인 상태에 따라 plan페이지 이동
+	$(function(){
+		   $('.movePage').click(function(){
+	        var text = $(this).text();
+	        <%if(loginUser == null) {%>  //로그인 X -> 로그인페이지로 이동
+	             alert("로그인 후 이용해주세요");
+	             location.href="<%=contextPath%>/views/member/login.jsp";
+	        <%}else{ %>
+	             if(text == "내 맘대로 일정 계획"){
+	               	 location.href="<%=contextPath%>/list.pm";	
+	             }else if(text == "일정 보관함"){
+	                 location.href="<%=contextPath%>/list.ps";
+	             }
+	        <%}%>
+	    })
+	})
     $(function() {
         var $header = $('header'); //헤더를 변수에 넣기
         var $page = $('.page-start'); //색상이 변할 부분

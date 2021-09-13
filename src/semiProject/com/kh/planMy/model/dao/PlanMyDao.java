@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import semiProject.com.kh.area.model.vo.Area;
+import semiProject.com.kh.board.model.vo.PageInfo;
 import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planMy.model.vo.PlanMy;
 
@@ -130,7 +132,7 @@ public class PlanMyDao {
 	}
 
 	//유저에 맞는 일정보관함 불러오기
-	public ArrayList<PlanMy> selectPlanSaveList(Connection conn, int userNo) {
+	public ArrayList<PlanMy> selectPlanSaveList(Connection conn, int userNo, PageInfo pi) {
 		ArrayList<PlanMy> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -148,14 +150,28 @@ public class PlanMyDao {
 //		ON (T2.REF_MPNO = PLAN_NO)
 //		WHERE P.STATUS='Y' AND T2.RNUMM=1 AND USER_NO=?;
 		
+//		SELECT *
+//		FROM (SELECT ROWNUM RNUM,
+//		      A.* FROM (SELECT PLAN_NO, PLAN_TITLE, PLAN_DATE, T2.CHANGE_NAME 
+//		                FROM MYPLAN P JOIN (SELECT REF_MPNO, PLACE_NO, CHANGE_NAME, ROW_NUMBER() OVER (PARTITION BY REF_MPNO ORDER BY PLACE_NO DESC) AS RNUMM 
+//		                                    FROM MYPLAN_PLACE JOIN PLACE_ATTACHMENT ON (PLACE_NO = REF_PNO) WHERE PLACE_ATTACHMENT.STATUS='Y' AND MYPLAN_PLACE.STATUS='Y') T2 ON (T2.REF_MPNO = PLAN_NO) 
+//		                                    WHERE P.STATUS='Y' AND T2.RNUMM=1 AND USER_NO=? ORDER BY PLAN_NO DESC) A)
+//		WHERE RNUM BETWEEN ? AND ?
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()){
 				PlanMy planMy = new PlanMy(rset.getInt("PLAN_NO"),rset.getString("PLAN_TITLE"),rset.getString("CHANGE_NAME"));
+				planMy.setPlanDate(rset.getDate("PLAN_DATE"));
 				
 				list.add(planMy);
 			}
@@ -166,8 +182,7 @@ public class PlanMyDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("planSaveList보기 : " + list);
-		
+
 		System.out.println("planMyDao_selectPlanSaveList_____list : " + list);
 		return list;
 	}
@@ -420,5 +435,34 @@ public class PlanMyDao {
 		return pList;
 	}
 
+	public int getListCount(Connection conn, int userNo) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCount");
+		//getListCount=SELECT COUNT(*) FROM MYPLAN WHERE STATUS='Y' AND USER_NO = ?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT(*)");
+				
+				System.out.println("listCount 확인! : " + listCount);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
 	
 }
