@@ -43,13 +43,7 @@ public class AdminCreateServlet extends HttpServlet {
 	
 		if(tmp != null && tmp !=null) {
 			
-//		String course =request.getParameter("course"); // 2.코스 가져옴
 		int course =Integer.parseInt(request.getParameter("course")); 
-			// 2.코스 가져옴
-			//자료 불일치형 에러가 나는데.. 왜..?
-			
-//		String which =request.getParameter("which"); // 3. 위치가져옴
-
 		int area = Integer.parseInt(request.getParameter("area")); // 3. 위치가져옴
 			
 			String bDate = request.getParameter("chooseDate"); // 4. 날짜
@@ -64,10 +58,12 @@ public class AdminCreateServlet extends HttpServlet {
 			//코스 리스트 가져와서 넣어주기 
 			ArrayList<CoursePlace> cList = new AdminPlanService().CourseList();
 			
-			AdminPlan apList = new AdminPlan(userNo,course, area, adminDate);
+			AdminPlan apList = new AdminPlan(userNo, course, area, adminDate);
 			
 			//코스랑, 네임으로 받아온 값 넘겨주기 
 			int result = new AdminPlanService().insertAdminPlan(apList, cList);
+			
+			
 			request.setAttribute("apList", apList);
 			request.setAttribute("cList", cList);
 
@@ -78,23 +74,25 @@ public class AdminCreateServlet extends HttpServlet {
 			if(result > 0) {
 				
 				request.setAttribute("msg", "추천일정 등록 되었습니다.");
-				//request.getRequestDispatcher("views/plan/adminRecommend.jsp").forward(request, response);
-				response.sendRedirect("views/plan/adminPlanSave.jsp");// 조회가 끝나면 저장함으로 돌아가는것.. 
+				//request.getRequestDispatcher("adminList.pl").forward(request, response);
+				request.getRequestDispatcher("views/plan/adminPlan_detail.jsp").forward(request, response);
+				//response.sendRedirect("views/plan/adminPlanSave.jsp");// 조회가 끝나면 저장함으로 돌아가는것.. 
 		
 				return;
 				
 			}else {
-				request.setAttribute("msg", "추천일정 등록에 실패했습니다. ");
+				request.setAttribute("msg", "추천일정 등록에 실패했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				
 			}
 		
 		}else {
-			System.out.println(tmp+ tmp1+" 널포인트 잡히냐?");
+//			System.out.println(tmp+ tmp1+" 널포인트 잡히냐?");
 		
 		}
 		
-		request.getRequestDispatcher("views/plan/adminRecommend.jsp").forward(request, response);
+		//request.getRequestDispatcher("adminList.pl").forward(request, response);;
+		request.getRequestDispatcher("views/plan/adminPlan_detail.jsp").forward(request, response);
 
 	}
 

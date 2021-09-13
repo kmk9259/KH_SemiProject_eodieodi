@@ -11,6 +11,16 @@ public class CoursePlace {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	// cList 불러오기 위해 생성자 만듦.. 
+	public CoursePlace(int refCourse, String status) {
+		super();
+		this.refCourse = refCourse;
+		this.status = status;
+	}
+
+
+
 	public CoursePlace(int cpNo, int refCourse, int pNo, String status) {
 		super();
 		this.cpNo = cpNo;

@@ -5,7 +5,7 @@
     <%
 
     AdminPlan apList = (AdminPlan) request.getAttribute("apList");	
-   
+   	AdminPlan cList = (AdminPlan) request.getAttribute("cList");	
     %>
     
 
@@ -99,11 +99,10 @@
         <div class="main-timeline">
                                 <!-- start experience section-->
                                 
-                         <form method ="post" action="<%= request.getContextPath() %>/adminCreate.pl">
-
-                      <div>장소: <%=  %></div>
+                         <form method ="post" action="<%=contextPath %>/admin_List.pl">
+                      <div>장소: <%= %></div>
                       <div>날짜: <%= %></div>       
-                      <div> 추천 코스:<%= apList %></div> 
+                      <div> 추천 코스:<%=cList.getCourseNo() %></div> 
                          </form> 
     
         </div>

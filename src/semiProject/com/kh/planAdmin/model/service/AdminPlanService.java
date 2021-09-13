@@ -34,32 +34,32 @@ public class AdminPlanService {
 //	}
 
 	
-	public int insertAdminPlan(AdminPlan apList) {
-		
-		Connection conn = getConnection();
-		
-		int result = new AdminPlanDao().insertAdminPlan(conn,apList);
-		
-		System.out.println(result +"값 들어오는지...?");
-		
-		if(result > 0 ) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}close(conn);
-		
-		
-		return result;
-	}
+//	public int insertAdminPlan(AdminPlan apList) {
+//		
+//		Connection conn = getConnection();
+//		
+//		int result = new AdminPlanDao().insertAdminPlan(conn,apList);
+//		
+//		System.out.println(result +"값 들어오는지...?");
+//		
+//		if(result > 0 ) {
+//			commit(conn);
+//		}else {
+//			rollback(conn);
+//		}close(conn);
+//		
+//		
+//		return result;
+//	}
 
-	public ArrayList<AdminPlan> selectAdminPlanSaveList(int userNo) {
-		
-		Connection conn = getConnection();
-		
-		
-		return null;
-	}
-
+//	public ArrayList<AdminPlan> selectAdminPlanSaveList(int userNo) {
+//		
+//		Connection conn = getConnection();
+//		
+//		
+//		return null;
+//	}
+//
 
 
 	
@@ -68,6 +68,8 @@ public class AdminPlanService {
 
 		Connection conn = getConnection();
 		ArrayList<CoursePlace> cList = new AdminPlanDao().selectCourseList(conn);
+		
+		System.out.println("cList 서비스는 잘 돌고 있는가 " + cList);
 		
 		close(conn);
 		
@@ -81,24 +83,56 @@ public class AdminPlanService {
 		Connection conn = getConnection();
 		
 		//adminPlan 테이블에 넣기 
-		int result1 = new AdminPlanDao().insertAdminPlan(conn, apList);
+		int result1 = new AdminPlanDao().insertAdminPlan(conn, apList, cList);
 		//adminPlan_place에 넣기 
-		int result2 = new AdminPlanDao().insertAdminPlanPlace(conn, cList);
+		//int result2 = new AdminPlanDao().insertAdminPlanPlace(conn, cList);
 		
-		
-		if(result1>0 && result2>0) {
+
+		if(result1 > 0 ) {
 			commit(conn);
-
-		} else {
+		}else {
 			rollback(conn);
-
-		}
-		close(conn);
-
-		return result1 * result2;
+		}close(conn);
+		
+		
+		return result1;
+		
+		
+		
+		
+		
+//		if(result1>0 && result2>0) {
+//			commit(conn);
+//
+//		} else {
+//			rollback(conn);
+//
+//		}
+//		close(conn);
+//
+//		return result1 * result2;
 	}
 
-	
+	public int insertAdminPlan(AdminPlan apList) {
+		
+		Connection conn = getConnection();
+		
+		//adminPlan 테이블에 넣기 
+		int result = new AdminPlanDao().insertAdminPlan(conn, apList);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}close(conn);
+		
+		
+		return result;
+	}
+
+
+
+
 	
 
 }
