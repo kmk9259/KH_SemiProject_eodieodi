@@ -31,6 +31,7 @@ public class MemberUpdatePwdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String userPwd = request.getParameter("userPwd");
 		String newPwd = request.getParameter("newPwd");

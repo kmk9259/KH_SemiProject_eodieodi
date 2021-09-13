@@ -37,18 +37,19 @@ public class MemberPageServlet extends HttpServlet {
 	    Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
 		String userId = loginUser.getUserId();
-		
 		Member member = new MemberService().selectMember(userId);
-		
 		System.out.println("member : " + member);
 		
+		
 		//공지사항 넘겨주자
-		//Board bo = new Board();
-		
+		//Board b = new Board();
+		//int bno = Integer.parseInt(request.getParameter("bno"));
+		//ArrayList<Board> list = new MemberService().selectMyPost(userId, bno);
 		ArrayList<Board> list = new MemberService().selectMyPost(userId);
-		
 		request.setAttribute("list", list);
-		System.out.println("-----------"+list);
+
+		//System.out.println("bno : " + bno);
+		
 		
 		RequestDispatcher view = null;
 		if(member != null) {

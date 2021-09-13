@@ -14,6 +14,7 @@
 			boolean result = false;
 		%>
 		<script type="text/javascript">
+		alert("인증번호가 발송되었습니다.")
 			function chk() {
 				if(document.getElementsByName("email_chk")[0].value == document.getElementsByName("AuthenticationKey")[0].value) {
 					document.getElementsByName("email_chk_result")[0].value = "인증번호가 일치합니다.";
