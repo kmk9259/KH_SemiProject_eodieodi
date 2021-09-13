@@ -142,7 +142,7 @@
                             
                             <div class="input-comment">
                                 <p>Comment</p>
-                                <textarea>로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea>
+                                <textarea rows="5" cols="90" id="replyContent" style="resize:none;">로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea>
                             </div>
                             <button type="submit" class="site-btn" disabled>댓글 등록</button>
                             
@@ -157,31 +157,13 @@
                              
    			 		
    			 		
-   			 	<section class="content-item" id="comments">
+   			 	     <section class="content-item" id="comments">
 
 			                
 			                   
 			                    <div class="blog__item__text" id="replyListArea">
 			                        <div id="replyList"> <!-- 글이 선택되면 자동으로 댓들이 조회됨 -->
-			                        <%-- <p> 유재석이 댓글 남긴것 글을 길게 쓰면 어떻게 될까 한번 길게 적어봅니다. 수정 안되서 너무 힘들
-									고 제대로 서블릿 움직이는 거 이해 못한거 같아 답답하고 짜증나고 걱정되나. 열심히 하고 있습니다.</p>
-			                        <ul class="blog__item__widget">
-			                        <hr>
-			                                        <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
-			                                        <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
-			                                        <li><i class="fa fa-thumbs-up"></i>Like</a></li>
-			                                       
-			                         </ul>
-			                         
-			                         <br>
-			                        <p> 유재석이 댓하고 짜증습니다.</p>
-			                        <ul class="blog__item__widget">
-			                        <hr>
-			                                        <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
-			                                        <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
-			                                        <li><i class="fa fa-thumbs-up"></i>Like</a></li>
-			                                       
-			                         </ul> --%>
+			                        
 			                        </div>
 			                    </div>
 			                
@@ -287,6 +269,8 @@
 					+list[i].replyWriter+'</li>'+
 					'<li>'+'<i class="fa fa-thumbs-up">'+'</i>'
 					+list[i].likes+'</li>'+
+					'<br><br><br>'
+					
 					'</ul>';
 				}
 				$("#replyList").html(value);
