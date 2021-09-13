@@ -16,8 +16,14 @@ public class Member {
 	private String status;
 	
 	
-	public Member() {}
+	public Member() {
+		super();
+	}
 	
+	public Member(String userId) {
+		this.userId = userId;
+	}
+
 	//로그인, 로그아웃
 	public Member(String userId, String userPwd) {
 		this.userId = userId;
@@ -72,6 +78,7 @@ public class Member {
 	//업데이트..?
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, 
 			String email, String gender, Date enrollDate, Date modifyDate, String status) {
+		super();
 		this.userNo = userNo;
 		this.userId = userId;
 		this.userPwd = userPwd;

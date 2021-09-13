@@ -395,10 +395,57 @@ public class MemberDao {
 		return result;
 	}
 
+/*
+	  public ArrayList<Board> selectMyPost(Connection conn, String userId, int bno){
+		  //selectMyPost=SELECT BOARD_TITLE, BOARD_CONTENT, USER_ID, COUNT
+		  //FROMBOARD B JOIN MEMBER ON(BOARD_WRITER = USER_NO) 
+		  //WHERE B.STATUS = 'Y' AND USER_ID=? AND BOARD_NO=?
+	  
+	  ArrayList<Board> list = new ArrayList<Board>();
+	  
+	  PreparedStatement pstmt = null;
+	  ResultSet rset = null;
+	  
+	  String sql = prop.getProperty("selectMyPost");
+	  
+	  System.out.println("sql 문은 읽히는지 : " + sql);
+	  
+	  try {
+		  pstmt = conn.prepareStatement(sql);
+		  pstmt.setString(1, userId);
+		  pstmt.setInt(2, bno);
+		  rset = pstmt.executeQuery(); // 쿼리문 실행
+	  
+	  // 다섯개의 목록을 가져와서 객체로 생성함 
+		  while(rset.next()) {
+	  
+		  list.add(new Board( rset.getInt("BOARD_NO"),
+							  rset.getString("BOARD_TITLE"),
+							  rset.getString("BOARD_CONTENT"),
+							  rset.getString("USER_ID"),
+							  rset.getInt("COUNT"),
+							  rset.getDate("CREATE_DATE")
+							  ));
+	  
+		  System.out.println("멤버 다오에서 넘겨보기 : " + list); 
+		  }
+	  } catch (SQLException e) {
+		  // TODO Auto-generated catch block
+		  e.printStackTrace(); 
+	 }finally {
+		 close(rset);
+		 close(pstmt);
+	  }
+	  
+	  
+	  return list;
+	  }*/
+	 
+
 	public ArrayList<Board> selectMyPost(Connection conn, String userId) {
 		//selectMyPost=SELECT BOARD_TITLE, BOARD_CONTENT, USER_ID, COUNT
 		//FROM BOARD B JOIN MEMBER ON(BOARD_WRITER = USER_NO)
-		//WHERE B.STATUS = 'Y' AND USER_ID=?
+		//WHERE B.STATUS = 'Y' AND USER_ID=? AND BOARD_NO=?
 		
 		ArrayList<Board> list = new ArrayList<Board>();
 				
@@ -431,6 +478,9 @@ public class MemberDao {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}finally {
 					close(rset);
 					close(pstmt);
@@ -439,5 +489,249 @@ public class MemberDao {
 				
 				return list;
 			}
+	
+	/*
+	public ArrayList<Board> selectMyPost(Connection conn, String userId, int bno) {
+		//selectMyPost=SELECT BOARD_TITLE, BOARD_CONTENT, USER_ID, COUNT
+		//FROM BOARD B JOIN MEMBER ON(BOARD_WRITER = USER_NO)
+		//WHERE B.STATUS = 'Y' AND USER_ID=? AND BOARD_NO=?
+		
+		ArrayList<Board> list = new ArrayList<Board>();
+				
+				PreparedStatement pstmt = null;
+				ResultSet rset = null;
+				
+				String sql = prop.getProperty("selectMyPost");
 
+				System.out.println("sql 문은 읽히는지 : " + sql);
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1,  userId);
+					pstmt.setInt(2,  bno);
+					rset = pstmt.executeQuery(); // 쿼리문 실행 
+					
+					// 다섯개의 목록을 가져와서 객체로 생성함 
+					while(rset.next()) {
+
+						Board b = new Board();
+						b.setBoardNo(rset.getInt("BOARD_NO"));
+						b.setBoardTitle(rset.getString("BOARD_TITLE"));
+						b.setBoardContent(rset.getString("BOARD_CONTENT"));
+						b.setBoardWriter(rset.getString("USER_ID"));
+						b.setCount(rset.getInt("COUNT"));
+						
+						/*
+						list.add(new Board(
+								rset.getInt("BOARD_NO"),
+								rset.getString("BOARD_TITLE"),
+								rset.getString("BOARD_CONTENT"),
+								rset.getString("USER_ID"),
+								rset.getInt("COUNT")
+								));
+						
+						list.add(b);
+						System.out.println("멤버 다오에서 넘겨보기 : " +  list);
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(rset);
+					close(pstmt);
+				}
+		
+				
+				return list;
+			}*/
+	public int increaseCount(Connection conn, int bno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		System.out.println("sql : " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+/*
+	public int findUserId(Connection conn, String email, String userName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("emailCheck");
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, email);
+			
+			rset = pstmt.executeQuery();
+	
+			
+			if(rset.next()) {
+				result = rset.getInt(1);          
+
+				System.out.println("멤버 다오에서 result 넘겨보기 : " +  result);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return result;
+	}
+	*/
+/*	
+	public Member findUserId(Connection conn, String email, String userName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member findId = null;
+
+		String sql = prop.getProperty("findId");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			pstmt.setString(2, userName);
+			
+			rset = pstmt.executeQuery();
+	
+			
+			while(rset.next()) {
+				findId = new Member();
+				//findId.setUserNo(rset.getInt("USER_NO"));
+				findId.setUserId(rset.getString("USER_ID"));
+				/*findId.setUserPwd(rset.getString("USER_PWD"));
+				findId.setUserName(rset.getString("USER_NAME"));
+				findId.setPhone(rset.getString("PHONE"));
+				findId.setEmail(rset.getString("EMAIL"));
+				findId.setGender(rset.getString("GENDER"));
+				findId.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				findId.setModifyDate(rset.getDate("MODIFY_DATE"));
+				findId.setStatus(rset.getString("STATUS"));               
+	                 *//*
+				System.out.println("멤버 다오에서 findId 넘겨보기 : " +  findId);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return findId;
+	}
+*/
+	
+	public Member findUserId(Connection conn, String email, String userName) {
+	      Member findId = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+
+	      String sql = prop.getProperty("findId");
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, email);
+	         pstmt.setString(2, userName);
+	         
+	         rset = pstmt.executeQuery();
+	   
+	         
+	         if(rset.next()) {
+	            findId = new Member(
+	                        rset.getString("USER_ID")
+	                     );
+	            System.out.println("멤버 다오에서 findId 넘겨보기 : " +  findId.getUserId());
+	         }
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	            
+	      return findId;
+	   }
+
+	public Member findUserPwd(Connection conn, String email, String userId) {
+		Member findPwd = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("findPwd");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			pstmt.setString(2, userId);
+			
+			rset = pstmt.executeQuery();
+	
+			
+			if(rset.next()) {
+				findPwd = new Member();
+				findPwd.setUserPwd(rset.getString("USER_PWD"));
+				System.out.println("멤버 다오에서 findPwd 넘겨보기 : " +  findPwd.getUserPwd());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return findPwd;
+	}
+/*
+	public int updateMemberEmail(Connection conn, String email, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		//updateEmail=UPDATE MEMBER SET EMAIL=?, MODIFY_DATE=SYSDATE WHERE USER_ID=?
+
+		String sql = prop.getProperty("updateEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, email);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	 
+*/
 }

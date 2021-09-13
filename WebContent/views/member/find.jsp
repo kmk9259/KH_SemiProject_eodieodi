@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,7 @@
     
     
     <!-- Hero Section Begin -->
-    <section class="hero set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/jaemin-don-DBaVQ2rALYU-unsplash.jpg">
+    <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/jaemin-don-DBaVQ2rALYU-unsplash.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -81,108 +82,136 @@
                     <div class="findrow">
                         <div class="col-md-6 login-form-1">
                             <h3>아이디 찾기</h3>
-                            <form id="findIdForm" method="POST">
+                            <form id="findIdForm" method="POST" action="<%=request.getContextPath() %>/findId.me">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="findEmail" required="required"/>
+                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="email" required="required"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="findName" required="required" />
+                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="userName" required="required" />
                                 </div>
                                 <div class="form-group-btn">
-                                    <input type="submit" class="btnSubmit" value="ID 찾기" onclick="findID();" />
+                                    <input type="button" class="btnSubmit" id= "idFind" value="ID 찾기" onclick="findID();" />
                                 </div>
                             </form>
                         </div>
                         
                         <script type="text/javascript">
-                        	function findID() {
-                        		var email = $("input[name='findEmail']");
-                        		var emailV = email.val();
-                    			var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-                        		var name = $("input[name='findName']");
+                           function findID() {
+                              var email = $("input[name='email']");
+                              var userName = $("input[name='userName']");
+                              var emailV = email.val();
+                             var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
-                        		if(email.val() == ""){
-            						alert("이메일을 입력해주세요.");
-        							email.focus();
-        							return false;
-            					}else if(exptext.test(emailV)==false){
-            						alert("이메일 형식에 맞추어 입력해주세요.");
-            						email.val('');
-            						email.focus();
-            						return false;
-            					}else if( name.val() == "" ) {
-            						alert("이름을 입력해주세요.");
-            						name.focus();
-        							return false;
-            					}
-                        		//$("#findIdForm").submit();
-                        		
-                        		var info = {'email' : email.val(), 'name' : name.val()};
-                        		$.ajax({
-										url : "<%=request.getContextPath() %>/findId.me",
-										type : "post",
-										data : info,
-										success : function(result){
-											if(result == "fail"){
-												alert("입력하신 이메일 주소로 이메일이 발송됩니다.");
-												var url ="<%=request.getContextPath() %>/views/member/emailChkController.jsp?command=emailChk&email=" + email.val();
-									            var wname = "인증번호 입력";
-									            var option = "width = 500, height = 500, top = 100, left = 200"
-										      	window.open(url, wname, option);
-											}else{
-												confirm("등록되지 않은 이메일 주소입니다.");
-												email.focus();
-											}
-										},
-										error:function(){
-											console.log("서버통신실패");
-										}
-									})
-							}
+                              if(email.val() == ""){
+	                             alert("이메일을 입력해주세요.");
+	                             email.focus();
+	                             return false;
+                           	}else if(exptext.test(emailV)==false){
+                              alert("이메일 형식에 맞추어 입력해주세요.");
+                              email.val('');
+                              email.focus();
+                              return false;
+                           }else if( userName.val() == "" ) {
+                              alert("이름을 입력해주세요.");
+                              userName.focus();
+                             return false;
+                           }
+                              var info = {'email' : email.val(), 'userName' : userName.val()};
+                              $.ajax({
+                              url : "<%=request.getContextPath() %>/findId.me",
+                              type : "post",
+                              data : info,
+                              success : function(findId){
+                                 if(findId != null){
+                                    confirm("입력하신 이메일로 이메일이 발송됩니다.");
+                                    var url ="<%=request.getContextPath() %>/views/member/findIdEmailChkController.jsp?command=findEmailChk&email="+email.val()+"&userName=" + userName.val();
+                                       var wname = "인증번호 입력";
+                                       var option = "width = 500, height = 500, top = 100, left = 200"
+                                       window.open(url, wname, option);
+
+                                  	 console.log("===============>>> url " +url);
+                                 }else if(findId == null){
+                                    confirm("등록되지 않은 이메일 주소입니다.");
+                                    email.focus();
+                                 }
+                              },
+                              error:function(){
+                                 console.log("서버통신실패");
+                              }
+                           })
+
+                           //$("#idFind").submit();
+                     }
                         </script>
                         
                         <div class="col-md-6 login-form-2">
                             <h3>비밀번호 찾기</h3>
-                            <form class="findPwd" method="POST">
+                            <form id="findPwdForm" method="POST" action="<%=request.getContextPath() %>/findPwd.me">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="FindEmail" required="required" />
+                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="email2" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="아이디를 입력하세요" name="FindId" required="required" />
+                                    <input type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" required="required" />
                                 </div>
                                 <div class="form-group-btn">
-                                    <input type="submit" class="btnSubmit" value="PW 찾기" onclick="findPW();" />
+                                    <input type="button" class="btnSubmit" value="PW 찾기" onclick="findPW();" />
                                 </div>
                             </form>
                         </div>
+                        <script type="text/javascript">
+                           function findPW() {
+                              var email = $("input[name='email2']");
+                              var userId = $("input[name='userId']");
+                              var emailV = email.val();
+                             var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+                              if(email.val() == ""){
+	                             alert("이메일을 입력해주세요.");
+	                             email.focus();
+	                             return false;
+                           	}else if(exptext.test(emailV)==false){
+                              alert("이메일 형식에 맞추어 입력해주세요.");
+                              email.val('');
+                              email.focus();
+                              return false;
+                           }else if( userId.val() == "" ) {
+                              alert("아이디를 입력해주세요.");
+                              userId.focus();
+                             return false;
+                           }
+                              var info = {'email' : email.val(), 'userId' : userId.val()};
+                              $.ajax({
+                              url : "<%=request.getContextPath() %>/findPwd.me",
+                              type : "post",
+                              data : info,
+                              success : function(findPwd){
+                                 if(findPwd != null){
+                                    confirm("입력하신 이메일로 이메일이 발송됩니다.");
+                                    var url ="<%=request.getContextPath() %>/views/member/findPwdEmailChkController.jsp?command=findEmailChk&email="+email.val()+"&userId=" + userId.val();
+                                       var wname = "인증번호 입력";
+                                       var option = "width = 500, height = 500, top = 100, left = 200"
+                                       window.open(url, wname, option);
+
+                                  	 console.log("===============>>> url " +url);
+                                 }else if(findPwd == null){
+                                    confirm("등록되지 않은 이메일 주소입니다.");
+                                    email.focus();
+                                 }
+                              },
+                              error:function(){
+                                 console.log("서버통신실패");
+                              }
+                           })
+
+                           //$("#idFind").submit();
+                     }
+                        </script>
+                        
                     </div>
-                </div>
-            </div>
-        </section>
-
-    </section>
-    
-    <%@ include file="../common/footer.jsp"%>
-
-    <!-- Header -->
-    <script>
-        $(function () {
-            var $header = $('header'); //헤더를 변수에 넣기
-            var $page = $('.page-start'); //색상이 변할 부분
-            var $window = $(window);
-            var pageOffsetTop = $page.offset().top;//색상 변할 부분의 top값 구하기
-
-            $window.resize(function () { //반응형을 대비하여 리사이즈시 top값을 다시 계산
-                pageOffsetTop = $page.offset().top;
-            });
-
-            $window.on('scroll', function () { //스크롤시
-                var scrolled = $window.scrollTop() >= pageOffsetTop; //스크롤된 상태; true or false
-                $header.toggleClass('down', scrolled); //클래스 토글
-            });
-        });
-    </script>
-    
+                    </div>
+                    </div>
+                    </section>
+                    </section>
     <!-- Js Plugins -->
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>

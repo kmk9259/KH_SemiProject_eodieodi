@@ -182,16 +182,16 @@
                                      	id="phone" name="phone"class="form-control"
                                         value="<%= phone %>" /><br>
                                         
-                                    <label class="control-label">변경할 이메일을 입력해주세요(xxxx@naver.com)</label><br>
+                                    <label class="control-label">이메일</label><br>
                                     <input maxlength="100" type="text" required="required" class="form-control"
-                                    	name="email"
-                                        value="<%= email %>" style=" width: 80%; float: left;" /><br>
-                                        
-								  <input style="float: right; background-color: #D958A0; color:#fff;
+                                    	name="email" readonly="readonly"
+                                        value="<%= email %>" /><br>
+                                        <br><br>
+								   <!-- <input style="float: right; background-color: #D958A0; color:#fff;
 								   border:none; width:110px; height:48px; border-radius: 5px; margin-top : -21px; color:#fff;"
 								    type="button" id="emailCheckBtn" onclick="emailChk();" value="이메일인증"/><br><br>
 								    
-								    <!-- </button>
+								   </button>
                                    <label class="control-label">인증확인</label><br>
                                     <input maxlength="100" type="text" required="required" class="form-control"
                                     	name = "email_chk_result"
@@ -206,7 +206,7 @@
 								    
                                     <center><button type="submit" style=" background-color: #D958A0; color:#fff;
 							   				border:none; width:100px; height:48px; border-radius: 5px; "
-                                    		 id="updateBtn">저장하기</button></center>
+                                    		 id="updateBtn" onclick="saveMyInfo();">저장하기</button></center>
                                     <br><br>
                                     
                                 </div>
@@ -214,21 +214,56 @@
                         </div>
 
 						<script>
-						
-						function emailChk() {
-							
-							var mail = $("input[name='email']");
-							   if(mail.val() == "" || mail.val() == null) {
-							      alert("이메일을 입력해주세요.");
-							   } else {
-							      var url ="<%=request.getContextPath() %>/views/member/emailChkController.jsp?command=emailChk&email=" + mail.val();
-						            var name = "인증번호 입력";
-						            var option = "width = 500, height = 500, top = 100, left = 200"
-							      open(url, name, option);
-							   }
-							   
+							function saveMyInfo(){
+									var userName = $("input[name='userName']");
+									var phone = $("input[name='phone']");
+									var email = $("input[name='email']");
+									//var emailV = email.val();
+									//var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+											if(userName.val() == ""){
+												if(confirm("이름을 입력해주세요.") == true){
+													userName.val('');
+													userName.focus();
+													return false;
+												}
+												//alert("이름을 입력해주세요.");
+											}else if(phone.val() == ""){
+												if(confirm("전화번호를 입력해주세요.") == true){
+													phone.val('');
+													phone.focus();
+													return false;
+												}
+												//alert("전화번호를 입력해주세요.");
+											}else if(phone.val().length != 13 || phone.val().length < 13 || phone.val().length >= 14 ){
+												if(confirm("올바른 형식의 전화번호를 입력해주세요. \n ex) 010-XXXX-XXXX") == true){
+													phone.val('');
+													phone.focus();
+													return false;
+												}
+											}else if(userName.val() == "" || phone.val() == "" || email.val() == ""){
+												return false;
+											}
+											
+											$("#updateForm").submit();
+											
 							}
 						
+
+						$('#phone').keydown(function(event) {
+						    var key = event.charCode || event.keyCode || 0;
+						    $text = $(this);
+						    if (key !== 8 && key !== 9) {
+						        if ($text.val().length === 3) {
+						            $text.val($text.val() + '-');
+						        }
+						        if ($text.val().length === 8) {
+						            $text.val($text.val() + '-');
+						        }
+						    }
+						 
+						    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
+						});
 						</script>
 
 
@@ -273,7 +308,7 @@
                         <div class="tab-pane text-style nice-scroll" id="myPost">
                             <h2 class="tInfo">내가 쓴 글</h2>
 							<br><br>
-                            <div class="span5" style="padding-left: 10%; width: 80%; height: 400px;">
+                            <div class="span5" style="padding-left: 5%; width: 90%; height: 510px;">
                                 <table class="table table-striped table-condensed" style="text-align: center; table-layout: fixed;">
                                     <thead>
                                         <tr>
@@ -294,16 +329,14 @@
 										<!--  아니면 엘스로 해서 하나씩 띄워준다 -->
 											<% }else{  %>
 												<% for(Board b : list){ %>
-															<tr onClick="showMyPost()" onmouseover="this.style.background='#e4a6c8'" onmouseout="this.style.background='none'">
-															
-																<td style="background: none !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>"><%= b.getBoardTitle() %></td>
-																<td style="background: none !important; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><%= b.getBoardContent() %></td>
-																<td style="background: none !important; text-align: center;"><%= b.getCount() %></td>
-																<td style="background: none !important;"><button type="button" class="site-btn" onclick="deleteBoard();">삭제</button></td>
-																
-															</tr>
-														
-														 
+			                                       <tr onmouseover="this.style.background='#e4a6c8'" onmouseout="this.style.background='none'">
+			                                             
+			                                          <td onClick="showMyPost()" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getBoardTitle() %></a></td>
+			                                          <td onClick="showMyPost()" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getBoardContent() %></a></td>
+			                                          <td onClick="showMyPost()" style="background: none !important; text-align: center;"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getCount() %></a></td>
+			                                          <td style="background: none !important; text-align: center;"><button type="button" class="site-btn" onclick="deleteBoard()">삭제</button></td>
+			                                                
+			                                       </tr>
 												<% } %>
 						 					<% } %>
                                     </tbody>
@@ -314,10 +347,22 @@
                         <script>
 						
 						//리스트에서 버튼을 클릭하는거 
-						function showMyPost() {
-							var bno = $(this).children().eq(0).val();
-        					location.href="<%=contextPath%>/detail.bo?bno=" + bno;
-						}
+		                  function showMyPost() {
+		                     var bno = $(this).children().eq(0).val();
+		                       location.href="<%=contextPath%>/detail.bo?bno=" + bno;
+		                  }
+		                  
+		                  $(function () {
+		                     $("#tb").niceScroll();
+		                  });
+		                  
+		                  function deleteBoard() {
+		                     if(confirm("게시글을 삭제하시겠습니까?") == true){
+		                        confirm("게시글 삭제 완료");
+		                        location.href="<%=contextPath%>/mypage.me";
+		                     }
+		                  }
+
 						
 						</script>
                         <!-- 회원탈퇴 -->

@@ -456,14 +456,20 @@ var emailcount = 0;
 
 					if(userId.val() == ""){
 						if(confirm("아이디를 입력해주세요.") == true){
+							userId.val('');
+							userId.focus();
 							return false;
 						}
 					}else if( count <= 0 ) {
 						if(confirm("아이디 중복 체크를 해주세요") == true){
+							userId.val('');
+							userId.focus();
 							return false;
 						}
 					}else if(userPwd.val() == ""){
 						if(confirm("비밀번호를 입력해주세요.") == true){
+							userPwd.val('');
+							userPwd.focus();
 							return false;
 						}
 					}else if(userPwd.val().length < 6){
@@ -474,6 +480,8 @@ var emailcount = 0;
 						}
 					}else if(checkPwd.val() == ""){
 						if(confirm("비밀번호 확인을 입력해주세요.") == true){
+							checkPwd.val('');
+							checkPwd.focus();
 							return false;
 						}
 					}else if(checkPwd.val() != userPwd.val()){
@@ -484,16 +492,28 @@ var emailcount = 0;
 						}
 					}else if(userName.val() == ""){
 						if(confirm("이름을 입력해주세요.") == true){
+							userName.val('');
+							userName.focus();
 							return false;
 						}
 						//alert("이름을 입력해주세요.");
 					}else if(phone.val() == ""){
 						if(confirm("전화번호를 입력해주세요.") == true){
+							phone.val('');
+							phone.focus();
 							return false;
 						}
 						//alert("전화번호를 입력해주세요.");
+					}else if(phone.val().length != 13 || phone.val().length < 13 || phone.val().length >= 14 ){
+						if(confirm("올바른 형식의 전화번호를 입력해주세요. \n ex) 010-XXXX-XXXX") == true){
+							phone.val('');
+							phone.focus();
+							return false;
+						}
 					}else if(email.val() == ""){
 						if(confirm("이메일을 입력해주세요.") == true){
+							email.val('');
+							email.focus();
 							return false;
 						}
 					}else if(exptext.test(emailV)==false){
@@ -504,8 +524,24 @@ var emailcount = 0;
 						}
 					}else if( emailcount <= 0 ) {
 						if(confirm("이메일 인증을 해주세요.") == true){
+							email.val('');
+							email.focus();
 							return false;
 						}
+					}else if( count <= 0 ) {
+						if(confirm("아이디 중복 체크를 해주세요") == true){
+							userId.val('');
+							userId.focus();
+							return false;
+						}
+					}else if( emailcount <= 0 ) {
+						if(confirm("이메일 인증을 해주세요.") == true){
+							email.val('');
+							email.focus();
+							return false;
+						}
+					}else if(userId.val() == "" || userPwd.val() == "" || userPwd.val().length < 6 || checkPwd.val() == "" || checkPwd.val() != userPwd.val() || userName.val() == "" || phone.val() == "" || email.val() == "" || exptext.test(emailV)==false || emailcount <= 0 || count <= 0){
+						return false;
 					}
 					
 					$("#enrollForm").submit();
@@ -585,9 +621,8 @@ var emailcount = 0;
 				            var name = "인증번호 입력";
 				            var option = "width = 500, height = 500, top = 100, left = 200"
 					      	window.open(url, name, option);
-				            
-				            emailcount++;
 							email.attr("readonly", "true");
+				            emailcount++;
 						}else{
 							email.focus();
 						}

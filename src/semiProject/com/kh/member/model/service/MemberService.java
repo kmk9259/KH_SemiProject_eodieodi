@@ -1,5 +1,4 @@
 package semiProject.com.kh.member.model.service;
-
 import static semiProject.com.kh.common.JDBCTemplate.close;
 import static semiProject.com.kh.common.JDBCTemplate.commit;
 import static semiProject.com.kh.common.JDBCTemplate.getConnection;
@@ -9,6 +8,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import semiProject.com.kh.board.model.dao.BoardDao;
+import semiProject.com.kh.board.model.vo.Attachment;
 import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.member.model.dao.MemberDao;
 import semiProject.com.kh.member.model.vo.Member;
@@ -132,33 +132,108 @@ public class MemberService {
 		close(conn);
 		return result;	}
 
+	
 	/*
-	public ArrayList<Board> selectMyPost(String userId) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> list = new MemberDao().selectMyPost(conn, userId);
-		close(conn);
-		System.out.println("서비스에서 보이는지 : " + list);
-		
-		return list;
-	}
+	  public ArrayList<Board> selectMyPost(String userId, int bId) {
+		  Connection conn = getConnection();
+		  ArrayList<Board> list = new MemberDao().selectMyPost(conn, userId, bId);
+			close(conn);
+	  //int result = new MemberDao().increaseCount(conn,bId);
+	  //ArrayList<Board> list = null;
+	  /*
+	  if(result > 0) {
+		  commit(conn); list = new MemberDao().selectMyPost(conn, userId, bId); 
+		  }else {
+			  rollback(conn); 
+			  }
+	  close(conn);
+	  System.out.println("서비스에서 보이는지 : " + list);
+	  *//*
+	 return list;
+	 }
 */
+	
+	  public ArrayList<Board> selectMyPost(String userId) {
+		  Connection conn = getConnection();
+	  
+		  ArrayList<Board> list = new MemberDao().selectMyPost(conn, userId);
+	  
+		  close(conn);
+		  System.out.println("서비스에서 보이는지 : " + list);
+	  
+		  return list;
+		  }
+	 /*
+	  public ArrayList<Board> selectMyPost(String userId, int bno) {
+		  Connection conn = getConnection();
+	  
+		  ArrayList<Board> list = new MemberDao().selectMyPost(conn, userId, bno);
+	  
+		  close(conn);
+		  System.out.println("서비스에서 보이는지 : " + list);
+	  
+		  return list;
+		  }*/
 	public int emailCheck(String email) {
 		Connection conn = getConnection();
 		int result = new MemberDao().emailCheck(conn, email);
 		close(conn);
 		return result;
 	}
-
-	//마이페이지에서 보일 내가 쓴 글 
-	public ArrayList<Board> selectMyPost(String userId) {
+/*
+	public int findUserId(String email, String userName) {
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new MemberDao().selectMyPost(conn, userId);
+		int result = new MemberDao().findUserId(conn, email, userName);
+		System.out.println("서비스에서 보이는지 : findId--->" + result);
 		close(conn);
-		System.out.println("서비스에서 보이는지 : " + list);
-		
-		return list;
-	}
+		return result;
 
+	}*/
+	
+	public Member findUserId(String email, String userName) {
+		Connection conn = getConnection();
+
+		MemberDao dao = new MemberDao();
+		Member findId = dao.findUserId(conn, email, userName);
+		close(conn);
+		System.out.println("서비스에서 보이는지 : findId--->" + findId);
+		return findId;
+
+	}
+	/*
+	 * //마이페이지에서 보일 내가 쓴 글 public ArrayList<Board> selectMyPost() { Connection conn
+	 * = getConnection();
+	 * 
+	 * ArrayList<Board> list = new BoardDao().selectMyPost(conn); close(conn);
+	 * System.out.println("서비스에서 보이는지 : " + list);
+	 * 
+	 * return list; }
+	 */
+
+	public Member findUserPwd(String email, String userId) {
+		Connection conn = getConnection();
+		
+		Member findPwd = new MemberDao().findUserPwd(conn, email, userId);
+		close(conn);
+		System.out.println("서비스에서 보이는지 : findPwd--->" + findPwd);
+		return findPwd;
+	}
+/*
+	public Member updateMemberEmail(String userId, String email) {
+		Connection conn = getConnection();
+		
+		Member updateMem = null;
+		
+		int result = new MemberDao().updateMemberEmail(conn, userId, email);
+		if(result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, userId);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateMem;
+	}
+*/
 }
