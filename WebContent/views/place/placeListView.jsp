@@ -101,13 +101,13 @@
 								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
+								<li class="active menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
 								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
 								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
 								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
-								<li class="active menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+								<li class=" menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
 								
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
@@ -117,35 +117,88 @@
 					</div>
 				</div>	
 			<div class="admin-showpage nice-scroll">
-			<div class="outer">
-				<br>
-				<h2 align="center">일정 조회</h2>
-				<br>
-				
-				<div class=listPlace>
-					<%for(Place p : list){ %>					
-					<div class="card-group card-deck" style="width: 300px; display: inline-block;" >
-						<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
-						<div class="card">
-							<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
-							<div class="card-body">
-								<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
-								<p class="card-text">조회수 : <%= p.getCount() %></p>
-								
-								
-								
-							</div>
-						</div>							
-					</div>
-					<%} %>
-				
-					
-					<br><br>
-					
-				</div>
+			<div class="row">
+				<div class="col-lg-12">
+			        <div class="section-title">
+			            <h2>일정 조회</h2>
+			        </div>	    
+				</div><!-- class="col-lg-12" -->
+			</div>
+				<section class="most-search spad">
+					<div class="container">
+						<div class="row">
+							<!-- <div class="col-lg-12">
+						        <div class="section-title">
+						            <h2>코스 일정 상제 페이지</h2>
+						        </div>	    
+							</div>class="col-lg-12" -->
+						
+							<div class="tab-content">
+								<div class="tab-pane active" id="tabs-1" role="tabpanel">
+									<div class="row">
+										<% for(Place p: list) {%>
+										<div class="col-lg-4 col-md-6" >
+											<div class="listing__item">
+												<input type="hidden" id="placeNo" value="<%=p.getPlaceNo() %>">
+											    <div class="listing__item__pic set-bg" data-setbg="<%=contextPath %>/resources/place_upFiles/<%=p.getTitleImg()%>">
+											        <img src="resources/img/listing/list_icon-1.png" alt="">
+											        <div class="listing__item__pic__tag">NO. <%=p.getPlaceNo() %></div>
+											        <div class="listing__item__pic__btns">
+											            <a href="#"><span class="icon_zoom-in_alt"></span></a>
+											            <a href="#"><span class="icon_heart_alt"></span></a>
+											        </div>
+											    </div>
+												<div class="listing__item__text">
+												    <div class="listing__item__text__inside">
+												        <h5><%=p.getPlaceTitle() %></h5>
+												        <p><%=p.getDescription() %></p>
+												        <div class="listing__item__text__rating">
+												            <div class="listing__item__rating__star">
+												                <span class="icon_star"></span>
+												                <span class="icon_star"></span>
+												                <span class="icon_star"></span>
+												                <span class="icon_star"></span>
+												                <span class="icon_star-half_alt"></span>
+												            </div>
+												            <h6><%=p.getPrice()%> 원</h6>
+												        </div>
+												        <ul>
+												            <li><span class="icon_pin_alt"></span> <%=p.getAddress() %></li>
+												            <li><span class="icon_phone"></span> <%=p.getPlacePhone() %></li>
+												        </ul>
+												    </div>
+												    <div class="listing__item__text__info">
+												        <div class="listing__item__text__info__left">
+												            <img src="resources/img/listing/list_small_icon-1.png" alt="">
+												            <span>
+												            <%
+												            	String categoryName="";
+																if(p.getCategoryNo()==1)
+																	categoryName="먹기";
+																if(p.getCategoryNo()==2)
+																	categoryName="마시기";
+																if(p.getCategoryNo()==3)
+																	categoryName="놀기";
+																
+															%>
+															<%= categoryName %>
+												            </span>
+												        </div>
+												        <div class="listing__item__text__info__right">Open Now</div>
+												    </div>
+												</div>
+											</div>
+										</div><!--<div class="col-lg-4 col-md-6">  -->
+										<%} %>
+									</div>
+								</div>
+							</div><!--<div class="tab-content"> -->
+						</div>
+					   </div>          
+				</section>
 				<script>
 					$(function(){
-						$(".card").click(function(){
+						$(".listing__item__pic").click(function(){
 							
 							var parent = $(this).parent(); 
 							var pNo = parent.children("#placeNo").val();
@@ -153,7 +206,6 @@
 						});
 					});
 				</script>
-			</div>
 			</div>
 			
 		</section><!-- admin -->

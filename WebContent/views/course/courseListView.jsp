@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.category.model.vo.*,semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
 <%
 	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");	
 	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
-
+	
 %>
 
 <!DOCTYPE html>
@@ -35,14 +35,8 @@
     border: 1px solid #D34B32;
     
 }
-#courseList{
-border:1px solid white;
-text-align:center;
-}
-#courseList>tbody>tr:hover{
-		background:darkgrey;
-		cursor:pointer
-	}
+
+
 
 </style>
 
@@ -117,24 +111,36 @@ text-align:center;
 					</div>
 				</div>	
 			<div class="admin-showpage nice-scroll">
-			<div class="courseList nice-scroll" style="height: 1000px; width: 1500px;">
-					<div >
-							<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
-								<option value="0" selected>지역을 선택하세요</option>
-								<%for(Area a : alist) {%>
-								<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
-								<%} %>
-								
-							</select><br><br>
-							
+			
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="section-title">
+								<h2>코스 조회</h2>
+							</div>
+						</div>
+					</div>
+					<div>
+						<select id="placeChoice" name="placeChoice"
+							onchange="changeArea(this)">
+							<option value="0" selected>지역을 선택하세요</option>
+							<%for(Area a : alist) {%>
+							<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
+							<%} %>
+
+						</select><br>
+						<br>
+
 					</div>
 					<br><br>
-					<table id="courseList" class="courseList" >
-					</table>
+			<section class="news-post spad">
+				<div class="container">
+					<div class="row" id="courseList">
+		                
+		            </div>
+		        </div>
+			</section>
 					
 					
-					
-			</div>
 			</div><!-- admin-showpage nice-scroll -->
 			<script>
 			function changeArea(obj)
@@ -151,7 +157,7 @@ text-align:center;
 						console.log(list);
 						var value="";
 						var contextPath = "<%=contextPath%>";
-						
+						var src ="<%=contextPath%>/resources/img/blog/blog-1.jpg";
 						for(var i in list)
 						{
 							switch(list[i].areaNo){
@@ -173,27 +179,48 @@ text-align:center;
 								var themeName="친구와함께";								
 								break;
 							}
-							value += '<thead><tr><th width="100">코스 NO.</th><th width="100">지역</th><th width="100">테마</th><th width="300">코스 제목</th>'
-									
-									+'</tr></thead>'
-									+'<tbody>'
-									+'<tr>'
-										+'<td >'+list[i].courseNo+'</td>'
-										+'<td>'+areaName+'</td>'
-										+'<td >'+themeName+'</td>'
-										+'<td >'+list[i].courseTitle+'</td>'
-										
-									+'</tr>'
-									+'</tbody>';
-									 
+							value +='<div class="col-lg-4 col-md-6">'
+			                    		+'<div class="blog__item">'
+		                        			+'<div class="blog__item__pic set-bg" data-setbg="'+src+'"></div>'
+		                        			+'<div class="blog__item__text">'
+					                            +'<ul class="blog__item__tags">'
+					                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
+					                                +'<li>'+themeName+'</li>'
+					                            +'</ul>'
+					                            +'<h5><a href="#">'+list[i].courseTitle+'</a></h5>'
+				                            	+'<ul class="blog__item__widget">'
+					                                +'<li><i class="fa fa-clock-o"></i> 19th March, 2019</li>'
+					                                +'<li><i class="fa fa-user"></i> John Smith</li>'
+					                            +'</ul>'
+						                    +'</div>'
+						                    +'</div>'
+		                    			+'</div>'
+	               					+'</div>';
+							
+							
 							
 						} //for
-						 $("#courseList").html(value);
+						 $("#courseList").html(value).trigger("create");
+						 $(function(){
+								$(".detail").click(function(){
+									var parent = $(this).parents();  //클릭한 버튼의 최상위 부모
+									console.log("parent : " + parent);
+									console.log("찍히니?");
+									var cNo = parent.children("#courseNo").val();
+									console.log("cNo : " + cNo);
+									<%-- location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo; --%>
+								});
+							});
 						
 					}//success					
 				})
 				
 			}
+			$(function () {
+			    $('#detail').on('click', function () {
+			        console.log("클릭");
+			    });
+			});
 			
 			
 			

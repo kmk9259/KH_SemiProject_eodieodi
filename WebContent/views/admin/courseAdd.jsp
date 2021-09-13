@@ -41,6 +41,12 @@
 .choiceCourse{
 margin-left: 150px;
 }
+.card-body{
+	background-color: #FFF3E7;
+    border: 1px solid #D34B32;
+}
+
+
 </style>
 
 </head>
@@ -104,7 +110,7 @@ margin-left: 150px;
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
 								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
-								<li class="active menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+								<li class="active  menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
 								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
 								
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
@@ -177,16 +183,19 @@ margin-left: 150px;
 									break;
 								
 								}
-								 value +='<div class="card-group card-deck" style="width: 300px" >'
-										+'<div class="card" style="width: 300px">'
-										+'<img class="card-img-top" src="'+contextPath+'/resources/place_upFiles/'+list[i].titleImg+'" alt="Card image" style="width: 300px">'
-										+'<div class="card-body" style="width: 300px">'
-										+'<h4 class="card-title">No.'+list[i].placeNo+list[i].placeTitle+'</h4>'
-										+'<p class="card-text"><b>카테고리: '+categortName+'</b></p><br>'
-										+'<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택'
-										+'</div></div></div>'; 
-							}
-							 $("#placeList").html(value); 
+								value +=
+									'<div class="card-group >'
+									+'<div class="card col" style="float:left">'
+									+'<div class="embed-responsive embed-responsive-4by3">'
+									+'<img  class="card-img-top embed-responsive-item" src="'+contextPath+'/resources/place_upFiles/'+list[i].titleImg+'" alt="Card image" >'
+									+'</div>'
+									+'<div class="card-body" >'
+									+'<h5 class="card-title" style="text-align : center">No.'+list[i].placeNo+"\t"+list[i].placeTitle+'</h5>'
+									+'<p class="card-text"><b>카테고리: '+categortName+'</b></p><br>'
+									+'<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택'
+									+'</div></div></div>'; 
+						}
+						 $("#placeList").html(value).trigger("create"); 
 						},
 						error:function(){
 							console.log("ajax 통신 실패 - 지역선택 넘겨주기");

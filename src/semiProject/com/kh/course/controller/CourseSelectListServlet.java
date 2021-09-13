@@ -18,13 +18,13 @@ import semiProject.com.kh.theme.service.ThemeService;
  * Servlet implementation class CourseListServlet
  */
 @WebServlet("/list.co")
-public class CourseListServlet extends HttpServlet {
+public class CourseSelectListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CourseListServlet() {
+    public CourseSelectListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
