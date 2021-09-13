@@ -9,21 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+import semiProject.com.kh.area.model.service.AreaService;
+import semiProject.com.kh.area.model.vo.Area;
 import semiProject.com.kh.course.model.service.CourseService;
 import semiProject.com.kh.course.model.vo.Course;
-import semiProject.com.kh.place.model.service.PlaceService;
+import semiProject.com.kh.theme.model.vo.Theme;
+import semiProject.com.kh.theme.service.ThemeService;
 
 /**
  * Servlet implementation class CourseDeleteServlet
  */
-@WebServlet("/cDelete.co")
-public class CourseDeleteServlet extends HttpServlet {
+@WebServlet("/delete.co")
+public class CourseDeleteListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CourseDeleteServlet() {
+    public CourseDeleteListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +37,12 @@ public class CourseDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cNo = Integer.parseInt(request.getParameter("cNo"));
-		int result = new CourseService().delectCourse(cNo);
-		if(result >0)
-		{
-			response.sendRedirect("list.co");
-			
-		}
-		else
-		{
-			request.setAttribute("msg", "코스 삭제에 실패하였습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		ArrayList<Theme> tlist = new ThemeService().selectThemeList();
+		ArrayList<Area> alist = new AreaService().selectAreaList();
+		request.setAttribute("tlist", tlist);
+		request.setAttribute("alist", alist);
 		
+		request.getRequestDispatcher("views/admin/courseDelete.jsp").forward(request, response);
 	}
 
 	/**

@@ -6,18 +6,20 @@ public class Course {
 	private int themeNo;
 	private String courseTitle;
 	private String status;
+	private String titleImg;
 
 	public Course() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Course(int courseNo, int areaNo, int themeNo, String courseTitle, String status) {
+	public Course(int courseNo, int areaNo, int themeNo, String courseTitle, String status, String titleImg) {
 		super();
 		this.courseNo = courseNo;
 		this.areaNo = areaNo;
 		this.themeNo = themeNo;
 		this.courseTitle = courseTitle;
 		this.status = status;
+		this.titleImg = titleImg;
 	}
 
 	public int getCourseNo() {
@@ -60,10 +62,20 @@ public class Course {
 		this.status = status;
 	}
 
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
 	@Override
 	public String toString() {
 		return "Course [courseNo=" + courseNo + ", areaNo=" + areaNo + ", themeNo=" + themeNo + ", courseTitle="
-				+ courseTitle + ", status=" + status + "]";
+				+ courseTitle + ", status=" + status + ", titleImg=" + titleImg + "]";
 	}
+
+	
 	
 }

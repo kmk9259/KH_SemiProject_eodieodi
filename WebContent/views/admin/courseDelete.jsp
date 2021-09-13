@@ -1,11 +1,9 @@
-<%@page import="semiProject.com.kh.theme.model.vo.Theme"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.category.model.vo.*,semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
 <%
-		
+	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");	
 	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
 	
-
 %>
 
 <!DOCTYPE html>
@@ -16,7 +14,7 @@
 <meta name="keywords" content="Directing, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>어디어디 - 관리자페이지(코스 삭제)</title>
+<title>어디어디 - 관리자페이지(코스 조회)</title>
 <link rel="stylesheet"
 	href="<%= request.getContextPath() %>/./resources/css/myInfo.css"
 	type="text/css">
@@ -37,9 +35,9 @@
     border: 1px solid #D34B32;
     
 }
-.choiceCourse{
-margin-left: 150px;
-}
+
+
+
 </style>
 
 </head>
@@ -59,7 +57,7 @@ margin-left: 150px;
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>어디어디?!</h2>
+							<h2>코스 조회</h2>
 						</div>
 					</div>
 				</div>
@@ -84,7 +82,7 @@ margin-left: 150px;
             });
             });
         
-        </script>
+    </script>
 
 	<section class="page-start">
 		<section class="admin">
@@ -102,9 +100,9 @@ margin-left: 150px;
 								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
 								
 								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
+								<li class="active menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
 								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-								<li class="active menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
 								
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
@@ -112,126 +110,128 @@ margin-left: 150px;
 						</nav>
 					</div>
 				</div>	
-				<div class="admin-showpage ">
-				<div class="courseList nice-scroll" style="height: 1000px; width: 1500px;">
+			<div class="admin-showpage nice-scroll">
+			
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="section-title">
+								<h2>코스 삭제</h2>
+							</div>
+						</div>
+					</div>
 					<div>
-							<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
-								<option value="0" selected>지역을 선택하세요</option>
-								<%for(Area a : alist) {%>
-								<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
-								<%} %>
-								
-							</select><br><br>
+						<select id="placeChoice" name="placeChoice"
+							onchange="changeArea(this)">
+							<option value="0" selected>지역을 선택하세요</option>
+							<%for(Area a : alist) {%>
+							
+							<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
+							
+							<%} %>
+
+						</select><br>
+						<br>
+
 					</div>
+					<br><br>
+			<section class="news-post spad">
+				<div class="container">
+					<div class="row" id="courseList">
+		                
+		            </div>
+		        </div>
+			</section>
 					
-					<div id="courseList" style="display: inline-flex;" >
 					
-					</div>
-					
-						
-					<br><br><br>
-					
-					
-				</div>
-				<script>
-				function changeArea(obj)
-				{
-					var placeChoice = document.getElementById('placeChoice');
-					var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
-					$("#courseList").empty();
-					$.ajax({
-						url : "pList.co",
-						type : "post",
-						data:{areaNo : areaNo},
-						success:function(list){
-							console.log(list);
-							var value="";
-							var contextPath = "<%=contextPath%>";
-							for(var i in list)
-							{
-								switch(list[i].categoryNo){
-								case 1 :
-									var categortName="먹기";
-									console.log(categortName);
-									break;
-								case 2 :
-									var categortName="마시기" 
-									console.log(categortName);
-									break;
-								case 3 :
-									var categortName="놀기"
-										console.log(categortName);
-									break;
-								
-								}
-								 value +='<div class="card-group card-deck" style="width: 300px" >'
-										+'<div class="card" style="width: 300px">'
-										+'<img class="card-img-top" src="'+contextPath+'/resources/place_upFiles/'+list[i].titleImg+'" alt="Card image" style="width: 300px">'
-										+'<div class="card-body" style="width: 300px">'
-										+'<h4 class="card-title">No.'+list[i].placeNo+list[i].placeTitle+'</h4>'
-										+'<p class="card-text"><b>카테고리: '+categortName+'</b></p><br>'
-										+'<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택'
-										+'</div></div></div>'; 
+			</div><!-- admin-showpage nice-scroll -->
+			<script>
+			function changeArea(obj)
+			{
+				var placeChoice = document.getElementById('placeChoice');
+				var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
+				console.log(areaNo+"   areaNo")
+				$("#courseList").empty();
+				$.ajax({
+					url : "cList.co",
+					type : "post",
+					data:{areaNo : areaNo},
+					success:function(list){
+						console.log(list);
+						var value="";
+						var src ="<%=contextPath%>/resources/img/blog/blog-1.jpg";
+						for(var i in list)
+						{
+							switch(list[i].areaNo){
+							case 1 :
+								var areaName="홍대";								
+								break;
+							case 2 :
+								var areaName="강남";
+								break;							
 							}
-							 $("#placeList").html(value); 
-						},
-						error:function(){
-							console.log("ajax 통신 실패 - 지역선택 넘겨주기");
-						}
-					})
-					
-				}
-				
-				function checkbox(check)
-				{				
-					/* var placeNo = check.value;
-					
-					var result = document.getElementById("textarea");
-					if( check.checked==true )
-					{
-						console.log("체크박스 체크했을 때"+placeNo);
-						if (result.value == "") 
-						{
-							result.value = placeNo;
-						} 
-						else 
-						{
-							result.value += "," + placeNo;
-						}
-					} 
-					else 
-					{
-						var resultArr = result.value.split(",");
-						for (var i = 0; i < resultArr.length; i++) 
-						{
-							if (resultArr[i] == placeNo) 
-							{
-								resultArr.splice(i, 1);
+							switch(list[i].themeNo){
+							case 1 :
+								var themeName="연인과함께";								
+								break;
+							case 2 :
+								var themeName="가족과함께";								
+								break;
+							case 3 :
+								var themeName="친구와함께";								
 								break;
 							}
-						}
-						result.value = resultArr.join(",");
-
-					} */
-				}
+							value +='<div class="col-lg-4 col-md-6">'
+			                    		+'<div class="blog__item">'
+			                    			+'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+list[i].courseNo+'">'
+		                        			+'<div class="blog__item__pic set-bg" data-setbg=""></div>'
+		                        			+'<div class="blog__item__text">'
+					                            +'<ul class="blog__item__tags">'
+					                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
+					                                +'<li>'+themeName+'</li>'
+					                            +'</ul>'
+					                            +'<h5><a href="#">'+list[i].courseTitle+'</a></h5>'
+				                            	+'<ul class="blog__item__widget">'
+					                                +'<li><i class="fa fa-clock-o"></i> 19th March, 2019</li>'
+					                                +'<li><i class="fa fa-user"></i> John Smith</li>'
+					                            +'</ul>'
+						                    +'</div>'
+						                    +'</div>'
+		                    			+'</div>'
+	               					+'</div>';
+							
+							
+							
+						} //for
+						 $("#courseList").html(value).trigger("create");
+						 $(function(){
+								$(".set-bg").click(function(){
+									var parent = $(this).parents();  //클릭한 버튼의 최상위 부모
+									console.log("parent : " + parent);
+									console.log("찍히니?");
+									var cNo = parent.children("#courseNo").val();
+									console.log("cNo : " + cNo);
+									location.href="<%=contextPath%>/cDelete.co?cNo="+cNo;
+								});
+							});
+						 $('.set-bg').each(function() {
+						        var bg = $(this).data('setbg');
+						        $(this).css('background-image', 'url(' + src + ')');
+						    });
+						
+					}//success					
+				})
 				
-					$(function() {
-
-						/* $("#courseAdd").click(function() {
-							var result = confirm("추천 코스를 등록하시겠습니까?")
-							if (result) {
-								alert("추천 코스가 등록되었습니다.")
-							} else {
-								location.reload();
-							}
-
-						}); */
-
-					});
-				</script>
-				</div>
-			</div><!-- admin-showpage -->
-				
+			}
+			$(function () {
+			    $('#detail').on('click', function () {
+			        console.log("클릭");
+			    });
+			});
+			
+			
+			
+			</script>
+			
 		</section><!-- admin -->
 	</section><!-- page- start -->
 

@@ -33,12 +33,16 @@ public class CourseListCourse extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int areaNo = Integer.parseInt(request.getParameter("areaNo"));
-		ArrayList<Course> list = new CourseService().selectCList(areaNo);
+		ArrayList<Course> list = new CourseService().selectCList(areaNo);	
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(list, response.getWriter());
+		
+		
+		
 		
 		
 		
