@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import semiProject.com.kh.board.model.vo.PlaceAttachment;
 import semiProject.com.kh.course.model.service.CourseService;
 import semiProject.com.kh.course.model.vo.Course;
 
@@ -38,6 +39,9 @@ public class CourseListCourse extends HttpServlet {
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(list, response.getWriter());
+		
+		
+		
 	}
 
 	/**

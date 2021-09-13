@@ -128,10 +128,17 @@ public class CourseDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		/*
-		 * selectCoursePlaceList=SELECT A.PLACE_NO,PLACE_TITLE, PLACE_PHONE,
-		 * DESCRIPTION, BSHOUR, PRICE, ADDRESS \ FROM COURSE_PLACE A JOIN PLACE B ON
-		 * (A.PLACE_NO = B.PLACE_NO) WHERE REF_COURSE=?
+		 * SELECT PLACE_NO,AREA_NO,CATEGORY_NO,
+		 * PLACE_TITLE,PLACE_PHONE,DESCRIPTION,BSHOUR,PRICE, ADDRESS,COUNT,PLACE.STATUS,
+		 * CHANGE_NAME 
+		 * 
+		 * FROM PLACE JOIN COURSE_PLACE USING (PLACE_NO) JOIN (SELECT * FROM
+		 * PLACE_ATTACHMENT WHERE FILE_NO IN ( SELECT MIN(FILE_NO) FILE_NO FROM
+		 * PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO)
+		 * 
+		 * WHERE PLACE.STATUS='Y' AND REF_COURSE=? ORDER BY PLACE_NO
 		 */
+				
 		String sql = prop.getProperty("selectCoursePlaceList");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -140,13 +147,19 @@ public class CourseDao {
 			while(rset.next())
 			{
 				Place p = new Place();
+				
 				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setAreaNo(rset.getInt("AREA_NO"));
+				p.setCategoryNo(rset.getInt("CATEGORY_NO"));
 				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
 				p.setPlacePhone(rset.getString("PLACE_PHONE"));
 				p.setDescription(rset.getString("DESCRIPTION"));
 				p.setBsHour(rset.getString("BSHOUR"));
 				p.setPrice(rset.getInt("PRICE"));
 				p.setAddress(rset.getString("ADDRESS"));
+				p.setCount(rset.getInt("COUNT"));
+				p.setStatus(rset.getString("STATUS"));
+				p.setTitleImg(rset.getString("CHANGE_NAME"));
 				list.add(p);
 			}
 		} catch (SQLException e) {
@@ -156,6 +169,7 @@ public class CourseDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(list);
 		return list;
 	}
 

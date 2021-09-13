@@ -94,16 +94,20 @@ margin-top: 20px;
 				<div class="col-sm-2">
 					<nav class="nav-sidebar">
 						<ul class="nav tabs">
-							<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티
-									관리</a></li>
-							<li class="menuB "><a href="" data-toggle="tab">공지사항 등록</a></li>
-							<li class="menuB "><a href="" data-toggle="tab">공지사항 수정</a></li>
-							<li class="menuB parent"><a href="<%= contextPath %>/list.pl" >일정관리(조회)</a></li>
-							<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
-							<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
-							<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-							<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
-							<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
+							<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
+								
+								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
+								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
+								
+								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
+								<li class="  menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
+								
+								<li class="active menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
 						</ul>
 					</nav>
