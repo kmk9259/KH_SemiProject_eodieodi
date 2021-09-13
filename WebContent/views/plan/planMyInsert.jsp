@@ -79,7 +79,7 @@
         }
         .listArea{
             width: 100%;
-            border:1px solid black;
+            border:1px solid lightgray;
             margin-bottom: 20px;
             
         }
@@ -111,6 +111,12 @@
         	line-height: 30px;
 		    font-size: 21px;
 		    color: black;
+        }
+        .header{
+        	background-color:#FAE6B9;
+        }
+        .filter__title{
+        	margin-bottom:10px;
         }
         
         <!--카카오지도-->
@@ -150,16 +156,27 @@
 		#pagination {margin:10px auto;text-align: center;}
 		#pagination a {display:inline-block;margin-right:10px;}
 		#pagination .on {font-weight: bold; cursor: default;color:#777;}       
+		
+		table{
+        	border-collapse:collapse;
+        }
+        th,td{
+        	border-bottom: 1px solid lightgrey;
+        	padding:3px;
+        }
+        th{
+        	background-color:#FDF5E6;
+        }
     </style>
 </head>
 <body class="ov-hid">
    <!-- Header Section Begin -->
-    <header class="header header--normal">
+    <header class="header header--normal" style="background-color: #FAE6B9;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo_myplan">
-                        <a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/resources/img/Logo.png" alt="야호"></a>
+                        <a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/resources/img/Logo_D_1.png" alt="야호"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -237,7 +254,7 @@
                 <h5>메모</h5>
             </div>
             <div>
-                <textarea class="planInput" name="planMemo" id="" cols="20" rows="8"></textarea>
+                <textarea class="planInput" name="planMemo" id="" cols="30" rows="6"></textarea>
             </div>
 
             <div class="filter__title">
@@ -250,6 +267,9 @@
 						<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
 					<%} %>
                 </select>
+            </div>
+            <div class="filter__title">
+                <h5>추가한 장소</h5>
             </div>
             <table class="listArea" align="center">
                 <thead>
@@ -274,8 +294,12 @@
     <section class="listing nice-scroll">
         <div class="listing__text__top">
             <div class="listing__text__top__left">
-                <h5><a onclick="clickCategory()" style="cursor:pointer">음식</a></h5>
-                <h5><a onclick="clickCategory()" style="cursor:pointer">활동</a></h5>
+            	<img src="<%=request.getContextPath()%>/resources/img/listing/restaurant.png" width="30px"> 
+            	<h5 class="chooseCategory"><a style="cursor:pointer">식당</a></h5>
+            	<img src="<%=request.getContextPath()%>/resources/img/listing/coffee-pot.png" width="30px"> 
+                <h5 class="chooseCategory"><a style="cursor:pointer">카페주점</a></h5>
+                <img src="<%=request.getContextPath()%>/resources/img/listing/shoes.png" width="30px"> 
+                <h5 class="chooseCategory"><a style="cursor:pointer">액티비티</a></h5>
             </div>
         </div>
         <div>
@@ -323,31 +347,35 @@
 	    	}
 	    	
 	    	//선택한 지역, 카테고리에 따라 리스트 불러오기
-	    	function clickCategory(c){
+	    	$(".chooseCategory").click(function(){
 	        	var placeChoice = document.getElementById('region');
 	        	var areaNo = placeChoice.options[placeChoice.selectedIndex].value;  //선택한 select의 index 알아내기, for문 돌 필요없음
+	        	var category = $(this).text();
+	        	
 	        	console.log("areaNo : " + areaNo);
+	        	console.log("category : " + category);
 	        	
 				$.ajax({
 
 					url : "pclist.do",
 					data : {
-						areaNo : areaNo
+						areaNo : areaNo,
+						category : category
 					},
 					type : "get",
-					success: function(pList){  //success : ajax 통신 성공시 처리할 함수를 지정하는 속성
+					success: function(pcList){  //success : ajax 통신 성공시 처리할 함수를 지정하는 속성
 					
 						console.log("ajax 통신성공");
-						console.log(pList);
+						console.log(pcList);
 						
-						ajaxPlaceList(pList);
+						ajaxPlaceList(pcList);
 						
 					},
 					error : function(){	
 						console.log("ajax 통신 실패")
 					}
 				})
-	        }
+	        })
 	    	
 	    	//선택한 지역에 따라 리스트불러오기
 	        function clickRegion(c){
