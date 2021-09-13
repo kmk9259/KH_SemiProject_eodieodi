@@ -14,7 +14,7 @@
     <meta name="keywords" content="Directing, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Directing | Template</title>
+    <title>장소상세 | <%=p.getPlaceTitle()%></title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -122,6 +122,32 @@
         .categories-area .single-cat:hover .cat-cap a {
             color: #fff
         }
+        #placeTitle{
+        	margin: 0px 15px 30px;
+        }
+        /* #placeImg{
+        	position:relative;
+        }
+        .count{
+        	position:absolute;
+        	z-index:2;
+        	bottom:0px;
+        	right:0px;
+        	width:140px;
+        	height:70px;
+        	border: 2px solid white;
+        } */
+        table{
+        	border-collapse:collapse;
+        }
+        th,td{
+        	border-bottom: 1px solid lightgrey;
+        	padding:3px;
+        }
+        th{
+        	background-color:#7ec314;
+        	color:#fff;
+        }
     </style>
 </head>
 <body>
@@ -158,6 +184,9 @@
     <!-- About Section Begin -->
     <section class="about spad">
         <div class="container">
+        	<div class="row">
+        		<h2 id="placeTitle"><%=p.getPlaceTitle()%></h2>
+        	</div>
             <div class="row">
                 <div class="col-lg-5 col-md-4">
                     <!-- <div class="about__title">
@@ -165,17 +194,11 @@
                         <a href="#" class="primary-btn">Contact Us</a>
                     </div> -->
                     <div class="listing__item">
-                        <div class="listing__item__pic set-bg" data-setbg="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>">
-                        <!-- src="<%= contextPath %>/resources/place_upfiles/<%= pAt.getChangeName() %>" -->
-                        </div>
+                        <div id="placeImg" class="listing__item__pic set-bg" data-setbg="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>"></div>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-8">
-                    <table border="1px solid black">
-                        <tr>
-                            <th>상호명</th>  
-                            <td><%=p.getPlaceTitle()%></td> 
-                        </tr>
+                    <table>
                         <tr>
                             <th>상세주소</th>
                             <td><%=p.getAddress()%></td> 

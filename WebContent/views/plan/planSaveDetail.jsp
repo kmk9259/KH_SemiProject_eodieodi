@@ -148,7 +148,7 @@
         
             <div class="row" id="planLine">
             	<div class="col-lg-6 btn_left">
-            		<%=loginUser.getUserName()%>님의 일정
+            		<h5 style="line-height:60px"><b><%=loginUser.getUserName()%></b>님의 일정</h5>
             	</div>
                 <div class="col-lg-6 btn_right">
                     <button type="button" class="btn btn-primary" onclick="updateForm()" style="margin: 10px; ">수정하기</button>
@@ -159,7 +159,7 @@
 			<div class="row" style="margin-top: 20px;background-color: #faf1d6">
 				<div class="col-lg-9">
 					<div class="planDetail_detail">
-	                    <h4>장소 목록</h4>
+	                    <h4><b>장소 목록</b></h4>
 	                </div>
 					<table class="listArea">
 	                    <thead>
@@ -194,7 +194,7 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="planDetail_detail">
-	                    <h4>일정 메모</h4>
+	                    <h4><b>일정 메모</b></h4>
 	                </div>
 	                <div class="planDetail_detail">
 	                    <textArea cols="30" rows="9" readonly><%=pm.getPlanMemo()%></textArea>

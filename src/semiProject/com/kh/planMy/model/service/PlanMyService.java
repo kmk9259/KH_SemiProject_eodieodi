@@ -154,4 +154,12 @@ public class PlanMyService {
 		return listCount;
 	}
 
+	public ArrayList<Place> categoryPlaceList(int areaNo, int categoryNo) {
+		Connection conn = getConnection();
+		ArrayList<Place> pList = new PlanMyDao().categoryPlaceList(conn, areaNo, categoryNo);
+		
+		close(conn);
+		return pList;
+	}
+
 }

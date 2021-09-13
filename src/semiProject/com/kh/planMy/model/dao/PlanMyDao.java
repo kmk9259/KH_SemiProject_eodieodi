@@ -464,5 +464,49 @@ public class PlanMyDao {
 		}
 		return listCount;
 	}
+
+	public ArrayList<Place> categoryPlaceList(Connection conn, int areaNo, int categoryNo) {
+		ArrayList<Place> pList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("categoryPlaceList");
+//		categoryPlaceList=SELECT PLACE_NO, AREA_NO, PLACE.CATEGORY_NO, PLACE_TITLE, ADDRESS, DESCRIPTION, COUNT, CHANGE_NAME 
+//		FROM PLACE JOIN (SELECT * FROM PLACE_ATTACHMENT 
+//		                 WHERE FILE_NO IN(SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO)
+//		JOIN CATEGORY ON (PLACE.CATEGORY_NO=CATEGORY.CATEGORY_NO)
+//		WHERE PLACE.STATUS='Y' AND PLACE.AREA_NO=1 AND PLACE.CATEGORY_NO=1
+//		ORDER BY PLACE_NO DESC 
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, areaNo);
+			pstmt.setInt(2, categoryNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next())
+			{
+				Place place = new Place();
+				place.setPlaceNo(rset.getInt("PLACE_NO"));
+				place.setAreaNo(rset.getInt("AREA_NO"));
+				place.setCategoryNo(rset.getInt("CATEGORY_NO"));
+				place.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				place.setAddress(rset.getString("ADDRESS"));
+				place.setDescription(rset.getString("DESCRIPTION"));
+				place.setCount(rset.getInt("COUNT"));
+				place.setTitleImg(rset.getString("CHANGE_NAME"));
+				
+				pList.add(place);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("list33 : "+pList);
+		return pList;
+	}
 	
 }
