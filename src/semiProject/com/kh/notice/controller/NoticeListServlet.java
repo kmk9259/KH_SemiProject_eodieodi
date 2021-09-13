@@ -38,8 +38,8 @@ public class NoticeListServlet extends HttpServlet {
 		
 //		System.out.println("******** " +list + "********");
 
-		RequestDispatcher view = request.getRequestDispatcher("views/notice/admin_NoticeList.jsp");
-		view.forward(request, response);
+	 request.getRequestDispatcher("views/notice/admin_NoticeList.jsp").forward(request, response);
+	
 	} 
 
 	/**

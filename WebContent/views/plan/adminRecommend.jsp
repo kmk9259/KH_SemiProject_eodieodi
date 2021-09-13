@@ -142,7 +142,7 @@
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
                                                     <input type="radio" class="form-check-input" name="course"
-                                                        id="optionsRadios1" value="couple" checked="checked">
+                                                        id="optionsRadios1" value="1" checked="checked">
                                                     2인이상
                                                 </label>
             
@@ -163,7 +163,7 @@
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
                                                     <input type="radio" class="form-check-input" name="course"
-                                                        id="optionsRadios2" value="family">
+                                                        id="optionsRadios2" value="2">
                                                     4인이상
                                                 </label>
                                             </div>
@@ -185,7 +185,7 @@
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
                                                     <input type="radio" class="form-check-input" name="course"
-                                                        id="optionsRadios3" value="withBF">
+                                                        id="optionsRadios3" value="3">
                                                     3인이상
                                                 </label>
             
@@ -230,8 +230,8 @@
 
                         <h2>위치를 선택해주세요</h2>
                         <select name="area" onchange="handleOnChange(this)">
-                            <option value="hongdae">홍대</option>
-                            <option value="gangnam">강남</option>
+                            <option value="1">홍대</option>
+                            <option value="2">강남</option>
                         </select>
                         <div id='result'></div>
                         

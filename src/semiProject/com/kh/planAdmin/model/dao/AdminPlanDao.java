@@ -37,31 +37,6 @@ public class AdminPlanDao {
 }
 
 	 	
-	
-//
-//	// 추천코스,위치, 날짜 (제목까지) 저장할 테이블..? 
-//	//왜냐면 추천코스 저장함에서도 보아야 하니까..아마도.. 
-//	public int insertAdminPlan_Place(Connection conn, String[] adminPlace) {
-//		
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		
-//		String sql = prop.getProperty("");
-//		
-//		try {			
-//			pstmt = conn.prepareStatement(sql);
-//	
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(pstmt);
-//		}
-//		
-//		return result;
-//	}
-
 
 
 //	// 추천일정에서 체크하는 값 받은것들  저장 
@@ -155,8 +130,8 @@ public class AdminPlanDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset=pstmt.executeQuery();
-			
-			//참조번호와, 상태값 담아줌 
+
+			//참조번호와(코스가 들어가 있는), y/n상태값 담아줌 
 			while(rset.next()) {
 				
 				CoursePlace cp = new CoursePlace();
@@ -164,10 +139,9 @@ public class AdminPlanDao {
 				cp.setStatus(rset.getString("STATUS"));
 				
 				cList.add(cp);
-		
-			
+	
 			}
-
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -197,7 +171,7 @@ public class AdminPlanDao {
 			pstmt.setInt(2, apList.getUserNo());
 			pstmt.setInt(3, apList.getAreaNo());
 			pstmt.setInt(4, apList.getCourseNo());
-			pstmt.setString(5, apList.getPlanTitle());
+		//	pstmt.setString(5, apList.getPlanTitle());
 			pstmt.setDate(6, apList.getCreateDate());
 			pstmt.setString(7, apList.getStatus());
 
@@ -245,6 +219,14 @@ public class AdminPlanDao {
 		}
 
 		return result;
+	}
+
+
+
+
+	public int insertAdminPlan(Connection conn, AdminPlan apList, ArrayList<CoursePlace> cList) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
