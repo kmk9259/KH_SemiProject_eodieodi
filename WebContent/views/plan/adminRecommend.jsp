@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import=""%>
-  <%
-  
-  
-  
-  %>  
+    pageEncoding="UTF-8" import="java.util.*"%>
     
+    <%@ page import="semiProject.com.kh.planAdmin.model.vo.*, semiProject.com.kh.course.model.vo.*"   %>
+   
+    <%
+   
+ //   AdminPlan apList = (AdminPlan) request.getAttribute("apList");
+   /*  ArrayList<Course>cList = ( ArrayList<Course>) request.getAttribute("cList"); */
+    
+    %>
+
   
 	
 <!DOCTYPE html>
@@ -122,7 +126,7 @@
 
 
                 <!-- step1 form 시작점  -->
-            <form action="insertAdmin.pl" method="post" name="">
+            <form action="adminCreate.pl" method="post" name="">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
                         <div class="row">
@@ -244,28 +248,32 @@
                         </div>
                         
                          	<!--  혹시모르니 추천일정도 제목을 붙일 수 있게 해둘까 -->
-                        <div class="title">
+                        <!-- <div class="title">
                         	<label>추천일정 저장 제목 </label>
                         	<input type="text" name="title" >
                         
-                        </div> 
-                  </form>
-     
-     </section>
+                        </div>  -->
+             
                          
-                        <div>
-                            <center>
+                       
+                        
+                        <div class="total_btn" style="text-align: center;">
+                            <a href="<%= contextPath %>/index.jsp"><button type="button" class="site-btn">메인으로</button></a>
+<%--                             <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"/>
+ --%>                          
+ 					 <button type="submit" value ="전송" class="site-btn">다음으로</button>
+                        </div>
+                        <br>
+                         <div style="text-align: center;">
+                          
                                 <h4>확인을 누른후 다음으로 클릭하셔서 일정을 추천 받으세요!</h4>
                                 <p> 인원에 따라 추가 금액이 발생 할 수 있습니다 </p>
-                            </center>
+                           
                         
                         </div>
-                        
-                        <div class="total_btn">
-                            <a href="<%= contextPath %>/index.jsp"><button type="button" class="site-btn">메인으로</button></a>
-                            <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"><button type="submit" class="site-btn">다음으로</button></a>
-                        </div>
-
+     	</form>
+     
+     </section>
 
    
 
@@ -297,13 +305,13 @@
 		</script>
 		
 		<script> // 달력 날짜 선택 
-		    $(function () {
-		        $('#startDate').datepicker({
-		        
-		        })
-		      
-		    })
-		
+		 
+			$(function() {
+				$('#startDate').datepicker({
+
+				})
+
+			})
 		</script>
 		
 <script>

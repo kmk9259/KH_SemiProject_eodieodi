@@ -101,24 +101,28 @@
 					<div class="col-sm-2">
 						<nav class="nav-sidebar">
 							<ul class="nav tabs">
-								<li class="menuB parent"><a href="<%=contextPath %>/views/notice/admin_NoticeList.jsp">커뮤니티
-										관리</a></li>
-								<li class="menuB "><a href="<%=contextPath %>/views/notice/newNotice.jsp">공지사항 등록</a></li>
-								<li class="menuB "><a href="<%=contextPath %>/views/notice/admin_Notice_Update.jsp">공지사항 수정</a></li>
+								<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
+								
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class=" menuB "><a
-									href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
-								<li class="active menuB ">
-								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
-								<li class="menuB"><a href="#" data-toggle="tab">코스 삭제</a></li>
-								<li class="menuB parent"><a href="#">회원 관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
+								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
+								
+								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
+								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
+								
+								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
+
 
 							</ul>
 						</nav>
 					</div>
 				</div>	
-				<div class="admin-showpage">
+				
+				<div class="admin-showpage nice-scroll">
 				
     <div class="container">
                   <div class="row">
@@ -140,12 +144,13 @@
                                                                   <div class="control__indicator"></div>
                                                               </label>
                                                           </th>
-                                                          <th scope="col">No.</th>
+                                                          
                                                           <th scope="col">제목</th>
                                                           <th scope="col">내용</th>
                                                           <th scope="col">조회수</th>
-                                                          <th scope="col">수정</th>
-                                                          <th scope="col">삭제</th>
+                                                  		  <th scope="col">날짜</th>
+                                                      <!--<th scope="col">수정</th>
+                                                          <th scope="col">삭제</th> -->
                           
                                                       </tr>
                                                   </thead>
@@ -167,9 +172,14 @@
 																	<td><%= n.getNoticeWriter() %></td>
 																	<td><%= n.getCount() %></td>
 																	<td><%= n.getCreateDate() %></td>
-											<td><button  id="update_button" type="button" class="site-btn">수정</button></td>
-																	<td><button type="button" class="site-btn">삭제</button></td>
-																	
+									<%-- 		<td>
+														<form action="<%=request.getContextPath() %>/update.no" method="post">
+														<input type="hidden" name="nno" value="<%=n.getNoticeNo()%>">		
+														<button id="update_button" type="submit" class="site-btn">수정</button>
+															
+											</td>
+														<td><button type="button" class="site-btn">삭제</button></td>
+																	</form> --%>
 														 		</tr>
 					 									 	<% } %>
 														 <% } %>
