@@ -102,7 +102,7 @@
 								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
 								<li class="active menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
 								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseDelete.jsp" >코스 삭제</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
 								
 								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
@@ -124,7 +124,9 @@
 							onchange="changeArea(this)">
 							<option value="0" selected>지역을 선택하세요</option>
 							<%for(Area a : alist) {%>
+							
 							<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
+							
 							<%} %>
 
 						</select><br>
@@ -156,7 +158,6 @@
 					success:function(list){
 						console.log(list);
 						var value="";
-						var contextPath = "<%=contextPath%>";
 						var src ="<%=contextPath%>/resources/img/blog/blog-1.jpg";
 						for(var i in list)
 						{
@@ -181,17 +182,16 @@
 							}
 							value +='<div class="col-lg-4 col-md-6">'
 			                    		+'<div class="blog__item">'
-		                        			+'<div class="blog__item__pic set-bg" data-setbg="'+src+'"></div>'
+			                    			
+		                        			+'<div class="blog__item__pic set-bg2" data-setbg=""></div>'
 		                        			+'<div class="blog__item__text">'
 					                            +'<ul class="blog__item__tags">'
 					                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
 					                                +'<li>'+themeName+'</li>'
 					                            +'</ul>'
+					                            +'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+list[i].courseNo+'">'
 					                            +'<h5><a href="#">'+list[i].courseTitle+'</a></h5>'
-				                            	+'<ul class="blog__item__widget">'
-					                                +'<li><i class="fa fa-clock-o"></i> 19th March, 2019</li>'
-					                                +'<li><i class="fa fa-user"></i> John Smith</li>'
-					                            +'</ul>'
+				                            	+'<button class="delete">삭제</button>'
 						                    +'</div>'
 						                    +'</div>'
 		                    			+'</div>'
@@ -201,26 +201,29 @@
 							
 						} //for
 						 $("#courseList").html(value).trigger("create");
+						
 						 $(function(){
-								$(".detail").click(function(){
+								$(".delete").click(function(){
 									var parent = $(this).parents();  //클릭한 버튼의 최상위 부모
-									console.log("parent : " + parent);
-									console.log("찍히니?");
 									var cNo = parent.children("#courseNo").val();
-									console.log("cNo : " + cNo);
-									<%-- location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo; --%>
+									console.log(cNo);
+									if(confirm("코스를 삭제하시겠습니까?")){
+									    location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo; 
+									}else{
+									    
+									}
+									
 								});
 							});
+						 $('.set-bg2').each(function() {
+						        var bg = $(this).data('setbg');
+						        $(this).css('background-image', 'url(' + src + ')');
+						    });
 						
 					}//success					
 				})
 				
 			}
-			$(function () {
-			    $('#detail').on('click', function () {
-			        console.log("클릭");
-			    });
-			});
 			
 			
 			

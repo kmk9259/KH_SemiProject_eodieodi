@@ -54,4 +54,26 @@ public class CourseService {
 		return list;
 	}
 
+	public ArrayList<Course> selectCourseAttachment(int areaNo, int courseNo) {
+		Connection conn = getConnection();
+		ArrayList<Course> list = new CourseDao().selectCourseAttachment(conn, areaNo, courseNo);
+		
+		close(conn);
+		return list;
+	}
+
+	public int delectCourse(int cNo) {
+		Connection conn = getConnection();
+		int result = new CourseDao().delectCourse(conn, cNo);
+		if(result >0 )
+		{
+			commit(conn);
+		}
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	
 }

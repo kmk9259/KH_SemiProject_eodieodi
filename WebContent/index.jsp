@@ -53,24 +53,10 @@
                            
                         </div>
                         <div class="hero__search__form">
-                            <form action="main.html">
-                                <input type="text" placeholder="Search...">
-                                <div class="select__option">
-                                    <select>
-                                        <option value="">카테고리</option>
-                                        <option value="">먹기</option>
-                                        <option value="">마시기</option>
-                                        <option value="">놀기</option>
-                                    </select>
-                                </div>
-                                <div class="select__option">
-                                    <select>
-                                        <option value="">장소 선택</option>
-                                        <option value="">홍대</option>
-                                        <option value="">강남</option>
-                                    </select>
-                                </div>
-                                <button type="submit">검색하기</button>
+                            <form action="searchMain.jsp">
+                                <input type="text" id="search" style="width: 85%" placeholder="Search...">
+                                
+                                <button type="submit" class="search">검색하기</button>
                             </form>
                         </div>
 
@@ -98,6 +84,16 @@
                 $header.toggleClass('down', scrolled); //클래스 토글
             });
             });
+           
+           	$(function(){
+				$(".search").click(function(){
+					var search = document.getElementById('search').text();
+                	console.log(search);
+				});
+			});	
+            	
+				
+			
         
         </script>
 
@@ -115,7 +111,9 @@
                     </div>
                 </div>
             </div>
+           <div class=""> 
            
+           </div>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="row">

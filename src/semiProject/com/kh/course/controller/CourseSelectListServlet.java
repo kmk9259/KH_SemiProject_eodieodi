@@ -39,6 +39,7 @@ public class CourseSelectListServlet extends HttpServlet {
 		request.setAttribute("alist", alist);
 		
 		request.getRequestDispatcher("views/course/courseListView.jsp").forward(request, response);
+		
 	}
 
 	/**
