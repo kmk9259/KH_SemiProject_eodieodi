@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy
-    ,semiProject.com.kh.member.model.vo.Member"%>
+    ,semiProject.com.kh.member.model.vo.Member, semiProject.com.kh.board.model.vo.PageInfo"%>
 <!DOCTYPE html>
 <%
 	ArrayList<PlanMy> list = (ArrayList<PlanMy>)request.getAttribute("list"); 
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 <html lang="en">
 
@@ -13,7 +20,7 @@
     <meta name="keywords" content="Directing, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Directing | Template</title>
+    <title>일정 보관함</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -24,14 +31,10 @@
             padding-bottom: 40px;
         }
         .planDetail_title{
-            padding-bottom: 40px;
+            padding: 30px 0px 40px;
             text-align: left;
-        }
-        .btn_left{
-            text-align: left;
-        }
-        .btn_right{
-            text-align: right;
+            display: inline-flex;
+            align-items: baseline;
         }
         .planDetail_contents{
             width: 80%;
@@ -41,19 +44,38 @@
             text-align: center;
         }
         .listArea{
-            width:1150px;
-            height:550px;
-            margin:auto;
+            width:100%;
+            min-height: 500px;
+    		height: 100%;
+    		margin: 30px 0px 50px;
+            /* margin:auto; */
         }
-        .thumbnail{
-            display:inline-block;
-            /* width:220px; */
+        .thumbnail{  
+            display:inline-block;  /*가로너비에 맞게 나란히 일정한 간격으로 보이게*/
+            float:left;
+            /* width:33%; */
             border:1px solid white;
-            margin:10px;
+            margin-bottom: 20px;
         }
         .thumbnail:hover{
             opacity:0.7;
             cursor:pointer;
+        }
+        .planBox{
+        	/* width: 350px; */
+        	/* width: 100%; */
+		    border: solid 1px #dfdfdf;
+		    height: 100px;
+		    padding: 15px;
+        }
+        .planTitle{
+        	line-height: 30px;
+		    font-size: 21px;
+		    color: black;
+        }
+        .blog__pagination{
+        	text-align: center;
+    		margin: 25px;
         }
     </style>
 </head>
@@ -71,7 +93,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="breadcrumb__text">
-                        <h2>일정 상세페이지</h2>
+                        <h2>일정 보관함</h2>
                         <div class="breadcrumb__option">
                             <a href="#"><i class="fa fa-home"></i> 홈</a>
                             <span>일정보관함</span>
@@ -94,74 +116,116 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="planDetail_title">
-                        <a href="<%=contextPath%>/list.ps"><h4>내일정 보관함</h4></a>
+                        <a href="<%=contextPath%>/list.ps"><h4>내일정 보관함</h4></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="#"><h4>추천일정 보관함</h4></a>
-                        <input type="checkBox" id="allCheck" name="allCheck"><label>모두 선택</label>
-                        
-                        <script> //맨 위에 체크박스 체크하면 일정보관함의 모든 일정들 체크됨
-                            $("#allCheck").click(function() {
-                                var chk = $("#allCheck").prop("checked");
-                                if (chk) {
-                                    $(".chBox").prop("checked", true);
-                                } else {
-                                    $(".chBox").prop("checked", false);
-                                }
-                            });
-                        </script>
                     </div>
                 </div>
-                <!-- <div class="col-lg-2">
-                    <div class="planDetail_title">
-                        <button class="btn btn-primary">뒤로</button>
-                    </div>
-                </div> 버튼 이상해서 일단 지웠음-->
             </div>
+            
 
 			<%if(list.size()==0){%>
 			 <h2>저장하신 일정이 없습니다.</h2> 
 			
 			<%}else{ %>
 			<form id="delPlanForm" action="" method="post">
+				<div class="row">
+	                <div class="col-lg-12">
+	                    <div style="float: right;display: -webkit-inline-box;">
+	                        <input type="checkBox" id="allCheck" name="allCheck"><label>모두 선택</label>
+	                        <div class=" deleteBtn"><button type="submit" class="btn btn-primary" onclick="delPlan()">삭제하기</button></div>
+	                    </div>
+	                </div>
+	            </div>
 				<div class="listArea">
-					<%for(PlanMy pm : list) {%>
-						<div class="thumbnail" align="center">
-                    		<input type="checkbox" name="planNo" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox"><br>
-                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
-                    		<p>
-                        	<%=pm.getPlanTitle()%>
-                    		</p>
-                		</div>
-                	<%} %>
+					<div class="row">
+						<%for(PlanMy pm : list) {%>
+						
+							<div class="col-lg-4 col-md-6">
+		                		<div class="thumbnail" align="center">
+		                    		<input type="checkbox" name="planNo" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox"><br>
+		                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
+		                    		<div class="planBox">
+		                    			<p class="planTitle"><%=pm.getPlanTitle()%></p>
+		                    		</div>
+		                		</div>
+		                	</div>
+	                	<%} %>
+                	</div>
 				</div>
-				
-				<div class=" deleteBtn">
-                	<button type="submit" class="btn btn-primary" onclick="delPlan()">삭제하기</button>
-            	</div>
-            	
-            	<script>
-            		//일정 삭제 PlanMyDeleteServlet으로 이동
-            		function delPlan(){
-            			if(confirm("삭제하시겠습니까? ")){
-            				if($('input:checkBox[name=planNo]:checked').length == 0){
-            					alert("아무 일정도 체크되지 않았습니다!! 체크 후 삭제해주세요")
-            				}else{
-            					$("#delPlanForm").attr("action", "<%=contextPath%>/deleteP.ps");
-            				}
-            			}
-            		}
-            		
-            		//일정 상세보기 PlanMyDeleteServlet으로 이동
-            		$(function(){
-            			$(".placeImg").click(function(){
-            				var planNo = $(this).siblings("#planNo").val();
-                		    location.href="<%=contextPath%>/detailP.ps?planNo="+planNo;
-            			})
-            		})
-            	</script>
 			</form>
 			<%} %>
+			
+			<!-- 페이징 바 -->
+			<div class="blog__pagination">
+				<!-- 맨 처음으로 (<<) -->
+				<a href="<%=contextPath%>/list.ps?currentPage=1"> &lt;&lt; </a> 
+
+				<!-- 이전페이지로(<) -->
+				<%if(currentPage == 1){ %>
+				<a class="noHover"> &lt; </a>
+				<%}else{ %>
+				<a href="<%= contextPath %>/list.ps?currentPage=<%= currentPage-1 %>"> &lt; </a>
+				<%} %>
+				
+				<!-- 페이지 목록 -->
+				<%for(int p=startPage; p<=endPage; p++){ %>
+					
+					<%if(p == currentPage){ %>
+					<a class="noHover"> <%= p %> </a>
+					<%}else{ %>
+					<a href="<%=contextPath %>/list.ps?currentPage=<%= p %>"> <%= p %> </a>
+					<%} %>
+					
+				<%} %>
+				
+				<!-- 다음페이지로(>) -->
+				<%if(currentPage == maxPage){ %>
+				<a class="noHover"> &gt; </a>
+				<%}else { %>
+				<a href="<%= contextPath %>/list.ps?currentPage=<%= currentPage+1 %>"> &gt; </a>
+				<%} %>
+			
+				<!-- 맨 끝으로 (>>) -->
+				<a href="<%=contextPath%>/list.ps?currentPage=<%=maxPage%>"> &gt;&gt; </a>
+			</div> 
+		
+			<div class=" deleteBtn">
+                <input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">
+            </div>
         </div>
     </div>
+    
+    
+    <script>         
+        //맨 위에 체크박스 체크하면 일정보관함의 모든 일정들 체크됨
+        $("#allCheck").click(function() {
+            var chk = $("#allCheck").prop("checked");
+                if (chk) {
+                     $(".chBox").prop("checked", true);
+                } else {
+                     $(".chBox").prop("checked", false);
+                }
+        });
+
+        //일정 삭제 PlanMyDeleteServlet으로 이동
+        function delPlan(){
+            if(confirm("삭제하시겠습니까? ")){
+            	if($('input:checkBox[name=planNo]:checked').length == 0){
+            		alert("아무 일정도 체크되지 않았습니다!! 체크 후 삭제해주세요")
+            	}else{
+            		$("#delPlanForm").attr("action", "<%=contextPath%>/deleteP.ps");
+            	}
+            }
+         }
+            		
+         //일정 상세보기 PlanMyDetailServlet으로 이동
+         $(function(){
+            $(".placeImg").click(function(){
+            	var planNo = $(this).siblings("#planNo").val();
+                location.href="<%=contextPath%>/detailP.ps?planNo="+planNo;
+            })
+         })
+    </script>
 
     <%@ include file="../common/footer.jsp"%>
 

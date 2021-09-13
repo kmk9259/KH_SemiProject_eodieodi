@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import semiProject.com.kh.area.model.vo.Area;
+import semiProject.com.kh.board.model.vo.PageInfo;
 import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planMy.model.dao.PlanMyDao;
 import semiProject.com.kh.planMy.model.vo.PlanMy;
@@ -40,9 +42,9 @@ public class PlanMyService {
 	}
 
 	//일정보관함에서 유저별 저장된 일정 모두 조회
-	public ArrayList<PlanMy> selectPlanSaveList(int userNo) {
+	public ArrayList<PlanMy> selectPlanSaveList(int userNo, PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<PlanMy> list = new PlanMyDao().selectPlanSaveList(conn, userNo);
+		ArrayList<PlanMy> list = new PlanMyDao().selectPlanSaveList(conn, userNo, pi);
 		
 		close(conn);
 		return list;
@@ -142,6 +144,14 @@ public class PlanMyService {
 		
 		close(conn);
 		return pList;
+	}
+
+	public int getListCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int listCount = new PlanMyDao().getListCount(conn, userNo);
+		close(conn);
+		return listCount;
 	}
 
 }

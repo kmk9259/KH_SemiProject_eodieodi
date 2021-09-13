@@ -51,9 +51,9 @@
                                 <li><a href="<%=contextPath %>/views/plan/planSelect.jsp">일정플래너</a>
                                     
                                     <ul class="dropdown">
-                                        <li><a href="#" onclick="goPlan();">마음대로일정</a></li>
+                                        <li><a href="#" class="movePage">마음대로일정</a></li>
                                         <li><a href="<%=contextPath %>/views/plan/adminRecommend.jsp">추천일정</a></li>
-                                        <li><a href="<%=contextPath %>/list.ps">일정보관함</a></li>
+                                        <li><a href="#" class="movePage">일정보관함</a></li>
                                         
                                     </ul>
                                 </li>
@@ -88,6 +88,23 @@
 		   function enrollPage(){
 			   location.href = "<%= request.getContextPath()%>/enrollForm.me";
 		   }
+		   
+		   //로그인 상태에 따라 plan페이지 이동
+		   $(function(){
+			   $('.movePage').click(function(){
+	               var text = $(this).text();
+	               <%if(loginUser == null) {%>  //로그인 X -> 로그인페이지로 이동
+	                    alert("로그인 후 이용해주세요");
+	                    location.href="<%=contextPath%>/views/member/login.jsp";
+	               <%}else{ %>
+	                    if(text == "마음대로일정"){
+	                      	 location.href="<%=contextPath%>/list.pm";	
+	                    }else if(text == "일정보관함"){
+	                        location.href="<%=contextPath%>/list.ps";
+	                    }
+	               <%}%>
+	           })
+		   })
    		</script>
     
     
@@ -115,15 +132,7 @@
 			<%session.removeAttribute("msg");%>
 		}
 	})
-    
-      function goPlan(){
-         <%if(loginUser == null) {%>
-            alert("로그인 후 이용해주세요");
-            location.href="<%=request.getContextPath()%>";
-         <%}else{ %>
-            location.href="<%=request.getContextPath()%>/list.pm";
-         <%} %>
-      } 
+
    </script>
 </body>
 </html>
