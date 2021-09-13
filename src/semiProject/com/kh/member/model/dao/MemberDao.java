@@ -465,6 +465,7 @@ public class MemberDao {
 					while(rset.next()) {
 						
 						list.add(new Board(
+								rset.getInt("BOARD_NO"),
 								rset.getString("BOARD_TITLE"),
 								rset.getString("BOARD_CONTENT"),
 								rset.getString("USER_ID"),
@@ -734,4 +735,47 @@ public class MemberDao {
 	}
 	 
 */
+
+	public Board showMyPost(Connection conn, String userId, String btitle) {
+		Board b = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("showMyPost");
+		System.out.println("sql : " + sql);
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, btitle);
+			rset = pstmt.executeQuery();
+			
+			//만약에 결과 값이 있으면
+			if(rset.next()) {
+				b = new Board(
+						rset.getInt("BOARD_NO"),
+						rset.getString("BOARD_TITLE"),
+						rset.getString("BOARD_CONTENT"),
+						rset.getString("USER_ID"),
+						rset.getInt("COUNT"),
+						rset.getDate("CREATE_DATE")
+						);
+				
+				System.out.println("내 게시글 조회 : "+ b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return b;
+	}
 }

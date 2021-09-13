@@ -123,14 +123,14 @@
                                                     <fieldset class="formRow">
                                                         <div class="formRow--item" style="margin-top: 8%;">
                                                             <label for="firstname" class="formRow--input-wrapper js-inputWrapper">
-                                                                <input type="text" class="formRow--input js-input" name="userId" id="userId" placeholder="아이디를 입력하세요">
+                                                                <input maxlength="30" type="text" class="formRow--input js-input" name="userId" id="userId" placeholder="아이디를 입력하세요">
                                                             </label>
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="formRow">
                                                         <div class="formRow--item">
                                                             <label for="firstname" class="formRow--input-wrapper js-inputWrapper">
-                                                                <input type="password" class="formRow--input js-input" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요">
+                                                                <input maxlength="100" type="password" class="formRow--input js-input" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요">
                                                             </label>
                                                         </div>
                                                     </fieldset>
