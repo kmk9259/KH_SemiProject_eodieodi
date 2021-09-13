@@ -1,6 +1,9 @@
 package semiProject.com.kh.planAdmin.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import semiProject.com.kh.course.model.vo.Course;
 
 public class AdminPlan {
 	
@@ -19,8 +22,7 @@ public class AdminPlan {
 	private int areaNo; // 지역 번호 ( 홍대, 강남 등) 
 	private int courseNo; // 코스(연인,친구,가족 코스) 번호 
 	
-	
-//	private String planTitle; //일정 제목 ( 내 보관함에 저장할 때 필요함)  
+	private String planTitle; //일정 제목 ( 내 보관함에 저장할 때 필요함)  
 	private Date createDate; // 생성일자  (내 보관함에 저장할 때 생성된 날짜가 필요함) 
 	
 	private String status; //상태값 
@@ -54,7 +56,7 @@ public class AdminPlan {
 		this.userNo = userNo;
 		this.areaNo = areaNo;
 		this.courseNo = courseNo;
-	//	this.planTitle = planTitle;
+		this.planTitle = planTitle;
 		this.createDate = createDate;
 		this.status = status;
 		this.titleImg = titleImg;
@@ -68,9 +70,33 @@ public class AdminPlan {
 		this.userNo = userNo;
 		this.areaNo = areaNo;
 		this.courseNo = courseNo;
-	//	this.planTitle = planTitle;
+		this.planTitle = planTitle;
 		this.createDate = createDate;
 	}
+
+
+//
+//	public AdminPlan(int userNo2, String course, String which, Date adminDate) {
+//		// TODO Auto-generated constructor stub
+//	}
+
+
+
+
+
+	public AdminPlan(int userNo2, String course, int which, Date adminDate) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+
+	public AdminPlan(int userNo2, String course, String which, Date adminDate) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 
 
@@ -114,14 +140,14 @@ public class AdminPlan {
 	}
 
 
-//	public String getPlanTitle() {
-//		return planTitle;
-//	}
-//
-//
-//	public void setPlanTitle(String planTitle) {
-//		this.planTitle = planTitle;
-//	}
+	public String getPlanTitle() {
+		return planTitle;
+	}
+
+
+	public void setPlanTitle(String planTitle) {
+		this.planTitle = planTitle;
+	}
 
 
 	public Date getCreateDate() {
@@ -154,13 +180,20 @@ public class AdminPlan {
 	}
 
 
+
+
+
 	@Override
 	public String toString() {
 		return "AdminPlan [planNo=" + planNo + ", userNo=" + userNo + ", areaNo=" + areaNo + ", courseNo=" + courseNo
-				+  ", createDate=" + createDate + ", status=" + status + ", titleImg="
+				+ ", planTitle=" + planTitle + ", createDate=" + createDate + ", status=" + status + ", titleImg="
 				+ titleImg + "]";
 	}
+
+
 	
+
+
 	
 
 }

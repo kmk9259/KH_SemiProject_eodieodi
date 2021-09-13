@@ -15,7 +15,7 @@ import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
 /**
  * Servlet implementation class AdminPlanListServlet
  */
-@WebServlet("/adminPlanList.pl")
+@WebServlet("/adminPlanSaveList.pl")
 public class AdminPlanListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,10 +34,10 @@ public class AdminPlanListServlet extends HttpServlet {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		ArrayList<AdminPlan> apList = new AdminPlanService().selectList(userNo);
+		ArrayList<AdminPlan> apList = new AdminPlanService().selectAdminPlanSaveList(userNo);
 		request.setAttribute("apList", apList);
 		
-		request.getRequestDispatcher("views/plan/adminRecommend.jsp").forward(request, response);
+		request.getRequestDispatcher("views/plan/adminPlanSave.jsp").forward(request, response);
 		
 	}
 

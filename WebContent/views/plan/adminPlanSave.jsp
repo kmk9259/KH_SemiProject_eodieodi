@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, semiProject.com.kh.planAdmin.model.vo.*,
+    semiProject.com.kh.member.model.vo.*"%>
+    
+    <%
+    
+    ArrayList<AdminPlan_Place> apList =(ArrayList<AdminPlan_Place>) request.getAttribute("apList");
+    
+    %>
     
 
   

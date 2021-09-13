@@ -88,29 +88,33 @@
 <section class="page-start">
     <!--메뉴바 같이 내려오는 시작점 -->
 
-		<section class="admin">
+			<section class="admin">
 			<!------ MENUSIDE BAR ---------->
 				<div class=" menuBar">
 					<div class="col-sm-2">
 						<nav class="nav-sidebar">
 							<ul class="nav tabs">
-								<li class="menuB parent"><a href="<%=contextPath %>/views/notice/admin_NoticeList.jsp">커뮤니티
-										관리</a></li>
-								<li class="menuB "><a href="<%=contextPath %>/views/notice/newNotice.jsp">공지사항 등록</a></li>
-								<li class="menuB "><a href="<%=contextPath %>/views/notice/admin_Notice_Update.jsp">공지사항 수정</a></li>
+								<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
+								
 								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class=" menuB "><a
-									href="<%=contextPath%>/views/admin/placeAdd.jsp">일정 등록</a></li>
-								<li class="active menuB ">
-								<a href="<%=contextPath%>/views/admin/placeDelete.jsp">일정 삭제</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/views/admin/courseAdd.jsp">코스 등록</a></li>
-								<li class="menuB"><a href="#" data-toggle="tab">코스 삭제</a></li>
-								<li class="menuB parent"><a href="#">회원 관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
+								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
+								
+								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
+								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
+								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
+								
+								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
+
 
 							</ul>
 						</nav>
 					</div>
 				</div>	
+				
 				<div class="admin-showpage">
 				
 					 <br>
@@ -119,37 +123,32 @@
 						
 			<form method="post" action="<%=contextPath %>/updateForm.no">
 			
-					   <input type="hidden" name ="nno" value="<%=notice.getNoticeNo()%>">
-					
-						   
-							<div>게시글 No. <%=notice.getNoticeNo() %></div>
-							<hr/>
-							<div name="title" >게시글 제목 : <h3><%= notice.getNoticeTitle() %></h3> </div>
-							<hr/>
-							<div id="wr">작성자 : <%=notice.getNoticeWriter() %></div><br>
-							<div id="dt">작성날짜 : <%=notice.getCreateDate()%></div>
-						
-							<div id="content" name="content"><%= notice.getNoticeContent() %></div>
-						
-							
-						 
-						 	<div class="btns" align="center"> <!-- 버튼만 있는 애들  -->
-						 		
-												    
-							<!-- <button class="site-btn" onclick="location.href='/list.no'">목록으로</button> -->
-						    <a href="list.no">목록으로</a> &nbsp;&nbsp; 
-												        
-							<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
-												       
-							<button type="submit" class="site-btn">수정하기</button> &nbsp;&nbsp;
-								
-							<%-- <a href="updateForm.no?nno=<%=n.getNoticeNo()%>">수정하기</a> &nbsp;&nbsp; --%>
-							<a href="delete.no?nno=<%=notice.getNoticeNo()%>">삭제하기</a>  
-							<%-- 
-							<button class="site-btn" onclick="location.href='delete.no?nno=<%=n.getNoticeNo()%>'">삭제하기</button>
-							 --%>
-													<% } %>
-								
+		   <input type="hidden" name ="nno" value="<%=notice.getNoticeNo()%>">
+		
+			   
+				<div>게시글 No. <%=notice.getNoticeNo() %></div>
+				<hr/>
+				<div name="title" >게시글 제목 : <h3><%= notice.getNoticeTitle() %></h3> </div>
+				<hr/>
+				<div id="wr">작성자 : <%=notice.getNoticeWriter() %></div><br>
+				<div id="dt">작성날짜 : <%=notice.getCreateDate()%></div>
+			
+				<div id="content" name="content"><%= notice.getNoticeContent() %></div>
+			
+				
+		 
+		 	<div class="btns" align="center"> <!-- 버튼만 있는 애들  -->
+		 		
+			<input type="button" class="site-btn" onclick="location='list.no'" value="목록으로">&nbsp;&nbsp;	    
+								        
+			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+								       
+			<button type="submit" class="site-btn">수정하기</button> &nbsp;&nbsp;
+				
+			<input type="button" class="site-btn" onclick="location='delete.no?nno=<%=notice.getNoticeNo()%>'" value="삭제하기 ">
+			 
+			
+									<% } %>
 					    	 </div>
 		
 		
