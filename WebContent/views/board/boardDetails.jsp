@@ -12,7 +12,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>커뮤니티 상세 페이지</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 <body>
@@ -57,7 +59,7 @@
                         <ul>
                             <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
                             <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %> </li>
-                            <li><i class="fa fa-heart"></i> <%= b.getCount() %></li>
+                            <li><i class="fa fa-star"></i> <%= b.getCount() %></li>
                         </ul>
                     </div>
                 </div>
@@ -120,7 +122,7 @@
                     
                     <div class="blog__details__comment__form">
                         
-                        <form action="#">
+                       
                         
                         <% if(loginUser != null) { %> 
                         
@@ -132,9 +134,9 @@
                            </div>
                             <div class="input-comment">
                                 
-                                <textarea></textarea>
+                                <textarea rows="5" cols="90" id="replyContent" style="resize:none;"></textarea>
                             </div>
-                            <button type="submit" class="site-btn">댓글 등록</button>
+                            <button type="submit" class="site-btn" id="addReply">댓글 등록</button>
                             
                             <% }else{ %> 
                             
@@ -145,9 +147,53 @@
                             <button type="submit" class="site-btn" disabled>댓글 등록</button>
                             
                              <% } %> 
-                        </form>
-                    </div>
+                             
+                             
+                             <!-- --댓글 달면 보여질 리스트  -->
+                             
+                             
+                             
+                             <br><br>
+                             
+   			 		
+   			 		
+   			 	<section class="content-item" id="comments">
+
+			                
+			                   
+			                    <div class="blog__item__text" id="replyListArea">
+			                        <div id="replyList"> <!-- 글이 선택되면 자동으로 댓들이 조회됨 -->
+			                        <%-- <p> 유재석이 댓글 남긴것 글을 길게 쓰면 어떻게 될까 한번 길게 적어봅니다. 수정 안되서 너무 힘들
+									고 제대로 서블릿 움직이는 거 이해 못한거 같아 답답하고 짜증나고 걱정되나. 열심히 하고 있습니다.</p>
+			                        <ul class="blog__item__widget">
+			                        <hr>
+			                                        <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
+			                                        <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
+			                                        <li><i class="fa fa-thumbs-up"></i>Like</a></li>
+			                                       
+			                         </ul>
+			                         
+			                         <br>
+			                        <p> 유재석이 댓하고 짜증습니다.</p>
+			                        <ul class="blog__item__widget">
+			                        <hr>
+			                                        <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
+			                                        <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
+			                                        <li><i class="fa fa-thumbs-up"></i>Like</a></li>
+			                                       
+			                         </ul> --%>
+			                        </div>
+			                    </div>
+			                
+    
+					</section>
+                             
+                             
+					</div> <!-- 코멘트 섹션 end  -->
                 </div>
+                
+                
+                
                 <div class="col-lg-4">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
@@ -156,6 +202,8 @@
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
+                        
+                        
                         <div class="blog__sidebar__recent">
                             <h5>Recent Post</h5>
                             <a href="#" class="blog__sidebar__recent__item">
@@ -168,46 +216,7 @@
                                     <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
                                 </div>
                             </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-2.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">2</span>
-                                    <h6>Shrimp floured and fried</h6>
-                                    <p><i class="fa fa-clock-o"></i> 22th March, 2019</p>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-3.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">3</span>
-                                    <h6>Sweet and sour pork ribs</h6>
-                                    <p><i class="fa fa-clock-o"></i> 25th March, 2019</p>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-4.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">4</span>
-                                    <h6>Crab fried with tamarind</h6>
-                                    <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-5.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">5</span>
-                                    <h6>Tortoise grilled on salt</h6>
-                                    <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
-                                </div>
-                            </a>
+                         
                         </div>
                        
                     </div>
@@ -220,10 +229,74 @@
     <!-- Blog Details Section End -->
     
     <!-- 댓글 등록 된거 보여질수 있게 ajax 통신 이용할것 -->
-    <script>
+    <script type="text/javascript">
     
-    
-    
+    $(function(){
+		selectReplyList(); //글이 조회되면 댓글이조회 되어야 한다.
+		
+		$("#addReply").click(function(){
+			var content = $("#replyContent").val();
+			var bno = <%=b.getBoardNo()%>;
+			
+			$.ajax({
+				url:"rInsert.bo",
+				type: "post",
+				data: {
+					content: content,
+					bno:bno
+				},
+				success:function(status){
+					if(status == "success"){
+						selectReplyList();
+						$("#replyContent").val(""); //컨테츠에 값으 초기화 함 
+					}
+				},error : function() {
+					console.log("ajax 통신 실패  - 댓글 등록")
+				}
+			})
+			
+			//location.reload(); //새로고침
+		})
+		
+		
+		
+	})
+		
+		function selectReplyList(){
+    	
+			$("#replyList").empty(); //테이블을 비우고 
+			
+			$.ajax({
+				url: "rList.bo",
+				type: "get",
+				data: {bno: <%=b.getBoardNo() %>},
+				
+				success : function(list){
+					console.log(list);
+					
+				var value="";
+				for(var i in list){
+					value += '<p>'+
+					list[i].replyContent+
+					'<ul class="blog__item__widget">'+
+					'<hr>'+
+
+					'<li>'+'<i class="fa fa-clock-o">'+'</i>'
+					+list[i].createDate+'</li>'+
+					'<li>'+'<i class="fa fa-user">'+'</i>'
+					+list[i].replyWriter+'</li>'+
+					'<li>'+'<i class="fa fa-thumbs-up">'+'</i>'
+					+list[i].likes+'</li>'+
+					'</ul>';
+				}
+				$("#replyList").html(value);
+				},
+	            error:function(){
+	               console.log("ajax 통신 실패 - 댓글 조회");
+	            }
+	            
+	         })
+	      }
     </script>
     
     

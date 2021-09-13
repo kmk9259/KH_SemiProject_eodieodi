@@ -116,7 +116,7 @@ public class BoardListServlet extends HttpServlet {
 				
 			
 
-				
+				//int nno = Integer.parseInt(request.getParameter("nno"));
 				
 				//게시판 리스트 넘겨주기 (페이지와 함께_)
 				ArrayList<Board> list = new BoardService().selectThList(pi);
@@ -132,6 +132,7 @@ public class BoardListServlet extends HttpServlet {
 				
 				//VIEW 단으로 넘겨주는 객체들 
 				request.setAttribute("nlist", nlist);
+				
 				//기존에서 추가된거라곤, 페이징 객체 
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi); // 담아온 페이지 정보도 넘겨준다. 
