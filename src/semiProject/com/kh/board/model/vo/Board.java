@@ -64,7 +64,8 @@ public class Board {
 	}
 
 	
-	public Board(String boardTitle, String boardContent, String boardWriter, int count) {
+	public Board(int boardNo, String boardTitle, String boardContent, String boardWriter, int count) {
+		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardWriter = boardWriter;

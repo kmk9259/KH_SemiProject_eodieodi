@@ -84,10 +84,10 @@
                             <h3>아이디 찾기</h3>
                             <form id="findIdForm" method="POST" action="<%=request.getContextPath() %>/findId.me">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="email" required="required"/>
+                                    <input maxlength="100" type="text" class="form-control" placeholder="이메일을 입력하세요" name="email" required="required"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="userName" required="required" />
+                                    <input maxlength="7" type="text" class="form-control" placeholder="이름을 입력하세요" name="userName" required="required" />
                                 </div>
                                 <div class="form-group-btn">
                                     <input type="button" class="btnSubmit" id= "idFind" value="ID 찾기" onclick="findID();" />
@@ -99,23 +99,31 @@
                            function findID() {
                               var email = $("input[name='email']");
                               var userName = $("input[name='userName']");
+                  			  var userNameV = userName.val();
+                			  var expUserName = /^[가-힣]{2,}$/
                               var emailV = email.val();
-                             var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+                              var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
                               if(email.val() == ""){
 	                             alert("이메일을 입력해주세요.");
 	                             email.focus();
 	                             return false;
-                           	}else if(exptext.test(emailV)==false){
-                              alert("이메일 형식에 맞추어 입력해주세요.");
-                              email.val('');
-                              email.focus();
-                              return false;
-                           }else if( userName.val() == "" ) {
-                              alert("이름을 입력해주세요.");
-                              userName.focus();
-                             return false;
-                           }
+	                           	}else if(exptext.test(emailV)==false){
+	                              alert("이메일 형식에 맞추어 입력해주세요.");
+	                              email.val('');
+	                              email.focus();
+	                              return false;
+	                           }else if( userName.val() == "" ) {
+	                              alert("이름을 입력해주세요.");
+	                              userName.focus();
+	                             return false;
+	                           }else if(expUserName.test(userNameV)==false){
+		       						if(confirm("한글로 2자 이상의 이름을 입력해주세요.") == true){
+		    							userName.val('');
+		    							userName.focus();
+		    							return false;
+		    						}
+	    						}
                               var info = {'email' : email.val(), 'userName' : userName.val()};
                               $.ajax({
                               url : "<%=request.getContextPath() %>/findId.me",
@@ -148,10 +156,10 @@
                             <h3>비밀번호 찾기</h3>
                             <form id="findPwdForm" method="POST" action="<%=request.getContextPath() %>/findPwd.me">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="이메일을 입력하세요" name="email2" required="required" />
+                                    <input maxlength="100" type="text" class="form-control" placeholder="이메일을 입력하세요" name="email2" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" required="required" />
+                                    <input maxlength="30" type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" required="required" />
                                 </div>
                                 <div class="form-group-btn">
                                     <input type="button" class="btnSubmit" value="PW 찾기" onclick="findPW();" />
@@ -162,6 +170,8 @@
                            function findPW() {
                               var email = $("input[name='email2']");
                               var userId = $("input[name='userId']");
+                              var userIdV = userId.val();
+                  			  var expId = /^[0-9a-z]+$/;
                               var emailV = email.val();
                              var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
@@ -169,16 +179,22 @@
 	                             alert("이메일을 입력해주세요.");
 	                             email.focus();
 	                             return false;
-                           	}else if(exptext.test(emailV)==false){
-                              alert("이메일 형식에 맞추어 입력해주세요.");
-                              email.val('');
-                              email.focus();
-                              return false;
-                           }else if( userId.val() == "" ) {
-                              alert("아이디를 입력해주세요.");
-                              userId.focus();
-                             return false;
-                           }
+	                           	}else if(exptext.test(emailV)==false){
+	                              alert("이메일 형식에 맞추어 입력해주세요.");
+	                              email.val('');
+	                              email.focus();
+	                              return false;
+	                           }else if( userId.val() == "" ) {
+	                              alert("아이디를 입력해주세요.");
+	                              userId.focus();
+	                              return false;
+	                           }else if(expId.test(userIdV)==false){
+		       						if(confirm("아이디에는 숫자, 영문만 입력 가능합니다.") == true){
+		    							userId.val('');
+		    							userId.focus();
+		    							return false;
+		    						}
+	    						}
                               var info = {'email' : email.val(), 'userId' : userId.val()};
                               $.ajax({
                               url : "<%=request.getContextPath() %>/findPwd.me",

@@ -236,4 +236,10 @@ public class MemberService {
 		return updateMem;
 	}
 */
+
+	public Board showMyPost(String userId, String btitle) {
+		Connection conn = getConnection();
+		Board b = new MemberDao().showMyPost(conn, userId, btitle);
+		return b;
+	}
 }

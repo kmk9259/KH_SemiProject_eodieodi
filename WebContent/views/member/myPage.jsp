@@ -14,9 +14,10 @@
 
 	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
 
-   	Board bo = (Board)request.getAttribute("b");
+   	Board bo = (Board)request.getAttribute("bo");
    	//String writer = b.getBoardWriter();
 
+   	Board bp = (Board)request.getAttribute("b");
 %>
 
 <!DOCTYPE html>
@@ -167,13 +168,13 @@
                             <form id="updateForm" action="<%=request.getContextPath() %>/update.me" method="post">
                                 <div class="form-group infoUp">
                                 	<label class="control-label">아이디</label>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
+                                    <input maxlength="30" type="text" required="required" class="form-control"
                                     	name="userId"
                                         value="<%= userId %>" readonly />
                                 
                                 
                                     <label class="control-label">변경할 이름을 입력해주세요</label>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
+                                    <input maxlength="7" type="text" required="required" class="form-control"
                                     	name="userName"
                                         value="<%= userName %>" />
                                         
@@ -216,6 +217,8 @@
 						<script>
 							function saveMyInfo(){
 									var userName = $("input[name='userName']");
+									var userNameV = userName.val();
+									var expUserName = /^[가-힣]{2,}$/
 									var phone = $("input[name='phone']");
 									var email = $("input[name='email']");
 									//var emailV = email.val();
@@ -228,6 +231,12 @@
 													return false;
 												}
 												//alert("이름을 입력해주세요.");
+											}else if(expUserName.test(userNameV)==false){
+												if(confirm("한글로 2자 이상의 이름을 입력해주세요.") == true){
+													userName.val('');
+													userName.focus();
+													return false;
+												}
 											}else if(phone.val() == ""){
 												if(confirm("전화번호를 입력해주세요.") == true){
 													phone.val('');
@@ -276,11 +285,11 @@
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form  id="updatePwdForm" action="<%= request.getContextPath() %>/updatePwd.me" method="post">
                                 		<label>현재 비밀번호</label>
-											<input type="password" class="input-lg form-control" name="userPwd" id="userPwd" placeholder = "현재 비밀번호를 입력하세요" required><br>
+											<input maxlength="100" type="password" class="input-lg form-control" name="userPwd" id="userPwd" placeholder = "현재 비밀번호를 입력하세요" required><br>
 				                                    <span id="chUserPw" class="glyphicon glyphicon-remove" style="float: right;"> 현재 비밀번호와 일치</span><br>
                                 
                                     	<label>변경할 비밀번호 </label>
-                                    		<input type="password" class="input-lg form-control" name="newPwd" id="newPwd"
+                                    		<input maxlength="100" type="password" class="input-lg form-control" name="newPwd" id="newPwd"
                                         				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required>
 				                                    <span id="6char" class="glyphicon glyphicon-remove" style="float: right;"> 6자리 이상</span><br>
 				                                   
@@ -289,7 +298,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                         	<label>변경할 비밀번호 확인</label>
-                                        	<input type="password" class="input-lg form-control" name="checkPwd" id="checkPwd"
+                                        	<input maxlength="100" type="password" class="input-lg form-control" name="checkPwd" id="checkPwd"
                                         		placeholder="한 번 더 입력하세요" autocomplete="off" required>
                                             <span span id="pwmatch" class="glyphicon glyphicon-remove" style="float: right;">비밀번호 일치</span>
                                         </div>
@@ -328,16 +337,25 @@
 															
 										<!--  아니면 엘스로 해서 하나씩 띄워준다 -->
 											<% }else{  %>
-												<% for(Board b : list){ %>
+												<% 
+													 %>
+												<% 
+												for(Board b : list){
+													for(int i = 0; i < list.size(); i++){
+													System.out.println("********"+ list.get(i).getBoardNo());
+												%>
 			                                       <tr onmouseover="this.style.background='#e4a6c8'" onmouseout="this.style.background='none'">
-			                                             
-			                                          <td onClick="showMyPost()" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getBoardTitle() %></a></td>
-			                                          <td onClick="showMyPost()" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getBoardContent() %></a></td>
-			                                          <td onClick="showMyPost()" style="background: none !important; text-align: center;"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getCount() %></a></td>
+			                                          <td style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" name = "myPost"><a style="color: #545554;"><%= b.getBoardNo() %></a></td>
+			                                          <td class="showPost" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>" name = "myPost"><a style="color: #545554;"><%= b.getBoardTitle() %></a></td>
+			                                          <td class="showPost" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><a style="color: #545554;"><%= b.getBoardContent() %></a></td>
+			                                          <td class="showPost" style="background: none !important; text-align: center;"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getCount() %></a></td>
 			                                          <td style="background: none !important; text-align: center;"><button type="button" class="site-btn" onclick="deleteBoard()">삭제</button></td>
-			                                                
+			                                            
 			                                       </tr>
-												<% } %>
+			                                       <td><input onClick="showMyPost()" name="bbb" value="<%= list.get(i).getBoardNo() %>"></td>   
+												<% }
+												}%>
+												<td><input name="D" value="1"></td>   
 						 					<% } %>
                                     </tbody>
                                 </table>
@@ -348,7 +366,8 @@
 						
 						//리스트에서 버튼을 클릭하는거 
 		                  function showMyPost() {
-		                     var bno = $(this).children().eq(0).val();
+		              		var bbb = $("input[name='bbb']");
+		                     var bno = bbb.val();
 		                       location.href="<%=contextPath%>/detail.bo?bno=" + bno;
 		                  }
 		                  
@@ -419,7 +438,9 @@
     function fnCheckPwd(){
 		var nowPwd = $("input[name='nowPwd']");
 		var userPwd = $("input[name='userPwd']");
+		var expPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
 		var newPwd = $("input[name='newPwd']");
+		var newPwdV = newPwd.val();
 		var checkPwd = $("input[name='checkPwd']");
 		
 		
@@ -433,6 +454,12 @@
 			userPwd.val('');
 			userPwd.focus();
 			return false;
+		}else if(expPwd.test(newPwdV)==false){
+			if(confirm("영문자, 숫자, 특수문자(@$!%*#?&)를 모두 포함하는 \n 6자리 이상의 비밀번호를 적어주세요.") == true){
+				newPwd.val('');
+				newPwd.focus();
+				return false;
+			}
 		}else if(newPwd.val().length < 6){
 			alert("비밀번호는 6자 이상 입력해주세요.");
 			newPwd.val('');

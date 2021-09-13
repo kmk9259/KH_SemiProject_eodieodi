@@ -42,7 +42,9 @@ public class MemberPageServlet extends HttpServlet {
 		
 		
 		//공지사항 넘겨주자
-		//Board b = new Board();
+		String btitle = request.getParameter("myPost");
+		Board b = new MemberService().showMyPost(userId, btitle);
+		
 		//int bno = Integer.parseInt(request.getParameter("bno"));
 		//ArrayList<Board> list = new MemberService().selectMyPost(userId, bno);
 		ArrayList<Board> list = new MemberService().selectMyPost(userId);
@@ -55,6 +57,7 @@ public class MemberPageServlet extends HttpServlet {
 		if(member != null) {
 			request.setAttribute("loginUser", member);
 			request.setAttribute("list", list);
+			request.setAttribute("b", b);
 			view = request.getRequestDispatcher("views/member/myPage.jsp");
 		}else {
 			request.setAttribute("msg", "정보 수정에 실패했습니다.");

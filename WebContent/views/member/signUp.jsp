@@ -378,7 +378,7 @@
 				                    <form id="enrollForm" action="<%=request.getContextPath() %>/insert.me" method="post">
 				                      <div class="form-group">
 				                              <label class="control-label">아이디</label><br>
-				                              <input style=" width: 80%; float: left;" maxlength="100"
+				                              <input style=" width: 80%; float: left;" maxlength="30"
 				                              	 type="text" required="required" name="userId" class="form-control" placeholder="아이디를 입력하세요"  />
 											  <button style="display: inline-block; background-color: #D958A0; color:#fff; border:none; width:200px; height:48px; border-radius: 5px;"
 											   type="button" name="idCheckBtn" id="idCheckBtn" onclick="checkId();">중복확인</button>
@@ -392,7 +392,7 @@
 				
 				                            
 				                            <label class="control-label">이름</label>
-				                            <input maxlength="100" type="text" required="required" name="userName" class="form-control" placeholder="이름을 입력해주세요" />
+				                            <input maxlength="7" type="text" required="required" name="userName" class="form-control" placeholder="이름을 입력해주세요" />
 				                            
 				                            <label class="control-label">전화번호</label>
 				                            <input maxlength="100" type="text" required="required" id="phone" name="phone" class="form-control" placeholder="전화번호를 입력해주세요(010-XXXX-XXXX)" /><br>
@@ -446,16 +446,28 @@ var count = 0;
 var emailcount = 0;
 	function joinValidate(){
 			var userId = $("input[name='userId']");
+			var userIdV = userId.val();
+			var expId = /^[0-9a-z]+$/;
 			var userPwd = $("input[name='userPwd']");
+			var userPwdV = userPwd.val();
+			var expPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
 			var checkPwd = $("input[name='checkPwd']");
 			var userName = $("input[name='userName']");
+			var userNameV = userName.val();
+			var expUserName = /^[가-힣]{2,}$/
 			var phone = $("input[name='phone']");
 			var email = $("input[name='email']");
 			var emailV = email.val();
 			var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
+			
 					if(userId.val() == ""){
 						if(confirm("아이디를 입력해주세요.") == true){
+							userId.val('');
+							userId.focus();
+							return false;
+						}
+					}else if(expId.test(userIdV)==false){
+						if(confirm("아이디에는 숫자, 영문만 입력 가능합니다.") == true){
 							userId.val('');
 							userId.focus();
 							return false;
@@ -468,6 +480,12 @@ var emailcount = 0;
 						}
 					}else if(userPwd.val() == ""){
 						if(confirm("비밀번호를 입력해주세요.") == true){
+							userPwd.val('');
+							userPwd.focus();
+							return false;
+						}
+					}else if(expPwd.test(userPwdV)==false){
+						if(confirm("영문자, 숫자, 특수문자(@$!%*#?&)를 모두 포함하는 \n 6자리 이상의 비밀번호를 적어주세요.") == true){
 							userPwd.val('');
 							userPwd.focus();
 							return false;
@@ -497,6 +515,12 @@ var emailcount = 0;
 							return false;
 						}
 						//alert("이름을 입력해주세요.");
+					}else if(expUserName.test(userNameV)==false){
+						if(confirm("한글로 2자 이상의 이름을 입력해주세요.") == true){
+							userName.val('');
+							userName.focus();
+							return false;
+						}
 					}else if(phone.val() == ""){
 						if(confirm("전화번호를 입력해주세요.") == true){
 							phone.val('');
