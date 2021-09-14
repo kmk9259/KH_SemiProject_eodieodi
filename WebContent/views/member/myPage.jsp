@@ -125,7 +125,6 @@
                                 <li class="menuB"><a href="#myPost" data-toggle="tab">내가 쓴 글</a></li>
                                 <li class="menuB parent"><a href="<%=contextPath %>/list.ps">일정 보관함</a></li>
                                 <li class="menuB parent"><a href="#wd" data-toggle="tab">회원 탈퇴</a></li>
-                                <li class="menuB"><a href="#wd" data-toggle="tab">탈퇴하기</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -167,8 +166,8 @@
                             <br>
                             <form id="updateForm" action="<%=request.getContextPath() %>/update.me" method="post">
                                 <div class="form-group infoUp">
-                                	<label class="control-label">아이디</label>
-                                    <input maxlength="30" type="text" required="required" class="form-control"
+                                	<label hidden="hidden" class="control-label">아이디</label>
+                                    <input hidden="hidden" maxlength="30" type="text" required="required" class="form-control"
                                     	name="userId"
                                         value="<%= userId %>" readonly />
                                 
@@ -183,8 +182,8 @@
                                      	id="phone" name="phone"class="form-control"
                                         value="<%= phone %>" /><br>
                                         
-                                    <label class="control-label">이메일</label><br>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
+                                    <label hidden="hidden" class="control-label">이메일</label><br>
+                                    <input hidden="hidden" maxlength="100" type="text" required="required" class="form-control"
                                     	name="email" readonly="readonly"
                                         value="<%= email %>" /><br>
                                         <br><br>
@@ -317,14 +316,14 @@
                         <div class="tab-pane text-style nice-scroll" id="myPost">
                             <h2 class="tInfo">내가 쓴 글</h2>
 							<br><br>
-                            <div class="span5" style="padding-left: 5%; width: 90%; height: 510px;">
+                            <div id="listArea" class="span5" style="padding-left: 5%; width: 90%; height: 510px;">
                                 <table class="table table-striped table-condensed" style="text-align: center; table-layout: fixed;">
                                     <thead>
                                         <tr>
                                             <th style="text-align: center;">제목</th>
                                             <th style="text-align: center;">내용</th>
                                             <th style="text-align: center;">조회수</th>
-                                            <th style="text-align: center;">삭제</th>
+                                            <th style="text-align: center;">수정</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -337,53 +336,77 @@
 															
 										<!--  아니면 엘스로 해서 하나씩 띄워준다 -->
 											<% }else{  %>
-												<% 
-													 %>
-												<% 
-												for(Board b : list){
-													for(int i = 0; i < list.size(); i++){
-													System.out.println("********"+ list.get(i).getBoardNo());
+												 <%for(int i = 0; i < list.size(); i++){ %>
+												 <% } %>
+												
+												<% for(Board b : list){ 
 												%>
 			                                       <tr onmouseover="this.style.background='#e4a6c8'" onmouseout="this.style.background='none'">
-			                                          <td style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" name = "myPost"><a style="color: #545554;"><%= b.getBoardNo() %></a></td>
+			                                          <td hidden="hidden"><a style="color: #545554;"><%= b.getBoardNo() %></a></td>
 			                                          <td class="showPost" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>" name = "myPost"><a style="color: #545554;"><%= b.getBoardTitle() %></a></td>
 			                                          <td class="showPost" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><a style="color: #545554;"><%= b.getBoardContent() %></a></td>
-			                                          <td class="showPost" style="background: none !important; text-align: center;"><a href="<%=request.getContextPath() %>/detail.bo" style="color: #545554;"><%= b.getCount() %></a></td>
-			                                          <td style="background: none !important; text-align: center;"><button type="button" class="site-btn" onclick="deleteBoard()">삭제</button></td>
-			                                            
+			                                          <td class="showPost" style="background: none !important; text-align: center;"><a style="color: #545554;"><%= b.getCount() %></a></td>
+			                                          <td style="background: none !important; text-align: center;"><button type="button" id="updateBoard" class="site-btn" value="<%= b.getBoardNo() %>">수정</button></td>
 			                                       </tr>
-			                                       <td><input onClick="showMyPost()" name="bbb" value="<%= list.get(i).getBoardNo() %>"></td>   
-												<% }
-												}%>
-												<td><input name="D" value="1"></td>   
+			                                       
+												<% } %>  
 						 					<% } %>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
+                        
+                        
                         <script>
-						
-						//리스트에서 버튼을 클릭하는거 
-		                  function showMyPost() {
-		              		var bbb = $("input[name='bbb']");
-		                     var bno = bbb.val();
-		                       location.href="<%=contextPath%>/detail.bo?bno=" + bno;
-		                  }
-		                  
-		                  $(function () {
-		                     $("#tb").niceScroll();
-		                  });
-		                  
-		                  function deleteBoard() {
-		                     if(confirm("게시글을 삭제하시겠습니까?") == true){
-		                        confirm("게시글 삭제 완료");
-		                        location.href="<%=contextPath%>/mypage.me";
-		                     }
-		                  }
+                        var button = $("#listArea>table>tbody>tr>td>button");
+                        var ptr = $("#listArea>table>tbody>tr");
+                        if(button.click){
+                        	button.click(function(){
+                        		$(ptr).off("click").on('click', function() {})
+								var bno = $(this).eq(0).val();
+						        var url2="<%=contextPath%>/updateForm.bo?bno="+bno; 
+						        window.open(url2);
+						        location.href="<%=contextPath%>/mypage.me";
+							})
+							
+                        }
+                        
+                        if(ptr.click){
+                        	ptr.click(function(){
+                        		$(ptr).on('click', function() {
+    						        var bno = $(this).children().eq(0).text();
+    						        var url="<%=contextPath%>/detail.bo?bno="+bno;
+    						        window.open(url);
 
-						
+    						        location.href="<%=contextPath%>/mypage.me";
+                        		})
+					        })
+                        }
+                        
+                        <%-- 
+                        $(function () {
+							button.click(function(){
+								var bno = $(this).eq(0).val();
+						        var url2="<%=contextPath%>/updateForm.bo?bno="+bno; 
+						        window.open(url2);
+							})
+						});
+                        
+                        $(function(){
+					        ptr.click(function(){
+						        var bno = $(this).children().eq(0).text();
+						        var url="<%=contextPath%>/detail.bo?bno="+bno;
+						        window.open(url);
+					        })
+				        })
+					                            		
+						$(function () {
+							$("#tb").niceScroll();
+						});
+                        --%>		                  
+					        
 						</script>
+                        
                         <!-- 회원탈퇴 -->
                         <div class="tab-pane text-style" id="wd">
                             <h2 class="tInfo">회원 탈퇴</h2>
@@ -460,6 +483,12 @@
 				newPwd.focus();
 				return false;
 			}
+		}else if(newPwd.val() == userPwd.val()){
+			alert("변경할 비밀번호는 현재 비밀번호와 일치하지 않아야 합니다.");
+			newPwd.val('');
+			checkPwd.val('');
+			newPwd.focus();
+			return false;
 		}else if(newPwd.val().length < 6){
 			alert("비밀번호는 6자 이상 입력해주세요.");
 			newPwd.val('');
@@ -514,7 +543,7 @@
 		function deleteMember(){
 			var deleteU = $("#deleteUser");
 			if("<%= userPwd %>" == deleteU.val()){
-				var val = confirm("정말로 탈퇴하시겠습니까?");
+				var val = confirm("탈퇴를 진행하면 회원님과 관련된 모든 정보가 사라집니다. \n정말로 탈퇴하시겠습니까?");
 				
 				if(val){
 					$("#updateForm").submit();

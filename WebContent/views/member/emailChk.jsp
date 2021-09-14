@@ -35,7 +35,6 @@
 					//인증번호가 일치하지 않는다면
 					alert("인증번호가 일치하지 않습니다.");
 					document.getElementsByName("email_chk")[0].focus();
-					window.close();
 				}
 				//사용이 완료된 팝업창 닫기
 				//self.close();
