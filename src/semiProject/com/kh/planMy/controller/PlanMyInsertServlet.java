@@ -57,7 +57,7 @@ public class PlanMyInsertServlet extends HttpServlet {
 		String planMemo = request.getParameter("planMemo");  			  //4. 메모
 		int areaNo = Integer.parseInt(request.getParameter("planArea"));  //5.지역	
 		
-		PlanMy pm = new PlanMy(userNo, areaNo, planTitle, planDate, planMemo);
+		PlanMy pm = new PlanMy(userNo, areaNo, planTitle, planDate, planMemo.replaceAll("\n", "<br>"));
 		
 		//planPlace -> MYPLAN_PLACE 테이블에 넣어주기
 		String[] planPlaces = request.getParameterValues("placeNo");

@@ -49,11 +49,18 @@
 			height: 100%;
 			background: #ffffff;
 			padding: 30px 34px 30px 30px;
-			overflow-y: auto;
+			overflow-y: scroll;
 			-webkit-box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
 			box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
 			z-index: 99;
 			padding-top: 140px;
+		}.my-scroll {
+			height: 100%;
+			overflow-y: auto;
+		}
+		
+		.listing {
+			overflow-y: auto;
 		}
 
 		.ov-hid {
@@ -236,7 +243,7 @@
                 </script>
 
     <!-- Filter Begin -->
-    <div class="filter nice-scroll">
+    <div class="filter my-scroll">
         <form action="create.pl" method="POST"  onsubmit="return checkTable();">
             <div class="filter__title">
                 <h5>일정 제목</h5>
@@ -291,7 +298,7 @@
     <!-- Filter End -->
 
     <!-- Listing Section Begin --> <!--ov.hid-->
-    <section class="listing nice-scroll">
+    <section class="listing my-scroll">
         <div class="listing__text__top">
             <div class="listing__text__top__left">
             	<img src="<%=request.getContextPath()%>/resources/img/listing/restaurant.png" width="30px"> 
@@ -340,7 +347,7 @@
 	    			alert("일정을 1개 이상 추가해주세요")
 	        		return false   
 	    		}	
-	    		if($('input[name="placeNo"]').length>10){	//일정이 10개를 초과하는 경우
+	    		if($('input[name="placeNo"]').length>20){	//일정이 20개를 초과하는 경우
 	    			alert("일정은 10개 이하로 추가해주세요")
 	        		return false   
 	    		}
