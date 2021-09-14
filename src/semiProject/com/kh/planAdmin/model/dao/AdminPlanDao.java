@@ -36,77 +36,7 @@ public class AdminPlanDao {
 		}
 }
 
-	 	
-
-
-//	// 추천일정에서 체크하는 값 받은것들  저장 
-//	public int checkAdminPlan(Connection conn, AdminPlan apList) {	
-//
-//
-//		//이건 걍 조회해오는건디 ...
-//		
-////		select 
-////		a.user_no 유저넘버 
-////		,b.course_no 코스넘버 
-////		,d.area_no 지역넘버
-////		,b.create_date 
-////
-////		from member a
-////		join admin_plan b on a.user_no = b.user_no
-////		join course c on b.course_no = c.course_no
-////		join area d on c.area_no = d.area_no;
-////		
-////		
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//
-//		String sql = prop.getProperty("checkAdminPlan");
-//
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		return 0;
-//	}
-
-	
-//	public int insertAdminPlan(Connection conn, AdminPlan apList) {
-//	
-////insert into admin_plan VALUES(SEQ_APNO.NEXTVAL,?,?,?,?,SYSDATE,DEFAULT);
-//	
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//	
-//		String sql = prop.getProperty("insertAdminPlan");
-//	
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			pstmt.setInt(1, apList.getUserNo()); // 유저정보 
-//			pstmt.setInt(2, apList.getCourseNo()); // 코스 
-//			pstmt.setInt(3, apList.getAreaNo()); // 위치 
-//			pstmt.setDate(4, apList.getCreateDate()); // 날짜 
-//			
-//			result =pstmt.executeUpdate();
-//			
-//			
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(pstmt);
-//			
-//		}
-//	
-//		return 0;
-//	}
-
-
+	 
 
 	//코스 리스트 가져오는 애 
 	public ArrayList<CoursePlace> selectCourseList(Connection conn) {
@@ -171,7 +101,7 @@ public class AdminPlanDao {
 			pstmt.setInt(2, apList.getUserNo());
 			pstmt.setInt(3, apList.getAreaNo());
 			pstmt.setInt(4, apList.getCourseNo());
-		//	pstmt.setString(5, apList.getPlanTitle());
+			pstmt.setString(5, apList.getPlanTitle());
 			pstmt.setDate(6, apList.getCreateDate());
 			pstmt.setString(7, apList.getStatus());
 
@@ -223,10 +153,36 @@ public class AdminPlanDao {
 
 
 
+	//
+	public int CreatePlan(Connection conn, AdminPlan apList) {
 
-	public int insertAdminPlan(Connection conn, AdminPlan apList, ArrayList<CoursePlace> cList) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("insertAdminPlan");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, apList.getPlanNo());
+			pstmt.setInt(2, apList.getUserNo());
+			pstmt.setInt(3, apList.getAreaNo());
+			pstmt.setInt(4, apList.getCourseNo());
+			pstmt.setString(5, apList.getPlanTitle());
+			pstmt.setDate(6, apList.getCreateDate());
+			pstmt.setString(7, apList.getStatus());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

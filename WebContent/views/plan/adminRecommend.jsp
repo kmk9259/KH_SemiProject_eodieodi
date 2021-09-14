@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*"%>
     
-    <%@ page import="semiProject.com.kh.planAdmin.model.vo.*, semiProject.com.kh.course.model.vo.*"   %>
+    <%@ page import="semiProject.com.kh.planAdmin.model.vo.*, semiProject.com.kh.course.model.vo.*, 
+    semiProject.com.kh.theme.model.vo.*, semiProject.com.kh.area.model.vo.*"   %>
    
     <%
    
- //   AdminPlan apList = (AdminPlan) request.getAttribute("apList");
-   /*  ArrayList<Course>cList = ( ArrayList<Course>) request.getAttribute("cList"); */
+    ArrayList<Theme> tList = (ArrayList<Theme>) request.getAttribute("tList");
+    ArrayList<Area> aList =  (ArrayList<Area>) request.getAttribute("aList");
     
+    System.out.println(aList+"여기는 jsp 찍히는 거 ");
     %>
 
   
@@ -69,8 +71,10 @@
 			
 		}
 		
-		.title{
+		.total_btn{
 		
+		float:center;
+		margin-top: 20%
 		
 		}
 		</style>
@@ -126,10 +130,26 @@
 
 
                 <!-- step1 form 시작점  -->
-            <form action="adminCreate.pl" method="post" name="">
+            <form action="<%= contextPath %>/adminCreate.pl" method="post">
+            
+        <div>
+			<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
+				<option value="0" selected>테마를 선택해주세요 </option>
+				<%for(Theme t : tList) {%>
+			
+				<option value="<%=t.getThemeName()%>"><%=t.getThemeNo() %></option>
+				<%} %>
+				
+			</select><br><br>
+	</div>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
                         <div class="row">
+                           
+                           <%for(Theme t : tList) { %>
+                           
+                           
+                           
                             <div class="col-lg-4 col-md-6">
                                 <div class="listing__item">
                                     <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/list-1.jpg">
@@ -138,12 +158,12 @@
                                     </div>
                                     <div class="listing__item__text">
                                         <div class="listing__item__text__inside">
-                                            <h4>연인과 함께</h4>
+                                            <h4><%=t.getThemeName() %></h4>
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="course"
-                                                        id="optionsRadios1" value="1" checked="checked">
-                                                    2인이상
+                                                    <input type="radio" class="form-check-input" name="theme"
+                                                        id="optionsRadios1" value="<%=t.getThemeNo() %>">
+                                                    연인 2인이상/가족 4인이상/친구 3인이상 추천 
                                                 </label>
             
                                             </div>
@@ -151,56 +171,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/list-1.jpg">
-                                        <div class="listing__item__pic__btns">
-                                        </div>
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h4>가족과 함께</h4>
-                                            <div class="listing__item__text__rating">
-                                                <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="course"
-                                                        id="optionsRadios2" value="2">
-                                                    4인이상
-                                                </label>
-                                            </div>
-            
-                                        </div>
-            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/list-1.jpg">
-                                        <div class="listing__item__pic__btns">
-                                        </div>
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h4>친구와 함께</h4>
-                                            <div class="listing__item__text__rating">
-                                                <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="course"
-                                                        id="optionsRadios3" value="3">
-                                                    3인이상
-                                                </label>
-            
-                                            </div>
-            
-                                        </div>
-            
-                                    </div>
-                                </div>
-                            </div>
-            
+                       <% } %>     
+                            
+                            
+		                            </div>
+		            		</div>
+		            </div>
+		            
          
-
-
-
                 <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -215,24 +193,18 @@
 
            
                     <div class="loca_1">
-                        <!-- <div class="dropdown">
-                            <h2>위치를 선택해주세요</h2>
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">클릭하셔서 위치를 선택해주세요</button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" type="submit">홍대</a>
-                                <a class="dropdown-item" type="submit">신촌</a>
-                                <a class="dropdown-item" type="submit">연남동</a>
-                                <a class="dropdown-item" type="submit">연남동</a>
-                                <a class="dropdown-item" type="submit">연남동</a>
-                            </div>
-                        </div> -->
-
+               
                         <h2>위치를 선택해주세요</h2>
-                        <select name="area" onchange="handleOnChange(this)">
-                            <option value="1">홍대</option>
-                            <option value="2">강남</option>
+                  
+                        <select name="area" onchange="handleOnChange(this)"> 
+                        
+                        	<%for(Area a: aList){ %>
+                         
+                            <option value="<%=a.getAreaNo()%>"><%=a.getAreaName()%></option>
+            
+                        <%} %>    
                         </select>
+                        
                         <div id='result'></div>
                         
                         </div>
@@ -242,31 +214,21 @@
                             <h2>날짜를 선택해주세요</h2>
                         
                             <input type="text" name="chooseDate" id="startDate">
-                        <!-- 
-                            <button type="button" class="btn btn-dark">확인</button>
-                         -->
+                     
                         </div>
-                        
-                         	<!--  혹시모르니 추천일정도 제목을 붙일 수 있게 해둘까 -->
-                        <!-- <div class="title">
-                        	<label>추천일정 저장 제목 </label>
-                        	<input type="text" name="title" >
-                        
-                        </div>  -->
-             
-                         
-                       
-                        
+                        <br><br>
+                    
                         <div class="total_btn" style="text-align: center;">
                             <a href="<%= contextPath %>/index.jsp"><button type="button" class="site-btn">메인으로</button></a>
 <%--                             <a href="<%= contextPath %>/views/plan/adminPlan_detail.jsp"/>
  --%>                          
  					 <button type="submit" value ="전송" class="site-btn">다음으로</button>
                         </div>
-                        <br>
+                        
+                         <br><br>
                          <div style="text-align: center;">
                           
-                                <h4>확인을 누른후 다음으로 클릭하셔서 일정을 추천 받으세요!</h4>
+                            <h4>다음으로 버튼을 누른후 다음으로 클릭하셔서 일정을 추천 받으세요!</h4>
                                 <p> 인원에 따라 추가 금액이 발생 할 수 있습니다 </p>
                            
                         

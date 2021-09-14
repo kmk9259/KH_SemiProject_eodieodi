@@ -52,7 +52,7 @@
                                     
                                     <ul class="dropdown">
                                         <li><a href="#" class="movePage">마음대로일정</a></li>
-                                        <li><a href="<%=contextPath %>/views/plan/adminRecommend.jsp">추천일정</a></li>
+                                        <li><a href="<%=contextPath %>/admin_List.pl">추천일정</a></li>
                                         <li><a href="#" class="movePage">일정보관함</a></li>
                                         
                                     </ul>
