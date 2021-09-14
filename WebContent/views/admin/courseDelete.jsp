@@ -207,7 +207,7 @@
 									var cNo = parent.children("#courseNo").val();
 									console.log(cNo);
 									if(confirm("코스를 삭제하시겠습니까?")){
-									    location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo; 
+										location.href="<%=contextPath%>/cDelete.co?cNo="+cNo;
 									}else{
 									    
 									}

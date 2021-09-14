@@ -210,7 +210,8 @@
 									console.log("찍히니?");
 									var cNo = parent.children("#courseNo").val();
 									console.log("cNo : " + cNo);
-									location.href="<%=contextPath%>/cDelete.co?cNo="+cNo;
+									
+									location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo;
 								});
 							});
 						 $('.blog__item__pic').each(function() {
