@@ -148,6 +148,45 @@
         	background-color:#7ec314;
         	color:#fff;
         }
+        .modal-body{
+			width:100%;
+			height: 265px;
+			padding: 15px 20px 15px 20px;
+		}
+		.content_scroll{
+			width:100%;
+			height:100%;
+			overflow-y:auto;
+		}
+		.plan_box{
+			width:100%;
+			min-height:67px;
+			background:#f4f3f3;
+			margin-top:3px;
+		}
+		.plan_left{
+			float:left;
+			width:360px;
+			padding-left:15px;
+		}
+		.plan_select{
+			width:60px;
+			height:30px;
+			text-align:center;
+			float:right;
+			cursor:pointer;
+			margin-right:15px;
+			margin-top:20px;
+			font-size:13px;
+			background:#D958A0;
+			line-height: 30px;
+    		color: white;
+		}
+		.plan_title{
+			margin-top: 10px;
+		    font-size: 18px;
+		    font-weight: bold;
+		}
     </style>
 </head>
 <body>
@@ -227,9 +266,119 @@
     <!-- About Section End -->
 
     <div class="total_btn">           
-        <button type="button" class="btn btn-primary" onClick="history.back()">이전으로</button></a>
+        <button type="button" id="addPlace" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정에 추가</button>
     </div>
+    
+    <script>
+    	//'일정에 추가'버튼 클릭 -> 사용자의 모든 일정 중 해당 장소가 포함되지 않은 일정만 뽑아서 리스트로 받기
+	    $("#addPlace").click(function(){
+	    	var placeNo = <%=p.getPlaceNo()%>
+	    	
+			$.ajax({
+	
+				url : "addPlanlist.do",
+				data : {
+					placeNo : placeNo
+				},
+				type : "get",
+				success: function(planList){  //success : ajax 통신 성공시 처리할 함수를 지정하는 속성
+				
+					console.log("ajax 통신성공");
+					console.log(planList);
+					
+					ajaxPlaceList(planList);
+					
+				},
+				error : function(){	
+					console.log("ajax 통신 실패")
+				}
+			})
+	    })
 
+	    //위에서 받은 리스트를 모달화면에 뿌려주기
+	    function ajaxPlaceList(planList){
+         	var result = '';
+         	var contextPath = "<%=contextPath%>"
+         	if(planList.length==0){
+         		result += '해당되는 일정이 없습니다😥<br>새로운 일정을 등록하러 가볼까요?';
+         	}else{
+         		$.each(planList, function(i){                         	
+                   	result += '<div class="plan_box">'  
+    						+ '<div class="plan_left">'
+    						+ '<input type="hidden" value="'+ planList[i].planNo +'" id="planNo">'
+    	                   	+ '<div class="plan_title">'+planList[i].planTitle+'</div>'
+    	                   	+ '<div class="plan_date">'+planList[i].planDate+'</div>'
+    	                   	+ '</div>'
+    	                   	+ '<div class="plan_select">선택</div>'
+    						+'</div>';		
+            	})
+         	}
+          		
+          	$(".content_scroll").html(result);
+	    }
+	    
+    	//모달화면에서 '선택'을 클릭하여 해당장소를 해당일정에 추가사키기
+	    $(document).on('click','.plan_select',function(){
+	    	
+	    	var placeNo = <%=p.getPlaceNo()%>
+	    	var planNo = $(this).siblings().children("#planNo").val();
+
+	    	console.log("placeNo : " + placeNo);
+	    	console.log("planNo : " + planNo);
+
+			$.ajax({
+	
+				url : "addPlanPlace.do",
+				data : {
+					placeNo : placeNo,
+					planNo : planNo
+				},
+				type : "get",
+				success: function(result){ 
+					console.log("ajax 통신성공");
+				
+					if(result){
+						alert("일정에 추가되었습니다.");
+					}else{
+						alert("ajax 통신은 됐지만 일정추가는 실패!")
+					}
+					
+					$('.modal').modal("hide"); //모달창 닫기
+				},
+				error : function(){	
+					alert("일정 추가가 실패했습니다.")
+				}
+			})
+	    })
+    </script>
+    
+     <!-- The Modal -->
+	  <div class="modal" id="myModal">
+	    <div class="modal-dialog modal-dialog-centered">  <!-- modal-dialog-centered : 모달창 화면중앙 -->
+	      <div class="modal-content">
+	      
+	        <!-- Modal Header -->
+	        <div class="modal-header">
+	          <h4 class="modal-title">이 장소가 포함되지 않은 일정</h4>
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+	        
+	        <!-- Modal body -->
+	        <div class="modal-body">
+	          <div class="content_scroll">
+
+	          </div>
+	        </div>
+	        
+	        <!-- Modal footer -->
+	        <div class="modal-footer">
+	          <a class="btn btn-primary" href="<%=contextPath%>/list.pm">새로운 일정 만들기</a>
+	        </div>
+	        
+	      </div>
+	    </div>
+	  </div>
+	
     <%@ include file="../common/footer.jsp"%>
 
     <!-- Js Plugins -->

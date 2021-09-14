@@ -162,4 +162,20 @@ public class PlanMyService {
 		return pList;
 	}
 
+	public ArrayList<PlanMy> addPlanList(int userNo, int placeNo) {
+		Connection conn = getConnection();
+		ArrayList<PlanMy> list = new PlanMyDao().addPlanList(conn, userNo, placeNo);
+		
+		close(conn);
+		return list;
+	}
+
+	public int addPlanPlace(int planNo, ArrayList<String> placeNo) {
+		Connection conn = getConnection();
+		
+		int result = new PlanMyDao().updateAddPlace(conn, planNo, placeNo);
+		close(conn);
+		return result;
+	}
+
 }

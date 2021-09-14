@@ -351,7 +351,7 @@ public class PlanMyDao {
 				pstmt.setInt(1, planNo);
 				pstmt.setInt(2, Integer.parseInt(insertDB.get(i)));
 				
-				System.out.println("일정 수정_삭제하기------deleteDB.get(i) : " + insertDB.get(i));
+				System.out.println("일정 수정_추가하기------insertDB.get(i) : " + insertDB.get(i));
 				
 				result += pstmt.executeUpdate();
 			}
@@ -507,6 +507,48 @@ public class PlanMyDao {
 		}
 		System.out.println("list33 : "+pList);
 		return pList;
+	}
+
+	public ArrayList<PlanMy> addPlanList(Connection conn, int userNo, int placeNo) {
+		ArrayList<PlanMy> list = new ArrayList<PlanMy>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("addPlanList");
+//		addPlanList=SELECT PLAN_NO, PLAN_TITLE, PLAN_DATE
+//		FROM MYPLAN
+//		JOIN(SELECT DISTINCT REF_MPNO 
+//		     FROM MYPLAN_PLACE A
+//		     WHERE A.REF_MPNO NOT IN(SELECT B.REF_MPNO FROM MYPLAN_PLACE B 
+//		                             WHERE B.PLACE_NO IN(?) AND B.STATUS='Y')
+//		     AND A.STATUS='Y')
+//		ON (REF_MPNO=PLAN_NO)
+//		WHERE USER_NO=?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, placeNo);
+			pstmt.setInt(2, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				PlanMy pm = new PlanMy();
+				pm.setPlanNo(rset.getInt("PLAN_NO"));
+				pm.setPlanTitle(rset.getString("PLAN_TITLE"));
+				pm.setPlanDate(rset.getDate("PLAN_DATE"));
+				
+				list.add(pm);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("addPlanList(dao) : list : " + list);
+		return list;
 	}
 	
 }

@@ -4,6 +4,11 @@
 <%
 	PlanMy pm = (PlanMy)request.getAttribute("pm");
 	ArrayList<Place> pList = (ArrayList<Place>)request.getAttribute("pList");
+	
+	String memo = pm.getPlanMemo();  //메모 null값인 경우 
+	if(memo == null){
+		memo="";
+	}
 %> 	
 <!DOCTYPE html>
 <html lang="en">
@@ -151,6 +156,7 @@
             		<h5 style="line-height:60px"><b><%=loginUser.getUserName()%></b>님의 일정</h5>
             	</div>
                 <div class="col-lg-6 btn_right">
+                	<button type="button" class="btn btn-primary" onclick="updateForm()">이메일</button>
                     <button type="button" class="btn btn-primary" onclick="updateForm()" style="margin: 10px; ">수정하기</button>
                     <button type="button" class="btn btn-primary" onclick="deleteBoard()">삭제하기</button>
                 </div>
@@ -197,7 +203,7 @@
 	                    <h4><b>일정 메모</b></h4>
 	                </div>
 	                <div class="planDetail_detail">
-	                    <textArea cols="30" rows="9" readonly><%=pm.getPlanMemo()%></textArea>
+	                    <textArea cols="30" rows="9" readonly><%=memo%></textArea>
                 	</div>
 				</div>
 			</div>
