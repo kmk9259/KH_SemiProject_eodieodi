@@ -187,12 +187,45 @@ public class BoardService {
 
 
 	public ArrayList<Reply> selectRList(int bno) {
+		
+	
+		
+		
 		Connection conn = getConnection();
+		
+//		int result = new BoardDao().increaseReplyCount(conn, rno);
+//		
+//		ArrayList<Reply> list = null;
+//		
+//		if(result > 0) {
+//			commit(conn);
+//			list = new BoardDao().selectRList(conn, bno);
+//		}else {
+//			rollback(conn);
+//		}
+//		
+//		return list;
 		
 		ArrayList<Reply> list = new BoardDao().selectRList(conn, bno);
 		close(conn);
 		return list;
 	}
+
+
+//	public Reply selectReply(int rno) {
+//		Connection conn = getConnection();
+//		
+//		int result = new BoardDao().increaseReplyCount(conn, rno);
+//		
+//		//리턴을 빈값으로 해줘도 되나? 카운트만 올리려구
+//		Reply r = null;
+//		if(result > 0) {
+//			commit(conn);
+//		}else {
+//			rollback(conn);
+//		}
+//		return r;
+//	}
 
 
 

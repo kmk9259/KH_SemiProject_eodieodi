@@ -10,6 +10,7 @@ public class Reply {
 	private int likes;
 	private Date createDate;
 	private String status;
+	
 
 	public Reply() {
 

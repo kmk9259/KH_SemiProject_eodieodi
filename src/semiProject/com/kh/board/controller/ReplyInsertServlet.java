@@ -39,7 +39,7 @@ public class ReplyInsertServlet extends HttpServlet {
 		int writer = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		Reply r = new Reply();
-		r.setReplyContent(content);
+		r.setReplyContent(content.replaceAll("\n", "<br>"));
 		r.setRefBoardId(bno);
 		r.setReplyWriter(String.valueOf(writer));
 		

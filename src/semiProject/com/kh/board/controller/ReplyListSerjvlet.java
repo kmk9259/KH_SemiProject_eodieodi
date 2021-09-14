@@ -34,7 +34,11 @@ public class ReplyListSerjvlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int bno = Integer.parseInt(request.getParameter("bno"));
+		
+		//좋아요도 같이 넘겨? 
+		//int rno = Integer.parseInt(request.getParameter("rno"));
 		
 		ArrayList<Reply> list = new BoardService().selectRList(bno);
 		
