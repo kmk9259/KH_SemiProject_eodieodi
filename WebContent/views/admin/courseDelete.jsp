@@ -181,39 +181,40 @@
 								break;
 							}
 							value +='<div class="col-lg-4 col-md-6">'
-			                    		+'<div class="blog__item">'
-			                    			+'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+list[i].courseNo+'">'
-		                        			+'<div class="blog__item__pic set-bg" data-setbg=""></div>'
-		                        			+'<div class="blog__item__text">'
-					                            +'<ul class="blog__item__tags">'
-					                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
-					                                +'<li>'+themeName+'</li>'
-					                            +'</ul>'
-					                            +'<h5><a href="#">'+list[i].courseTitle+'</a></h5>'
-				                            	+'<ul class="blog__item__widget">'
-					                                +'<li><i class="fa fa-clock-o"></i> 19th March, 2019</li>'
-					                                +'<li><i class="fa fa-user"></i> John Smith</li>'
-					                            +'</ul>'
-						                    +'</div>'
-						                    +'</div>'
-		                    			+'</div>'
-	               					+'</div>';
+	                    		+'<div class="blog__item">'
+	                    			
+                        			+'<div class="blog__item__pic set-bg2" data-setbg=""></div>'
+                        			+'<div class="blog__item__text">'
+			                            +'<ul class="blog__item__tags">'
+			                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
+			                                +'<li>'+themeName+'</li>'
+			                            +'</ul>'
+			                            +'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+list[i].courseNo+'">'
+			                            +'<h5><a href="#">'+list[i].courseTitle+'</a></h5>'
+		                            	+'<button class="delete">삭제</button>'
+				                    +'</div>'
+				                    +'</div>'
+                    			+'</div>'
+           					+'</div>';
 							
 							
 							
 						} //for
 						 $("#courseList").html(value).trigger("create");
 						 $(function(){
-								$(".set-bg").click(function(){
+								$(".delete").click(function(){
 									var parent = $(this).parents();  //클릭한 버튼의 최상위 부모
-									console.log("parent : " + parent);
-									console.log("찍히니?");
 									var cNo = parent.children("#courseNo").val();
-									console.log("cNo : " + cNo);
-									location.href="<%=contextPath%>/cDelete.co?cNo="+cNo;
+									console.log(cNo);
+									if(confirm("코스를 삭제하시겠습니까?")){
+									    location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo; 
+									}else{
+									    
+									}
+									
 								});
 							});
-						 $('.set-bg').each(function() {
+						 $('.set-bg2').each(function() {
 						        var bg = $(this).data('setbg');
 						        $(this).css('background-image', 'url(' + src + ')');
 						    });

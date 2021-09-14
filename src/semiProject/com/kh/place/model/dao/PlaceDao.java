@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import semiProject.com.kh.board.model.vo.PlaceAttachment;
-import semiProject.com.kh.course.model.vo.Course;
 import semiProject.com.kh.place.model.vo.Place;
 
 public class PlaceDao {
@@ -278,6 +277,94 @@ public class PlaceDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, aNo);
 			rset = pstmt.executeQuery();
+			while(rset.next())
+			{
+				Place p = new Place();
+				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setAreaNo(rset.getInt("AREA_NO"));
+				p.setCategoryNo(rset.getInt("CATEGORY_NO"));
+				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				p.setPlacePhone(rset.getString("PLACE_PHONE"));				
+				p.setDescription(rset.getString("DESCRIPTION"));
+				p.setBsHour(rset.getString("BSHOUR"));
+				p.setPrice(rset.getInt("PRICE"));
+				p.setAddress(rset.getString("ADDRESS"));			
+				p.setCount(rset.getInt("COUNT"));
+				p.setStatus(rset.getString("STATUS"));
+				p.setTitleImg(rset.getString("CHANGE_NAME"));
+				
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Place> searchArea(Connection conn, String searchArea) {
+		ArrayList<Place> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		/*
+		 * searchArea=SELECT A.*, CHANGE_NAME  FROM PLACE A JOIN AREA B ON A.AREA_NO = B.AREA_NO \
+JOIN (SELECT * FROM PLACE_ATTACHMENT WHERE FILE_NO IN \
+(SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \
+WHERE A.STATUS='Y' AND B.AREA_NAME LIKE '%' || ? || '%'ORDER BY PLACE_NO 
+		 */
+
+		String sql = prop.getProperty("searchArea");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, searchArea);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next())
+			{
+				Place p = new Place();
+				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setAreaNo(rset.getInt("AREA_NO"));
+				p.setCategoryNo(rset.getInt("CATEGORY_NO"));
+				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				p.setPlacePhone(rset.getString("PLACE_PHONE"));				
+				p.setDescription(rset.getString("DESCRIPTION"));
+				p.setBsHour(rset.getString("BSHOUR"));
+				p.setPrice(rset.getInt("PRICE"));
+				p.setAddress(rset.getString("ADDRESS"));			
+				p.setCount(rset.getInt("COUNT"));
+				p.setStatus(rset.getString("STATUS"));
+				p.setTitleImg(rset.getString("CHANGE_NAME"));
+				
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Place> selectTopList(Connection conn) {
+		ArrayList<Place> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		/*
+		 * SELECT * FROM (SELECT A.*, CHANGE_NAME FROM PLACE A JOIN (SELECT * FROM
+		 * PLACE_ATTACHMENT WHERE FILE_NO IN( SELECT MIN(FILE_NO) FILE_NO FROM
+		 * PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO))B ON (B.REF_PNO =
+		 * A.PLACE_NO) WHERE A.STATUS='Y' ORDER BY COUNT DESC) WHERE ROWNUM <= 3
+		 */
+		String sql = prop.getProperty("selectTopList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
 			while(rset.next())
 			{
 				Place p = new Place();
