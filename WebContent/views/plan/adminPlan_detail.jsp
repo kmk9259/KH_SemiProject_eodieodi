@@ -4,7 +4,7 @@
  
     <%
 
-    AdminPlan apList = (AdminPlan) request.getAttribute("apList");	
+    //AdminPlan apList = (AdminPlan) request.getAttribute("apList");	
    
     %>
     

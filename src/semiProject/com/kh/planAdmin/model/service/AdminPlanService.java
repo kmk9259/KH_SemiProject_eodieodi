@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import semiProject.com.kh.course.model.vo.CoursePlace;
 import semiProject.com.kh.planAdmin.model.dao.AdminPlanDao;
 import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
+import semiProject.com.kh.theme.dao.ThemeDao;
+import semiProject.com.kh.theme.model.vo.Theme;
 
 public class AdminPlanService {
 
@@ -77,26 +79,26 @@ public class AdminPlanService {
 	
 	}
 
-	//선택한 리스트 객체랑, 코스(참조번호) 가지고 와서 저장해줘야됨 admin_plan에다가 
-	public int insertAdminPlan(AdminPlan apList, ArrayList<CoursePlace> cList) {
-
-		Connection conn = getConnection();
-		
-		//adminPlan 테이블에 넣기 
-		int result1 = new AdminPlanDao().insertAdminPlan(conn, apList, cList);
-		//adminPlan_place에 넣기 
-		//int result2 = new AdminPlanDao().insertAdminPlanPlace(conn, cList);
-		
-
-		if(result1 > 0 ) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}close(conn);
-		
-		
-		return result1;
-		
+//	//선택한 리스트 객체랑, 코스(참조번호) 가지고 와서 저장해줘야됨 admin_plan에다가 
+//	public int insertAdminPlan(AdminPlan apList, ArrayList<CoursePlace> cList) {
+//
+//		Connection conn = getConnection();
+//		
+//		//adminPlan 테이블에 넣기 
+//		int result1 = new AdminPlanDao().insertAdminPlan(conn, apList, cList);
+//		//adminPlan_place에 넣기 
+//		//int result2 = new AdminPlanDao().insertAdminPlanPlace(conn, cList);
+//		
+//
+//		if(result1 > 0 ) {
+//			commit(conn);
+//		}else {
+//			rollback(conn);
+//		}close(conn);
+//		
+//		
+//		return result1;
+//		
 		
 		
 		
@@ -111,14 +113,34 @@ public class AdminPlanService {
 //		close(conn);
 //
 //		return result1 * result2;
-	}
+	//}
 
-	public int insertAdminPlan(AdminPlan apList) {
+//	public int insertAdminPlan(AdminPlan apList) {
+//		
+//		Connection conn = getConnection();
+//		
+//		//adminPlan 테이블에 넣기 
+//		int result = new AdminPlanDao().insertAdminPlan(conn, apList);
+//		
+//		if(result > 0 ) {
+//			commit(conn);
+//		}else {
+//			rollback(conn);
+//		}close(conn);
+//		
+//		
+//		return result;
+//	}
+
+	
+	
+
+	public int CreatePlan(AdminPlan apList) {
+		
 		
 		Connection conn = getConnection();
 		
-		//adminPlan 테이블에 넣기 
-		int result = new AdminPlanDao().insertAdminPlan(conn, apList);
+		int result = new AdminPlanDao().CreatePlan(conn, apList);
 		
 		if(result > 0 ) {
 			commit(conn);
@@ -129,9 +151,8 @@ public class AdminPlanService {
 		
 		return result;
 	}
-
-
-
+		
+	
 
 	
 

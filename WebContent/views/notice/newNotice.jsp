@@ -116,7 +116,6 @@
                             <div class="row">
                                 <div class="col-md-8 mt-5">
                                     <form method="post" th:object="${post}" action=" <%= contextPath %>/insert.no">
-                                     <!-- th:object="${post}" 이게뭐지 무튼  -->
                                     
                                      	   <h2>공지사항 등록</h2>
                                         <div class="form-group">
