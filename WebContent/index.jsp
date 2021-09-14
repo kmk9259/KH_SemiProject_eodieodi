@@ -53,8 +53,8 @@
                            
                         </div>
                         <div class="hero__search__form">
-                            <form action="searchMain.jsp">
-                                <input type="text" id="search" style="width: 85%" placeholder="Search...">
+                            <form action="<%=contextPath %>/main">
+                                <input type="text" id="search" name="search" style="width: 85%" placeholder="Search...">
                                 
                                 <button type="submit" class="search">검색하기</button>
                             </form>
@@ -92,9 +92,6 @@
 				});
 			});	
             	
-				
-			
-        
         </script>
 
 	<section class="page-start">
@@ -106,210 +103,92 @@
                 <div class="container"><center><img src="resources/img/map_1.png"></center></div>
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>가장 많이 찾은  장소</h2>
+                        <h2>인기 TOP 어디어디?!</h2>
                         <p>어디어디에서 가장 인기있는 장소들을 한눈에 볼수 있어요.</p>
                     </div>
                 </div>
             </div>
-           <div class=""> 
-           
-           </div>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic set-bg" data-setbg="resources/img/listing/list-1.jpg">
-                                            <img src="resources/img/listing/list_icon-1.png" alt="">
-                                            <div class="listing__item__pic__tag">Popular</div>
-                                            <div class="listing__item__pic__btns">
-                                                <a href="#"><span class="icon_zoom-in_alt"></span></a>
-                                                <a href="#"><span class="icon_heart_alt"></span></a>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>깔리</h5>
-                                                <p>인도에서 직접 초빙한 현지인 요리사들이 선사하는 맛있는 인도 요리</p>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <h6>18000- 36000</h6>
-                                                </div>
-                                                <ul>
-                                                    <li><span class="icon_pin_alt"></span> 서울 종로구 명륜4가 170-3 2층</li>
-                                                    <li><span class="icon_phone"></span> (02) 747-5050</li>
-                                                </ul>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <div class="listing__item__text__info__left">
-                                                    <img src="resources/img/listing/list_small_icon-1.png" alt="">
-                                                    <span>Restaurant</span>
-                                                </div>
-                                                <div class="listing__item__text__info__right">Open Now</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic set-bg" data-setbg="resources/img/listing/list-2.jpg">
-                                            <img src="resources/img/listing/list_icon-2.png" alt="">
-                                            <div class="listing__item__pic__tag top_rate">Top Rate</div>
-                                            <div class="listing__item__pic__btns">
-                                                <a href="#"><span class="icon_zoom-in_alt"></span></a>
-                                                <a href="#"><span class="icon_heart_alt"></span></a>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>Shrimp floured and fried</h5>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <h6>$40 - $70</h6>
-                                                </div>
-                                                <ul>
-                                                    <li><span class="icon_pin_alt"></span> 1012 Vesper Dr. Columbus,
-                                                        Georgia(GA), United States</li>
-                                                    <li><span class="icon_phone"></span> (+12) 345-678-910</li>
-                                                </ul>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <div class="listing__item__text__info__left">
-                                                    <img src="resources/img/listing/list_small_icon-2.png" alt="">
-                                                    <span>Food & Drink</span>
-                                                </div>
-                                                <div class="listing__item__text__info__right closed">Closed</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic set-bg" data-setbg="resources/img/listing/list-3.jpg">
-                                            <img src="resources/img/listing/list_icon-3.png" alt="">
-                                            <div class="listing__item__pic__tag">Popular</div>
-                                            <div class="listing__item__pic__btns">
-                                                <a href="#"><span class="icon_zoom-in_alt"></span></a>
-                                                <a href="#"><span class="icon_heart_alt"></span></a>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>Sweet and sour pork ribs</h5>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <h6>$40 - $70</h6>
-                                                </div>
-                                                <ul>
-                                                    <li><span class="icon_pin_alt"></span> 251 Wiley St. Forks,
-                                                        Washington(WA), United States</li>
-                                                    <li><span class="icon_phone"></span> (+12) 345-678-910</li>
-                                                </ul>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <div class="listing__item__text__info__left">
-                                                    <img src="resources/img/listing/list_small_icon-1.png" alt="">
-                                                    <span>Restaurant</span>
-                                                </div>
-                                                <div class="listing__item__text__info__right">Open Now</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="row toplist">
+                                
+							</div>
+						</div>
+					</div>
+					<script>
+					$(function(){
+						selectTopList();
+						setInterval(selectTopList, 2000);  		//조회할 때마다 인기게시글이 바뀌므로 2초마다 조회하기
+						$(".toplist").on("click",".listing__item__pic", function(){
+							var bId = $(this).children().eq(0).val();
+							console.log(bId);
+							<%-- location.href = "<%=contextPath%>/detail.th?bId="+bId; --%>
+						})
+					})
+					function selectTopList(){
+						$.ajax({
+							url:"topList",
+							type:"post",
+							success:function(list){
+								var value = "";
+								
+								for(var i in list){
+									var src = '<%=contextPath%>/resources/place_upFiles/'+list[i].titleImg;
+								
+									value += '<div class="col-lg-4 col-md-6">'+
+		                                    			'<div class="listing__item">'+
+		                                    '<input type="hidden" id="placeNo" value="'+list[i].placeNo+'">'+
+		                                    '<div class="listing__item__pic set-bg" style="background-image: url(' + src + '); ">'+
+		                                    
+		                                       ' <div class="listing__item__pic__tag">Popular</div>'+
+		                                        
+		                                   ' </div>'+
+		                                  '  <div class="listing__item__text">'+
+		                                      ' <div class="listing__item__text__inside">'+
+		                                           ' <h5>'+list[i].placeTitle+'</h5>'+
+		                                           ' <p>'+list[i].description+'</p>'+
+		                                            '<div class="listing__item__text__rating">'+
+		                                               ' <div class="listing__item__rating__star">'+
+		                                                '    <span class="icon_star"></span>'+
+		                                              '      <span class="icon_star"></span>'+
+		                                            '       <span class="icon_star"></span>'+
+		                                            '<span class="icon_star"></span>'+
+		                                             '       <span class="icon_star-half_alt"></span>'+
+		                                           '    </div>'+
+		                                          '      <h6>'+list[i].price+'</h6>'+
+		                                         '   </div>'+
+		                                        '    <ul>'+
+		                                        '       <li><span class="icon_pin_alt"></span> '+list[i].address+'</li>'+
+		                                    '<li><span class="icon_phone"></span> '+list[i].placePhone+'</li>'+
+		                                     '       </ul>'+
+		                                      '  </div>'+
+		                                        '<div class="listing__item__text__info">'+
+		                                         '<div class="listing__item__text__info__left">'+
+		                                                '조회수'+
+		                                            '</div>'+
+		                                          '  <div class="listing__item__text__info__right">'+list[i].count+'</div>'+
+		                                        '</div>'+
+		                                    '</div>'+
+		                                '</div>'+
+		                            '</div>'
+								}
+								$(".toplist").html(value).trigger("create");
+								$(function(){
+									$(".listing__item__pic").click(function(){
+										
+										var parent = $(this).parent(); 
+										var pNo = parent.children("#placeNo").val();
+										location.href='<%=contextPath%>/detail.pl?pNo='+pNo;
+									});
+								});
+							},
+							error:function(){
+								console.log("ajax통신실패");
+							}
+						})
+					}
+					</script>
                                
-    <!-- Most Search Section End -->
-
-   
-   
-
-   
-
- 
-
-    <!-- Blog Section Begin -->
-    <section class="news-post spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>커뮤니티</h2>
-                        <p>어디어디 사용자 간의 후기 게시판</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic set-bg" data-setbg="resources/img/blog/blog-1.jpg">
-                            <a href="https://www.youtube.com/watch?v=8EJ3zbKTWQ8" class="play-btn video-popup"><i class="fa fa-play"></i></a>
-                        </div>
-                        <div class="blog__item__text">
-                            <ul class="blog__item__tags">
-                                <li><i class="fa fa-tags"></i> Travel</li>
-                                <li>Videos</li>
-                            </ul>
-                            <h5><a href="#">Internet Banner Advertising Most Reliable</a></h5>
-                            <ul class="blog__item__widget">
-                                <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                <li><i class="fa fa-user"></i> John Smith</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic set-bg" data-setbg="resources/img/blog/blog-2.jpg"></div>
-                        <div class="blog__item__text">
-                            <ul class="blog__item__tags">
-                                <li><i class="fa fa-tags"></i> Travel</li>
-                                <li>Restaurant</li>
-                            </ul>
-                            <h5><a href="#">Internet Banner Advertising Most Reliable</a></h5>
-                            <ul class="blog__item__widget">
-                                <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                <li><i class="fa fa-user"></i> John Smith</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic set-bg" data-setbg="resources/img/blog/blog-3.jpg"></div>
-                        <div class="blog__item__text">
-                            <ul class="blog__item__tags">
-                                <li><i class="fa fa-tags"></i> Travel</li>
-                                <li>Restaurant</li>
-                            </ul>
-                            <h5><a href="#">Internet Banner Advertising Most Reliable</a></h5>
-                            <ul class="blog__item__widget">
-                                <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                <li><i class="fa fa-user"></i> John Smith</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Blog Section End -->
 </section>
    
 

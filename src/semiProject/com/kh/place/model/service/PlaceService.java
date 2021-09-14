@@ -88,7 +88,22 @@ public class PlaceService {
 		return list;
 	}
 
-	
+	public ArrayList<Place> searchArea(String searchArea) {
+		Connection conn = getConnection();
+		ArrayList<Place> list = new PlaceDao().searchArea(conn, searchArea);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Place> selectTopList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Place> list = new PlaceDao().selectTopList(conn);
+		close(conn);
+		return list;
+	}
+
 
 	
 }
