@@ -69,7 +69,7 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().deleteMember(conn, userId);
-		
+		System.out.println("서비스 되니?~~~~" + result);
 		if(result > 0) {
 			commit(conn);
 		}else {
@@ -77,7 +77,9 @@ public class MemberService {
 		}
 		
 		close(conn);
+		System.out.println("서비스 return 되니?~~~~" + result);
 		return result;
+		
 	}
 
 	public Member updatePwd(String userId, String userPwd, String newPwd) {
