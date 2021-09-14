@@ -134,7 +134,7 @@
                            </div>
                             <div class="input-comment">
                                 
-                                <textarea rows="5" cols="90" id="replyContent" style="resize:none;"></textarea>
+                                <textarea rows="5" id="replyContent" style="resize:none; width:100%;"></textarea>
                             </div>
                             <button type="submit" class="site-btn" id="addReply">댓글 등록</button>
                             
@@ -262,18 +262,21 @@
 					list[i].replyContent+
 					'<ul class="blog__item__widget">'+
 					'<hr>'+
-
 					'<li>'+'<i class="fa fa-clock-o">'+'</i>'
 					+list[i].createDate+'</li>'+
 					'<li>'+'<i class="fa fa-user">'+'</i>'
 					+list[i].replyWriter+'</li>'+
-					'<li>'+'<i class="fa fa-thumbs-up">'+'</i>'
+					'<li>'+'<i class="fa fa-thumbs-up" id="thumbup">'+'</i>'
 					+list[i].likes+'</li>'+
 					'<br><br><br>'
 					
 					'</ul>';
 				}
 				$("#replyList").html(value);
+				//좋아요 클릭함수 넣어줄것
+				$('#thumbup').click(function(){
+					
+				})
 				},
 	            error:function(){
 	               console.log("ajax 통신 실패 - 댓글 조회");
@@ -281,6 +284,9 @@
 	            
 	         })
 	      }
+    
+    
+ 
     </script>
     
     

@@ -5,8 +5,6 @@ import java.sql.Date;
 public class Board {
 	
 	private int boardNo;			// 게시글 고유 번호
-//	private int boardType;			// 게시글 타입(1.일반게시판, 2.사진게시판)
-//	private String category;		// 게시글 분류(10 ~ 20)
 	private String boardTitle;		// 게시글 제목
 	private String boardContent;	// 게시글 내용
 	private String boardWriter;		// 게시글 작성자 (번호 또는 이름)

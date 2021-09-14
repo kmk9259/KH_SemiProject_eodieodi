@@ -533,29 +533,16 @@ public class BoardDao {
 				pstmt.setString(2, fileList.get(i).getOriginName());
 				pstmt.setString(3, fileList.get(i).getFilePath());
 				pstmt.setInt(4, fileList.get(i).getFileNo());
-				
-				
-				System.out.println("파일 사이즈를 한번 보고  " + fileList.size());
-				System.out.println("arraylist 안에 무엇을 가져오고 있니? " + fileList);
-				
-				
-				System.out.println("보드 카피본 파일 이름 ::: " + fileList.get(i).getChangeName());
-				System.out.println("보드 업데잇 원본 ::: " + fileList.get(i).getOriginName());
-				System.out.println("보드 경로  ::: " + fileList.get(i).getFilePath());
-				
-				//왜 파일번호 12번만 가져올까. 
-				System.out.println("보드 파일 번호 ::: " + fileList.get(i).getFileNo());
-				
+
+				result += pstmt.executeUpdate();
 				
 			    }
 
-			
-			
-			
+
 			
 			System.out.println("보드에 바뀐 이름 업데잇 ::: " + result);
 			
-			result= pstmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -564,7 +551,10 @@ public class BoardDao {
 			
 			close(pstmt);
 		}
+		
 		return result;
+		
+		
 	}
 
 	
@@ -608,21 +598,26 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertNewAttachment");
 		
-		
+		//INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, ?, SYSDATE, DEFAULT)
 		System.out.println("새로운 파일 넣기 쿼리? " + sql);
 		
 		try {
-			for(int i=0; i<fileList.size(); i++) {
+			
+		for(int i=0; i<fileList.size(); i++) {
+			
+			Attachment at = fileList.get(i);
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			
-			pstmt.setInt(1, fileList.get(i).getRefBoardNo()); 
-			pstmt.setString(2, fileList.get(i).getOriginName());
-			pstmt.setString(3, fileList.get(i).getChangeName());
-			pstmt.setString(4, fileList.get(i).getFilePath());
+			pstmt.setInt(1, at.getRefBoardNo()); 
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
 			
-			result = pstmt.executeUpdate();
+			result += pstmt.executeUpdate();
+			
+		
 			
 			System.out.println("insertNewAttachment 결과  : "+ result);
 			}
@@ -689,6 +684,8 @@ public class BoardDao {
 		
 		String sql = prop.getProperty("insertReply");
 		
+		System.out.println("댓글 등록 : " + sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -746,6 +743,30 @@ public class BoardDao {
 		}
 		return list;
 	}
+
+	//likes 올려주는 메소드
+//	public int increaseReplyCount(Connection conn, int rno) {
+//		
+//		int result =0; 
+//		PreparedStatement pstmt = null; 
+//		
+//		//increaseReplyCount=UPDATE REPLY SET likes=likes+1 WHERE REPLY_NO=?
+//		String sql = prop.getProperty("increaseReplyCount");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, rno);
+//			
+//			result = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//			close(pstmt);
+//		}
+//		
+//		return result;
+//	}
 
 	
 

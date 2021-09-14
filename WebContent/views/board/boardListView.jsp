@@ -182,7 +182,6 @@
 
 <!-- =================QnA =============== -->
 
-<%-- <%@ include file="../board/notice.jsp"%> --%>
 
 <section class="faq bg-color">
       <div class="container">
@@ -315,7 +314,7 @@
         					location.href="<%=contextPath%>/detail.no?nno=" + nno;
         				});
         			}); --%>
-		</script>
+        		</script>
 
 <!----------------------- 페이징바 만들기 -------------------------------->
 
@@ -383,7 +382,7 @@
                         
                         <!-- ==================== 사이드바 좋아요 순 리스트 뿌리기  ===================== -->
                         <div class="blog__sidebar__recent">
-                            <h5>Recent Post</h5>
+                            <h5>인기글</h5>
                             <a href="#" class="blog__sidebar__recent__item">
                                 <div class="blog__sidebar__recent__item__pic">
                                     <img src="<%= request.getContextPath() %>/resources/img/blog/recent-1.jpg" alt="">
