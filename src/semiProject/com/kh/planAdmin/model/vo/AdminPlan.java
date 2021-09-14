@@ -21,7 +21,7 @@ public class AdminPlan {
 	
 	private int userNo; // 사용자번호(로그인한 사용자 번호)
 	private int areaNo; // 지역 번호 ( 홍대, 강남 등) 
-	private int themeNo; 
+	private int themeNo;  
 	private int courseNo;
 	
 	private Date chooseDate; // 선택일자  (내 보관함에 저장할 때 생성된 날짜가 필요함) 
@@ -48,11 +48,6 @@ public class AdminPlan {
 	}
 
 
-
-
-	public AdminPlan(int userNo2, int theme, int area, Date adminDate) {
-		// TODO Auto-generated constructor stub
-	}
 
 
 

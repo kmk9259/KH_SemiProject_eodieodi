@@ -134,7 +134,7 @@ public class AdminPlanService {
 
 	
 	
-
+ 
 	public int CreatePlan(AdminPlan apList) {
 		
 		
@@ -150,6 +150,11 @@ public class AdminPlanService {
 		
 		
 		return result;
+	}
+
+	public int selectAdminPlan(AdminPlan ap) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 		
 	
