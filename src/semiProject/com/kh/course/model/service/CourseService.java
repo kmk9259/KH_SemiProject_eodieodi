@@ -67,12 +67,12 @@ public class CourseService {
 		return result;
 	}
 
-	public ArrayList<Course> selectCourseAttachment(int areaNo) {
+	public ArrayList<Course> selectCourseAttachment(int cNo, int aNo) {
 		Connection conn = getConnection();
-		ArrayList<Course> list = new CourseDao().selectCourseAttachment(conn, areaNo);
+		ArrayList<Course> clist = new CourseDao().selectCourseAttachment(conn, cNo, aNo);
 		
 		close(conn);
-		return list;
+		return clist;
 	}
 
 	

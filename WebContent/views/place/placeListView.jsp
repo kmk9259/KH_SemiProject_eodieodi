@@ -117,13 +117,13 @@
 					</div>
 				</div>	
 			<div class="admin-showpage nice-scroll">
-			<div class="row">
+			
 				<div class="col-lg-12">
 			        <div class="section-title">
 			            <h2>일정 조회</h2>
 			        </div>	    
 				</div><!-- class="col-lg-12" -->
-			</div>
+			
 				<section class="most-search spad">
 					<div class="container">
 						<div class="row">
@@ -181,10 +181,14 @@
 												        </div>
 												        <div class="listing__item__text__info__right">Open Now</div>
 												    </div>
+												    <button class="btn " form="updateForm">수정하기</button>
+												    
 												</div>
 											</div>
 										</div><!--<div class="col-lg-4 col-md-6">  -->
+										
 										<%} %>
+										
 									</div>
 								</div>
 							</div><!--<div class="tab-content"> -->
@@ -192,12 +196,21 @@
 					   </div>          
 				</section>
 				<script>
+				
 					$(function(){
 						$(".listing__item__pic").click(function(){
 							
 							var parent = $(this).parent(); 
 							var pNo = parent.children("#placeNo").val();
 							location.href='<%=contextPath%>/detail.pl?pNo='+pNo;
+						});
+					});
+					$(function(){
+						$(".btn").click(function(){
+							
+							var parent = $(this).parent().parent(); 
+							var pNo = parent.children("#placeNo").val();
+							location.href='<%=contextPath%>/updateForm.pl?pNo='+pNo;
 						});
 					});
 				</script>

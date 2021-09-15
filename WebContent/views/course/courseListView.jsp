@@ -148,21 +148,23 @@
 			function changeArea(obj)
 			{
 				var placeChoice = document.getElementById('placeChoice');
-				var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
-				console.log(areaNo+"   areaNo")
+				var aNo = placeChoice.options[placeChoice.selectedIndex].value;
+				console.log(aNo+"   aNo")
 				$("#courseList").empty();
+				console.log(aNo+"   aNo2222")
 				$.ajax({
 					url : "cList.co",
 					type : "post",
-					data:{areaNo : areaNo},
-					success:function(list){
-						console.log(list);
-						var value="";
-						
-						for(var i in list)
-						{
-							var src = '<%=contextPath%>/resources/place_upFiles/'+list[i].titleImg;
-							switch(list[i].areaNo){
+					data:{aNo : aNo},
+					success:function(map){
+						console.log("zzz"+map);
+						console.log(map["cArr"]);
+						var tmp="";
+						$.each(map["cArr"], function(index, value) {
+							console.log(value);
+							console.log(value.areaNo);
+							var TitleImg =  getTitleImg(value.courseNo, value.areaNo)
+							switch(value.areaNo){
 							case 1 :
 								var areaName="홍대";								
 								break;
@@ -170,7 +172,7 @@
 								var areaName="강남";
 								break;							
 							}
-							switch(list[i].themeNo){
+							switch(value.themeNo){
 							case 1 :
 								var themeName="연인과함께";								
 								break;
@@ -181,16 +183,16 @@
 								var themeName="친구와함께";								
 								break;
 							}
-							value +='<div class="col-lg-4 col-md-6">'
+							tmp +='<div class="col-lg-4 col-md-6">'
 	                    		+'<div class="blog__item">'
-	                    			+'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+list[i].courseNo+'">'
-                        			+'<div class="blog__item__pic set-bg" style="background-image: url(' + src + '); "></div>'
+	                    			+'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+value.courseNo+'">'
+                        			+'<div class="blog__item__pic set-bg"  "></div>' 
                         			+'<div class="blog__item__text">'
 			                            +'<ul class="blog__item__tags">'
 			                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
 			                                +'<li>'+themeName+'</li>'
 			                            +'</ul>'
-			                            +'<h5><a href="#">'+list[i].courseTitle+'</a></h5>'
+			                            +'<h5><a href="#">'+value.courseTitle+'</a></h5>'
 		                            	+'<ul class="blog__item__widget">'
 			                                +'<li><i class="fa fa-clock-o"></i> 19th March, 2019</li>'
 			                                +'<li><i class="fa fa-user"></i> John Smith</li>'
@@ -199,11 +201,9 @@
 				                    +'</div>'
                     			+'</div>'
            					+'</div>';
-							
-							
-							
-						} //for
-						 $("#courseList").html(value).trigger("create");
+						})
+						
+						 $("#courseList").html(tmp).trigger("create");
 						 $(function(){
 								$(".blog__item__pic").click(function(){
 									var parent = $(this).parents();  //클릭한 버튼의 최상위 부모
@@ -214,11 +214,20 @@
 									
 									location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo;
 								});
-							});
-						 
-						 
-						
+							}); 
 					}//success					
+				})				
+			}
+			function getTitleImg(cNo, aNo)
+			{
+				console.log(cNo, aNo);
+				$.ajax({
+					url : "cList.co",
+					type : "post",
+					data:{cNo : cNo, aNo: aNo},
+					success:function(map){
+						
+					}
 				})
 				
 			}

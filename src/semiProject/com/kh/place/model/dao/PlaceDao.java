@@ -186,28 +186,24 @@ public class PlaceDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectPlace");
-		
-		System.out.println("p에 값이 아예 안들어가는거같은데...11111 : " + p);	
-		
-//		SELECT PLACE_NO, PLACE_TITLE, ADDRESS, BSHOUR, PLACE_PHONE, PRICE, DESCRIPTION, CHANGE_NAME
-//		FROM PLACE A JOIN (SELECT * FROM PLACE_ATTACHMENT WHERE STATUS='Y') ON (PLACE_NO = REF_PNO) 
-//		WHERE A.STATUS='Y' AND PLACE_NO=?;
+				
+//		selectPlace=SELECT A.*, CHANGE_NAME \
+//		FROM PLACE A JOIN (SELECT * FROM PLACE_ATTACHMENT WHERE STATUS='Y') ON (PLACE_NO = REF_PNO) \
+//		WHERE A.STATUS='Y' AND PLACE_NO=?
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, pno);
 			
-			rset = pstmt.executeQuery();
-			System.out.println("p에 값이 아예 안들어가는거같은데...222222 : " + p);	
+			rset = pstmt.executeQuery();	
 			
 			if(rset.next()) {
-				p = new Place(rset.getInt("PLACE_NO"),rset.getString("PLACE_TITLE"), rset.getString("PLACE_PHONE"), 
+				p = new Place(rset.getInt("PLACE_NO"),rset.getInt("AREA_NO"),rset.getInt("CATEGORY_NO"),
+						rset.getString("PLACE_TITLE"), rset.getString("PLACE_PHONE"), 
 							  rset.getString("DESCRIPTION"), rset.getString("BSHOUR"), rset.getInt("PRICE"), 
-							  rset.getString("ADDRESS"), rset.getString("CHANGE_NAME")
+							  rset.getString("ADDRESS"), rset.getInt("COUNT"),rset.getString("STATUS"),rset.getString("CHANGE_NAME")
 							 );
 			System.out.println("p에 값이 아예 안들어가는거같은데...33333 : " + p);	
-			/*Place(int placeNo, String placeTitle, String placePhone, String description,
-			String bsHour, int price, String address, String titleImg)*/
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -391,6 +387,84 @@ WHERE A.STATUS='Y' AND B.AREA_NAME LIKE '%' || ? || '%'ORDER BY PLACE_NO
 			close(pstmt);
 		}
 		return list;
+	}
+	public int updatePlace(Connection conn, Place p) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//updatePlace=UPDATE PLACE SET AREA_NO=?, CATEGORY_NO=? ,PLACE_TITLE=?,PLACE_PHONE=?, \
+		//DESCRIPTION=? ,BSHOUR=?,PRICE=?,ADDRESS=?,COUNT=? WHERE PLACE_NO=?
+		String sql = prop.getProperty("updatePlace");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, p.getAreaNo());
+			pstmt.setInt(2, p.getCategoryNo());
+			pstmt.setString(3, p.getPlaceTitle());
+			pstmt.setString(4, p.getPlacePhone());
+			pstmt.setString(5, p.getDescription());
+			pstmt.setString(6, p.getBsHour());
+			pstmt.setInt(7, p.getPrice());
+			pstmt.setString(8, p.getAddress());
+			pstmt.setInt(9, p.getCount());
+			pstmt.setInt(10, p.getPlaceNo());
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateAttachment(Connection conn, PlaceAttachment pa) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//updatePAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=? WHERE FILE_NO=?
+		String sql = prop.getProperty("updatePAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pa.getChangeName());
+			pstmt.setString(2, pa.getOriginName());
+			pstmt.setString(3, pa.getFilePath());
+			pstmt.setInt(4, pa.getFileNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int insertNewAttachment(Connection conn, PlaceAttachment pa) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertNewPAttachment");
+		//insertNewPAttachment=INSERT INTO PLACE_ATTACHMENT VALUES(SEQ_PANO.NEXTVAL, ?, ?, ?, ?, SYSDATE, DEFAULT)
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pa.getRefBoardNo());
+			pstmt.setString(2, pa.getOriginName());
+			pstmt.setString(3, pa.getChangeName());
+			pstmt.setString(4, pa.getFilePath());			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		return result;
 	}
 	
 	

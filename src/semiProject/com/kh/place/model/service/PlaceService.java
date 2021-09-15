@@ -104,6 +104,42 @@ public class PlaceService {
 		return list;
 	}
 
+	public Place selectUpdatePlace(int pNo) {
+		Connection conn = getConnection();
+		
+		Place p = new PlaceDao().selectPlace(conn, pNo);
+		
+		close(conn);
+		return p;
+	}
+
+	public int updatePlace(Place p, PlaceAttachment pa) {
+		Connection conn = getConnection();
+		
+		int result1 = new PlaceDao().updatePlace(conn,p);
+		int result2 = 1;
+		
+		if(pa!= null)
+		{
+			if(pa.getFileNo() != 0)
+			{
+				result2 = new PlaceDao().updateAttachment(conn, pa);
+			}
+			else {
+				result2 = new PlaceDao().insertNewAttachment(conn, pa);
+			}
+		}
+		if(result1 > 0 && result2 >0)
+		{
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1*result2;
+	}
+
 
 	
 }
