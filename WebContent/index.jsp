@@ -50,6 +50,7 @@
                     <div class="hero__text">
                         <div class="section-title">
                             <h2>어디어디?!</h2>
+                            <h6 style="color: white">원하는 장소를 검색해보세요</h6>       
                            
                         </div>
                         <div class="hero__search__form">

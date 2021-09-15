@@ -158,9 +158,10 @@
 					success:function(list){
 						console.log(list);
 						var value="";
-						var src ="<%=contextPath%>/resources/img/blog/blog-1.jpg";
+						
 						for(var i in list)
 						{
+							var src = '<%=contextPath%>/resources/place_upFiles/'+list[i].titleImg;
 							switch(list[i].areaNo){
 							case 1 :
 								var areaName="홍대";								
@@ -183,7 +184,7 @@
 							value +='<div class="col-lg-4 col-md-6">'
 	                    		+'<div class="blog__item">'
 	                    			+'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+list[i].courseNo+'">'
-                        			+'<div class="blog__item__pic set-bg" data-setbg=""></div>'
+                        			+'<div class="blog__item__pic set-bg" style="background-image: url(' + src + '); "></div>'
                         			+'<div class="blog__item__text">'
 			                            +'<ul class="blog__item__tags">'
 			                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
@@ -214,10 +215,7 @@
 									location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo;
 								});
 							});
-						 $('.blog__item__pic').each(function() {
-						        var bg = $(this).data('setbg');
-						        $(this).css('background-image', 'url(' + src + ')');
-						    });
+						 
 						 
 						
 					}//success					

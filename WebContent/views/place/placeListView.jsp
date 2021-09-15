@@ -127,17 +127,12 @@
 				<section class="most-search spad">
 					<div class="container">
 						<div class="row">
-							<!-- <div class="col-lg-12">
-						        <div class="section-title">
-						            <h2>코스 일정 상제 페이지</h2>
-						        </div>	    
-							</div>class="col-lg-12" -->
 						
-							<div class="tab-content">
+							<div class=" ">
 								<div class="tab-pane active" id="tabs-1" role="tabpanel">
 									<div class="row">
 										<% for(Place p: list) {%>
-										<div class="col-lg-4 col-md-6" >
+										<div class="col-lg-4 col-md-6">
 											<div class="listing__item">
 												<input type="hidden" id="placeNo" value="<%=p.getPlaceNo() %>">
 											    <div class="listing__item__pic set-bg" data-setbg="<%=contextPath %>/resources/place_upFiles/<%=p.getTitleImg()%>">

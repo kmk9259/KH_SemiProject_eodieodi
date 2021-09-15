@@ -32,10 +32,12 @@
                 <div class="col-lg-12">
                     <div class="hero__text">
                         <div class="section-title">
-                            <h2>어디어디?!</h2>                           
+                            <h2>어디어디?!</h2>  
+                            <h6 style="color: white">원하는 장소를 검색해보세요</h6>                        
                         </div>
                         
                         <div class="hero__search__form">
+                       
                             <form action="<%=contextPath %>/main">
                                 <input type="text" id="search" name="search" style="width: 85%" placeholder="Search...">
                                 
@@ -94,8 +96,6 @@
 					        		<img src="resources/img/listing/list_icon-1.png" alt="">
 					        			<div class="listing__item__pic__tag">NO. <%=p.getPlaceNo() %></div>
 					        			<div class="listing__item__pic__btns">
-							            <a href="#"><span class="icon_zoom-in_alt"></span></a>
-							            <a href="#"><span class="icon_heart_alt"></span></a>
 					        			</div>
 					    			</div>
 									<div class="listing__item__text">
@@ -144,6 +144,16 @@
 					</div>
 				</div>
 			</div>
+			<script>
+			$(function(){
+				$(".listing__item__pic").click(function(){
+					
+					var parent = $(this).parent(); 
+					var pNo = parent.children("#placeNo").val();
+					location.href='<%=contextPath%>/detail.pl?pNo='+pNo;
+				});
+			});
+			</script>
 		</section>            
 	</section>
    

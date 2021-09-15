@@ -235,4 +235,42 @@ public class CourseDao {
 		return result;
 	}
 
+	public ArrayList<Course> selectCourseAttachment(Connection conn, int areaNo) {
+		ArrayList<Course> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		/*
+		 * selectCourseAttachment=SELECT ROWNUM,B.*, CHANGE_NAME \ FROM COURSE_PLACE A
+		 * JOIN COURSE B ON B.COURSE_NO = A.REF_COURSE \ JOIN (SELECT * FROM
+		 * PLACE_ATTACHMENT WHERE FILE_NO IN \ ( SELECT MIN(FILE_NO) FILE_NO FROM
+		 * PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) \ ON (REF_PNO =
+		 * A.PLACE_NO) \ WHERE B.STATUS='Y' AND AREA_NO=? AND ROWNUM<2
+		 */
+		String sql = prop.getProperty("selectCourseAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, areaNo);
+			rset = pstmt.executeQuery();
+			while(rset.next())
+			{
+				Course c = new Course();
+				c.setCourseNo(rset.getInt("COURSE_NO"));
+				c.setAreaNo(rset.getInt("AREA_NO"));
+				c.setThemeNo(rset.getInt("THEME_NO"));
+				c.setCourseTitle(rset.getString("COURSE_TITLE"));
+				c.setStatus(rset.getString("STATUS"));
+				c.setTitleImg(rset.getString("CHANGE_NAME"));
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 }
