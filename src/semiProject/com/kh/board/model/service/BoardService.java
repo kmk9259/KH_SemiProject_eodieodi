@@ -61,9 +61,7 @@ public class BoardService {
 		int result1 = new BoardDao().insertThBoard(conn, b);
 		int result2 = new BoardDao().insertAttachment(conn, fileList);
 		
-		
-		System.out.println("인서트섬네일 서비스에 b : " + b);
-		System.out.println("인서트섬네일 서비스에 fileList : " + fileList);
+	
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -80,7 +78,7 @@ public class BoardService {
 		
 		ArrayList<Notice> nlist = new BoardDao().selectNList(conn);
 		close(conn);
-		System.out.println("서비스에서 보이는지 : " + nlist);
+		
 		
 		return nlist;
 	}
@@ -114,7 +112,7 @@ public class BoardService {
 	}
 
 //업데이트를 실행한 후 메소드 
-	public int updateBoard(Board b, ArrayList<Attachment> fileList) {
+	public int updateBoard(Board b, ArrayList<Attachment> fileList, int bno) {
 		
 		Connection conn = getConnection();
 		
@@ -138,7 +136,7 @@ public class BoardService {
 						result2 = new BoardDao().updateAttachment(conn, fileList);
 						
 					}else { // 없었다면 새로 넣어 업데이트 하면되지
-						result2 = new BoardDao().insertNewAttachment(conn, fileList);
+						result2 = new BoardDao().insertNewAttachment(conn, fileList, bno);
 					}
 			
 			}

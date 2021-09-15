@@ -339,9 +339,9 @@ public class BoardDao {
 		
 		String sql = prop.getProperty("insertAttachment");
 
-		System.out.println("insertAttachment 퀴리문 : "+ sql);
+		System.out.println("??????insertAttachment 퀴리문 : "+ sql);
 		try {
-			System.out.println("insertAttachment for 문 전 size : "+fileList.size());
+			
 			
 			
 			
@@ -349,9 +349,6 @@ public class BoardDao {
 				
 				Attachment at = fileList.get(i);
 				
-				
-				System.out.println( "insertAttachment 파일번호" + fileList.get(0).getFileNo());
-				System.out.println(" insertAttachment 참조번호" + fileList.get(0).getRefBoardNo());
 				
 				pstmt = conn.prepareStatement(sql);
 				
@@ -381,7 +378,7 @@ public class BoardDao {
 	
 //커뮤니에 오를 공지사항
 	public ArrayList<Notice> selectNList(Connection conn) {
-		//selectNList=SELECT NOTICE_TITLE, NOTICE_CONTENT FROM NOTICE
+		
 
 		ArrayList<Notice> nlist = new ArrayList<>();
 		
@@ -389,13 +386,15 @@ public class BoardDao {
 		ResultSet rset = null;
 		
 		
-		//selectNList=SELECT NOTICE_TITLE, NOTICE_CONTENT FROM NOTICE
+		 
 		String sql = prop.getProperty("selectNList");
 		
 		System.out.println("sql 문은 읽히는지 : " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			
 			rset = pstmt.executeQuery(); // 쿼리문 실행 
 			
 			
@@ -593,7 +592,7 @@ public class BoardDao {
 		return result;
 	}
 
-	public int insertNewAttachment(Connection conn, ArrayList<Attachment> fileList) {
+	public int insertNewAttachment(Connection conn, ArrayList<Attachment> fileList, int bno) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertNewAttachment");
@@ -609,8 +608,10 @@ public class BoardDao {
 			
 			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setInt(1, bno);
 			
-			pstmt.setInt(1, at.getRefBoardNo()); 
+			
+			//pstmt.setInt(1, at.getRefBoardNo()); 
 			pstmt.setString(2, at.getOriginName());
 			pstmt.setString(3, at.getChangeName());
 			pstmt.setString(4, at.getFilePath());

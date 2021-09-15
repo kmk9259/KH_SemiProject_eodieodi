@@ -70,9 +70,9 @@ public class BoardInsertServlet extends HttpServlet {
 	         
 	         b.setBoardTitle(multiRequest.getParameter("title"));
 	         b.setBoardContent(multiRequest.getParameter("content"));
-	         b.setBoardWriter(multiRequest.getParameter("writer"));
+	        // b.setBoardWriter(multiRequest.getParameter("writer"));
+	         b.setBoardWriter(String.valueOf(userNo));
 	         
-	         System.out.println("b 객체 안에 : "+ b);
 	         
 	         request.setAttribute("b", b);
 	         
@@ -103,11 +103,11 @@ public class BoardInsertServlet extends HttpServlet {
 	         
 	         int result = new BoardService().insertThumbnail(b, fileList);
 	        
-	         System.out.println("result 객체 안에 : "+ result);
+	  
 	         if(result > 0) {
 	        	 
 	        	 response.sendRedirect("list.bo");
-	        	 System.out.println("fileList b 객체 안에 둘다 : "+ fileList + "b 객체 안에 : " + b);
+	        	 
 	         }else {
 	        	 for(int i=0; i<fileList.size(); i++) {
 	        		 File failedFile = new File(savePath + fileList.get(i).getChangeName());

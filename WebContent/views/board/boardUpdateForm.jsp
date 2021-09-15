@@ -82,13 +82,7 @@
 	padding: 30px;
 	}
     
-    .form-label{
-    color: black;
-    }
     
-    .b{
-    display: inline-block;
-    }
     
     </style>
     
@@ -176,7 +170,7 @@
           <form id="insertForm" action="<%= contextPath %>/update.bo" method="post" enctype="multipart/form-data">
           <input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
               <div class="form-group">
-                  <label class="form-label" for="title">Title</label>
+                  <label class="form-label" for="title"></label>
                   <input type="text" class="form-control" id="name" name="title" value="<%= board.getBoardTitle() %>" tabindex="1" required>
               </div>                            
                                         
@@ -196,41 +190,57 @@
               <% if(fileList != null) { %> <!-- 기존파일 있으면 -->
               
               
-              <div>
-              <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>"  id="titleImg"  width="200px" height="180">
+              <div >
+              <img  name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>"  id="titleImg"  width="200px" height="180">
               
              	<input type='hidden' name='originFile1' value='<%=fileList.get(0).getOriginName()%>'>
 				<input type='hidden' name='originFileNo1' value='<%=fileList.get(0).getFileNo()%>'>
               	
-              	<label class="form-label">대표사진</label>
-				<input type="file" id="file1" name="upFile1" onchange="loadImg(this, 1);">
-              	
-              </div>
+            <!--   	<div id="fileArea">
+              	 <input type="file" name="upFile1" id="file1" onchange="loadImg(this, 1);">
+                </div> -->
               
               
              	 	 <% for(int i=1; i<fileList.size(); i++){ %>
-             	 <div >
+             	 
                 <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>"  id="contentImg<%=i%>"   width="200px" height="180">
        
              	<input type='hidden' name='originFile<%=i +1%>' value='<%=fileList.get(i).getOriginName()%>'>
 				<input type='hidden' name='originFileNo<%=i +1 %>' value='<%=fileList.get(i).getFileNo()%>'>
-				
-				
-				<label class="form-label">file<%=i %></label>
-				<input  class="b" type="file" id="file<%=i +1 %>" name="upFile<%=i +1 %>" onchange="loadImg(this, 2);">
-				
-				
-				</div>
 
 					<%} %>
-              
+					
+
+				</div>
 
         
               <% } %>
               
              
+             
+              <% if(fileList.size() <= 4) { %>
+             		<%for(int j= fileList.size(); j <4; j++) { %>
+             
+             
+                <img name="file<%=j %>" id="contentImg<%=j %>" width="200px" height="180">
+       				 <% } %>
+   
+              <% } %>
+             
+             
+             
+             
+             
+             
+             
+             
               
-              
+              <div id="fileArea">
+               <input type="file" name="upFile1" id="file1" onchange="loadImg(this, 1);">
+				<input type="file" name="upFile2" id="file2" onchange="loadImg(this, 2);">
+				<input type="file" name="upFile3" id="file3" onchange="loadImg(this, 3);">
+				<input type="file" name="upFile4" id="file4" onchange="loadImg(this, 4);">
+				</div>
               
      		
      		   
@@ -260,7 +270,7 @@
 	<script>
 	
 	
-	
+	//사진클릭하면 업데이트되도록 설정되어 있음. 
 	$(function(){
 		$("#fileArea").hide();
 		
