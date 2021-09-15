@@ -9,24 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.area.model.service.AreaService;
-import semiProject.com.kh.area.model.vo.Area;
-import semiProject.com.kh.course.model.service.CourseService;
-import semiProject.com.kh.course.model.vo.Course;
-import semiProject.com.kh.theme.model.vo.Theme;
-import semiProject.com.kh.theme.service.ThemeService;
+import semiProject.com.kh.planAdmin.model.service.AdminPlanService;
+import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
 
 /**
- * Servlet implementation class admin_ListServlet
+ * Servlet implementation class SelectCourseServlet
  */
-@WebServlet("/admin_List.pl")
-public class admin_ListServlet extends HttpServlet {
+@WebServlet("/totalList.pl")
+public class TotalListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_ListServlet() {
+    public TotalListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,18 +31,14 @@ public class admin_ListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-		ArrayList<Theme> tList = new ThemeService().selectThemeList(); // 테마 리스트 1,2,3 
-		ArrayList<Area> aList = new AreaService().selectAreaList(); //위치 리스트 
-
-		request.setAttribute("tList", tList);
-		request.setAttribute("aList", aList);
-		 
-//		System.out.println(aList+"------------aList");
 		
-		request.getRequestDispatcher("views/plan/adminRecommend.jsp").forward(request, response);
-	
+		ArrayList<AdminPlan> apList = new AdminPlanService().totalList();
+		
+		request.setAttribute("apList", apList);
+		
+		
+		request.getRequestDispatcher("views/plan/admin_Plan_detail.jsp").forward(request, response);
+
 	}
 
 	/**
