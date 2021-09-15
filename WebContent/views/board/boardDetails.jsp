@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
     
    <%
+   	Reply reply  = (Reply)request.getAttribute("reply");
    	Board b = (Board)request.getAttribute("b");
     ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
 	
@@ -60,6 +61,7 @@
                             <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
                             <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %> </li>
                             <li><i class="fa fa-star"></i> <%= b.getCount() %></li>
+                            <%-- <li><i class="fa fa-heart"></i> <%= b.getLikes() %></li> --%>
                         </ul>
                     </div>
                 </div>
@@ -103,9 +105,9 @@
 				   </div>
 				   
 				   <!-- 보드 번호 보내주려고  -->
-					<form action="" id="postForm" method="post">
+					<%-- <form action="" id="postForm" method="post">
 					<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
-					</form>
+					</form> --%>
 				<script>
 					function updateForm(){
 						$("#postForm").attr("action", "<%=contextPath%>/updateForm.bo");
@@ -185,10 +187,10 @@
                             </form>
                         </div>
                         
-                        
+                        <!-- 인기 글 뿌려 줄 장소  -->
                         <div class="blog__sidebar__recent">
-                            <h5>Recent Post</h5>
-                            <a href="#" class="blog__sidebar__recent__item">
+                            <h5>인기 글 </h5>
+                          <!--   <a href="#" class="blog__sidebar__recent__item"> -->
                                 <div class="blog__sidebar__recent__item__pic">
                                     <img src="<%= request.getContextPath() %>/resources/img/blog/recent-1.jpg" alt="">
                                 </div>
@@ -197,10 +199,10 @@
                                     <h6>Tortoise grilled on salt</h6>
                                     <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
                                 </div>
-                            </a>
+                            <!-- </a> -->
                          
                         </div>
-                       
+                        <!-- 인기 글 뿌려 줄 장소  -->
                     </div>
                 </div>
             </div>
@@ -266,17 +268,14 @@
 					+list[i].createDate+'</li>'+
 					'<li>'+'<i class="fa fa-user">'+'</i>'
 					+list[i].replyWriter+'</li>'+
-					'<li>'+'<i class="fa fa-thumbs-up" id="thumbup">'+'</i>'
+					'<li id="result">'+'<a class="fa fa-thumbs-up" onclick= "count("plus")" >'+'</a>'
 					+list[i].likes+'</li>'+
 					'<br><br><br>'
 					
 					'</ul>';
 				}
 				$("#replyList").html(value);
-				//좋아요 클릭함수 넣어줄것
-				$('#thumbup').click(function(){
-					
-				})
+				
 				},
 	            error:function(){
 	               console.log("ajax 통신 실패 - 댓글 조회");
@@ -285,8 +284,39 @@
 	         })
 	      }
     
+     
     
- 
+  //좋아요 클릭함수 넣어줄것
+  function count(){
+	  const result = document.getElementById('result');
+	  
+	  let number = result.innerText;
+	  
+	  if(type === 'plus') {
+		    number = parseInt(number) + 1;
+	  }
+  }
+  
+<%-- 	$('#thumbup').click(function(){
+		var likes = $('#thumbup').val();
+		var rno = <%=reply.getReplyNo() %>;
+		
+		$.ajax({
+			
+			url: "rDetail.bo",
+			type: "get",
+			data: {rno: <%=reply.getReplyNo() %>},
+			
+			success:function(status){
+				if(status == "success"){
+					selectReplyList();
+					
+				}
+			},error : function() {
+				console.log("ajax 통신 실패  - 좋아요 클릭")
+			}
+		})
+	}) --%>
     </script>
     
     

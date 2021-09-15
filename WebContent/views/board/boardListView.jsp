@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"
+    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*,
+    semiProject.com.kh.notice.model.vo.*"
     
     %>
     
 <%
-      
+	ArrayList<Notice> nlist = (ArrayList<Notice>)request.getAttribute("nlist"); 
     
 	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -181,7 +182,41 @@
 
 <!-- ================= 공지사항 =============== -->
 
-<%@ include file="./boardNoticeList.jsp"%>
+<section class="faq bg-color">
+      <div class="container">
+        <div class="faq-title">
+          <h2>공지사항</h2>
+          <p>어디어디 공지사항입니다!</p>
+        </div>
+        
+        <% if(nlist.isEmpty()){ %>
+        <% System.out.print(nlist); %>
+        <div><p>공지사항이 없습니다.</p></div>
+        
+        
+        <% }else{  %>
+        
+				 <% for(int i =0; i<nlist.size(); i++){ %>
+				 
+		<ul class="faq-list">
+          <li data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate noticeView">
+          
+            <a data-toggle="collapse" class="collapse multi-collapse" href="#faq<%=i %>" aria-expanded="true" id="title" onchange="myFunction()" >
+            <%= nlist.get(i).getNoticeTitle() %> <i class="fas fa-arrow-up"></i></a>
+            <div id="faq<%=i %>" class="collapse" data-parent=".faq-list" >
+               <p>
+                <%= nlist.get(i).getNoticeContent() %>
+              </p>  
+            </div>
+          </li>
+          </ul>
+				<% } %>
+			<% } %>
+
+      </div>
+
+    </section>
+    
 
 
 <!-- =================공지사항 end =============== -->
@@ -340,21 +375,17 @@
                             </form>
                         </div>
                         
-                        <!-- ==================== 사이드바 좋아요 순 리스트 뿌리기  ===================== -->
-                        <div class="blog__sidebar__recent">
-                            <h5>인기글</h5>
-                            <a href="#" class="blog__sidebar__recent__item">
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-1.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                <span class="lanking">1</span>
-                                    <h6>Tortoise grilled on salt</h6>
-                                    <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
-                                </div>
-                            </a>
-             
+                        <!-- 인기 글 뿌려 줄 장소  -->
+                        <div class="blog__sidebar__recent" id="thumbList">
+                            <h5>인기 글 </h5>
+                          
+                          <div class="blog__sidebar__recent" id="thumbList">
+                                
+                            </div> 
+                            <!-- </a> -->
+                         
                         </div>
+                        <!-- 인기 글 뿌려 줄 장소  -->
                        
                     	</div>
                 </div>
@@ -368,27 +399,50 @@
 
     
 	<script>
-        $(function () {
-            var $header = $('header'); //헤더를 변수에 넣기
-            var $page = $('.page-start'); //색상이 변할 부분
-            var $window = $(window);
-            var pageOffsetTop = $page.offset().top;//색상 변할 부분의 top값 구하기
-
-            $window.resize(function () { //반응형을 대비하여 리사이즈시 top값을 다시 계산
-                pageOffsetTop = $page.offset().top;
-            });
-
-            $window.on('scroll', function () { //스크롤시
-                var scrolled = $window.scrollTop() >= pageOffsetTop; //스크롤된 상태; true or false
-                $header.toggleClass('down', scrolled); //클래스 토글
-            });
-        });
-        
-        
-        
-        function pop(){
-			alert("로그인후 사용가능합니다.")
-		}
+	
+	$(function(){
+		selectTopList(); // 열자 마자 호출 하고 
+		
+		//setInterval(selectTopList, 2000)
+		$("#thumblist").on("click",".thumb",function(){
+			var bno = $(this).children().eq(0).val();
+			location.href = "<%=contextPath%>detail.th?bno="+bno;
+		})
+	})
+	
+	function selectTopList(){
+		$.ajax({
+			url : "topList.do",
+			type: "get",
+			success:function(list){
+				console.log(list);
+				console.log(list[0].titleImg);
+				console.log(list[0].boardTitle);
+				var contextPath = "<%=contextPath%>"; 
+				var value = "";
+				for(var i in list){
+					var tmp = list[i].boardTitle;
+					var time = list[i].createDate;
+					console.log(time);
+					value += '<div class="blog__sidebar__recent__item__pic" align="center">'+
+							 '<input type="hidden" value="' +list[i].boardNo+ '">'+
+							 '<img src="'+contextPath+'/resources/board_upfiles/' + list[i].titleImg + '"> <br>'+
+							 '<div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i) 
+							 +'</span></div><h6>'+ tmp +'</h6>'
+							 +'<p><i class="fa fa-clock-o"></i>'+time+'</p>'
+							 +'</div>';
+							 
+							 //+'<img  class="card-img-top embed-responsive-item" 
+							 //src="'+contextPath+'/resources/place_upFiles/'+list[i].titleImg+'" alt="Card image" >'
+				}
+				console.log(value);
+				$("#thumbList").html(value);
+			},
+			error:function(){
+				console.log("ajax통신실패");
+			}
+		})
+	}
 
     </script>
     

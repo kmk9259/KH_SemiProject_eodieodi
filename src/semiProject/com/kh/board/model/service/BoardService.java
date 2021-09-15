@@ -210,20 +210,33 @@ public class BoardService {
 	}
 
 
-//	public Reply selectReply(int rno) {
-//		Connection conn = getConnection();
-//		
-//		int result = new BoardDao().increaseReplyCount(conn, rno);
-//		
-//		//리턴을 빈값으로 해줘도 되나? 카운트만 올리려구
-//		Reply r = null;
-//		if(result > 0) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		}
-//		return r;
-//	}
+
+
+
+	public Reply selectReply(int rno) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().increaseReplyCount(conn, rno);
+		
+		//리턴을 빈값으로 해줘도 되나? 카운트만 올리려구
+		Reply r = null;
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return r;
+	}
+
+
+	public ArrayList<Board> selectTopList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectTopList(conn);
+		System.out.println("toplist at service : " + list);
+		close(conn);
+		return list;
+	}
 
 
 
