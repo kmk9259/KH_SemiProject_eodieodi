@@ -17,6 +17,37 @@
 <title></title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<!-- 폰트 1 
+<style>
+h1, h2, h3, h4, h5, h6, p, span, a, input, button {
+    font-family: 'Gowun Dodum'!important;
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+-->
+
+<!-- 폰트 2 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+h1, h2, h3, h4, h5, h6, p, span, a, input, button {
+    font-family: 'Gowun Batang'!important;
+  }
+</style>
+-->
+
+<!-- 폰트 3 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap" rel="stylesheet">
+<style>
+h1, h2, h3, h4, h5, h6, p, a, input, button, li, div {
+    font-family: 'Gowun Batang'!important;
+  }
+</style>
 
 
         <!-- Css Styles -->
@@ -33,6 +64,7 @@
     <link rel="stylesheet" href="<%=contextPath %>/resources/css/style.css" type="text/css">
 </head>
 <body>
+
 <!-- Header Section Begin -->
     <header class="header">
         <div class="container-fluid">
