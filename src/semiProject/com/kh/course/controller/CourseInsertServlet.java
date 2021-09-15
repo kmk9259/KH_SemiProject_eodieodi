@@ -71,7 +71,7 @@ public class CourseInsertServlet extends HttpServlet {
 				
 				if(result >0)
 				{
-					request.getRequestDispatcher("views/admin/courseAdd.jsp").forward(request, response);
+					response.sendRedirect("list.co");
 					return;
 				}
 				else
