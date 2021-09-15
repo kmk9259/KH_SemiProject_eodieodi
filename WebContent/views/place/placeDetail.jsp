@@ -227,16 +227,11 @@
         		<h2 id="placeTitle"><%=p.getPlaceTitle()%></h2>
         	</div>
             <div class="row">
-                <div class="col-lg-5 col-md-4">
-                    <!-- <div class="about__title">
-                        <h2>Welcome to<br /> Directing Listing</h2>
-                        <a href="#" class="primary-btn">Contact Us</a>
-                    </div> -->
-                    <div class="listing__item">
+                <div class="col-lg-12 col-md-12">
+                    <div >
                         <div id="placeImg" class="listing__item__pic set-bg" data-setbg="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>"></div>
                     </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
+                    
                     <table>
                         <tr>
                             <th>상세주소</th>
@@ -260,14 +255,21 @@
                         </tr>
                     </table>
                 </div>
+                
             </div>
         </div>
     </section>
     <!-- About Section End -->
 
-    <div class="total_btn">           
-        <button type="button" id="addPlace" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정에 추가</button>
-    </div>
+	 <%if(loginUser == null){%>
+	    <div class="total_btn">           
+	        <input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">
+	    </div>
+    <%}else {%>
+    	<div class="total_btn">           
+	        <button type="button" id="addPlace" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정에 추가</button>
+	    </div>
+    <%} %>
     
     <script>
     	//'일정에 추가'버튼 클릭 -> 사용자의 모든 일정 중 해당 장소가 포함되지 않은 일정만 뽑아서 리스트로 받기

@@ -19,7 +19,7 @@
     <meta name="keywords" content="Directing, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Directing | Template</title>
+    <title>일정 상세보기</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -100,7 +100,16 @@
 		.listArea{
 			font-size: 18px;
 		}
-		
+		.plan_email{
+			float:right;
+			width:100px;
+			height:100%;
+		}
+		#img_email{
+			margin-top: 70px;
+    		margin-left: 45px;
+    		cursor:pointer;
+		}
     </style>
    
 </head>
@@ -147,6 +156,9 @@
 								<img src="<%=request.getContextPath()%>/resources/img/listing/map.png" style="width:25px;">  <%=pList.size()%>	
 							</div>
         				</div>
+        				<div class="plan_email">
+        					<img data-toggle="modal" data-target="#mo1" id="img_email" src="<%=request.getContextPath()%>/resources/img/listing/email.png" style="width:50px;">
+        				</div>
         			</div>      	
         		</div>
         	</div>
@@ -156,7 +168,7 @@
             		<h5 style="line-height:60px"><b><%=loginUser.getUserName()%></b>님의 일정</h5>
             	</div>
                 <div class="col-lg-6 btn_right">
-                	<button type="button" class="btn btn-primary" onclick="updateForm()">이메일</button>
+                	
                     <button type="button" class="btn btn-primary" onclick="updateForm()" style="margin: 10px; ">수정하기</button>
                     <button type="button" class="btn btn-primary" onclick="deleteBoard()">삭제하기</button>
                 </div>
@@ -298,8 +310,69 @@
 					$("#postForm").submit();
 				}
 			}
+			
+			$(document).on('click','#sendEmail',function(){
+		    	
+		    	var planNo = <%=pm.getPlanNo()%>
+		    	var userEmail = $("#userEmail").val();
+
+		    	console.log("planNo : " + planNo);
+		    	console.log("userEmail : " + userEmail);
+
+				$.ajax({
+		
+					url : "sendEmail.pl",
+					data : {
+						planNo : planNo,
+						userEmail : userEmail
+					},
+					type : "post",
+					success: function(result){ 
+						console.log("ajax 통신성공");
+					
+						if(result){
+							$('.modal').modal("hide"); //모달창 닫기
+							alert("메일 전송이 완료되었습니다.");
+						}else{
+							alert("메일 전송에 실패하였습니다.")
+						}
+
+					},
+					error : function(){	
+						alert("메일전송실패 : 관리자에게 문의하세요")
+					}
+				}) 
+		    })
 		</script>
 
+<!-- modal -->
+  <div class="modal fade" id="mo1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">일정을 전송받으실 이메일을 입력해주세요.</h5> 
+          <!-- data-dismiss="modal" 입려하여야 버튼클릭시 창닫김 -->
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <!--body-->
+         <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="userEmail" value="<%=loginUser.getEmail()%>" class="form-control"> <!-- 사용자 이메일 처음에 나오도록해줌 -->
+              </div>
+            </div>
+          </div>
+        </div>
+       <div class="modal-footer">
+          <button type="button" id="sendEmail" class="btn btn-primary">전송하기</button>
+        </div>
+      </div>
+    </div>
+  </div> 
 
     <%@ include file="../common/footer.jsp"%>
     
