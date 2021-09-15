@@ -99,7 +99,7 @@
         <div class="main-timeline">
                                 <!-- start experience section-->
                                 
-                         <form method ="post" action="<%= request.getContextPath() %>/adminCreate.pl">
+                         <form method ="post" action="<%= request.getContextPath() totalList.pl">
 
                       <div>장소: <%=  %></div>
                       <div>날짜: <%= %></div>       

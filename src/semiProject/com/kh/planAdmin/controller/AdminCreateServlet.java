@@ -2,6 +2,7 @@ package semiProject.com.kh.planAdmin.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semiProject.com.kh.board.model.vo.PlaceAttachment;
 import semiProject.com.kh.member.model.vo.Member;
-import semiProject.com.kh.planAdmin.model.dao.AdminPlanDao;
+import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planAdmin.model.service.AdminPlanService;
 import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
 
@@ -65,30 +67,32 @@ public class AdminCreateServlet extends HttpServlet {
 			//AdminPlan aplist = new AdminPlanDao().
 			
 			//테마랑 애리어 가지로 코스를 랜덤으로 조회하는 다오 
-			AdminPlan courseList = new AdminPlanService().selectCourse(area,theme);
+			//ArrayList<Place> courseList = new AdminPlanService().selectCourse(area,theme);-이건아님 
+
+			//장소 3개가 들어오는애를 정의해둬야됨 rset을 해놔서 
+			ArrayList<Place> pList = new AdminPlanService().selectPList(area,theme);
 			
-			int result = new AdminPlanService().insertAdminPlan(courseList);
-			
-			//request.setAttribute("courseList", courseList);
-			
-	
-			
-			
-			if(result > 0) {
-				
-				request.setAttribute("msg", "추천일정조회를 성공적으로 완료 하였습니다.");
-				//request.getRequestDispatcher("adminList.pl").forward(request, response);
-				response.sendRedirect("totalList.pl");
 		
-				return;
-				
-			}else {
-				request.setAttribute("msg", "추천일정 조회에 실패했습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-				
-			}
 		
-		}else {
+//		//	int result = new AdminPlanService().insertAdminPlan(courseList);
+//			
+//			//request.setAttribute("courseList", courseList);
+		
+//			if(result > 0) {
+//				
+//				request.setAttribute("msg", "추천일정조회를 성공적으로 완료 하였습니다.");
+//				//request.getRequestDispatcher("adminList.pl").forward(request, response);
+//				response.sendRedirect("totalList.pl");
+//		
+//				return;
+//				
+//			}else {
+//				request.setAttribute("msg", "추천일정 조회에 실패했습니다.");
+//				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+//				
+//			}
+		
+	//==	}else {
 //			System.out.println(tmp+ tmp1+" 널포인트 잡히냐?");
 		
 		}

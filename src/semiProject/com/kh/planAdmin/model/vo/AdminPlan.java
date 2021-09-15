@@ -32,6 +32,13 @@ public class AdminPlan {
 
 
 
+	public AdminPlan(int courseNo) {
+		super();
+		this.courseNo = courseNo;
+	}
+
+
+
 	public AdminPlan(int planNo, int userNo, int areaNo, int themeNo, int courseNo, Date chooseDate, String status) {
 		super();
 		this.planNo = planNo;
