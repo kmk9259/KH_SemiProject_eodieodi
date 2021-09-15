@@ -4,7 +4,7 @@
  
     <%
 
-    //AdminPlan apList = (AdminPlan) request.getAttribute("apList");	
+    //AdminPlan<AdminPlan> apList = (AdminPlan<AdminPlan>) request.setAttribute("apList", apList);
    
     %>
     
@@ -103,7 +103,7 @@
 
                       <div>장소: <%=  %></div>
                       <div>날짜: <%= %></div>       
-                      <div> 추천 코스:<%= apList %></div> 
+                      <div> 추천 코스:<%=  %></div> 
                          </form> 
     
         </div>
@@ -111,7 +111,6 @@
     <div class="btn_section">
         <p>맘에 드신다면 아래 등록하기 버튼을 눌러 계속 진행해주세요 </p>
         <button class="btn btn-dark"><a href="<%= contextPath %>/index.jsp"">메인으로</a></button>
-        <button class="btn btn-dark"><a href="<%= contextPath %>/views/plan/adminPlanSave.jsp"">등록하러가기</a></button>  
         </div>
 
     </div>

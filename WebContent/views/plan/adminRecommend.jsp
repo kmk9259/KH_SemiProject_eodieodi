@@ -9,7 +9,7 @@
     ArrayList<Theme> tList = (ArrayList<Theme>) request.getAttribute("tList");
     ArrayList<Area> aList =  (ArrayList<Area>) request.getAttribute("aList");
     
-    System.out.println(aList+"여기는 jsp 찍히는 거 ");
+    
     %>
 
   
@@ -132,16 +132,7 @@
                 <!-- step1 form 시작점  -->
             <form action="<%= contextPath %>/adminCreate.pl" method="post">
             
-        <div>
-			<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
-				<option value="0" selected>테마를 선택해주세요 </option>
-				<%for(Theme t : tList) {%>
-			
-				<option value="<%=t.getThemeName()%>"><%=t.getThemeNo() %></option>
-				<%} %>
-				
-			</select><br><br>
-	</div>
+
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
                         <div class="row">
@@ -261,9 +252,15 @@
 		        const value = e.value;
 		
 		        // 데이터 출력
-		        document.getElementById('result').innerText
-		            = value;
-		    }
+				if (value == 1) {
+					document.getElementById('result').innerHTML = "<h3>홍대</h3>";
+				}
+				if (value == 2) {
+					document.getElementById('result').innerHTML = "<h3>강남</h3>";
+				}
+
+				
+			}
 		</script>
 		
 		<script> // 달력 날짜 선택 
