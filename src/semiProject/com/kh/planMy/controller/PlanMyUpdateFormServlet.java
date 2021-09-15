@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import semiProject.com.kh.area.model.service.AreaService;
+import semiProject.com.kh.area.model.vo.Area;
 import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planMy.model.service.PlanMyService;
 import semiProject.com.kh.planMy.model.vo.PlanMy;
@@ -40,11 +42,13 @@ public class PlanMyUpdateFormServlet extends HttpServlet {
 		PlanMy pm = new PlanMyService().selectPlanMy(planNo);
 		ArrayList<Place> pList = new PlanMyService().selectPlace_planMy(planNo);
 		ArrayList<Place> list = new PlanMyService().selectList();
-		
+		ArrayList<Area> aList = new AreaService().selectAreaList();  //DB에서 지역목록 가져오기
+
 		if(pm != null) {
 			request.setAttribute("pm", pm);
 			request.setAttribute("pList", pList);
 			request.setAttribute("list", list);
+			request.setAttribute("aList", aList);
 			request.getRequestDispatcher("views/plan/planMyUpdateForm.jsp").forward(request, response);;
 		}else {
 			request.setAttribute("msg", "수정할 일정을 불러오는데 실패했습니다.");

@@ -187,6 +187,21 @@
 		    font-size: 18px;
 		    font-weight: bold;
 		}
+		.pleaseCenter{
+			display: flex;
+    		justify-content: center;
+    		padding: 20px;
+		}
+		.renewspad{
+			padding-top: 80px;
+    		padding-bottom: 80px;
+		}
+		.pleaseBg{
+			background-repeat: no-repeat;
+		    background-size: cover;
+		    background-position: top center;
+		    background-image:url('<%=request.getContextPath()%>/resources/place_upFiles/<%= p.getTitleImg() %>');
+		}
     </style>
 </head>
 <body>
@@ -221,17 +236,20 @@
 </section> 
 
     <!-- About Section Begin -->
-    <section class="about spad">
+    <section class="about renewspad">
         <div class="container">
-        	<div class="row">
+        	<div style="text-align:center;">
         		<h2 id="placeTitle"><%=p.getPlaceTitle()%></h2>
         	</div>
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 pleaseCenter">
                     <div >
-                        <div id="placeImg" class="listing__item__pic set-bg" data-setbg="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>"></div>
+                        <%-- <div id="placeImg" class="listing__item__pic set-bg" style="background-image: url(<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg()%>);"></div> --%>
+                    	<%-- <img class="pleaseBg" src="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>" style="height:500px;"> --%>
+                    	<div class="pleaseBg" style="height:500px; width:500px;"></div>
                     </div>
-                    
+                </div>
+                <div class="col-lg-12 col-md-12 pleaseCenter">   
                     <table>
                         <tr>
                             <th>상세주소</th>
@@ -266,8 +284,9 @@
 	        <input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">
 	    </div>
     <%}else {%>
-    	<div class="total_btn">           
-	        <button type="button" id="addPlace" class="btn btn-primary" data-toggle="modal" data-target="#myModal">일정에 추가</button>
+    	<div class="total_btn">       
+    		<input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">    
+	        <button type="button" id="addPlace" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-left: 15px;">일정에 추가</button>
 	    </div>
     <%} %>
     
