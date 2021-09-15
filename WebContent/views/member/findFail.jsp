@@ -26,7 +26,7 @@
 		<br>
 		<br>
 		<br>
-		<input type="button" value="닫기" onclick="mailChk();" style="background-color: #D958A0; color: #ffffff; width: 100%; height: 100%; font-size: 20px;">
+		<input type="button" value="창 닫기" onclick="mailChk();" style="background-color: #D958A0; color: #ffffff; width: 100%; height: 100%; font-size: 20px;">
 		
 	</body>
 </html>
