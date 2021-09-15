@@ -25,7 +25,13 @@ public class Notice {
 		// TODO Auto-generated constructor stub
 	}
 	
-	 
+	//안에 내용만 따로 보내야 한다.
+	public Notice(String noticeContent) {
+		super();
+		this.noticeContent = noticeContent;
+	}
+
+
 	//커뮤니티로 보내지는 생성자
 	public Notice(String noticeTitle, String noticeContent) {
 		super();

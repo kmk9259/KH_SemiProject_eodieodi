@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*,
-    semiProject.com.kh.notice.model.vo.*"
+    pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"
     
     %>
     
 <%
       
-    ArrayList<Notice> nlist = (ArrayList<Notice>)request.getAttribute("nlist"); 
+    
 	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -180,51 +179,12 @@
     <!-- 폴라로이드  end-->
 
 
-<!-- =================QnA =============== -->
+<!-- ================= 공지사항 =============== -->
+
+<%@ include file="./boardNoticeList.jsp"%>
 
 
-<section class="faq bg-color">
-      <div class="container">
-        <div class="faq-title">
-          <h2>공지사항</h2>
-          <p>어디어디 공지사항입니다!</p>
-        </div>
-        
-        <% if(nlist.isEmpty()){ %>
-        <% System.out.print(nlist); %>
-        <div><p>공지사항이 없습니다.</p></div>
-        
-        
-        <% }else{  %>
-        
-				 <% for(Notice n : nlist){ %>
-				 
-		<ul class="faq-list">
-          <li data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate">
-          <input type="hidden" name="nno" value="<%= n.getNoticeNo() %>"> 
-            <a data-toggle="collapse" class="collapsed" href="#faq1" aria-expanded="true" id="title"><%= n.getNoticeTitle() %> <i class="fas fa-arrow-up"></i></a>
-            <div id="faq1" class="collapse" data-parent=".faq-list" >
-              <p>
-                <%= n.getNoticeContent() %>
-              </p>
-            </div>
-          </li>
-          </ul>
-				<% } %>
-			<% } %>
-			
-			
-          
-        
-      </div>
-      
-      
-    
-     
-    </section>
-
-
-<!-- =================QnA end =============== -->
+<!-- =================공지사항 end =============== -->
 
 
     <!-- Blog Section Begin -->
@@ -265,7 +225,7 @@
 					<%}else{ %>
 					<% for(Board b : list){ %>
                     
-                    <% System.out.print(b); %>
+                   
                         <div class="col-lg-6 col-md-6">
                             <div class="blog__item">
                                
@@ -309,7 +269,7 @@
                     
                     
                   <%--   $(function(){
-        				$(".collapsed").click(function(){
+        				$(".noticeView").click(function(){
         					var nno = $(this).children().eq(0).val();
         					location.href="<%=contextPath%>/detail.no?nno=" + nno;
         				});

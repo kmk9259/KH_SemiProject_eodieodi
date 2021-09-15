@@ -1,9 +1,6 @@
 package semiProject.com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,46 +8,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import semiProject.com.kh.board.model.service.BoardService;
-import semiProject.com.kh.board.model.vo.Attachment;
-import semiProject.com.kh.board.model.vo.Board;
+import semiProject.com.kh.board.model.vo.Reply;
 
 /**
- * Servlet implementation class BoardDetailServlet
+ * Servlet implementation class ReplyDetailServlet
  */
-@WebServlet("/detail.bo")
-public class BoardDetailServlet extends HttpServlet {
+@WebServlet("/rDetail.bo")
+public class ReplyDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailServlet() {
+    public ReplyDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
-        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int rno = Integer.parseInt(request.getParameter("rno"));
 		
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		Reply reply = new BoardService().selectReply(rno);
 		
-		Board b = new BoardService().selectBoard(bno);
+		String view="";
+		if(reply != null) {
+			request.setAttribute("relpy", reply);
+			view = "views/board/boardDetails.jsp";
+		}
+		request.getRequestDispatcher(view).forward(request, response);
 		
-		ArrayList<Attachment> fileList = new BoardService().selectThumbnail(bno);
-		
-		if( b != null ) {
-			
-			request.setAttribute("b", b);
-			request.setAttribute("fileList", fileList);
-			
-			request.getRequestDispatcher("views/board/boardDetails.jsp").forward(request, response);
-		}else {
-       	 request.setAttribute("msg", "사진게시판 상세보기 실패하였습니다.");
-       	 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-        }
 	}
 
 	/**

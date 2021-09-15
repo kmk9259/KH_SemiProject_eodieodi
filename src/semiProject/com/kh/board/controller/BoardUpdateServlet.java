@@ -18,6 +18,7 @@ import semiProject.com.kh.board.model.service.BoardService;
 import semiProject.com.kh.board.model.vo.Attachment;
 import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.common.MyFileRenamePolicy;
+import semiProject.com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardUpdateServlet
@@ -54,11 +55,13 @@ public class BoardUpdateServlet extends HttpServlet {
 		         //보드 넘버로 안에 담긴 내용이 불러와 진다. 
 		         int bno = Integer.parseInt(multiRequest.getParameter("bno"));
 		        
+		         int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		         
 		         Board b = new Board();
 		         
 		         b.setBoardContent(multiRequest.getParameter("content"));
 		         b.setBoardTitle(multiRequest.getParameter("title"));
+		         b.setBoardWriter(String.valueOf(userNo));
 		         b.setBoardNo(bno);
 		         
 		        
@@ -68,7 +71,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		        
 		         for(int i = 1; i<= 4; i++) {
 		         
-		         if(multiRequest.getOriginalFileName("upFile"+ i) != null) { //새 파일이 생기면 
+		         if(multiRequest.getOriginalFileName("upFile"+ i) != null) { //새 파일이 생기면 (값이 들어오면) 
 		        	 
 		        	 Attachment at = new Attachment();
 		        	 
@@ -94,7 +97,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		         
 
 		        
-		        	 int result = new BoardService().updateBoard(b, fileList);
+		        	 int result = new BoardService().updateBoard(b, fileList, bno);
 		         
 
 		         

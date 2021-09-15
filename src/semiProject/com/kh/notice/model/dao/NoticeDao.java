@@ -263,6 +263,39 @@ public class NoticeDao {
 		return result;
 	}
 
+
+	//게시판 클릭하면 내용만 나오게 하기 위하 메소드 
+	public Notice selectBoardNotice(Connection conn, int nno) {
+		Notice n = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBoardNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, nno); // 넘버로 조회해 온다.
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new Notice(
+						rset.getString("NOTICE_TITLE"),
+						rset.getString("NOTICE_CONTENT")
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return n;
+	}
+
 	
 
 }

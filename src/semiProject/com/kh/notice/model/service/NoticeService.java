@@ -117,4 +117,22 @@ public class NoticeService {
 		return result;
 	}
 
+	//게시판쪽으로 뿌려줄 공지사항 메소드 
+	public Notice selectNotice(int nno) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().increaseCount(conn, nno);
+		
+		Notice n = null;
+		if(result >0) {
+			commit(conn);
+			n = new NoticeDao().selectBoardNotice(conn, nno);
+		}else
+		{
+			rollback(conn);
+		}
+		close(conn);
+		return n;
+	}
+
 }
