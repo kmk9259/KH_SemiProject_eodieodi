@@ -90,7 +90,7 @@
 		    </div>
 		</div>
 		</section>
- 
+  
 <section class="page-start">
    
     <div class="main_box">
@@ -105,7 +105,7 @@
                       <div>날짜: <%= %></div>       
                       <div> 추천 코스:<%=  %></div> 
                          </form> 
-    
+     
         </div>
 
     <div class="btn_section">

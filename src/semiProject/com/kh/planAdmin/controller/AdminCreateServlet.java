@@ -46,7 +46,7 @@ public class AdminCreateServlet extends HttpServlet {
 			
 		int theme =Integer.parseInt(request.getParameter("theme"));  //테마 
 		int area = Integer.parseInt(request.getParameter("area"));  // 위치
-			
+			 
 			String bDate = request.getParameter("chooseDate"); // 선택된 날짜
 			String m = bDate.substring(0, 2);
 			String d = bDate.substring(3, 5);
@@ -84,7 +84,7 @@ public class AdminCreateServlet extends HttpServlet {
 //				//request.getRequestDispatcher("adminList.pl").forward(request, response);
 //				response.sendRedirect("totalList.pl");
 //		
-//				return;
+//				return;  
 //				
 //			}else {
 //				request.setAttribute("msg", "추천일정 조회에 실패했습니다.");

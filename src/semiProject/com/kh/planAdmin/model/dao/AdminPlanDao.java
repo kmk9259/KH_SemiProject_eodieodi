@@ -357,15 +357,17 @@ public class AdminPlanDao {
 				
 				Place p = new Place();
 				
-				p.setPlaceNo(rset.getInt("PLACE_NO"));
-				p.setAreaNo(rset.getInt("AREA_NO"));
-				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
-				p.setPlacePhone(rset.getString("PLACE_PHONE"));
-				p.setDescription(rset.getString("DESCRIPTION"));
-				p.setBsHour(rset.getString("BSHOUR"));
-				p.setPrice(rset.getInt("PRICE"));
-				p.setAddress(rset.getString("ADDRESS"));
-				p.setTitleImg(rset.getString("CHANGE_NAME"));
+				
+				 
+//				p.setPlaceNo(rset.getInt("PLACE_NO"));
+//				p.setAreaNo(rset.getInt("AREA_NO"));
+//				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+//				p.setPlacePhone(rset.getString("PLACE_PHONE"));
+//				p.setDescription(rset.getString("DESCRIPTION"));
+//				p.setBsHour(rset.getString("BSHOUR"));
+//				p.setPrice(rset.getInt("PRICE"));
+//				p.setAddress(rset.getString("ADDRESS"));
+//				p.setTitleImg(rset.getString("CHANGE_NAME"));
 				//사진을 띄워줄려면..? 플레이스 어테치먼트도 있어야하나ㅏ..?
 				//->어태치먼트를 조인한 쿼리를 가져와야됨 
 

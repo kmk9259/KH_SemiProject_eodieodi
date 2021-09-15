@@ -26,7 +26,7 @@ public class TotalListServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+ 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -40,7 +40,7 @@ public class TotalListServlet extends HttpServlet {
 		request.getRequestDispatcher("views/plan/admin_Plan_detail.jsp").forward(request, response);
 
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
