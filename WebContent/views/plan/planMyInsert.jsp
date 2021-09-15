@@ -103,7 +103,7 @@
         .thumbnail{  
             display:inline-block;  /*가로너비에 맞게 나란히 일정한 간격으로 보이게*/
             float:left;
-            /* width:33%; */
+            width:100%;
             border:1px solid white;
             margin-bottom: 20px;
         }
@@ -198,7 +198,7 @@
                                         <li><a href="#" class="movePage">일정보관함</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="<%=contextPath %>/views/board/blogListView.jsp">커뮤니티</a></li>
+                                <li><a href="<%=contextPath %>/list.bo">커뮤니티</a></li>
                                 
                                 <%if(loginUser == null){%>  
                                 <li><a href="<%=contextPath %>/views/member/login.jsp" onclick="goLogin();">로그인</a></li>
@@ -278,7 +278,7 @@
             <div class="filter__title">
                 <h5>추가한 장소</h5>
             </div>
-            <table class="listArea" align="center">
+            <table class="listArea">
                 <thead>
                     <tr>
                         <th width="50">장소명</th>

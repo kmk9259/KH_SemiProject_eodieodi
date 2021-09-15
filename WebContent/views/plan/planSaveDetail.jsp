@@ -110,7 +110,12 @@
     		margin-left: 45px;
     		cursor:pointer;
 		}
-    </style>
+		.pleaseCenter{
+			display: flex;
+	    	justify-content: center;
+	    	padding: 20px;
+		}
+	  </style>
    
 </head>
 <body>
@@ -215,13 +220,13 @@
 	                    <h4><b>일정 메모</b></h4>
 	                </div>
 	                <div class="planDetail_detail">
-	                    <textArea cols="30" rows="9" readonly><%=memo%></textArea>
+	                    <textArea rows="9" style="width: 100%;" readonly><%=memo%></textArea>
                 	</div>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-lg-7">
+				<div class="col-lg-12 pleaseCenter">
 					<div id="map" style="width:100%;height:400px;"></div>
 
 					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=879134364fa796c4ccf9a5a523dc7377&libraries=services"></script>
@@ -300,7 +305,7 @@
 		</form>
 		<script>
 			function updateForm(){
-				$("#postForm").attr("action", "<%=contextPath%>/updateForm.ps");
+				$("#postForm").attr("action", "<%=contextPath%>/updateForm.ps?planNo=<%=pm.getPlanNo()%>");
 				$("#postForm").submit();
 			}
 			
