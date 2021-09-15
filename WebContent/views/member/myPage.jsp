@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
     
 <%
+	session = request.getSession();
 	Member m = (Member)request.getAttribute("loginUser");
 
 	String userId = m.getUserId();
@@ -18,6 +19,7 @@
    	//String writer = b.getBoardWriter();
 
    	Board bp = (Board)request.getAttribute("b");
+
 %>
 
 <!DOCTYPE html>
@@ -77,8 +79,8 @@
 
 </head>
 
-<body>
-    <!-- Page Preloder -->
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+ <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -87,11 +89,12 @@
    
 
     <!-- Hero Section Begin -->
-    <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/pascal-riben-YfZZvPaR9hY-unsplash.jpg">
-        <div class="container">
+    <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/st.jpg" style="height: 700px;">
+        <div class="container" style="margin-top: -12%;">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="hero__text">
+                    <div class="hero__text page-start">
+                    
                         <div class="section-title">
                             <h2>어디어디?!</h2>
                         </div>
@@ -104,89 +107,63 @@
 
 
     <!-- mypage -->
-    <section class="page-start">
+    <section>
         <section class="login">
             <div class="container">
-                <div class="sidenav">
-                    <div class="login-main-text">
-                        <h2 style="color: #D34B32 !important">Eodi Eodi<br> My Page</h2>
-                        <p>Welcome To MyPage</p>
-                    </div>
-                </div>	
-                <!------ MENUSIDE BAR ---------->
-                <div class="container menuBar">
-                    <div class="col-sm-2">
-                        <nav class="nav-sidebar">
-                            <ul class="nav tabs">
-                                <li class="active menuB parent"><a href="#mInfo" data-toggle="tab">내 정보</a></li>
-                                <li class="menuB "><a href="#mInfoUp" data-toggle="tab">내 정보 수정</a></li>
-                                <li class="menuB"><a href="#pwUp" data-toggle="tab">비밀번호 변경</a></li>
-                                <li class="menuB parent"><a href="<%=contextPath %>/list.bo">커뮤니티</a></li>
-                                <li class="menuB"><a href="#myPost" data-toggle="tab">내가 쓴 글</a></li>
-                                <li class="menuB parent"><a href="<%=contextPath %>/list.ps">일정 보관함</a></li>
-                                <li class="menuB parent"><a href="#wd" data-toggle="tab">회원 탈퇴</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                </div>
-                
-                
-                <!-- 화면단 -->
-                <div class="container-showpage">
+            
+                            <!-- 화면단 -->
+                <div class="container-showpage" style="float: right; margin-top: 10%;">
                     <!-- tab content -->
-                    <div class="tab-content">
+                    <div class="tab-content" style="height: 570px">
                     
                         <!-- 내 정보 -->
                         <div class="tab-pane active text-style" id="mInfo">
                             <h2 class="tInfo">내 정보</h2>
                             <br><br>
-                            <br><br>
                             
                             	<label style="width: 80px; margin-left: 10%;"><h5>아이디</h5></label>
                             	<input class="conInfo" value="<%= userId %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
+                            	 style=" height: 50px; width: 50%; text-align: center; background-color: #fff; border-radius: 5px;"><br><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>이름</h5></label>
                             	<input class="conInfo" value="<%= userName %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
+                            	 style=" height: 50px; width: 50%; text-align: center; background-color: #fff; border-radius: 5px;"><br><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>전화번호</h5></label>
                             	<input class="conInfo" value="<%= phone %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
+                            	 style=" height: 50px; width: 50%; text-align: center; background-color: #fff; border-radius: 5px;"><br><br><br>
                             	 
                             	<label style="width: 80px; margin-left: 10%;"><h5>이메일</h5></label>
                             	<input class="conInfo" value="<%= email %>" readonly="readonly"
-                            	 style=" height: 50px; width: 400px; text-align: center; background-color: #fff;"><br><br><br>
+                            	 style=" height: 50px; width: 50%; text-align: center; background-color: #fff; border-radius: 5px;"><br><br><br>
                         </div>
 
                         <!-- 내 정보 수정 -->
                         <div class="tab-pane text-style" id="mInfoUp">
                             <h2 class="tInfo">정보 수정</h2>
-                            <br>
+                            <br><br>
                             <form id="updateForm" action="<%=request.getContextPath() %>/update.me" method="post">
                                 <div class="form-group infoUp">
-                                	<label hidden="hidden" class="control-label">아이디</label>
+                                	<label hidden="hidden" class="control-label"><h5>아이디</h5></label>
                                     <input hidden="hidden" maxlength="30" type="text" required="required" class="form-control"
-                                    	name="userId"
+                                    	name="userId"  style=" height: 50px; width: 58%;"
                                         value="<%= userId %>" readonly />
                                 
                                 
-                                    <label class="control-label">변경할 이름을 입력해주세요</label>
+                                    <label class="control-label" style="margin-left: 21%;">변경할 이름을 입력해주세요</label><br>
                                     <input maxlength="7" type="text" required="required" class="form-control"
-                                    	name="userName"
-                                        value="<%= userName %>" />
+                                    	name="userName" style=" height: 50px; width: 58%; margin-left: 21%; text-align: center;"
+                                        value="<%= userName %>" /><br><br>
                                         
-                                    <label class="control-label">변경할 전화번호를 입력해주세요(010-XXXX-XXXX)</label>
+                                    <label class="control-label" style="margin-left: 21%;">변경할 전화번호를 입력해주세요(010-XXXX-XXXX)</label>
                                     <input maxlength="100" type="text" required="required"
-                                     	id="phone" name="phone"class="form-control"
+                                     	id="phone" name="phone"class="form-control" style=" height: 50px; width: 58%; margin-left: 21%; text-align: center;"
                                         value="<%= phone %>" /><br>
                                         
                                     <label hidden="hidden" class="control-label">이메일</label><br>
                                     <input hidden="hidden" maxlength="100" type="text" required="required" class="form-control"
-                                    	name="email" readonly="readonly"
+                                    	name="email" readonly="readonly" style=" height: 50px; width: 50%;"
                                         value="<%= email %>" /><br>
-                                        <br><br>
 								   <!-- <input style="float: right; background-color: #D958A0; color:#fff;
 								   border:none; width:110px; height:48px; border-radius: 5px; margin-top : -21px; color:#fff;"
 								    type="button" id="emailCheckBtn" onclick="emailChk();" value="이메일인증"/><br><br>
@@ -207,7 +184,6 @@
                                     <center><button type="submit" style=" background-color: #D958A0; color:#fff;
 							   				border:none; width:100px; height:48px; border-radius: 5px; "
                                     		 id="updateBtn" onclick="saveMyInfo();">저장하기</button></center>
-                                    <br><br>
                                     
                                 </div>
                             </form>
@@ -283,23 +259,25 @@
                             <br><br>
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form  id="updatePwdForm" action="<%= request.getContextPath() %>/updatePwd.me" method="post">
-                                		<label>현재 비밀번호</label>
-											<input maxlength="100" type="password" class="input-lg form-control" name="userPwd" id="userPwd" placeholder = "현재 비밀번호를 입력하세요" required><br>
-				                                    <span id="chUserPw" class="glyphicon glyphicon-remove" style="float: right;"> 현재 비밀번호와 일치</span><br>
-                                
+                                		<label style="float: left;">현재 비밀번호</label>
+                                		<p id="chUserPw" class="glyphicon glyphicon-remove" style="float: right;"> 현재 비밀번호와 일치</p><br>
+											<input maxlength="100" style="text-align: center;" type="password" class="input-lg form-control" name="userPwd" id="userPwd" placeholder = "현재 비밀번호를 입력하세요" required><br>
+				                                    
+                                <br>
                                     	<label>변경할 비밀번호 </label>
-                                    		<input maxlength="100" type="password" class="input-lg form-control" name="newPwd" id="newPwd"
-                                        				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required>
-				                                    <span id="6char" class="glyphicon glyphicon-remove" style="float: right;"> 6자리 이상</span><br>
+				                        <p id="6char" class="glyphicon glyphicon-remove" style="float: right;"> 6자리 이상</p><br>
+                                    		<input maxlength="100" style="text-align: center;" type="password" class="input-lg form-control" name="newPwd" id="newPwd"
+                                        				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required><br>
 				                                   
                                     
                                     
                                     <div class="row">
                                         <div class="col-sm-12">
+                                        <br>
                                         	<label>변경할 비밀번호 확인</label>
-                                        	<input maxlength="100" type="password" class="input-lg form-control" name="checkPwd" id="checkPwd"
-                                        		placeholder="한 번 더 입력하세요" autocomplete="off" required>
-                                            <span span id="pwmatch" class="glyphicon glyphicon-remove" style="float: right;">비밀번호 일치</span>
+                                            <p id="pwmatch" class="glyphicon glyphicon-remove" style="float: right;">비밀번호 일치</p><br>
+                                        	<input maxlength="100" style="text-align: center;" type="password" class="input-lg form-control" name="checkPwd" id="checkPwd"
+                                        		placeholder="한 번 더 입력하세요" autocomplete="off" required><br>
                                         </div>
                                     </div>
                                     
@@ -313,10 +291,10 @@
                         </div>
 
 						<!-- 내가 쓴 글 -->
-                        <div class="tab-pane text-style nice-scroll" id="myPost">
+                        <div class="tab-pane text-style" id="myPost">
                             <h2 class="tInfo">내가 쓴 글</h2>
 							<br><br>
-                            <div id="listArea" class="span5" style="padding-left: 5%; width: 90%; height: 510px;">
+                            <div id="listArea" class="span5" style="padding-left: 5%; width: 90%; height: 445px;">
                                 <table class="table table-striped table-condensed" style="text-align: center; table-layout: fixed;">
                                     <thead>
                                         <tr>
@@ -331,7 +309,7 @@
                                     <!--위에서 받아온 리스트가 비어있으면 이걸 띄워주고   -->
                                         <% if(list.isEmpty()){ %>
                                         <tr>
-											<td colspan="7"><center>존재하는 게시글이 없습니다.</center></td>
+											<td colspan="4"><center>존재하는 게시글이 없습니다.</center></td>
 										</tr>
 															
 										<!--  아니면 엘스로 해서 하나씩 띄워준다 -->
@@ -410,21 +388,51 @@
                         <!-- 회원탈퇴 -->
                         <div class="tab-pane text-style" id="wd">
                             <h2 class="tInfo">회원 탈퇴</h2>
-                            <br><br><br><br>
+                            <br><br>
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form method="post" id="deleteForm" action="<%= request.getContextPath() %>/delete.me">
                                 		 <input type="hidden" id="userId" name="userId" value="<%= userId %>">
                                 		 
                                 		  <br><br>
+                                		  <label class="control-label">탈퇴 진행을 원하신다면 현재 비밀번호를 입력해주세요.</label>
+                                		   <p style="color: red">* 탈퇴 후 회원님과 관련된 모든 정보는 삭제됩니다.</p>
                                     <input type="password" class="input-lg form-control" name="deleteUser" id="deleteUser"
                                         placeholder="현재 비밀번호를 입력하세요" autocomplete="off" required="required">
-                                        <br><br>
+                                        <br><br><br>
                                     <button type="submit" class="btn-load btn-lg" style="background-color: #D958A0; color:#fff; border:none; margin-left: 30%;" onclick="deleteMember()">탈퇴하기</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+            
+                <div class="sidenav" style="width: 30%;">
+                
+                    <div class="login-main-text" style="float: left; padding: 80px 60px 0px 60px;">
+                        <h2 style="color: #D34B32 !important">Eodi Eodi<br> My Page</h2>
+                        <p>Welcome To MyPage</p>
+                    </div>
+                </div>	
+                <!------ MENUSIDE BAR ---------->
+                <div class="container menuBar">
+                    <div class="col-sm-2">
+                        <nav class="nav-sidebar">
+                            <ul class="nav tabs">
+                                <li class="active menuB parent"><a href="#mInfo" data-toggle="tab">내 정보</a></li>
+                                <li class="menuB "><a href="#mInfoUp" data-toggle="tab">내 정보 수정</a></li>
+                                <li class="menuB"><a href="#pwUp" data-toggle="tab">비밀번호 변경</a></li>
+                                <li class="menuB parent"><a href="<%=contextPath %>/list.bo">커뮤니티</a></li>
+                                <li class="menuB"><a href="#myPost" data-toggle="tab">내가 쓴 글</a></li>
+                                <li class="menuB parent"><a href="<%=contextPath %>/list.ps">일정 보관함</a></li>
+                                <li class="menuB parent"><a href="#wd" data-toggle="tab">회원 탈퇴</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+                
+                
+
         </section>
 
     </section>
@@ -565,6 +573,10 @@
 			
 		}
 
+	</script>
+	    <script type="text/javascript">
+		 window.history.forward();
+		 function noBack(){window.history.forward();}
 	</script>
     <!-- Js Plugins -->
     <script src="<%= request.getContextPath() %>/resources/js/main.js"></script>

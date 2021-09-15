@@ -49,12 +49,14 @@
     <%@ include file="../common/menubar.jsp"%>
     
     
-    <!-- Hero Section Begin -->
-    <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/jaemin-don-DBaVQ2rALYU-unsplash.jpg">
-        <div class="container">
+    <!-- Hero Section Begin
+    <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/pascal-riben-YfZZvPaR9hY-unsplash.jpg">
+   -->
+     <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/jaemin-don-DBaVQ2rALYU-unsplash.jpg" style="height: 700px;"> 
+        <div class="container" style="margin-top: -12%;">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="hero__text">
+                    <div class="hero__text page-start">
                         <div class="section-title">
                             <h2>어디어디?!</h2>
                         </div>
@@ -64,11 +66,28 @@
         </div>
     </section>
     <!-- Hero Section End -->
-
+       <script>
+            $(function(){
+            var $header = $('header'); //헤더를 변수에 넣기
+            var $page = $('.page-start'); //색상이 변할 부분
+            var $window = $(window);
+            var pageOffsetTop = $page.offset().top;//색상 변할 부분의 top값 구하기
+            
+            $window.resize(function(){ //반응형을 대비하여 리사이즈시 top값을 다시 계산
+                pageOffsetTop = $page.offset().top;
+            });
+            
+            $window.on('scroll', function(){ //스크롤시
+                var scrolled = $window.scrollTop() >= pageOffsetTop; //스크롤된 상태; true or false
+                $header.toggleClass('down', scrolled); //클래스 토글
+            });
+            });
+        
+        </script>
 
     <!-- login -->
     <!------ Include the above in your HEAD tag ---------->
-    <section class="page-start">
+    <section>
         <section class="login">
             <div class="container">
                 <div class="sidenav">
@@ -84,10 +103,10 @@
                             <h3>아이디 찾기</h3>
                             <form id="findIdForm" method="POST" action="<%=request.getContextPath() %>/findId.me">
                                 <div class="form-group">
-                                    <input maxlength="100" type="text" class="form-control" placeholder="이메일을 입력하세요" name="email" required="required"/>
+                                    <input maxlength="100" type="text" class="form-control" placeholder="이메일을 입력하세요" name="email" required="required" style="text-align: center;"/>
                                 </div>
                                 <div class="form-group">
-                                    <input maxlength="7" type="text" class="form-control" placeholder="이름을 입력하세요" name="userName" required="required" />
+                                    <input maxlength="7" type="text" class="form-control" placeholder="이름을 입력하세요" name="userName" required="required" style="text-align: center;" />
                                 </div>
                                 <div class="form-group-btn">
                                     <input type="button" class="btnSubmit" id= "idFind" value="ID 찾기" onclick="findID();" />
@@ -156,10 +175,10 @@
                             <h3>비밀번호 찾기</h3>
                             <form id="findPwdForm" method="POST" action="<%=request.getContextPath() %>/findPwd.me">
                                 <div class="form-group">
-                                    <input maxlength="100" type="text" class="form-control" placeholder="이메일을 입력하세요" name="email2" required="required" />
+                                    <input maxlength="100" type="text" class="form-control" placeholder="이메일을 입력하세요" name="email2" required="required" style="text-align: center;" />
                                 </div>
                                 <div class="form-group">
-                                    <input maxlength="30" type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" required="required" />
+                                    <input maxlength="30" type="text" class="form-control" placeholder="아이디를 입력하세요" name="userId" required="required" style="text-align: center;" />
                                 </div>
                                 <div class="form-group-btn">
                                     <input type="button" class="btnSubmit" value="PW 찾기" onclick="findPW();" />

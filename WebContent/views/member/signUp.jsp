@@ -90,13 +90,14 @@
     </script>
     <!-- Header Section End -->
 
-    <!-- Hero Section Begin -->
-        <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/ryoji-iwata-GkkYgVZT96A-unsplash.jpg" style="max-width: 100%;">
+    <!-- Hero Section Begin
+        <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/ryoji-iwata-GkkYgVZT96A-unsplash.jpg" style="max-width: 100%;" style="height: 700px;"> -->
+        <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/no4.jpg" style="max-width: 100%; height: 700px;">
              <!-- <section class="hero set-bg" data-setbg="img/jaemin-don-DBaVQ2rALYU-unsplash.jpg" style="max-width: 100%;">-->
-            <div class="container">
+            <div class="container" style="margin-top: -12%;">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="hero__text">
+                        <div class="hero__text page-start">
                             <div class="section-title">
                                 <h2>어디어디?!</h2>
                             </div>
@@ -110,7 +111,7 @@
 
     <!-- login -->
     <!------ Include the above in your HEAD tag ---------->
-    <section class="page-start">
+    <section>
         <section class="login">
             <div class="container">
                 <div class="sidenav">
@@ -685,7 +686,7 @@ var emailcount = 0;
             $item.addClass('btn-info');
             allWells.hide();
             $target.show();
-            $target.find('input:eq(0)').focus();
+            //$target.find('input:eq(0)').focus();
         }
     });
 

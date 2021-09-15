@@ -3882,14 +3882,14 @@ mypage
 	width: 10%;
 }
 
-.container-showpage{
-	float: right;
-	width: 70%;
-	height: 660px !important; 
-	padding: 10px;
-	margin-top: 2.5%;
-	background-color: #FFF3E7; 
-	border: 1px solid #D34B32;
+.container-showpage {
+    float: right;
+    width: 70%;
+    height: 590px !important;
+    padding: 10px;
+    margin-top: 2.5%;
+    background-color: #FFF3E7;
+    border: 1px solid #D34B32;
 }
 
 .conInfo{

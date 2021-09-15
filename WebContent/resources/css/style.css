@@ -485,7 +485,7 @@ login
 /* --------------------두 번째 로그인 템플릿 */
 .caixa{
 	 padding: 20px;
-	 border-radius: 5px;
+	 border-radius: 15px;
 	 border: 1px solid rgba(0,0,0,.2);
 	 box-shadow: 0 0 20px rgba(0,0,0,.2);
 	 background-color: #fff !important;

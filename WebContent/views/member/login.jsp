@@ -43,11 +43,11 @@
 
 
     <!-- Hero Section Begin -->
-        <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/gyeongbokgung-palace.jpg">
-            <div class="container">
+        <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/gyeongbokgung-palace.jpg" style="height: 700px;">
+            <div class="container" style="margin-top: -12%;">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="hero__text">
+                        <div class="hero__text page-start">
                             <div class="section-title">
                                 <h2>어디어디?!</h2>
                             </div>
@@ -102,7 +102,7 @@
 </script>
     <!-- login -->
     <!------ Include the above in your HEAD tag ---------->
-    <section class="page-start">
+    <section>
         <section class="login">
             <div class="container">
                 <div class="sidenav">
@@ -136,7 +136,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3">
-                                                    <button type="submit" id = "loginBtn" class="vamos_mudar_um_pouco" title="Entrar">로그인</button>
+                                                    <button type="submit" id = "loginBtn" class="vamos_mudar_um_pouco" title="Entrar" style="border: none !important;">로그인</button>
                                                 </div>
                                                 <div class="pp">
                                                     <div class="left">
@@ -170,7 +170,7 @@
                             placeholderTxt = $input.attr("placeholder"),
                             $placeholder;
                         
-                            $input.after('<span class="placeholder">' + placeholderTxt + "</span>"),
+                            $input.after('<p class="placeholder">' + placeholderTxt + "</p>"),
                             $input.attr("placeholder", ""),
                             $placeholder = $this.find(".placeholder"),
                         
