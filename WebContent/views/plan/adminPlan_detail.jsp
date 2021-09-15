@@ -90,7 +90,7 @@
 		    </div>
 		</div>
 		</section>
- 
+  
 <section class="page-start">
    
     <div class="main_box">
@@ -99,13 +99,13 @@
         <div class="main-timeline">
                                 <!-- start experience section-->
                                 
-                         <form method ="post" action="<%= request.getContextPath() %>/adminCreate.pl">
+                         <form method ="post" action="<%= request.getContextPath() totalList.pl">
 
                       <div>장소: <%=  %></div>
                       <div>날짜: <%= %></div>       
                       <div> 추천 코스:<%=  %></div> 
                          </form> 
-    
+     
         </div>
 
     <div class="btn_section">

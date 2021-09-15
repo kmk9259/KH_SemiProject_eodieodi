@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
 import semiProject.com.kh.planMy.model.dao.PlanMyDao;
 
@@ -158,9 +159,9 @@ public class AdminPlanDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-//selectCourse= select course_no from (select * from course order by dbms_random.value) where theme_no=? and area_no=? and rownum < 2;
+		//selectCourse= select course_no from (select * from course order by dbms_random.value) where theme_no=? and area_no=? and rownum < 2;
 
-//String sql = "select * from (select * from course) where theme_no=? and area_no=? and rownum < 2;";
+		//String sql = "select * from (select * from course) where theme_no=? and area_no=? and rownum < 2;";
 		String sql = prop.getProperty("selectCourse");
 		
 		try {
@@ -175,8 +176,8 @@ public class AdminPlanDao {
 
 				ap = new AdminPlan(
 						
-						rset.getInt("area_no"),
-						rset.getInt("theme_no")
+						rset.getInt("COURSE_NO")
+						
 				);
 
 			}
@@ -209,7 +210,7 @@ public class AdminPlanDao {
 //		CHOOSE_DATE	DATE
 //		STATUS	VARCHAR2(1 BYTE)
 		
-//insertAdminPlan=insert into admin_plan VALUES(SEQ_APNO.NEXTVAL,?,?,?,?,?,DEFAULT);
+//insertAdminPlan=insert into admin_plan VALUES(SEQ_APNO.NEXTVAL,?,?,?,SYSDATE,DEFAULT);
 		
 		
 		int result = 0;
@@ -220,8 +221,6 @@ public class AdminPlanDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			
-			pstmt.setInt(1, courseList.getUserNo());
 			pstmt.setInt(2, courseList.getAreaNo());
 			pstmt.setInt(3, courseList.getThemeNo());
 			pstmt.setInt(4, courseList.getCourseNo());
@@ -280,5 +279,113 @@ public class AdminPlanDao {
 		return apList;
 	}
 
+
+	//플레이스 
+//	public ArrayList<Place> selectPList(Connection conn) {
+//	
+////SELECT PLACE_NO, place_title, place_phone, DESCRIPTION, BSHOUR, price, address, CHANGE_NAME 
+////FROM PLACE JOIN (SELECT * FROM PLACE_ATTACHMENT 
+////WHERE FILE_NO IN(SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) 
+////WHERE PLACE.STATUS='Y' AND PLACE.AREA_NO=? ORDER BY PLACE_NO DESC;
+//
+//
+//	ArrayList<Place> pList = new ArrayList<>();
+//	PreparedStatement pstmt = null;
+//	ResultSet rset = null;
+//		
+//	 //장소 세개를 뽑 
+//	String sql = prop.getProperty("selectPList");
+//		
+//	try {
+//		pstmt = conn.prepareStatement(sql);
+//		rset = pstmt.executeQuery();
+//		
+//		while(rset.next()) {
+//			
+//			Place p = new Place();
+//			
+//			p.setPlaceNo(rset.getInt("PLACE_NO"));
+//			p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+//			p.setPlacePhone(rset.getString("PLACE_PHONE"));
+//			p.setDescription(rset.getString("DESCRIPTION"));
+//			p.setBsHour(rset.getString("BSHOUR"));
+//			p.setPrice(rset.getInt("PRICE"));
+//			p.setAddress(rset.getString("ADDRESS"));
+//			p.setTitleImg(rset.getString("CHANGE_NAME"));
+//			//사진을 띄워줄려면..? 플레이스 어테치먼트도 있어야하나ㅏ..?
+//			//->어태치먼트를 조인한 쿼리를 가져와야됨 
+//
+//			pList.add(p);// 추가하기 
+//		}
+//
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//	System.out.println(pList+"=========pList 찍히나? ");
+//
+//		return pList;
+//	}
+//
+
+
+	public ArrayList<Place> selectPList(Connection conn, int area, int theme) {
+	
+		//areaThemeCourse=
+//select course_no, theme_no, area_no from course a 
+//		join course_place cp on a.course_no = cp.ref_course 
+//				where theme_no=1 and area_no=1 and rownum < 2;
+		
+		ArrayList<Place> pList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("areaThemeCourse");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+
+			pstmt.setInt(1, area);
+			pstmt.setInt(2, theme);
+			
+			while(rset.next()) {
+				
+				Place p = new Place();
+				
+				
+				 
+//				p.setPlaceNo(rset.getInt("PLACE_NO"));
+//				p.setAreaNo(rset.getInt("AREA_NO"));
+//				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+//				p.setPlacePhone(rset.getString("PLACE_PHONE"));
+//				p.setDescription(rset.getString("DESCRIPTION"));
+//				p.setBsHour(rset.getString("BSHOUR"));
+//				p.setPrice(rset.getInt("PRICE"));
+//				p.setAddress(rset.getString("ADDRESS"));
+//				p.setTitleImg(rset.getString("CHANGE_NAME"));
+				//사진을 띄워줄려면..? 플레이스 어테치먼트도 있어야하나ㅏ..?
+				//->어태치먼트를 조인한 쿼리를 가져와야됨 
+
+				pList.add(p);// 추가하기 
+			}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+		System.out.println(pList+"=========pList 다오에서 찍히나? ");
+
+			return pList;
+		
+		
+	}
 	
 }

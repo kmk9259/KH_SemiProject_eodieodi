@@ -30,7 +30,7 @@ public class admin_ListServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+ 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -42,7 +42,7 @@ public class admin_ListServlet extends HttpServlet {
 
 		request.setAttribute("tList", tList);
 		request.setAttribute("aList", aList);
-		 
+		  
 //		System.out.println(aList+"------------aList");
 		
 		request.getRequestDispatcher("views/plan/adminRecommend.jsp").forward(request, response);
