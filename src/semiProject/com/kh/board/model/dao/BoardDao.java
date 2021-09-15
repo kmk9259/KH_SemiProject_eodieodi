@@ -745,29 +745,70 @@ public class BoardDao {
 		return list;
 	}
 
+
+
 	//likes 올려주는 메소드
-//	public int increaseReplyCount(Connection conn, int rno) {
-//		
-//		int result =0; 
-//		PreparedStatement pstmt = null; 
-//		
-//		//increaseReplyCount=UPDATE REPLY SET likes=likes+1 WHERE REPLY_NO=?
-//		String sql = prop.getProperty("increaseReplyCount");
-//		
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, rno);
-//			
-//			result = pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(pstmt);
-//		}
-//		
-//		return result;
-//	}
+	public int increaseReplyCount(Connection conn, int rno) {
+		
+		int result =0; 
+		PreparedStatement pstmt = null; 
+		
+		//increaseReplyCount=UPDATE REPLY SET likes=likes+1 WHERE REPLY_NO=?
+		String sql = prop.getProperty("increaseReplyCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Board> selectTopList(Connection conn) {
+		
+		ArrayList<Board> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+
+		String sql = prop.getProperty("selectTopList");
+		
+		//selectTopList=SELECT * FROM (SELECT BOARD_NO, BOARD_TITLE, COUNT, CHANGE_NAME \
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+			Board b = new Board();
+			b.setBoardNo(rset.getInt("BOARD_NO"));
+			b.setBoardTitle(rset.getString("BOARD_TITLE"));
+			b.setTitleImg(rset.getString("CHANGE_NAME"));
+			b.setCreateDate(rset.getDate("CREATE_DATE"));
+					
+			list.add(b);
+			
+			System.out.println("탑리스트 ===== " + list);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 	
 
