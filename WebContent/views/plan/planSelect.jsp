@@ -118,10 +118,13 @@
         .categories-area .single-cat:hover .cat-cap a {
             color: #fff
         }
+        .height280{
+        	height:280px;
+        }
     </style>
 </head>
 <body>
-    <!-- Page Preloder -->
+    <!-- Page Preloder   -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -165,7 +168,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
+                    <div class="single-cat text-center mb-50 height280">
                         <div class="cat-icon">
                             <span class="flaticon-bed"></span>
                         </div>
@@ -177,7 +180,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
+                    <div class="single-cat text-center mb-50 height280">
                         <div class="cat-icon">
                             <span class="flaticon-drink"></span>
                         </div>
@@ -189,7 +192,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-cat text-center mb-50">
+                    <div class="single-cat text-center mb-50 height280">
                         <div class="cat-icon">
                             <span class="flaticon-home"></span>
                         </div>

@@ -3,13 +3,18 @@
     semiProject.com.kh.member.model.vo.Member, java.sql.Date, java.text.SimpleDateFormat, semiProject.com.kh.area.model.vo.Area"%>
 <!DOCTYPE html>
 <%
-	//PlanMyupdateFormServlet에서 받아온다.
+	// PlanMyupdateFormServlet에서 받아온다.
 	PlanMy pm = (PlanMy)request.getAttribute("pm");
 	ArrayList<Place> pList = (ArrayList<Place>)request.getAttribute("pList"); //유저가 선택한 장소 리스트
 	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");   //전체 장소 리스트 
 	ArrayList<Area> aList = (ArrayList<Area>)request.getAttribute("aList");
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
+	
+	String memo = pm.getPlanMemo();
+	if(memo == null){
+		memo="";
+	}
 %>
 
 <html lang="en">
@@ -42,8 +47,16 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    
+    <!-- 폰트 3 -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap" rel="stylesheet">
 
 	<style>
+		h1, h2, h3, h4, h5, h6, p, a, input, button, li, div {
+	        font-family: 'Gowun Batang'!important;
+	    }
     	.filter {
 			position: fixed;
 			left: 0;
@@ -329,11 +342,11 @@
                 <tbody id="my_tbody">
                 	<%for(Place p : pList) {%>
                 		<tr>
+                			<td style="display:none"><input type="hidden" name="placeNo" id="tablePlaceNo" value="<%=p.getPlaceNo()%>"></td>
                 			<td><%=p.getPlaceTitle()%></td>
                 			<td><%=p.getAddress()%></td>
                 			<td>
                 				<button onclick="rowDelete(this)">빼기</button>
-                				<input type="hidden" name="placeNo" value="<%=p.getPlaceNo()%>">
                 			</td>
                 		</tr>
                 	<%} %>
@@ -406,7 +419,7 @@
 	        		return false   
 	    		}	
 	    		if($('input[name="placeNo"]').length>20){	//일정이 20개를 초과하는 경우
-	    			alert("일정은 10개 이하로 추가해주세요")
+	    			alert("일정은 20개 이하로 추가해주세요")
 	        		return false   
 	    		}
 	    	}
@@ -495,6 +508,11 @@
 	        //placeNo 담는 배열 -> 중복체크위해서 전역변수로 만들어서 씀
 	        placeArr = new Array();
 	        
+	        $('input[name="placeNo"]').each(function(index, no){
+	        	console.log("테스트 : " + $(no).val())
+	        	placeArr.push($(no).val());
+	        });
+	        
         	//일정 테이블에서 삭제하기
             function rowDelete(obj){
                 $(obj).parent().parent().remove();                             //행 통째로 삭제
@@ -527,7 +545,7 @@
 		            
 		        if(noDuplicate(placeNo)){
 		            var $tr = $("<tr>"); //테이블 행 생성
-			        var hidden = '<input type="hidden" name="placeNo" id="tablePlaceNo" value="'+placeNo+'">'; //hidden으로 placeNo넘기기
+			        var hidden = '<td style="display:none"><input type="hidden" name="placeNo" id="tablePlaceNo" value="'+placeNo+'"></td>'; //hidden으로 placeNo넘기기
 			        var $title = $("<td>").text(title); 
 			        var $address = $("<td>").text(address); 
 			        var btn = '<td><button onClick="rowDelete(this)">빼기</button></td>';

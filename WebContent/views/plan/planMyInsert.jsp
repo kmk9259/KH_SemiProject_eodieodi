@@ -40,7 +40,15 @@
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
+	<!-- 폰트 3 -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap" rel="stylesheet">
+
     <style>
+    	h1, h2, h3, h4, h5, h6, p, a, input, button, li, div{
+	        font-family: 'Gowun Batang'!important;
+	    }
     	.filter {
 			position: fixed;
 			left: 0;
