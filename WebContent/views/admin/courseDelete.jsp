@@ -57,7 +57,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>코스 조회</h2>
+							<h2>어디 어디?!</h2>
 						</div>
 					</div>
 				</div>
@@ -112,13 +112,9 @@
 				</div>	
 			<div class="admin-showpage nice-scroll">
 			
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="section-title">
-								<h2>코스 삭제</h2>
-							</div>
-						</div>
-					</div>
+				<div class="section-title">
+	            	<h2 style="margin: 0px;">코스 삭제</h2>
+		        </div>
 					<div>
 						<select id="placeChoice" name="placeChoice"
 							onchange="changeArea(this)">

@@ -47,6 +47,7 @@ margin-left: 150px;
 }
 
 
+
 </style>
 
 </head>
@@ -119,39 +120,51 @@ margin-left: 150px;
 						</nav>
 					</div>
 				</div>	
-				<div class="admin-showpage ">
-				<div class="courseList nice-scroll" style="height: 1000px; width: 1500px;">
-					<div>
-							<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
-								<option value="0" selected>지역을 선택하세요</option>
-								<%for(Area a : alist) {%>
-								<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
-								<%} %>
-								
-							</select><br><br>
-					</div>
-					
-					<div id="placeList" style="display: inline-flex;" >
-					
-					</div>
-					
+				<div class="admin-showpage nice-scroll">
+					<div class="section-title">
+			            <h2 style="margin: 0px;">코스 등록</h2>
+			        </div>
+					<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
+							<option value="0" selected>지역을 선택하세요</option>
+							<%for(Area a : alist) {%>							
+							<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
+							<%} %>
+	
+					</select><br><br>
+					<section class="most-search spad">
+						<div class="container">
+							<div class="row " >
+								<div class=" ">
+									<div class="tab-pane active" id="tabs-1" role="tabpanel">
+										<div class="row" id="placeList">
+										</div><br><br>
+										<form action="cInsert.co" method="post">
+											코스이름: <input maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>
+											지역종류: 	<% for(Area a : alist) {%>
+														<label><input type="radio" name="area" value="<%=a.getAreaNo() %>" ><%=a.getAreaName() %></label>
+													<%} %><br>
+													
+											테마종류: 	<% for(Theme t : tlist) {%>
+														<label><input type="radio" name="themeNo" value="<%=t.getThemeNo() %>"> <%=t.getThemeName() %></label>
+													<%} %><br><br>
+											<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br>
+											<input type="submit" value="코스등록" id="courseAdd">
+										</form>
+									</div>
+				                </div>
+				            </div>
+				        </div>
+					</section>
+					<script>
+					$(function() {
 						
-					<br><br><br>
-					<form action="cInsert.co" method="post">
+						console.log($("#placeChoice").val());
 						
-						코스이름: <input maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>
-						지역종류: 	<% for(Area a : alist) {%>
-									<label><input type="radio" name="area" value="<%=a.getAreaNo() %>" ><%=a.getAreaName() %></label>
-								<%} %><br>
-								
-						테마종류: 	<% for(Theme t : tlist) {%>
-									<label><input type="radio" name="themeNo" value="<%=t.getThemeNo() %>"> <%=t.getThemeName() %></label>
-								<%} %><br><br>
-						<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br>
-						<input type="submit" value="코스등록" id="courseAdd">
-					</form>
+					})
+					</script>		
 					
-				</div>
+					
+				</div><!-- admin-showpage -->
 				<script>
 				function changeArea(obj)
 				{
@@ -162,56 +175,72 @@ margin-left: 150px;
 						url : "pList.co",
 						type : "post",
 						data:{areaNo : areaNo},
-						success:function(list){
+						success:function(list)
+						{
 							console.log(list);
 							var value="";
 							var contextPath = "<%=contextPath%>";
 							for(var i in list)
 							{
+								var titleImg = list[i].titleImg;
+								var src = "<%= contextPath%>/resources/place_upFiles/"+titleImg;
 								switch(list[i].categoryNo){
 								case 1 :
 									var categortName="먹기";
-									console.log(categortName);
 									break;
 								case 2 :
 									var categortName="마시기" 
-									console.log(categortName);
 									break;
 								case 3 :
 									var categortName="놀기"
-										console.log(categortName);
 									break;
 								
 								}
 								value +=
-									'<div class="card-group >'
-									+'<div class="card col" style="float:left">'
-									+'<div class="embed-responsive embed-responsive-4by3">'
-									+'<img  class="card-img-top embed-responsive-item" src="'+contextPath+'/resources/place_upFiles/'+list[i].titleImg+'" alt="Card image" >'
-									+'</div>'
-									+'<div class="card-body" >'
-									+'<h5 class="card-title" style="text-align : center">No.'+list[i].placeNo+"\t"+list[i].placeTitle+'</h5>'
-									+'<p class="card-text"><b>카테고리: '+categortName+'</b></p><br>'
-									+'<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택'
-									+'</div></div></div>'; 
-						}
-						 $("#placeList").html(value).trigger("create"); 
-						},
-						error:function(){
-							console.log("ajax 통신 실패 - 지역선택 넘겨주기");
-						}
-					})
-					
-				}
-				
+									'<div class="col-lg-4 col-md-4">'+
+									'<div class="listing__item">'+
+										'<input type="hidden" name="pNo" id="placeNo" value="'+list[i].placeNo+'">'+
+									    '<div class="listing__item__pic set-bg" style="height:300px; background-image: url(' + src + '); ">'+
+									        '<img src="resources/img/listing/list_icon-1.png" alt="">'+
+									        '<div class="listing__item__pic__tag">NO. '+list[i].placeNo+'</div>'+								        
+									    '</div>'+
+										'<div class="listing__item__text">'+
+										    '<div class="listing__item__text__inside">'+
+										        '<h5>'+list[i].placeTitle+'</h5>'+
+										        '<p>'+list[i].description+'</p>'+
+										        '<div class="listing__item__text__rating">'+
+										            '<div class="listing__item__rating__star">'+
+										                '<span class="icon_star"></span>'+
+										                '<span class="icon_star"></span>'+
+										                '<span class="icon_star"></span>'+
+										                '<span class="icon_star"></span>'+
+										                '<span class="icon_star-half_alt"></span>'+
+										            '</div>'+
+										            '<h6>'+list[i].price+' 원</h6>'+
+										            '</div>'+
+										        '<ul>'+
+										            '<li><span class="icon_pin_alt"></span> '+list[i].address+'</li>'+
+										            '<li><span class="icon_phone"></span> '+list[i].placePhone+'</li>'+
+										        '</ul></div>'+
+										    '<div class="listing__item__text__info">'+
+										        '<div class="listing__item__text__info__left">'+
+										            '<img src="resources/img/listing/list_small_icon-1.png" alt="">'+
+										            '<span>'+categortName+'</span></div>'+
+										        '<div class="listing__item__text__info__right">Open Now</div>'+
+										    '</div>'+
+										    '<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택 '+
+										'</div></div></div>';
+							}//for
+						 	$("#placeList").html(value);
+						}//success
+					})					
+				}				
 				function checkbox(check)
 				{				
 					var placeNo = check.value;
-					
 					var result = document.getElementById("textarea");
 					if( check.checked==true )
 					{
-						console.log("체크박스 체크했을 때"+placeNo);
 						if (result.value == "") 
 						{
 							result.value = placeNo;
@@ -237,22 +266,7 @@ margin-left: 150px;
 					}
 				}
 				
-					$(function() {
-
-						/* $("#courseAdd").click(function() {
-							var result = confirm("추천 코스를 등록하시겠습니까?")
-							if (result) {
-								alert("추천 코스가 등록되었습니다.")
-							} else {
-								location.reload();
-							}
-
-						}); */
-
-					});
 				</script>
-				</div>
-			</div><!-- admin-showpage -->
 				
 		</section><!-- admin -->
 	</section><!-- page- start -->

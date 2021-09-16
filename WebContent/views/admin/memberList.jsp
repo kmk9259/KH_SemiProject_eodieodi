@@ -62,7 +62,7 @@ margin-top: 20px;
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>회원 관리</h2>
+							<h2>어디어디?!</h2>
 						</div>
 					</div>
 				</div>
@@ -115,6 +115,9 @@ margin-top: 20px;
 			</div>
 			<!--menu bar  -->
 			<div class="admin-showpage nice-scroll">
+				<div class="section-title">
+		            <h2 style="margin: 0px;">회원 관리</h2>
+		        </div>	
 					<div class="tab-content">
 					<h3>회원 가입 멤버</h3><hr><br>
 					<table class="table table-hover">

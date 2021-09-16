@@ -170,7 +170,7 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteMember");
-		System.out.println("다오 되니?~~~~" + sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -182,8 +182,6 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
-
-		System.out.println("다오 되니?~~~~" + result);
 		return result;
 	}
 

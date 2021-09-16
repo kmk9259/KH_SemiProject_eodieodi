@@ -124,9 +124,10 @@
 										<% for(Place p: list) {%>
 										<div class="col-lg-4 col-md-6" >
 											<div class="listing__item">
+											<input type="hidden" id="placeNo" value="<%=p.getPlaceNo() %>">
 											    <div class="listing__item__pic set-bg" data-setbg="<%=contextPath %>/resources/place_upFiles/<%=p.getTitleImg()%>">
 											        <img src="resources/img/listing/list_icon-1.png" alt="">
-											        <div class="listing__item__pic__tag">Popular</div>
+											        <div class="listing__item__pic__tag">NO. <%=p.getPlaceNo() %></div>
 											        <div class="listing__item__pic__btns">
 											            <a href="#"><span class="icon_zoom-in_alt"></span></a>
 											            <a href="#"><span class="icon_heart_alt"></span></a>
@@ -180,6 +181,16 @@
 						</div>
 					   </div>          
 				</section>
+				<script>
+				$(function(){
+					$(".listing__item__pic").click(function(){
+						
+						var parent = $(this).parent(); 
+						var pNo = parent.children("#placeNo").val();
+						location.href='<%=contextPath%>/detail.pl?pNo='+pNo;
+					});
+				});
+				</script>
 								
 			</div>
 			
