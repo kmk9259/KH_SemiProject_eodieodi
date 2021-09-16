@@ -190,15 +190,13 @@
                         <!-- 인기 글 뿌려 줄 장소  -->
                         <div class="blog__sidebar__recent">
                             <h5>인기 글 </h5>
-                          <!--   <a href="#" class="blog__sidebar__recent__item"> -->
-                                <div class="blog__sidebar__recent__item__pic">
-                                    <img src="<%= request.getContextPath() %>/resources/img/blog/recent-1.jpg" alt="">
-                                </div>
-                                <div class="blog__sidebar__recent__item__text">
-                                    <span class="lanking">1</span>
-                                    <h6>Tortoise grilled on salt</h6>
-                                    <p><i class="fa fa-clock-o"></i> 19th March, 2019</p>
-                                </div>
+                          
+                          <div id="thumbList">
+                                
+                            </div> 
+                            <!-- </a> -->
+                         
+                        </div>
                             <!-- </a> -->
                          
                         </div>
@@ -268,7 +266,7 @@
 					+list[i].createDate+'</li>'+
 					'<li>'+'<i class="fa fa-user">'+'</i>'
 					+list[i].replyWriter+'</li>'+
-					'<li id="result">'+'<a class="fa fa-thumbs-up" onclick= "count("plus")" >'+'</a>'
+					'<li id="result">'+'<span class="fa fa-thumbs-up" onclick= "count("plus")" >'+'</span>'
 					+list[i].likes+'</li>'+
 					'<br><br><br>'
 					
@@ -284,7 +282,66 @@
 	         })
 	      }
     
-     
+    //========================= 인기글 ========================
+    	
+    	
+	$(function(){
+		selectTopList(); // 열자 마자 호출 하고 
+		
+	   
+			$(".thumbnail").click(function(){
+				var bno = $(this).children().eq(0).val();
+				location.href="<%=contextPath%>/detail.bo?bno="+bno;
+			})
+		
+
+		
+		//setInterval(selectTopList, 2000)
+	 	 $("#thumbList").on("click",".thumb",function(){
+			var bno = $(this).children().eq(0).val();
+			location.href = "<%=contextPath%>/detail.bo?bno="+bno;
+		}) 
+	})
+	
+	function selectTopList(){
+		$.ajax({
+			url : "topList.do",
+			type: "get",
+			success:function(list){
+				console.log(list);
+				console.log(list[0].titleImg);
+				console.log(list[0].boardTitle);
+				var contextPath = "<%=contextPath%>"; 
+				var value = "";
+				for(var i in list){
+					var tmp = list[i].boardTitle;
+					var time = list[i].createDate;
+					console.log(time);
+					value += '<div class="blog__sidebar__recent__item__pic thumb" >'+ 
+							 '<input type="hidden" value="' +list[i].boardNo+ '">'+
+							 '<img src="'+contextPath+'/resources/board_upfiles/' + list[i].titleImg + '" width="80px" height="70px">'+
+					
+							 '</div><div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i)+ 
+							 '</span></div><h6 class="thumb">'+ tmp +'</h6>'+
+							 '<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;'+time+'</p></div>';
+							
+							 
+				}
+				console.log(value);
+				$("#thumbList").html(value).trigger("create");
+			},
+			error:function(){
+				console.log("ajax통신실패");
+			}
+		})
+	}
+    	
+    	
+    //========================== 인기글 관련===============================
+    	
+    	
+    
+
     
   //좋아요 클릭함수 넣어줄것
   function count(){
@@ -297,26 +354,7 @@
 	  }
   }
   
-<%-- 	$('#thumbup').click(function(){
-		var likes = $('#thumbup').val();
-		var rno = <%=reply.getReplyNo() %>;
-		
-		$.ajax({
-			
-			url: "rDetail.bo",
-			type: "get",
-			data: {rno: <%=reply.getReplyNo() %>},
-			
-			success:function(status){
-				if(status == "success"){
-					selectReplyList();
-					
-				}
-			},error : function() {
-				console.log("ajax 통신 실패  - 좋아요 클릭")
-			}
-		})
-	}) --%>
+
     </script>
     
     

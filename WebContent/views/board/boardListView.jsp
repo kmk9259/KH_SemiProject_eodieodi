@@ -48,7 +48,24 @@
  <%@ include file="../common/menubar.jsp"%> 
 
 
-    
+    <script>
+        $(function () {
+            var $header = $('header'); //헤더를 변수에 넣기
+            var $page = $('.page-start'); //색상이 변할 부분
+            var $window = $(window);
+            var pageOffsetTop = $page.offset().top;//색상 변할 부분의 top값 구하기
+
+            $window.resize(function () { //반응형을 대비하여 리사이즈시 top값을 다시 계산
+                pageOffsetTop = $page.offset().top;
+            });
+
+            $window.on('scroll', function () { //스크롤시
+                var scrolled = $window.scrollTop() >= pageOffsetTop; //스크롤된 상태; true or false
+                $header.toggleClass('down', scrolled); //클래스 토글
+            });
+        });
+
+    </script>
 
     
 
@@ -295,20 +312,15 @@
                     
                     <script>
 		
-                    $(function(){
+                <%--     $(function(){
         				$(".thumbnail").click(function(){
         					var bno = $(this).children().eq(0).val();
         					location.href="<%=contextPath%>/detail.bo?bno=" + bno;
         				});
         			});
+                     --%>
                     
-                    
-                  <%--   $(function(){
-        				$(".noticeView").click(function(){
-        					var nno = $(this).children().eq(0).val();
-        					location.href="<%=contextPath%>/detail.no?nno=" + nno;
-        				});
-        			}); --%>
+                 
         		</script>
 
 <!----------------------- 페이징바 만들기 -------------------------------->
@@ -376,10 +388,10 @@
                         </div>
                         
                         <!-- 인기 글 뿌려 줄 장소  -->
-                        <div class="blog__sidebar__recent" id="thumbList">
+                        <div class="blog__sidebar__recent">
                             <h5>인기 글 </h5>
                           
-                          <div class="blog__sidebar__recent" id="thumbList">
+                          <div id="thumbList">
                                 
                             </div> 
                             <!-- </a> -->
@@ -403,11 +415,19 @@
 	$(function(){
 		selectTopList(); // 열자 마자 호출 하고 
 		
+	   
+			$(".thumbnail").click(function(){
+				var bno = $(this).children().eq(0).val();
+				location.href="<%=contextPath%>/detail.bo?bno="+bno;
+			})
+		
+
+		
 		//setInterval(selectTopList, 2000)
-		$("#thumblist").on("click",".thumb",function(){
+	 	 $("#thumbList").on("click",".thumb",function(){
 			var bno = $(this).children().eq(0).val();
-			location.href = "<%=contextPath%>detail.th?bno="+bno;
-		})
+			location.href = "<%=contextPath%>/detail.bo?bno="+bno;
+		}) 
 	})
 	
 	function selectTopList(){
@@ -424,19 +444,18 @@
 					var tmp = list[i].boardTitle;
 					var time = list[i].createDate;
 					console.log(time);
-					value += '<div class="blog__sidebar__recent__item__pic" align="center">'+
+					value += '<div class="blog__sidebar__recent__item__pic thumb" >'+ 
 							 '<input type="hidden" value="' +list[i].boardNo+ '">'+
-							 '<img src="'+contextPath+'/resources/board_upfiles/' + list[i].titleImg + '"> <br>'+
-							 '<div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i) 
-							 +'</span></div><h6>'+ tmp +'</h6>'
-							 +'<p><i class="fa fa-clock-o"></i>'+time+'</p>'
-							 +'</div>';
+							 '<img src="'+contextPath+'/resources/board_upfiles/' + list[i].titleImg + '" width="80px" height="70px">'+
+					
+							 '</div><div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i)+ 
+							 '</span></div><h6 class="thumb">'+ tmp +'</h6>'+
+							 '<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;'+time+'</p></div>';
+							
 							 
-							 //+'<img  class="card-img-top embed-responsive-item" 
-							 //src="'+contextPath+'/resources/place_upFiles/'+list[i].titleImg+'" alt="Card image" >'
 				}
 				console.log(value);
-				$("#thumbList").html(value);
+				$("#thumbList").html(value).trigger("create");
 			},
 			error:function(){
 				console.log("ajax통신실패");

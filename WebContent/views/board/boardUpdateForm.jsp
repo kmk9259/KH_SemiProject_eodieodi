@@ -5,10 +5,6 @@
 	Board board = (Board)request.getAttribute("b");
     ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
 
-	/* Attachment titleImg = fileList.get(0);
-	Attachment contentImg1 = fileList.get(1);
-	Attachment contentImg2 = fileList.get(2);
-	Attachment contentImg3 = fileList.get(3); */
 	%>
 <!DOCTYPE html>
 <html>
@@ -190,15 +186,13 @@
               <% if(fileList != null) { %> <!-- 기존파일 있으면 -->
               
               
-              <div >
+              <div>
               <img  name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>"  id="titleImg"  width="200px" height="180">
               
              	<input type='hidden' name='originFile1' value='<%=fileList.get(0).getOriginName()%>'>
 				<input type='hidden' name='originFileNo1' value='<%=fileList.get(0).getFileNo()%>'>
               	
-            <!--   	<div id="fileArea">
-              	 <input type="file" name="upFile1" id="file1" onchange="loadImg(this, 1);">
-                </div> -->
+
               
               
              	 	 <% for(int i=1; i<fileList.size(); i++){ %>

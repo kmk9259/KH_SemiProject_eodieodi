@@ -122,26 +122,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 		});
 		
 		
-		/* $(document).ready(function() {
-			  $('#summernote').summernote({
-				// set editor height
-				    height:1000,                 // set editor height
-				    minHeight: 1000,             // set minimum height of editor
-				    maxHeight: 1000,       
-				    disableResizeEditor: true,
-				    focus: true,
-				    lang: "ko-KR",
-				    callbacks:{
-				      onChange: function(){
-				        if($(".note-editable")[0].scrollHeight>1000){
-				          $(".note-status-output").html('<div class="alert alert-danger">내용이 영역을 벗어났습니다. 스크롤를 이용하세요</div>');
-				        }else{
-				          $(".note-status-output").html("");
-				        }
-				      }
-				    }
-			  });
-			}); */
+	
 		
 		
 			function goBack(){
@@ -305,23 +286,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 		}
 	}
 	
-	</script>
-
-	 
-	 
-	 
-
-		<%-- <div style="width: 60%; margin: auto;">
-			<form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
-				<input type="text" name="writer" style="width: 20%;" placeholder="작성자"/><br>
-				<input type="text" name="title" style="width: 40%;" placeholder="제목"/>
-				<br><br> 
-				<textarea id="summernote" name="content"></textarea>
-				<button type="submit">등록하기</button>
-			</form>
-		</div> --%>
-	 
-	 </div>
+	
     
     
       
@@ -335,8 +300,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 
 
 	<script src="<%=contextPath%>/resources/js/main.js"></script>
-	<!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> -->
+	
 
 
 	<%@ include file="../common/footer.jsp"%>
