@@ -565,7 +565,13 @@ var emailcount = 0;
                      email.focus();
                      return false;
                   }
-               }else if(userId.val() == "" || userPwd.val() == "" || userPwd.val().length < 6 || checkPwd.val() == "" || checkPwd.val() != userPwd.val() || userName.val() == "" || phone.val() == "" || email.val() == "" || exptext.test(emailV)==false || emailcount <= 0 || count <= 0){
+               }else if( document.getElementsByName("email")[0].title == "n" ) {
+                   if(confirm("이메일 암호가 일치하지 않았습니다.\n이메일 인증을 다시 진행해주세요.") == true){
+                       email.val('');
+                       email.focus();
+                       return false;
+                    }
+                 }else if(userId.val() == "" || userPwd.val() == "" || userPwd.val().length < 6 || checkPwd.val() == "" || checkPwd.val() != userPwd.val() || userName.val() == "" || phone.val() == "" || email.val() == "" || exptext.test(emailV)==false || emailcount <= 0 || count <= 0){
                   return false;
                }
                
@@ -646,9 +652,11 @@ var emailcount = 0;
                         var name = "인증번호 입력";
                         var option = "width = 500, height = 500, top = 100, left = 200"
                         window.open(url, name, option);
-                     email.attr("readonly", "true");
+                     	email.attr("title", "n");
+                     	email.attr("readonly", "true");
                         emailcount++;
                   }else{
+                      email.val('');
                      email.focus();
                   }
                }
