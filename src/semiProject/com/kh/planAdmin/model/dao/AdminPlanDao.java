@@ -12,9 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import semiProject.com.kh.course.model.vo.Course;
 import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
 import semiProject.com.kh.planMy.model.dao.PlanMyDao;
+import semiProject.com.kh.theme.model.vo.Theme;
 
 public class AdminPlanDao {
 	
@@ -333,11 +335,13 @@ public class AdminPlanDao {
 
 
 	public ArrayList<Place> selectPList(Connection conn, int area, int theme) {
-	
-		//areaThemeCourse=
-//select course_no, theme_no, area_no from course a 
-//		join course_place cp on a.course_no = cp.ref_course 
-//				where theme_no=1 and area_no=1 and rownum < 2;
+//		areaThemeCourse=select c.course_no, p.place_no, a.area_no, th.theme_no, th.theme_name, pa.change_name\
+//				from place p join area a on p.area_no=a.area_no\
+//				join course c on a.area_no = c.area_no \
+//				join theme th on c.theme_no = th.theme_no\
+//				join place_attachment pa on p.place_no = pa.file_no\
+//				where th.theme_no=? and a.area_no=?;
+		
 		
 		ArrayList<Place> pList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -355,24 +359,36 @@ public class AdminPlanDao {
 			
 			while(rset.next()) {
 				
+				//Course c = new Course();
 				Place p = new Place();
-				
-				
-				 
-//				p.setPlaceNo(rset.getInt("PLACE_NO"));
-//				p.setAreaNo(rset.getInt("AREA_NO"));
-//				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
-//				p.setPlacePhone(rset.getString("PLACE_PHONE"));
-//				p.setDescription(rset.getString("DESCRIPTION"));
-//				p.setBsHour(rset.getString("BSHOUR"));
-//				p.setPrice(rset.getInt("PRICE"));
-//				p.setAddress(rset.getString("ADDRESS"));
-//				p.setTitleImg(rset.getString("CHANGE_NAME"));
+				//Theme th = new Theme();
+							 
+				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setAreaNo(rset.getInt("AREA_NO"));
+				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				p.setPlacePhone(rset.getString("PLACE_PHONE"));
+				p.setDescription(rset.getString("DESCRIPTION"));
+				p.setBsHour(rset.getString("BSHOUR"));
+				p.setPrice(rset.getInt("PRICE"));
+				p.setAddress(rset.getString("ADDRESS"));
+				p.setTitleImg(rset.getString("CHANGE_NAME"));
 				//사진을 띄워줄려면..? 플레이스 어테치먼트도 있어야하나ㅏ..?
 				//->어태치먼트를 조인한 쿼리를 가져와야됨 
 
 				pList.add(p);// 추가하기 
 			}
+			
+			while(rset.next()) {
+				
+				Theme th = new Theme();
+				
+				th.setThemeName(rset.getString("THEME_NAME"));
+				th.setThemeNo(rset.getInt("THEME_NO"));
+				
+				pList.add(th);
+				
+			}
+			
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

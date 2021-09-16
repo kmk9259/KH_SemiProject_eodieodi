@@ -70,6 +70,7 @@ public class AdminCreateServlet extends HttpServlet {
 			//ArrayList<Place> courseList = new AdminPlanService().selectCourse(area,theme);-이건아님 
 
 			//장소 3개가 들어오는애를 정의해둬야됨 rset을 해놔서 
+			
 			ArrayList<Place> pList = new AdminPlanService().selectPList(area,theme);
 			
 		
