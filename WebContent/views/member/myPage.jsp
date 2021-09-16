@@ -260,12 +260,12 @@
                             <div class="col-sm-6 col-sm-offset-3">
                                 <form  id="updatePwdForm" action="<%= request.getContextPath() %>/updatePwd.me" method="post">
                                 		<label style="float: left;">현재 비밀번호</label>
-                                		<p id="chUserPw" class="glyphicon glyphicon-remove" style="float: right;"> 현재 비밀번호와 일치</p><br>
+                                		<p id="chUserPw" style="float: right;"> 현재 비밀번호와 일치</p><br>
 											<input maxlength="100" style="text-align: center;" type="password" class="input-lg form-control" name="userPwd" id="userPwd" placeholder = "현재 비밀번호를 입력하세요" required><br>
 				                                    
                                 <br>
                                     	<label>변경할 비밀번호 </label>
-				                        <p id="6char" class="glyphicon glyphicon-remove" style="float: right;"> 6자리 이상</p><br>
+				                        <p id="6char" style="float: right;"> 6자리 이상</p><br>
                                     		<input maxlength="100" style="text-align: center;" type="password" class="input-lg form-control" name="newPwd" id="newPwd"
                                         				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required><br>
 				                                   
@@ -275,7 +275,7 @@
                                         <div class="col-sm-12">
                                         <br>
                                         	<label>변경할 비밀번호 확인</label>
-                                            <p id="pwmatch" class="glyphicon glyphicon-remove" style="float: right;">비밀번호 일치</p><br>
+                                            <p id="pwmatch" style="float: right;">비밀번호 일치</p><br>
                                         	<input maxlength="100" style="text-align: center;" type="password" class="input-lg form-control" name="checkPwd" id="checkPwd"
                                         		placeholder="한 번 더 입력하세요" autocomplete="off" required><br>
                                         </div>
@@ -293,6 +293,7 @@
 						<!-- 내가 쓴 글 -->
                         <div class="tab-pane text-style" id="myPost">
                             <h2 class="tInfo">내가 쓴 글</h2>
+                            <p style="margin-left: 5%; margin-top: 1%;">더블클릭시 해당 게시글이 새 창에 띄워집니다</p>
 							<br><br>
                             <div id="listArea" class="span5" style="padding-left: 5%; width: 90%; height: 445px;">
                                 <table class="table table-striped table-condensed" style="text-align: center; table-layout: fixed;">
@@ -395,11 +396,10 @@
                                 		 
                                 		  <br><br>
                                 		  <label class="control-label">탈퇴 진행을 원하신다면 현재 비밀번호를 입력해주세요.</label>
-                                		   <p style="color: red">* 탈퇴 후 회원님과 관련된 모든 정보는 삭제됩니다.</p>
-                                    <input type="password" class="input-lg form-control" name="deleteUser" id="deleteUser"
+                                    <input type="password" class="input-lg form-control" name="deleteUser" id="deleteUser" style="text-align: center;"
                                         placeholder="현재 비밀번호를 입력하세요" autocomplete="off" required="required">
                                         <br><br><br>
-                                    <button type="submit" class="btn-load btn-lg" style="background-color: #D958A0; color:#fff; border:none; margin-left: 30%;" onclick="deleteMember()">탈퇴하기</button>
+                                    <button type="submit" class="btn-load btn-lg" style="background-color: #D958A0; color:#fff; border:none; margin-left: 35%;" onclick="deleteMember()">탈퇴하기</button>
                                 </form>
                             </div>
                         </div>
@@ -515,32 +515,32 @@
         $("input[type=password]").keyup(function () {
 
         	if ($("#nowPwd").val() == $("#userPwd").val()) {
-                $("#chUserPw").removeClass("glyphicon-remove");
-                $("#chUserPw").addClass("glyphicon-ok");
+                //$("#chUserPw").removeClass("glyphicon-remove");
+                //$("#chUserPw").addClass("glyphicon-ok");
                 $("#chUserPw").css("color", "#00A41E");
             } else {
-                $("#chUserPw").removeClass("glyphicon-ok");
-                $("#chUserPw").addClass("glyphicon-remove");
+               // $("#chUserPw").removeClass("glyphicon-ok");
+                //$("#chUserPw").addClass("glyphicon-remove");
                 $("#chUserPw").css("color", "#FF0004");
             }
         	
             if ($("#newPwd").val().length >= 6) {
-                $("#6char").removeClass("glyphicon-remove");
-                $("#6char").addClass("glyphicon-ok");
+               // $("#6char").removeClass("glyphicon-remove");
+                //$("#6char").addClass("glyphicon-ok");
                 $("#6char").css("color", "#00A41E");
             } else {
-                $("#6char").removeClass("glyphicon-ok");
-                $("#6char").addClass("glyphicon-remove");
+                //$("#6char").removeClass("glyphicon-ok");
+                //$("#6char").addClass("glyphicon-remove");
                 $("#6char").css("color", "#FF0004");
             }
 
             if ($("#newPwd").val() == $("#checkPwd").val()) {
-                $("#pwmatch").removeClass("glyphicon-remove");
-                $("#pwmatch").addClass("glyphicon-ok");
+                //$("#pwmatch").removeClass("glyphicon-remove");
+                //$("#pwmatch").addClass("glyphicon-ok");
                 $("#pwmatch").css("color", "#00A41E");
             } else {
-                $("#pwmatch").removeClass("glyphicon-ok");
-                $("#pwmatch").addClass("glyphicon-remove");
+                //$("#pwmatch").removeClass("glyphicon-ok");
+                //$("#pwmatch").addClass("glyphicon-remove");
                 $("#pwmatch").css("color", "#FF0004");
             }
         });
@@ -551,7 +551,7 @@
 		function deleteMember(){
 			var deleteU = $("#deleteUser");
 			if("<%= userPwd %>" == deleteU.val()){
-				var val = confirm("탈퇴를 진행하면 회원님과 관련된 모든 정보가 사라집니다. \n정말로 탈퇴하시겠습니까?");
+				var val = confirm("정말로 탈퇴하시겠습니까?");
 				
 				if(val){
 					$("#updateForm").submit();
