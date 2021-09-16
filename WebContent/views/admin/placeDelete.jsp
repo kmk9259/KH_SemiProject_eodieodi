@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.place.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.area.model.vo.*,semiProject.com.kh.place.model.vo.*"%>
 <%
-	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");
-
+	
+	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
 %>
 <!DOCTYPE html>
 <html>
@@ -54,7 +54,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>일정 삭제</h2>
+							<h2>어디어디?!</h2>
 						</div>
 					</div>
 				</div>
@@ -83,112 +83,142 @@
 
 	<section class="page-start">
 		<section class="admin">
-			<!------ MENUSIDE BAR ---------->
-				<div class=" menuBar">
-					<div class="col-sm-2">
-						<nav class="nav-sidebar">
-							<ul class="nav tabs">
-								<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
-								
-								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
-								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
-								<li class="active menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
-								
-								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
-								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
-								
-								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
+			<div class=" menuBar">
+				<div class="col-sm-2">
+					<nav class="nav-sidebar">
+						<ul class="nav tabs">
+							<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
+							<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
+							
+							<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
+							<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
+							<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+							<li class="active menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
+							
+							<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
+							<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
+							<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+							<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
+							
+							<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
-							</ul>
-						</nav>
-					</div>
-				</div>	
+						</ul>
+					</nav>
+				</div>
+			</div>					
+			<div class="admin-showpage nice-scroll">
+				<div class="col-lg-12">
+			        <div class="section-title">
+			            <h2 style="margin: 0px;">일정 삭제</h2>
+			        </div>	    
+				</div><!-- class="col-lg-12" -->
+				<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
+						<option value="0" selected>지역을 선택하세요</option>
+						<%for(Area a : alist) {%>							
+						<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
+						<%} %>
+
+				</select><br><br>
+				<section class="most-search spad ">
+					<div class="container">
+						<div class="row " >
+							<div class=" ">
+								<div class="tab-pane active" id="tabs-1" role="tabpanel">
+									<div class="row" id="placeList">
+									
+									</div>
+								</div>
+			                </div>
+			            </div>
+			        </div>
+				</section>		
 				
-				<div class="admin-showpage nice-scroll">
-					<select id="placeChoice" onchange="choicePlace(this)">
-						<option value="none" selected="selected">지역선택</option>
-						<option value="h">홍대</option>
-						<option value="g">강남</option>
-					</select><br><br><br><br>
-					
-					<script>
-					function choicePlace(c){
+				
+			</div><!-- admin-showpage -->
+			<script>
+			
+			function changeArea(obj)
+			{
+				var placeChoice = document.getElementById('placeChoice');
+				var aNo = placeChoice.options[placeChoice.selectedIndex].value;
+				$("#placeList").empty();
+				$.ajax({
+					url : "Pdelete.pl",
+					type : "post",
+					data:{aNo : aNo},
+					async:false,
+					success:function(list){
+						var value="";
+						for(var i in list)
+						{
+							var titleImg = list[i].titleImg;
+							var src = "<%= contextPath%>/resources/place_upFiles/"+titleImg;
+							switch(list[i].categoryNo){
+							case 1 :
+								var categortName="먹기";
+								break;
+							case 2 :
+								var categortName="마시기" 
+								break;
+							case 3 :
+								var categortName="놀기"
+								break;							
+							}
+							
+							value +=
+								'<div class="col-lg-4 col-md-4">'+
+								'<div class="listing__item">'+
+									'<input type="hidden" name="pNo" id="placeNo" value="'+list[i].placeNo+'">'+
+								    '<div class="listing__item__pic set-bg" style="height:300px; background-image: url(' + src + '); ">'+
+								        '<img src="resources/img/listing/list_icon-1.png" alt="">'+
+								        '<div class="listing__item__pic__tag">NO. '+list[i].placeNo+'</div>'+								        
+								    '</div>'+
+									'<div class="listing__item__text">'+
+									    '<div class="listing__item__text__inside">'+
+									        '<h5>'+list[i].placeTitle+'</h5>'+
+									        '<p>'+list[i].description+'</p>'+
+									        '<div class="listing__item__text__rating">'+
+									            '<div class="listing__item__rating__star">'+
+									                '<span class="icon_star"></span>'+
+									                '<span class="icon_star"></span>'+
+									                '<span class="icon_star"></span>'+
+									                '<span class="icon_star"></span>'+
+									                '<span class="icon_star-half_alt"></span>'+
+									            '</div>'+
+									            '<h6>'+list[i].price+' 원</h6>'+
+									            '</div>'+
+									        '<ul>'+
+									            '<li><span class="icon_pin_alt"></span> '+list[i].address+'</li>'+
+									            '<li><span class="icon_phone"></span> '+list[i].placePhone+'</li>'+
+									        '</ul></div>'+
+									    '<div class="listing__item__text__info">'+
+									        '<div class="listing__item__text__info__left">'+
+									            '<img src="resources/img/listing/list_small_icon-1.png" alt="">'+
+									            '<span>'+categortName+'</span></div>'+
+									        '<div class="listing__item__text__info__right">Open Now</div>'+
+									    '</div>'+
+									    '<button class="btn ">삭제하기</button>'+
+									'</div></div></div>'
+						}
 						
-					    if(c.value == "h")
-					    {
-					    	$('#hongdae').show();
-					    	$('#gangnam').hide();
-					    	$('#none').hide();
-					    	
-					    }	
-					    else if(c.value == "g")
-				    	{
-					    	$('#hongdae').hide();
-					    	$('#gangnam').show();
-					    	$('#none').hide();
-				    	}
-					    else{
-					    	$('#hongdae').hide();
-					    	$('#gangnam').hide();
-					    	$('#none').show();
-					    }
-					}					
-					</script>
-					<div id="none" style="display: none" style="display: inline-block;">지역을 선택해주세요</div>
-					<div id="hongdae" style="display: none" style="display: inline-block;">
-					<%for(Place p :list){ %>
-					
-						<%if(p.getAreaNo()==1) {%>
-						<form action="<%=contextPath%>/deleteP.pl" id="postForm" method="post">
-						<input type="hidden" id="placeNo" name="pNo" value="<%= p.getPlaceNo() %>">
-						<div id="placeList" style="display: inline-block;">
-							<div class="card-group card-deck" style="width: 300px; " >
-								<div class="card">
-									<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
-									<div class="card-body">
-										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
-										<p class="card-text">주요 메뉴: <%= p.getDescription() %></p>	
+						 $("#placeList").html(value).trigger("create");
+						 $(function(){
+								$(".btn").click(function(){
+									var parent = $(this).parent().parent();  
+									var pNo = parent.children("#placeNo").val();
+									location.href="<%=contextPath%>/deleteP.pl?pNo="+pNo;
 										
-										<button type="submit" id="btn" class="btn-primary">삭제하기</button>
-										
-									</div>
-								</div>							
-							</div>
-						</div>
-						</form>
-						
-						<%} %>
-					<%} %>
-					</div>
-					
-					<div id="gangnam" style="display: none" style="display: inline-block;">
-					<%for(Place p :list){ %>
-						<%if(p.getAreaNo()==2) {%>
-						<form action="<%=contextPath%>/deleteP.pl" id="postForm" method="post">
-						<input type="hidden" id="placeNo" name="pNo" value="<%= p.getPlaceNo() %>">
-						<div id="placeList" >
-							<div class="card-group card-deck" style="width: 300px; " >
-								<div class="card">
-									<img class="card-img-top" src="<%=contextPath %>/resources/place_upFiles/<%= p.getTitleImg() %>" alt="Card image" style="width: 100%">
-									<div class="card-body">
-										<h4 class="card-title">No.<%= p.getPlaceNo() %>  <%=p.getPlaceTitle() %></h4>
-										<p class="card-text">주요 메뉴 : <%= p.getDescription() %></p>
-										<button type="submit" id="btn2" class="btn-primary ">삭제하기</button>
-									</div>
-								</div>							
-							</div>
-						</div>
-						</form>
-						<%} %>
-					<%} %>
-					
-					</div>
-					
-				</div><!-- admin-showpage -->
+									
+									
+									
+								});
+							});
+						 
+					}//success					
+				})				
+			}
+			
+			</script>
 		</section><!-- admin -->
 	</section><!-- page- start -->
 

@@ -9,67 +9,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import semiProject.com.kh.place.model.service.PlaceService;
 import semiProject.com.kh.place.model.vo.Place;
 
 /**
  * Servlet implementation class PlaceDeleteServlet
  */
-@WebServlet("/deleteP.pl")
+@WebServlet("/Pdelete.pl")
 public class PlaceDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PlaceDeleteServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public PlaceDeleteServlet() {
-		super();
-		// TODO Auto-generated constructor stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int aNo = Integer.parseInt(request.getParameter("aNo"));		
+		ArrayList<Place> list = new PlaceService().selectPList2(aNo);	
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		ArrayList<Place> list = new PlaceService().selectPList();
-		request.setAttribute("list", list);
-		String tmp = request.getParameter("pNo");
-		if(tmp != null)
-		{
-			int pNo = Integer.parseInt(request.getParameter("pNo"));
-			System.out.println(pNo);
-			int result = new PlaceService().deletePlace(pNo);
-			if(result >0)
-			{
-				request.getRequestDispatcher("views/admin/placeDelete.jsp").forward(request, response);
-				return;
-			}
-			else
-			{
-				request.setAttribute("msg", "게시글 삭제에 실패하였습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
-			
-		}
-		else
-		{
-			System.out.println("tmp "+tmp);
-		}
-		request.getRequestDispatcher("views/admin/placeDelete.jsp").forward(request, response);
-
-		
-
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -52,22 +52,7 @@ public class CourseDao {
 		return result;
 	}
 
-	public int insertCoursePlace(Connection conn, String[] pNo) {
-		int result =0;
-		PreparedStatement pstmt = null;
-		
-		
-		String sql = prop.getProperty("insertCoursePlace");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
+	
 
 	public int insertCoursePlace(Connection conn, int placeNum) {
 		int result =0;
@@ -233,6 +218,80 @@ public class CourseDao {
 		return result;
 	}
 
+	public Course selectCourse(Connection conn, int cNo) {
+		Course c = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		//selectCourse = SELECT * FROM COURSE WHERE COURSE_NO=? AND STATUS='Y'
+		String sql = prop.getProperty("selectCourse");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				c= new Course();
+				c.setCourseNo(rset.getInt("COURSE_NO"));
+				c.setAreaNo(rset.getInt("AREA_NO"));
+				c.setThemeNo(rset.getInt("THEME_NO"));
+				c.setCourseTitle(rset.getString("COURSE_TITLE"));
+				c.setStatus(rset.getString("STATUS"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		return c;
+	}
+	public int updateCourse(Connection conn, Course c) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//updateCourse=UPDATE COURSE SET THEME_NO=? ,COURSE_TITLE=? WHERE COURSE_NO=?
+		String sql = prop.getProperty("updateCourse");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getThemeNo());
+			pstmt.setString(2, c.getCourseTitle());
+			pstmt.setInt(3, c.getCourseNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateCoursePlace(Connection conn, Course c, int placeNum) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//updateCoursePlace=UPDATE COURSE_PLACE SET PLACE_NO=?  WHERE REF_COURSE=?
+		String sql = prop.getProperty("updateCoursePlace");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, placeNum);
+			pstmt.setInt(2, c.getCourseNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	
 	
 
 }

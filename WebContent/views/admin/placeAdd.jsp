@@ -51,7 +51,7 @@ height: 500px;
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>일정 등록</h2>
+							<h2>어디어디?!</h2>
 						</div>
 					</div>
 				</div>
@@ -104,7 +104,10 @@ height: 500px;
 			</div>
 			<!--menu bar  -->
 			<div class="admin-showpage nice-scroll">
-					<div class="tab-content">
+				<div class="section-title">
+		            <h2 style="margin: 0px;">일정 등록</h2>
+		        </div>	
+					<div class="">
 						<!-- 일정 등록 -->
 						<div class="tab-pane active text-style placeAddForm">
 							
@@ -126,13 +129,13 @@ height: 500px;
 									<label class="control-label">상호명</label> 
 									<input maxlength="100" type="text" name="placeTitle" required="required" class="form-control" placeholder="상호명을 입력해주세요" /> 
 									<label class="control-label">전화번호</label>
-									<input maxlength="100" type="tel" name="placePhone" required="required" class="form-control" placeholder="전화번호를 입력해주세요" /> 
+									<input maxlength="100" type="text" name="placePhone" required="required" class="form-control" placeholder="전화번호를 입력해주세요" /> 
 									<label class="control-label">설명</label> 
-									<input maxlength="100" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
+									<input maxlength="1000" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
 									<label class="control-label">영업 시간</label> 
 									<input maxlength="100" type="text" name="bsHour" required="required" class="form-control" placeholder="영업 시간을 입력해주세요" /> 
-									<label class="control-label">대표 금액</label> 
-									<input maxlength="100" type="text" name="price" required="required" class="form-control" placeholder="대표 금액을 입력해주세요" /> 
+									<label class="control-label">대표 금액(가격만)</label> 
+									<input maxlength="100" type="text" name="price" required="required" class="form-control" pattern="[0-9]+" placeholder="대표 금액을 입력해주세요(숫자만)" /> 
 									<label class="control-label">상세주소</label>
 									<input maxlength="100" type="text" name="address" required="required" class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
 									<img name="titleImg" width="150" height="120" id=titleImg> <br> 
@@ -143,8 +146,8 @@ height: 500px;
 									</div>
 								</div>
 
-								<button id="btn" class="nextBtn btn-ms pull-right" type="submit">등록</button>
-							</form>
+								<button id="btn" class="nextBtn btn-ms pull-right" type="submit">등록</button><br><br>
+							</form><br><br>
 						</div>
 						<script>
 							$(function() {
@@ -154,16 +157,23 @@ height: 500px;
 									 $("#file1").click(); 
 								});
 								$("#btn").click(function() {
-									var result = confirm("일정을 등록하시겠습니까?")
-									if (result) {
-										alert("일정이 등록되었습니다.")
-									} else {
-										location.reload();
-									}
+									var result = fieldCheck()==true? true:false;
+									
 
 								});
 
 							});
+							function fieldCheck(){
+								var text = $("#insertForm input[type='text']");
+								for(var i=0; i<text.length; i++){
+									if(""==$(text[i]).val() || null == $(text[i]).val()){
+										var elename = $(text[i]).attr("name");
+										alert("빈 칸을 다 채워주세요");
+										$("."+elename).focus();
+										return true;
+									}
+								}
+							}
 
 							function loadImg(inputFile, num) {// 이미지 미리보기 
 								//inputFile : 현재 변화가 생긴 input type = "file"

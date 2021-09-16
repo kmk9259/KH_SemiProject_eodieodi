@@ -63,7 +63,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>일정 관리</h2>
+							<h2>어디어디?!</h2>
 						</div>
 					</div>
 				</div>
@@ -120,7 +120,7 @@
 			
 				<div class="col-lg-12">
 			        <div class="section-title">
-			            <h2>일정 조회</h2>
+			            <h2 style="margin: 0px;">일정 조회</h2>
 			        </div>	    
 				</div><!-- class="col-lg-12" -->
 			

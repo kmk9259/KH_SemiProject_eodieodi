@@ -57,7 +57,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>코스 조회</h2>
+							<h2>어디어디?!</h2>
 						</div>
 					</div>
 				</div>
@@ -111,17 +111,12 @@
 					</div>
 				</div>	
 			<div class="admin-showpage nice-scroll">
-			
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="section-title">
-								<h2>코스 조회</h2>
+		
+					<div class="section-title">
+								<h2 style="margin: 0px;">코스 조회</h2>
 							</div>
-						</div>
-					</div>
 					<div>
-						<select id="placeChoice" name="placeChoice"
-							onchange="changeArea(this)">
+						<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
 							<option value="0" selected>지역을 선택하세요</option>
 							<%for(Area a : alist) {%>
 							
@@ -129,8 +124,7 @@
 							
 							<%} %>
 
-						</select><br>
-						<br>
+						</select><br><br>
 
 					</div>
 					<br><br>
@@ -149,21 +143,17 @@
 			{
 				var placeChoice = document.getElementById('placeChoice');
 				var aNo = placeChoice.options[placeChoice.selectedIndex].value;
-				console.log(aNo+"   aNo")
 				$("#courseList").empty();
-				console.log(aNo+"   aNo2222")
 				$.ajax({
 					url : "cList.co",
 					type : "post",
 					data:{aNo : aNo},
 					success:function(map){
-						console.log("zzz"+map);
-						console.log(map["cArr"]);
 						var tmp="";
 						$.each(map["cArr"], function(index, value) {
-							console.log(value);
-							console.log(value.areaNo);
 							var TitleImg =  getTitleImg(value.courseNo, value.areaNo)
+							var src = "<%= contextPath%>/resources/place_upFiles/"+TitleImg;
+							
 							switch(value.areaNo){
 							case 1 :
 								var areaName="홍대";								
@@ -186,50 +176,65 @@
 							tmp +='<div class="col-lg-4 col-md-6">'
 	                    		+'<div class="blog__item">'
 	                    			+'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+value.courseNo+'">'
-                        			+'<div class="blog__item__pic set-bg"  "></div>' 
+                        			+'<div class="blog__item__pic set-bg" style="height:300px; background-image: url(' + src + '); "></div>'
+                        			+'<div class="listing__item__pic__tag">NO. '+value.courseNo+'</div>'
                         			+'<div class="blog__item__text">'
 			                            +'<ul class="blog__item__tags">'
 			                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
 			                                +'<li>'+themeName+'</li>'
 			                            +'</ul>'
 			                            +'<h5><a href="#">'+value.courseTitle+'</a></h5>'
-		                            	+'<ul class="blog__item__widget">'
-			                                +'<li><i class="fa fa-clock-o"></i> 19th March, 2019</li>'
-			                                +'<li><i class="fa fa-user"></i> John Smith</li>'
-			                            +'</ul>'
+		                            	+'<button class="btn ">수정하기</button>'
 				                    +'</div>'
 				                    +'</div>'
                     			+'</div>'
            					+'</div>';
+							
 						})
 						
 						 $("#courseList").html(tmp).trigger("create");
 						 $(function(){
 								$(".blog__item__pic").click(function(){
-									var parent = $(this).parents();  //클릭한 버튼의 최상위 부모
-									console.log("parent : " + parent);
-									console.log("찍히니?");
+									var parent = $(this).parents();  
 									var cNo = parent.children("#courseNo").val();
-									console.log("cNo : " + cNo);
 									
 									location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo;
 								});
-							}); 
+							});
+						 $(function(){
+								$(".btn").click(function(){
+									var parent = $(this).parent().parent();  
+									var cNo = parent.children("#courseNo").val(); 
+									location.href="<%=contextPath%>/updateForm.co?cNo="+cNo;
+										
+									
+									
+									
+								});
+							});
+						 
 					}//success					
 				})				
 			}
 			function getTitleImg(cNo, aNo)
 			{
+				var src ="";
 				console.log(cNo, aNo);
 				$.ajax({
 					url : "cList.co",
 					type : "post",
 					data:{cNo : cNo, aNo: aNo},
+					async:false,
 					success:function(map){
-						
-					}
+						var tmp="";
+						$.each(map["tArr"], function(index, value) {
+							console.log(value);
+							console.log(value.areaNo);
+							src = value.titleImg;
+						})
+					}//success	
 				})
-				
+				return src;
 			}
 			
 			

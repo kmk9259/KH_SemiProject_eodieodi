@@ -38,9 +38,7 @@ public class CourseListCourse extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int aNo = Integer.parseInt(request.getParameter("aNo"));
-		System.out.println("@@@@@@@@@@@@@@@@@@@@: "+aNo);
 		ArrayList<Course> list = new CourseService().selectCList(aNo);
-		System.out.println("~~~~~~~~~~~~~~~~~~~: "+list);
 		
 		JSONObject jsonCourse = null;
 		JSONArray cArr = new JSONArray();
@@ -57,36 +55,32 @@ public class CourseListCourse extends HttpServlet {
 		}
 		JSONObject jsonMap = new JSONObject();
 		jsonMap.put("cArr", cArr);
-		System.out.println(cArr+"cArrrrrrrrrrrr");
 		
-		response.setContentType("application/json; charset=utf-8");
-		response.getWriter().print(jsonMap);
+		
 		//==================1 step=====================
 		String courseNo = request.getParameter("cNo");
 		if(courseNo != null)
 		{
 			int cNo = Integer.parseInt(courseNo);
-			System.out.println("cNo"+cNo);
-			System.out.println("aNo"+aNo);
+			ArrayList<Course> clist = new CourseService().selectCourseAttachment(cNo,aNo);
+			JSONObject jsonTitleImg = null;
+			JSONArray tArr = new JSONArray();
+			for(Course c : clist)
+			{
+				jsonTitleImg = new JSONObject();
+				jsonTitleImg.put("courseNo", c.getCourseNo());
+				jsonTitleImg.put("areaNo", c.getAreaNo());
+				jsonTitleImg.put("themeNo", c.getThemeNo());
+				jsonTitleImg.put("courseTitle", c.getCourseTitle());
+				jsonTitleImg.put("status", c.getStatus());
+				jsonTitleImg.put("titleImg", c.getTitleImg());
+				tArr.add(jsonTitleImg);
+			}
+			jsonMap.put("tArr", tArr);
 		}
-		
-		
-//		  String courseNo = request.getParameter("cNo"); if(courseNo != null) { 
-//		 * System.out.println("@@@@@@@@@@@@@@@@@@@@: "+cNo); ArrayList<Course> clist =
-//		 * new CourseService().selectCourseAttachment(cNo,aNo);
-//		 * System.out.println("!!!!!!!!!!!!!!!!!!!"+clist);
-//		 * 
-//		 * 
-//		 * tArr.add(clist);
-//		 * 
-//		 * if(tArr!= null) { jsonMap = new JSONObject();
-//		 * 
-//		 * 
-//		 * jsonMap.put("tArr", tArr); }
-//		 * 
-//		 * }
-		
-		
+		response.setContentType("application/json; charset=utf-8");
+		response.getWriter().print(jsonMap);
+
 	}
 
 	/**

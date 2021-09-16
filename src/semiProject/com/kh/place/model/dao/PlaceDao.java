@@ -40,8 +40,7 @@ public class PlaceDao {
 		 * PLACE_TITLE,PLACE_PHONE,DESCRIPTION,BSHOUR,PRICE, ADDRESS,COUNT,PLACE.STATUS,
 		 * CHANGE_NAME \ FROM PLACE JOIN (SELECT * FROM PLACE_ATTACHMENT \ WHERE FILE_NO
 		 * IN( \ SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y'
-		 * GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \ WHERE PLACE.STATUS='Y' ORDER BY
-		 * PLACE_NO
+		 * GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \ WHERE PLACE.STATUS='Y'  ORDER BY PLACE_NO
 		 */
 
 		String sql = prop.getProperty("selectPATList");
@@ -406,8 +405,7 @@ WHERE A.STATUS='Y' AND B.AREA_NAME LIKE '%' || ? || '%'ORDER BY PLACE_NO
 			pstmt.setString(6, p.getBsHour());
 			pstmt.setInt(7, p.getPrice());
 			pstmt.setString(8, p.getAddress());
-			pstmt.setInt(9, p.getCount());
-			pstmt.setInt(10, p.getPlaceNo());
+			pstmt.setInt(9, p.getPlaceNo());
 			
 			
 			result = pstmt.executeUpdate();
