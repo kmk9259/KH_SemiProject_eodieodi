@@ -335,11 +335,12 @@
 					success: function(result){ 
 						console.log("ajax 통신성공");
 					
-						if(result){
+						console.log("왜 안되는거야? result : " + result)
+						if(result>0){              //if(true) 하면 안되네! 세상에
 							$('.modal').modal("hide"); //모달창 닫기
 							alert("메일 전송이 완료되었습니다.");
 						}else{
-							alert("메일 전송에 실패하였습니다.")
+							alert("메일 전송에 실패하였습니다. \n이메일이 올바른지 확인해주세요.")
 						}
 
 					},

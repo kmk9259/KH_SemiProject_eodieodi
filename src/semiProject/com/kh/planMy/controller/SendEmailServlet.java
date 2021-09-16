@@ -52,8 +52,8 @@ public class SendEmailServlet extends HttpServlet {
         
         //메일 서버 생성
 		String host = "smtp.naver.com";
-		String user = ""; // 자신의 네이버 계정('@naver.com'은 적지 말 것)
-		String password = "";// 자신의 네이버 패스워드
+		String user = "summer7822"; // 자신의 네이버 계정('@naver.com'은 적지 말 것)
+		String password = "beom3512##";// 자신의 네이버 패스워드
 		int port = 465;
 
 		//아래 메일내용구성
@@ -98,12 +98,12 @@ public class SendEmailServlet extends HttpServlet {
 			}
 		});
 		
-		boolean result = false;
+		int result=1;
 		// email 전송
 		try {
 			MimeMessage msg = new MimeMessage(e_session);
 			msg.setFrom(new InternetAddress(user+"@naver.com", "EodiEodi"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 
 			// 메일 제목
 			msg.setSubject(subject);
@@ -112,13 +112,14 @@ public class SendEmailServlet extends HttpServlet {
 
 			Transport.send(msg);
 			System.out.println("이메일 전송 완료");
-			
-			result = true;
 
-		} catch (Exception e) {
+		} catch (Exception e) { //이메일전송 오류 -> result가 false되게 함
+			result = 0;
+			System.out.println("여기 안찍히나..?");
 			e.printStackTrace();
 		}
 		
+		System.out.println("result : " + result);
 		response.getWriter().print(result);
 	}
 
