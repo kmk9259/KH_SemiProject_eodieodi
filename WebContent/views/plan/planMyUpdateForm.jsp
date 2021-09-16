@@ -3,7 +3,7 @@
     semiProject.com.kh.member.model.vo.Member, java.sql.Date, java.text.SimpleDateFormat, semiProject.com.kh.area.model.vo.Area"%>
 <!DOCTYPE html>
 <%
-	//PlanMyupdateFormServlet에서 받아온다.
+	// PlanMyupdateFormServlet에서 받아온다.
 	PlanMy pm = (PlanMy)request.getAttribute("pm");
 	ArrayList<Place> pList = (ArrayList<Place>)request.getAttribute("pList"); //유저가 선택한 장소 리스트
 	ArrayList<Place> list = (ArrayList<Place>)request.getAttribute("list");   //전체 장소 리스트 

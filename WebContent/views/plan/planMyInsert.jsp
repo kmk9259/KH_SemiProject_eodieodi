@@ -46,7 +46,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap" rel="stylesheet">
 
     <style>
-    	h1, h2, h3, h4, h5, h6, p, a, input, button, li, div {
+    	h1, h2, h3, h4, h5, h6, p, a, input, button, li, div{
 	        font-family: 'Gowun Batang'!important;
 	    }
     	.filter {
