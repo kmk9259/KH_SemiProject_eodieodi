@@ -232,7 +232,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 </div>
 	
 	
-	
+	</section>
 	
 	<script>
 	
@@ -287,19 +287,13 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 	}
 	
 	
-    
-    
-      
-   
+	</script>
 
-
-
-</section>
 
 	<!-- Js Plugins -->
 
 
-	<script src="<%=contextPath%>/resources/js/main.js"></script>
+	 <script src="<%=contextPath%>/resources/js/main.js"></script> 
 	
 
 

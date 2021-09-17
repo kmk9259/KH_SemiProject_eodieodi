@@ -69,7 +69,7 @@ public class BoardInsertServlet extends HttpServlet {
 	         Board b = new Board();
 	         
 	         b.setBoardTitle(multiRequest.getParameter("title"));
-	         b.setBoardContent(multiRequest.getParameter("content"));
+	         b.setBoardContent(multiRequest.getParameter("content").replaceAll("\n", "<br>"));
 	        // b.setBoardWriter(multiRequest.getParameter("writer"));
 	         b.setBoardWriter(String.valueOf(userNo));
 	         

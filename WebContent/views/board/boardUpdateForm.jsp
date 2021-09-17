@@ -78,7 +78,17 @@
 	padding: 30px;
 	}
     
+
+#close {
+    position: absolute;
+    float: right;
+    background: red;
+	color: white;
+	width:30px;
+    z-index: 1;
+}
     
+   
     
     </style>
     
@@ -116,7 +126,8 @@
 			function goBack(){
 				history.back();
 			}
-		
+			
+
 	</script>
 
 
@@ -164,7 +175,7 @@
       
       
           <form id="insertForm" action="<%= contextPath %>/update.bo" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+          <input id="bno" type="hidden" name="bno" value="<%= board.getBoardNo() %>">
               <div class="form-group">
                   <label class="form-label" for="title"></label>
                   <input type="text" class="form-control" id="name" name="title" value="<%= board.getBoardTitle() %>" tabindex="1" required>
@@ -186,8 +197,12 @@
               <% if(fileList != null) { %> <!-- 기존파일 있으면 -->
               
               
-              <div>
+              <div id="container">
+              
+               <a class="fileRemove" id="close"> X </a>
+              
               <img  name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>"  id="titleImg"  width="200px" height="180">
+          
               
              	<input type='hidden' name='originFile1' value='<%=fileList.get(0).getOriginName()%>'>
 				<input type='hidden' name='originFileNo1' value='<%=fileList.get(0).getFileNo()%>'>
@@ -196,11 +211,14 @@
               
               
              	 	 <% for(int i=1; i<fileList.size(); i++){ %>
+             	 	 
+             	
+             	 <a class="fileRemove" id="close"> X </a>
              	 
                 <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>"  id="contentImg<%=i%>"   width="200px" height="180">
        
              	<input type='hidden' name='originFile<%=i +1%>' value='<%=fileList.get(i).getOriginName()%>'>
-				<input type='hidden' name='originFileNo<%=i +1 %>' value='<%=fileList.get(i).getFileNo()%>'>
+				<input id="fno" type='hidden' name='originFileNo<%=i +1 %>' value='<%=fileList.get(i).getFileNo()%>'>
 
 					<%} %>
 					
@@ -229,11 +247,11 @@
              
              
               
-              <div id="fileArea">
-               <input type="file" name="upFile1" id="file1" onchange="loadImg(this, 1);">
-				<input type="file" name="upFile2" id="file2" onchange="loadImg(this, 2);">
-				<input type="file" name="upFile3" id="file3" onchange="loadImg(this, 3);">
-				<input type="file" name="upFile4" id="file4" onchange="loadImg(this, 4);">
+              	<div id="fileArea">
+                <input type="file" name="file1" id="file1" onchange="loadImg(this, 1);">
+				<input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
+				<input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
+				<input type="file" name="file4" id="file4" onchange="loadImg(this, 4);">
 				</div>
               
      		
@@ -290,7 +308,7 @@
 		//inputFile : 현재 변화가 생긴 input type = "file"
 		//num : 조건문을 활용 하기 위해 전달받은 매개변수
 		
-		//console.dir(inputFile);
+		console.dir(inputFile);
 	
 	
 		if(inputFile.files.length == 1){//file이 존재 할경우 
@@ -313,9 +331,28 @@
 	
 	}
 	
+	
+	
+	
+	
+	
 	</script>
 
 
+
+<script>
+
+//==================사진 지우기 함수 
+
+$(".fileRemove").click(function(){
+	
+	$(this).children().remove();
+	
+})
+	
+
+
+</script>
 
 </section>
 
