@@ -185,7 +185,7 @@
                             <span class="flaticon-drink"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="listing-details.html">추천 일정</a></h5>
+                            <h5><a href="adminCreate.pl">추천 일정</a></h5>
                             <p>어디어디에서 추천해주는 일정으로 떠나보세요</p>
                             <!-- <a href="#">View Details</a> -->
                         </div>

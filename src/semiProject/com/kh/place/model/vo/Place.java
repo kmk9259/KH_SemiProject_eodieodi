@@ -15,6 +15,10 @@ public class Place{
 	
 	private String titleImg;			//대표 이미지
 	
+	
+	private int courseNo; // 코스 넘버 09016 adminPlan에 쓰기위해서 
+	private int refCourse; 
+	
 	public Place() {
 		// TODO Auto-generated constructor stub
 	}
@@ -164,6 +168,29 @@ public class Place{
 		this.titleImg = titleImg;
 	}
 
+	
+	// 0917
+	public int getCourseNo() {
+		return courseNo;
+	}
+
+	public void setCourseNo(int courseNo) {
+		this.courseNo = courseNo;
+	}
+	
+	
+	//0917
+	public int getRefCourse() {
+		return refCourse;
+	}
+
+	public void setRefCourse(int refCourse) {
+		this.refCourse = refCourse;
+	}
+
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Place [placeNo=" + placeNo + ", areaNo=" + areaNo + ", categoryNo=" + categoryNo + ", placeTitle="
