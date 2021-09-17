@@ -41,7 +41,7 @@ public class MemberPageServlet extends HttpServlet {
 		System.out.println("member : " + member);
 		
 		
-		//공지사항 넘겨주자
+		//내가쓴 글 넘겨주자
 		String btitle = request.getParameter("myPost");
 		Board b = new MemberService().showMyPost(userId, btitle);
 		
