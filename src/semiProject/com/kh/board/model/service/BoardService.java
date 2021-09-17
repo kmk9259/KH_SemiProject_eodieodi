@@ -238,6 +238,22 @@ public class BoardService {
 		return list;
 	}
 
+//파일 지우기 메소드
+	public int deleteFile(int originFileNo) {
+		Connection conn = getConnection();
+		int result = new BoardDao().deleteFile(conn, originFileNo);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
 
 
 

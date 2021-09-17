@@ -59,7 +59,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		         
 		         Board b = new Board();
 		         
-		         b.setBoardContent(multiRequest.getParameter("content"));
+		         b.setBoardContent(multiRequest.getParameter("content").replaceAll("\n", "<br>"));
 		         b.setBoardTitle(multiRequest.getParameter("title"));
 		         b.setBoardWriter(String.valueOf(userNo));
 		         b.setBoardNo(bno);
@@ -71,15 +71,17 @@ public class BoardUpdateServlet extends HttpServlet {
 		        
 		         for(int i = 1; i<= 4; i++) {
 		         
-		         if(multiRequest.getOriginalFileName("upFile"+ i) != null) { //새 파일이 생기면 (값이 들어오면) 
+		         if(multiRequest.getOriginalFileName("file"+ i) != null) { //새 파일이 생기면 (값이 들어오면) 
 		        	 
 		        	 Attachment at = new Attachment();
 		        	 
-		        	 at.setOriginName(multiRequest.getOriginalFileName("upFile" + i));
-		        	 at.setChangeName(multiRequest.getFilesystemName("upFile" + i));
+		        	 at.setOriginName(multiRequest.getOriginalFileName("file" + i));
+		        	 at.setChangeName(multiRequest.getFilesystemName("file" + i));
 		        	 at.setFilePath(savePath);
 		        	 
 		        	 fileList.add(at);
+		        	 
+		        	
 		        	 
 		        	 if(multiRequest.getParameter("originFile" + i) != null) {
 		        		 File deleteFile = new File(savePath + multiRequest.getParameter("originFile" +i));
@@ -90,6 +92,8 @@ public class BoardUpdateServlet extends HttpServlet {
 		        	 }else {
 		        		 at.setRefBoardNo(bno); // 새 파일이 들어오면 넣어준다. 보드 번호에 맞게 (bno)
 		        	 }
+		        	 
+		        	 
 		        	 
 		         }
 

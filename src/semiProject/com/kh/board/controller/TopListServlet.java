@@ -35,7 +35,6 @@ public class TopListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Board> list = new BoardService().selectTopList();
-		System.out.println("@@@@@@TopList 서블릿에서 ===" + list);
 		
 		
 		response.setContentType("application/json; charset=utf-8");

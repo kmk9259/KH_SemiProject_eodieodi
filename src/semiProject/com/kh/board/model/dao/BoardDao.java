@@ -77,25 +77,6 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		//쿼리문만 다르다는것? 
-		/*
-		 * b.setBoardNo(rset.getInt("BOARD_NO"));
-		 * b.setBoardTitle(rset.getString("BOARD_TITLE"));
-		 * b.setBoardWriter(rset.getString("USER_ID"));
-		 * b.setCount(rset.getInt("COUNT"));
-		 * b.setCreateDate(rset.getDate("CREATE_DATE"));
-		 * b.setTitleImg(rset.getString("CHANGE_NAME"));
-		 */
-
-		
-//			   SELECT BOARD_NO, BOARD_TITLE,USER_ID, COUNT,CREATE_DATE, CHANGE_NAME \
-//				FROM BOARD JOIN MEMBER ON USER_NO=BOARD_WIRTER
-		//		JOIN (SELECT * FROM ATTACHMENT \
-//				WHERE FILE_NO IN( \
-//				SELECT MIN(FILE_NO) FILE_NO FROM ATTACHMENT WHERE STATUS='Y' GROUP BY REF_BNO)) ON (REF_BNO = BOARD_NO) \
-//				WHERE BOARD.STATUS='Y' ORDER BY BOARD_NO DESC
-//		
-		
 		
 
 		String sql = prop.getProperty("selectThList");
@@ -106,10 +87,7 @@ public class BoardDao {
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
 
-		/*
-		 * currentPage 1, startRow =1, endRow =10; currentPage 2, startRow =11, endRow
-		 * =20; currentPage 3, startRow =21, endRow =30;
-		 */
+		
 		try {
 			
 			//페이지 부분을 우선 진행하고 
@@ -517,7 +495,7 @@ public class BoardDao {
 		int result =0;
 		PreparedStatement pstmt = null;
 		
-		//updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=? WHERE FILE_NO=?
+		//updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=? STATUS='N' WHERE FILE_NO=?
 		String sql = prop.getProperty("updateAttachment");
 		
 		System.out.println("+++++++++++++updateAttachment+++++++++++"+ sql);
@@ -565,7 +543,7 @@ public class BoardDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateBoard");
-		//updateBoard=UPDATE BOARD SET BOARD_TITLE=?, BOARD_CONTENT=? WHERE BOARD_NO=?
+		//updateBoard=UPDATE BOARD SET BOARD_TITLE=?, BOARD_CONTENT=?  WHERE BOARD_NO=?
 		
 		
 		System.out.println("보드 업데이트 할때 쿼리? " + sql);
@@ -602,7 +580,7 @@ public class BoardDao {
 		
 		try {
 			
-		for(int i=0; i<fileList.size(); i++) {
+		for(int i = 0; i<fileList.size(); i++) {
 			
 			Attachment at = fileList.get(i);
 			
@@ -810,6 +788,88 @@ public class BoardDao {
 		return list;
 	}
 
+	
+	//검색 결과 뿌리기 (새로운 페이징 처리와 함께)
+	public ArrayList<Board> searchWord(Connection conn, String searchWord, PageInfo pi) {
+		
+		ArrayList<Board> list = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null; 
+		
+		String sql = prop.getProperty("searchWordd");
+		System.out.println("@@@ searchWordd 쿼리문" + sql );
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			
+			//페이지 부분을 우선 진행하고 
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, searchWord);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			
+
+			while(rset.next())
+			{
+				Board b = new Board();
+
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardWriter(rset.getString("USER_NO"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setCreateDate(rset.getDate("CREATE_DATE"));
+				b.setTitleImg(rset.getString("CHANGE_NAME"));
+
+				list.add(b);
+				
+				System.out.println("bbbbbbbb 검색결과 내용 가져오려 " + list);
+			}
+			
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	
+	//파일 지우기 메소드
+	public int deleteFile(Connection conn, int originFileNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, originFileNo);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+
+	
+	
 	
 
 	

@@ -116,7 +116,6 @@ public class BoardListServlet extends HttpServlet {
 				
 			
 
-				//int nno = Integer.parseInt(request.getParameter("nno"));
 				
 				//게시판 리스트 넘겨주기 (페이지와 함께_)
 				ArrayList<Board> list = new BoardService().selectThList(pi);

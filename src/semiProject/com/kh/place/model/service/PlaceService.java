@@ -92,6 +92,7 @@ public class PlaceService {
 		Connection conn = getConnection();
 		ArrayList<Place> list = new PlaceDao().searchArea(conn, searchArea);
 		
+		System.out.println("민경씨 서비스 결과 함 보려고  " + list);
 		close(conn);
 		return list;
 	}
