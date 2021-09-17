@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, semiProject.com.kh.planAdmin.model.vo.*,
-    semiProject.com.kh.member.model.vo.*" %>
+    semiProject.com.kh.member.model.vo.*, 
+    semiProject.com.kh.place.model.vo.*,
+    semiProject.com.kh.area.model.vo.*,
+    semiProject.com.kh.theme.model.vo.*"  %>
  
     <%
-
-    //AdminPlan<AdminPlan> apList = (AdminPlan<AdminPlan>) request.setAttribute("apList", apList);
-   
-    %>
+     ArrayList<Place> pList = (ArrayList<Place>) request.getAttribute("pList");
+    Date day = (Date) request.getAttribute("adminDate");
+  // 	String which = (String)request.getAttribute("areaNo");
+     %>
+    
     
 
 <!DOCTYPE html>
@@ -96,15 +100,73 @@
     <div class="main_box">
     
      <div class="container">
-        <div class="main-timeline">
                                 <!-- start experience section-->
-                                
-                         <form method ="post" action="<%= request.getContextPath() totalList.pl">
+             
+             
+                <!--화면에 띄워줘야 되는 것 선택한 위치, 날짜, 대표(상세사진 썸네일?, 설명, 카테고리, 영업시간,   ) -->
+                <form method ="post" action="<%= contextPath %>/adminCreate.pl">
 
-                      <div>장소: <%=  %></div>
-                      <div>날짜: <%= %></div>       
-                      <div> 추천 코스:<%=  %></div> 
-                         </form> 
+
+ 	<div> <h2>선택하신 날짜: <%="9월 "+ day.getDate() + "일"%></h2></div>
+ 	
+ 	<!-- 장소 1  -->
+ 	<div class="first_place">
+ 	
+ 	<!-- 상세이미지  -->
+ 	  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
+ 	
+ 	<%-- 	 <div class="col-lg-4 col-md-6">
+ 		 
+                                <div class="listing__item">
+                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/list-1.jpg">
+                                        <div class="listing__item__pic__btns">
+                                        </div>
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h4><%= %></h4>
+                                            <div class="listing__item__text__rating">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="theme"
+                                                        id="optionsRadios1" value="<%= %>">
+                                                  
+                                                </label>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+ 	
+ 	</div> --%>
+ 	
+ 	<div class="second_place"></div>
+ 	<div class="thrid_place"></div>
+ 	
+ 	<!--  카ㅡ드로 뽑자 -->
+ 	
+      
+              <div>장소: <%= pList.get(0).getDescription() %></div>
+              <div>장소: <%= pList.get(1).getDescription()%></div> 
+              
+  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
+  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(1).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
+ <!-- <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(2).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>-->
+
+        	<div>상세사진 : <%=pList.get(0).getTitleImg() %></div>
+       	    <div> 추천 코스:<%=pList.get(0).getCourseNo() %></div> 
+              
+             <%for (Place p : pList) { %>
+             
+     <div>장소: <%= pList.get(0).getDescription() %></div>
+     <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
+    
+             
+             <%} %>
+              
+              
+               
+               </form> 
      
         </div>
 
@@ -118,8 +180,6 @@
                         
                         
               
-
-   
 
    
 

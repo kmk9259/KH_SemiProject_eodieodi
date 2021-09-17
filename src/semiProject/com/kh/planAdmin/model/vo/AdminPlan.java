@@ -31,6 +31,14 @@ public class AdminPlan {
 	}
 
 
+	// 지역과 날짜를 가져오는 생성자 
+	public AdminPlan(int areaNo, Date chooseDate) {
+		super();
+		this.areaNo = areaNo;
+		this.chooseDate = chooseDate;
+	}
+
+
 
 	public AdminPlan(int courseNo) {
 		super();

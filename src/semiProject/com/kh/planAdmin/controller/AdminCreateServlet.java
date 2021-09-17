@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.board.model.vo.PlaceAttachment;
 import semiProject.com.kh.member.model.vo.Member;
 import semiProject.com.kh.place.model.vo.Place;
 import semiProject.com.kh.planAdmin.model.service.AdminPlanService;
@@ -55,51 +54,34 @@ public class AdminCreateServlet extends HttpServlet {
 			// Date planDate= java.sql.Date.valueOf(aDate);
 			Date adminDate = Date.valueOf(aDate);
 				
-			// ArrayList<Course> list = new CourseService().selectCList();	
-			
-			AdminPlan ap = new AdminPlan();
-			ap.setUserNo(userNo);
-			ap.setThemeNo(theme);
-			ap.setAreaNo(area);
-			ap.setChooseDate(adminDate);
-			
-			//테마랑 area 를 가지고 코스를 조회하고? 
-			//AdminPlan aplist = new AdminPlanDao().
-			
-			//테마랑 애리어 가지로 코스를 랜덤으로 조회하는 다오 
-			//ArrayList<Place> courseList = new AdminPlanService().selectCourse(area,theme);-이건아님 
-
-			//장소 3개가 들어오는애를 정의해둬야됨 rset을 해놔서 
-			
 			ArrayList<Place> pList = new AdminPlanService().selectPList(area,theme);
 			
+			//AdminPlan adminList = new AdminPlan(area, adminDate);
+			//int result = new AdminPlanService().selectPList(pList);
+						
+			request.setAttribute("pList", pList);
+			
+			request.setAttribute("adminDate", adminDate); // 날짜랑 
+			request.setAttribute("areaNo", areaNo); //위치 
+		
+		//	System.out.println(adminDate+"어드민 리스트 위치랑 날짜 선택한게 떠라 ");
+		
+				
+				//request.setAttribute("msg", "추천일정조회를 성공적으로 완료 하였습니다.");
+				//request.getRequestDispatcher("adminList.pl").forward(request, response);
+				request.getRequestDispatcher("views/plan/adminPlan_detail.jsp");
 		
 		
-//		//	int result = new AdminPlanService().insertAdminPlan(courseList);
-//			
-//			//request.setAttribute("courseList", courseList);
-		
-//			if(result > 0) {
-//				
-//				request.setAttribute("msg", "추천일정조회를 성공적으로 완료 하였습니다.");
-//				//request.getRequestDispatcher("adminList.pl").forward(request, response);
-//				response.sendRedirect("totalList.pl");
-//		
-//				return;  
-//				
-//			}else {
-//				request.setAttribute("msg", "추천일정 조회에 실패했습니다.");
-//				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-//				
-//			}
-		
-	//==	}else {
+		}else {
+
+			request.setAttribute("msg", "추천일정 조회에 실패했습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 //			System.out.println(tmp+ tmp1+" 널포인트 잡히냐?");
 		
 		}
 		
-		//request.getRequestDispatcher("adminList.pl").forward(request, response);;
-		request.getRequestDispatcher("totalList.pl").forward(request, response);
+		request.getRequestDispatcher("views/plan/adminPlan_detail.jsp").forward(request, response);
 
 	}
 
