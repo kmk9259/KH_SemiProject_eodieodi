@@ -550,5 +550,53 @@ public class PlanMyDao {
 		System.out.println("addPlanList(dao) : list : " + list);
 		return list;
 	}
+
+	//내맘대로 일정 detail -> 장소 목록 페이징 처리
+	public ArrayList<Place> selectPlace_planMy(Connection conn, int planNo, PageInfo pi) {
+		ArrayList<Place> plist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPlace_planMy_paging");
+//		selectPlace_planMy=
+//		SELECT PLACE_NO, PLACE_TITLE, ADDRESS, PRICE 
+//		FROM PLACE
+//		WHERE PLACE_NO IN (SELECT PLACE_NO 
+//		                  FROM MYPLAN_PLACE
+//		                  WHERE REF_MPNO=? AND MYPLAN_PLACE.STATUS='Y')
+//		AND PLACE.STATUS='Y' AND ROWNUM BETWEEN ? AND ?
+		
+		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, planNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Place p = new Place();
+				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				p.setAddress(rset.getString("ADDRESS"));
+				p.setPrice(rset.getInt("PRICE"));
+				
+				plist.add(p);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("dao_테이블페이징처리 테스트 : " + plist);
+		return plist;
+	}
 	
 }

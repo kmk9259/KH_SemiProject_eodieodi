@@ -126,6 +126,8 @@
         	line-height: 30px;
 		    font-size: 21px;
 		    color: black;
+		    font-size: 25px;
+    		color: black;
         }
         .header{
         	background-color:#FAE6B9;
@@ -248,6 +250,13 @@
 	                         }
 		                <%}%>
                     });
+                    
+                    $('#dateBtn').click(function(){
+                        var value = $("#startDate").val();
+                        console.log(value);
+                        $("#planDate").text('선택하신 날짜 : ' + value);
+                    });
+
                 </script>
 
     <!-- Filter Begin -->
@@ -257,7 +266,8 @@
                 <h5>일정 제목</h5>
             </div>
             <div>
-                <input type="text" class="planInput" name="planTitle" required>
+                <input type="text" class="planInput" name="planTitle" id="planTitle" maxLength="20" required>
+                <div id="counter" style="font-size:12px; position:absolute; top:180px; left:405px;"><b>0/20</b></div>
             </div>
             <div class="filter__title">
                 <h5>일정 날짜</h5>
@@ -269,7 +279,7 @@
                 <h5>메모</h5>
             </div>
             <div>
-                <textarea class="planInput" name="planMemo" id="" cols="30" rows="6"></textarea>
+                <textarea class="planInput" name="planMemo" id="planMemo" cols="30" rows="6"></textarea>
             </div>
 
             <div class="filter__title">
@@ -334,7 +344,7 @@
 								
 		                    	<img class="placeImg" src="<%=request.getContextPath()%>/resources/place_upFiles/<%= p.getTitleImg() %>" width="100%" height="250px"> <br>
 		                    	<div class="planBox">
-		                    		<p class="placeTitle" id="placeTitle"><%=p.getPlaceTitle()%></p>
+		                    		<p class="placeTitle" id="placeTitle" style="font-size:25px; color:black;"><%=p.getPlaceTitle()%></p>
 		                    		<p id="placeAddress"><%=p.getAddress()%></p>
 									<p><%=p.getDescription() %></p>
 		                    		<button class="btn btn-primary addPlace">추가</button>
@@ -348,6 +358,29 @@
         </div> 	
     	
     	<script>
+    		//planTitle일정제목 글자수 제한_20글자까지 가능
+	    	 $("#planTitle").keyup(function(e){
+	         	var content = $(this).val();
+	         	$("#counter").html(content.length+"/20");
+	         	
+	         	if(content.length>20){
+	         		alert("최대 20자까지 입력 가능합니다.");
+	         		$(this).val(content.substring(0,20));
+	         		$("#counter").html("20/20");
+	         	}
+	         })
+	         
+	         //planTitle일정제목 글자수 제한_20글자까지 가능
+	    	 $("#planMemo").keyup(function(e){
+	         	console.log($(this).val());
+	         	var content = $(this).val();
+	         	
+	         	if(content.length>200){
+	         		alert("최대 200자까지 입력 가능합니다.");
+	         		$(this).val(content.substring(0,200));
+	         	}
+	         })
+         
 	    	//table에 추가된 장소의 조건 체크 후 submit되게 함
 	    	function checkTable(){
 	    		console.log("length : "+$("#tablePlaceNo").length)
@@ -430,7 +463,7 @@
 							+ '<input type="hidden" value="'+pList[i].areaNo+'" id="areaNo" name="areaNo">'
 							+ '<img class="placeImg" src="'+contextPath+'/resources/place_upFiles/'+pList[i].titleImg +'" width="100%" height="250px"><br>'
 	                    	+ '<div class="planBox">'
-	                    	+ '<p class="placeTitle" id="placeTitle">'+pList[i].placeTitle+'</p>'
+	                    	+ '<p class="placeTitle" id="placeTitle" style="font-size:25px; color:black;">'+pList[i].placeTitle+'</p>'
 	                    	+ '<p id="placeAddress">'+pList[i].address+'</p>'
 							+ '<p>'+pList[i].description+'</p>'
 	                    	+ '<button class="btn btn-primary addPlace" style="margin-right: 3px;">추가</button>'
@@ -768,8 +801,7 @@
     <script> 
         // 달력 날짜 선택 
         $(function () {
-            $('#startDate').datepicker({
-             })
+            $('#startDate').datepicker({minDate: 0});
         })
 
         function goPlan(){

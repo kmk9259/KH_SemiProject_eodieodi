@@ -11,11 +11,18 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
 	
-	String memo = pm.getPlanMemo();
-	if(memo == null){
-		memo="";
+	if(pm != null){
+		String memo = pm.getPlanMemo();
+		if(memo == null){
+			memo="";
+		}
+		
+		String plantitle = pm.getPlanTitle();
 	}
+	
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html lang="en">
 
@@ -141,7 +148,6 @@
         .filter__title{
         	margin-bottom:10px;
         }
-        
         <!--카카오지도-->
         .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 		.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -300,7 +306,12 @@
                 <h5>일정 제목</h5>
             </div>
             <div>
-                <input type="text" class="planInput" name="planTitle" value="<%=pm.getPlanTitle() %>" required>
+            	<!-- fn:escapeXml: "string에 XML과 HTML에서 특별한 의미를 가진 문자들이 있으면, XML 엔티티 코드로 바꿔준 뒤 문자열 리턴.
+				출처: https://cutewebi.tistory.com/240 [cutewebi 희정냥★]" -->
+            	<c:set var="title1" value="<%=pm.getPlanTitle()%>"/>
+            
+                <input type="text" class="planInput" name="planTitle" id="planTitle" value="${fn:escapeXml(title1)}" required>
+                <div id="counter" style="font-size:12px; position:absolute; top:180px; left:405px;"><b>0/20</b></div>
             </div>
             <div class="filter__title">
                 <h5>일정 날짜</h5>
@@ -316,7 +327,7 @@
                 <h5>메모</h5>
             </div>
             <div>
-                <input type="text" name="planMemo" class="planInput"  style="width:100%;height:150px;" value="<%=pm.getPlanMemo()%>">
+                <textArea name="planMemo" class="planInput" id="planMemo" cols="30" rows="6"><%=pm.getPlanMemo()%></textArea>
             </div>
 
             <div class="filter__title">
@@ -397,7 +408,7 @@
 								
 		                    <img class="placeImg" src="<%=request.getContextPath()%>/resources/place_upFiles/<%= p.getTitleImg() %>" width="100%" height="250px"> <br>
 		                    <div class="planBox">
-		                    	<p class="placeTitle" id="placeTitle"><%=p.getPlaceTitle()%></p>
+		                    	<p class="placeTitle" id="placeTitle" style="font-size: 25px; color: black;"><%=p.getPlaceTitle()%></p>
 		                    	<p id="placeAddress"><%=p.getAddress()%></p>
 								<p><%=p.getDescription() %></p>
 		                    	<button class="btn btn-primary addPlace">추가</button>
@@ -411,6 +422,39 @@
         </div>
         	
     	<script>
+    		//첫 화면 뜨자마자 해줄 것들
+    		$(function(){
+    			//""치환
+    			<%-- var tmp = "<%=pm.getPlanTitle()%>";
+    			var plantitle = ${fn:escapeXml(tmp)};
+    			$("#planTitle").val(plantitle); --%>
+    			
+    			//title 글자수 제한
+    			var content = $("#planTitle").val();
+    			$("#counter").html(content.length+"/20");
+    		})
+    		//planTitle일정제목 글자수 제한_20글자까지 가능
+		   	 $("#planTitle").keyup(function(e){
+		        	var content = $(this).val();
+		        	$("#counter").html(content.length+"/20");
+		        	
+		        	if(content.length>20){
+		        		alert("최대 20자까지 입력 가능합니다.");
+		        		$(this).val(content.substring(0,20));
+		        		$("#counter").html("20/20");
+		        	}
+		        })
+		        
+		        //planTitle일정제목 글자수 제한_20글자까지 가능
+		   	 $("#planMemo").keyup(function(e){
+		        	console.log($(this).val());
+		        	var content = $(this).val();
+		        	
+		        	if(content.length>200){
+		        		alert("최대 200자까지 입력 가능합니다.");
+		        		$(this).val(content.substring(0,200));
+		        	}
+		        })
 	    	//table에 추가된 장소의 조건 체크 후 submit되게 함
 	    	function checkTable(){
 	    		console.log("length : "+$("#tablePlaceNo").length)
@@ -493,7 +537,7 @@
 							+ '<input type="hidden" value="'+pList[i].areaNo+'" id="areaNo" name="areaNo">'
 							+ '<img class="placeImg" src="'+contextPath+'/resources/place_upFiles/'+pList[i].titleImg +'" width="100%" height="250px"><br>'
 	                    	+ '<div class="planBox">'
-	                    	+ '<p class="placeTitle" id="placeTitle">'+pList[i].placeTitle+'</p>'
+	                    	+ '<p class="placeTitle" id="placeTitle" style="font-size:25px; color:black;">'+pList[i].placeTitle+'</p>'
 	                    	+ '<p id="placeAddress">'+pList[i].address+'</p>'
 							+ '<p>'+pList[i].description+'</p>'
 	                    	+ '<button class="btn btn-primary addPlace" style="margin-right: 3px;">추가</button>'
@@ -871,8 +915,7 @@
     <script> 
         // 달력 날짜 선택 
         $(function () {
-            $('#startDate').datepicker({
-             })
+            $('#startDate').datepicker({minDate: 0});
         })
 
         function goPlan(){
