@@ -1,15 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, semiProject.com.kh.place.model.vo.Place"%>
+    import="java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, 
+    semiProject.com.kh.place.model.vo.Place, semiProject.com.kh.board.model.vo.PageInfo"%>
 <%
 	PlanMy pm = (PlanMy)request.getAttribute("pm");
 	ArrayList<Place> pList = (ArrayList<Place>)request.getAttribute("pList");
+	//ArrayList<Place> bpList = (ArrayList<Place>)request.getAttribute("bpList");
+	
 	
 	String memo = pm.getPlanMemo();  //메모 null값인 경우 
 	if(memo == null){
 		memo="";
 	}
+	
+	/* PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); */
+	
+	
+	System.out.println("============pList : " + pList);
+	//System.out.println("============bpList : " + bpList);
 %> 	
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,7 +171,7 @@
         			<div class="cover_img"></div>  
         			<div class="cover_bottom">
         				<div class="plan_set">
-        					<div class="plan_title"><%=pm.getPlanTitle()%></div>
+        					<div class="plan_title" style="width:1000px;"><%=pm.getPlanTitle()%></div>
         					<div class="plan_date"><%=pm.getPlanDate()%></div>
 							<div class="plan_places">
 								<img src="<%=request.getContextPath()%>/resources/img/listing/map.png" style="width:25px;">  <%=pList.size()%>	
@@ -213,7 +229,41 @@
 	                    		<%}%>
 	                    	<%}%>
 	                    </tbody>
-	                </table> 
+	                </table>
+	                
+	               <%--  <div class="blog__pagination">
+						<!-- 맨 처음으로 (<<) -->
+						<a href="<%=contextPath%>/detailP.ps?planNo=<%=pm.getPlanNo()%>&currentPage=1"> &lt;&lt; </a> 
+		
+						<!-- 이전페이지로(<) -->
+						<%if(currentPage == 1){ %>
+						<a class="noHover"> &lt; </a>
+						<%}else{ %>
+						<a href="<%= contextPath %>/detailP.ps?planNo=<%=pm.getPlanNo()%>&currentPage=<%= currentPage-1 %>"> &lt; </a>
+						<%} %>
+						
+						<!-- 페이지 목록 -->
+						<%for(int p=startPage; p<=endPage; p++){ %>
+							
+							<%if(p == currentPage){ %>
+							<a class="noHover"> <%= p %> </a>
+							<%}else{ %>
+							<a href="<%=contextPath %>/detailP.ps?planNo=<%=pm.getPlanNo()%>&currentPage=<%= p %>"> <%= p %> </a>
+							<%} %>
+							
+						<%} %>
+						
+						<!-- 다음페이지로(>) -->
+						<%if(currentPage == maxPage){ %>
+						<a class="noHover"> &gt; </a>
+						<%}else { %>
+						<a href="<%= contextPath %>/detailP.ps?planNo=<%=pm.getPlanNo()%>&currentPage=<%= currentPage+1 %>"> &gt; </a>
+						<%} %>
+					
+						<!-- 맨 끝으로 (>>) -->
+						<a href="<%=contextPath%>/detailP.ps?planNo=<%=pm.getPlanNo()%>?currentPage=<%=maxPage%>"> &gt;&gt; </a>
+					</div>  --%>
+					<!-- 페이징바 끝 -->
 				</div>
 				<div class="col-lg-3">
 					<div class="planDetail_detail">

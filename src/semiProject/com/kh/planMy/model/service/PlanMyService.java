@@ -178,4 +178,13 @@ public class PlanMyService {
 		return result;
 	}
 
+	//내맘대로 일정 detail -> 장소 목록 페이징 처리
+	public ArrayList<Place> selectPlace_planMy(int planNo, PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<Place> pList = new PlanMyDao().selectPlace_planMy(conn,planNo, pi);
+		
+		close(conn);
+		return pList;
+	}
+
 }
