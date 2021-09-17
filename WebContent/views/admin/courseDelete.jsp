@@ -33,7 +33,11 @@
     margin-top: 2.5%;
     background-color: #FFF3E7;
     border: 1px solid #D34B32;
-    
+ }
+ .my-scroll {
+	height: 100%;
+	overflow-y: auto;
+}}  
 }
 
 
@@ -110,7 +114,7 @@
 						</nav>
 					</div>
 				</div>	
-			<div class="admin-showpage nice-scroll">
+			<div class="admin-showpage my-scroll">
 			
 				<div class="section-title">
 	            	<h2 style="margin: 0px;">코스 삭제</h2>
@@ -144,20 +148,19 @@
 			function changeArea(obj)
 			{
 				var placeChoice = document.getElementById('placeChoice');
-				var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
-				console.log(areaNo+"   areaNo")
+				var aNo = placeChoice.options[placeChoice.selectedIndex].value;
 				$("#courseList").empty();
 				$.ajax({
 					url : "cList.co",
 					type : "post",
-					data:{areaNo : areaNo},
-					success:function(list){
-						console.log(list);
-						var value="";
-						var src ="<%=contextPath%>/resources/img/blog/blog-1.jpg";
-						for(var i in list)
-						{
-							switch(list[i].areaNo){
+					data:{aNo : aNo},
+					success:function(map){
+						var tmp="";
+						$.each(map["cArr"], function(index, value) {
+							var TitleImg =  getTitleImg(value.courseNo, value.areaNo)
+							var src = "<%= contextPath%>/resources/place_upFiles/"+TitleImg;
+							
+							switch(value.areaNo){
 							case 1 :
 								var areaName="홍대";								
 								break;
@@ -165,7 +168,7 @@
 								var areaName="강남";
 								break;							
 							}
-							switch(list[i].themeNo){
+							switch(value.themeNo){
 							case 1 :
 								var themeName="연인과함께";								
 								break;
@@ -176,54 +179,65 @@
 								var themeName="친구와함께";								
 								break;
 							}
-							value +='<div class="col-lg-4 col-md-6">'
+							tmp +='<div class="col-lg-4 col-md-6">'
 	                    		+'<div class="blog__item">'
-	                    			
-                        			+'<div class="blog__item__pic set-bg2" data-setbg=""></div>'
+	                    			+'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+value.courseNo+'">'
+                        			+'<div class="blog__item__pic set-bg" style="height:300px; background-image: url(' + src + '); "></div>'
+                        			+'<div class="listing__item__pic__tag">NO. '+value.courseNo+'</div>'
                         			+'<div class="blog__item__text">'
 			                            +'<ul class="blog__item__tags">'
 			                                +'<li><i class="fa fa-tags"></i>'+areaName+'</li>'
 			                                +'<li>'+themeName+'</li>'
 			                            +'</ul>'
-			                            +'<input type="hidden" id="courseNo" class="courseNo" name="courseNo" value="'+list[i].courseNo+'">'
-			                            +'<h5><a href="#">'+list[i].courseTitle+'</a></h5>'
-		                            	+'<button class="delete">삭제</button>'
+			                            +'<h5><a href="#">'+value.courseTitle+'</a></h5>'
+		                            	+'<button class="btn ">삭제하기</button>'
 				                    +'</div>'
 				                    +'</div>'
                     			+'</div>'
            					+'</div>';
 							
-							
-							
-						} //for
-						 $("#courseList").html(value).trigger("create");
+						})
+						
+						 $("#courseList").html(tmp).trigger("create");
 						 $(function(){
-								$(".delete").click(function(){
-									var parent = $(this).parents();  //클릭한 버튼의 최상위 부모
+								$(".blog__item__pic").click(function(){
+									var parent = $(this).parents();  
 									var cNo = parent.children("#courseNo").val();
-									console.log(cNo);
-									if(confirm("코스를 삭제하시겠습니까?")){
-										location.href="<%=contextPath%>/cDelete.co?cNo="+cNo;
-									}else{
-									    
-									}
 									
+									location.href="<%=contextPath%>/cplaceDetail.co?cNo="+cNo;
 								});
 							});
-						 $('.set-bg2').each(function() {
-						        var bg = $(this).data('setbg');
-						        $(this).css('background-image', 'url(' + src + ')');
-						    });
-						
+						 $(function(){
+								$(".btn").click(function(){
+									var parent = $(this).parent().parent();  
+									var cNo = parent.children("#courseNo").val(); 
+									location.href="<%=contextPath%>/cDelete.co?cNo="+cNo;								
+								});
+							});
+						 
 					}//success					
-				})
-				
+				})				
 			}
-			$(function () {
-			    $('#detail').on('click', function () {
-			        console.log("클릭");
-			    });
-			});
+			function getTitleImg(cNo, aNo)
+			{
+				var src ="";
+				console.log(cNo, aNo);
+				$.ajax({
+					url : "cList.co",
+					type : "post",
+					data:{cNo : cNo, aNo: aNo},
+					async:false,
+					success:function(map){
+						var tmp="";
+						$.each(map["tArr"], function(index, value) {
+							console.log(value);
+							console.log(value.areaNo);
+							src = value.titleImg;
+						})
+					}//success	
+				})
+				return src;
+			}
 			
 			
 			

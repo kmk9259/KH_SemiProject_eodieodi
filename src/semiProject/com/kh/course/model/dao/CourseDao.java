@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import semiProject.com.kh.course.model.vo.Course;
+import semiProject.com.kh.course.model.vo.CoursePlace;
 import semiProject.com.kh.place.model.dao.PlaceDao;
 import semiProject.com.kh.place.model.vo.Place;
 
@@ -217,6 +218,26 @@ public class CourseDao {
 		}		
 		return result;
 	}
+	public int delectCoursePlace(Connection conn, int cNo) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("delectCoursePlace");
+		
+		//delectCoursePlace=UPDATE COURSE_PLACE SET STATUS='N' WHERE REF_COURSE=?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}		
+		return result;
+	}
 
 	public Course selectCourse(Connection conn, int cNo) {
 		Course c = null;
@@ -251,6 +272,7 @@ public class CourseDao {
 	public int updateCourse(Connection conn, Course c) {
 		int result =0;
 		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		//updateCourse=UPDATE COURSE SET THEME_NO=? ,COURSE_TITLE=? WHERE COURSE_NO=?
 		String sql = prop.getProperty("updateCourse");
 		try {
@@ -269,16 +291,45 @@ public class CourseDao {
 		return result;
 	}
 
-	public int updateCoursePlace(Connection conn, Course c, int placeNum) {
-		int result =0;
+	public ArrayList<CoursePlace> selectCPno(Connection conn, int cNo) {
+		ArrayList<CoursePlace> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
-		//updateCoursePlace=UPDATE COURSE_PLACE SET PLACE_NO=?  WHERE REF_COURSE=?
-		String sql = prop.getProperty("updateCoursePlace");
+		ResultSet rset = null;
+		//selectCPno = SELECT CP_NO FROM COURSE_PLACE WHERE REF_COURSE=?
+		String sql = prop.getProperty("selectCPno");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, placeNum);
-			pstmt.setInt(2, c.getCourseNo());
+			pstmt.setInt(1, cNo);
+			rset = pstmt.executeQuery();
+			while(rset.next())
+			{
+				CoursePlace c = new CoursePlace();
+				c.setCpNo(rset.getInt("CP_NO"));
+				
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int updateCoursePlace(Connection conn, int cNo, String pNo, int cpNo) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		//updateCoursePlace=updateCoursePlace=UPDATE COURSE_PLACE SET PLACE_NO=? WHERE REF_COURSE=? AND CP_NO=?
+		String sql = prop.getProperty("updateCoursePlace");
+		System.out.println(pNo+"다오의");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(pNo));
+			pstmt.setInt(2, cNo);
+			pstmt.setInt(3, cpNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -289,6 +340,14 @@ public class CourseDao {
 		}
 		return result;
 	}
+
+	
+
+	
+
+	
+
+
 
 
 	

@@ -1,11 +1,9 @@
 <%@page import="semiProject.com.kh.theme.model.vo.Theme"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.category.model.vo.*,semiProject.com.kh.place.model.vo.*,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList,semiProject.com.kh.theme.model.vo.*,semiProject.com.kh.area.model.vo.*"%>
 <%
-	ArrayList<Place> plist = (ArrayList<Place>)request.getAttribute("plist");
 	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");	
 	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
-	ArrayList<Category> clist = (ArrayList<Category>)request.getAttribute("clist");
 
 %>
 
@@ -44,6 +42,10 @@ margin-left: 150px;
 .card-body{
 	background-color: #FFF3E7;
     border: 1px solid #D34B32;
+}
+.my-scroll {
+	height: 100%;
+	overflow-y: auto;
 }
 
 
@@ -120,7 +122,7 @@ margin-left: 150px;
 						</nav>
 					</div>
 				</div>	
-				<div class="admin-showpage nice-scroll">
+				<div class="admin-showpage my-scroll">
 					<div class="section-title">
 			            <h2 style="margin: 0px;">코스 등록</h2>
 			        </div>
@@ -138,32 +140,14 @@ margin-left: 150px;
 									<div class="tab-pane active" id="tabs-1" role="tabpanel">
 										<div class="row" id="placeList">
 										</div><br><br>
-										<form action="cInsert.co" method="post">
-											코스이름: <input maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>
-											지역종류: 	<% for(Area a : alist) {%>
-														<label><input type="radio" name="area" value="<%=a.getAreaNo() %>" ><%=a.getAreaName() %></label>
-													<%} %><br>
-													
-											테마종류: 	<% for(Theme t : tlist) {%>
-														<label><input type="radio" name="themeNo" value="<%=t.getThemeNo() %>"> <%=t.getThemeName() %></label>
-													<%} %><br><br>
-											<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br>
-											<input type="submit" value="코스등록" id="courseAdd">
+										<form action="cInsert.co" method="post" id="insertForm">
+											
 										</form>
 									</div>
 				                </div>
 				            </div>
 				        </div>
-					</section>
-					<script>
-					$(function() {
-						
-						console.log($("#placeChoice").val());
-						
-					})
-					</script>		
-					
-					
+					</section>												
 				</div><!-- admin-showpage -->
 				<script>
 				function changeArea(obj)
@@ -177,8 +161,7 @@ margin-left: 150px;
 						data:{areaNo : areaNo},
 						success:function(list)
 						{
-							console.log(list);
-							var value="";
+							var value="";							
 							var contextPath = "<%=contextPath%>";
 							for(var i in list)
 							{
@@ -231,7 +214,17 @@ margin-left: 150px;
 										    '<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택 '+
 										'</div></div></div>';
 							}//for
+							var value2="";							
+							value2 +='코스이름: <input maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>'
+									+'<input type="hidden" name="area" value="'+areaNo+'">'
+									+'테마종류: 	<% for(Theme t : tlist) {%>'
+									+'<label><input type="radio" name="themeNo" value="<%=t.getThemeNo() %>"> <%=t.getThemeName() %></label>'
+									+'<%} %><br><br>'
+									+'<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br>'
+									+'<input type="submit" value="코스등록" id="courseAdd">'; 
+							
 						 	$("#placeList").html(value);
+							$("#insertForm").html(value2); 
 						}//success
 					})					
 				}				
@@ -265,7 +258,6 @@ margin-left: 150px;
 
 					}
 				}
-				
 				</script>
 				
 		</section><!-- admin -->

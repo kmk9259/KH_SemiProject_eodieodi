@@ -48,14 +48,9 @@ public class CourseInsertServlet extends HttpServlet {
 	
 		//코스 등록 버튼 눌렀을 때
 		String courseTitle = request.getParameter("courseTitle");	//코스이름
-		String areaNo = request.getParameter("area");				//지역종류 선택한 라디오값(getAreaNo)
+		String areaNo = request.getParameter("area");				
 		String themeNo = request.getParameter("themeNo");			//테마 종류 선택한 라디오 값(getThemeNo)
 		String textarea = request.getParameter("pNo");
-		
-		System.out.println("courseTitle"+courseTitle);
-		System.out.println("areaNo"+areaNo);
-		System.out.println("themeNo"+themeNo);
-		System.out.println("textarea"+textarea);
 		if(textarea!= null && areaNo!=null && themeNo!= null)
 		{
 			String[] pNo = textarea.split(",");
