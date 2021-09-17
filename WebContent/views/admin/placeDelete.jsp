@@ -33,6 +33,10 @@
     border: 1px solid #D34B32;
     
 }
+.my-scroll {
+	height: 100%;
+	overflow-y: auto;
+}
 
 
 </style>
@@ -106,7 +110,7 @@
 					</nav>
 				</div>
 			</div>					
-			<div class="admin-showpage nice-scroll">
+			<div class="admin-showpage my-scroll">
 				<div class="col-lg-12">
 			        <div class="section-title">
 			            <h2 style="margin: 0px;">일정 삭제</h2>

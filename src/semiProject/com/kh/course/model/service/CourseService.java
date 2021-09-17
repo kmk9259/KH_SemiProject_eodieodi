@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import semiProject.com.kh.course.model.dao.CourseDao;
 import semiProject.com.kh.course.model.vo.Course;
-import semiProject.com.kh.place.model.dao.PlaceDao;
+import semiProject.com.kh.course.model.vo.CoursePlace;
 import semiProject.com.kh.place.model.vo.Place;
 
 public class CourseService {
@@ -56,15 +56,16 @@ public class CourseService {
 
 	public int delectCourse(int cNo) {
 		Connection conn = getConnection();
-		int result = new CourseDao().delectCourse(conn, cNo);
-		if(result >0 )
+		int result1 = new CourseDao().delectCourse(conn, cNo);
+		int result2 = new CourseDao().delectCoursePlace(conn,cNo);
+		if(result1 >0  &&result2>0)
 		{
 			commit(conn);
 		}
 		else
 			rollback(conn);
 		close(conn);
-		return result;
+		return result1*result2;
 	}
 
 	public ArrayList<Course> selectCourseAttachment(int cNo, int aNo) {
@@ -82,17 +83,34 @@ public class CourseService {
 		close(conn);
 		return c;
 	}
-	public int updateCourse(Course c, String[] pNo) {
-		Connection conn = getConnection();
+//	public int updateCourse(Course c, String[] pNo) {
+//		Connection conn = getConnection();
+//		
+//		int result1 = new CourseDao().updateCourse(conn, c);
+//		int result2=0;
+//		for(int i=0; i<pNo.length; i++) 
+//		{
+//			int placeNum =Integer.parseInt(pNo[i]);
+//			System.out.println("서비스의 placeNum: "+placeNum);
+//			result2 = new CourseDao().updateCoursePlace(conn,c,placeNum);
+//			System.out.println("서비스의 result2  :"+ result2);
+//		}
 		
+//	}
+
+	public ArrayList<CoursePlace> selectCPno(int cNo) {
+		Connection conn = getConnection();
+		ArrayList<CoursePlace> cplist =  new CourseDao().selectCPno(conn, cNo);
+		
+		close(conn);
+		return cplist;
+	}
+
+
+	public int updateCourse(Course c, int cNo, String pNo, int cpNo) {
+		Connection conn = getConnection();
 		int result1 = new CourseDao().updateCourse(conn, c);
-		int result2=0;
-		for(int i=0; i<pNo.length; i++) {
-			int placeNum =Integer.parseInt(pNo[i]);
-			System.out.println("서비스의 placeNum: "+placeNum);
-			result2 = new CourseDao().updateCoursePlace(conn,c,placeNum);
-			System.out.println("서비스의 result2  :"+ result2);
-		}
+		int result2 = new CourseDao().updateCoursePlace(conn, cNo, pNo,cpNo);
 		if(result1 > 0 && result2>0)
 		{
 			commit(conn);
@@ -104,8 +122,6 @@ public class CourseService {
 		return result1 * result2;
 	}
 
-
 	
-
 	
 }

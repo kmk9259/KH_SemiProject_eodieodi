@@ -4,7 +4,7 @@
 <%
 	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");	
 	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
-	
+
 	Course c = (Course)request.getAttribute("c");
 	String[] selected = new String[alist.size()];
 	String[] checked = new String[alist.size()];
@@ -157,12 +157,8 @@ margin-left: 150px;
 										</div><br><br>
 										<form action="update.co" method="post">
 													<input type="hidden" name="cNo" value="<%=c.getCourseNo()%>"> 
-													<input type="hidden" name="aNo" value="<%=c.getAreaNo()%>"> 
+													<input type="hidden" name="aNo" value="<%=c.getAreaNo()%>">													
 											코스이름: <input value="<%= c.getCourseTitle() %>" maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>
-											지역종류: 	<%for(int i=0; i<alist.size(); i++) {%>
-														<label><input type="radio" name="area" value="<%=alist.get(i).getAreaNo() %>" disabled="disabled"<%=checked[i] %>><%=alist.get(i).getAreaName() %></label>
-													<%} %><br>
-													
 											테마종류: 	<%for(int i=0; i<tlist.size(); i++) {%>
 														<label><input type="radio" name="themeNo"  value="<%=tlist.get(i).getThemeNo() %>" <%=checked2[i] %>> <%=tlist.get(i).getThemeName() %></label>
 													<%} %><br><br>
@@ -251,43 +247,10 @@ margin-left: 150px;
 					}//if
 					
 					
-					function checkbox(check)
-					{				
-						var placeNo = check.value;
-						var result = document.getElementById("textarea");
-						if( check.checked==true )
-						{
-							if (result.value == "") 
-							{
-								result.value = placeNo;
-							} 
-							else 
-							{
-								result.value += "," + placeNo;
-							}
-						} 
-						else 
-						{
-							var resultArr = result.value.split(",");
-							for (var i = 0; i < resultArr.length; i++) 
-							{
-								if (resultArr[i] == placeNo) 
-								{
-									resultArr.splice(i, 1);
-									break;
-								}
-							}
-							result.value = resultArr.join(",");
-
-						}
-					}
+					
 				});
 
-				function changeArea(obj)
-				{
-					
-				
-				}				
+								
 				function checkbox(check)
 				{				
 					var placeNo = check.value;

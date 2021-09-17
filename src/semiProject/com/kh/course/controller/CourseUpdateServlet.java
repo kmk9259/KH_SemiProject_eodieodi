@@ -1,6 +1,7 @@
 package semiProject.com.kh.course.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import semiProject.com.kh.course.model.service.CourseService;
 import semiProject.com.kh.course.model.vo.Course;
+import semiProject.com.kh.course.model.vo.CoursePlace;
 
 /**
  * Servlet implementation class CourseUpdateServlet
@@ -30,34 +32,40 @@ public class CourseUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int cNo = Integer.parseInt(request.getParameter("cNo"));
+		System.out.println(cNo+"cNo");
+		ArrayList<CoursePlace> cpno = new CourseService().selectCPno(cNo);
+		System.out.println("업데이트 전 cpno$$$$$$$$$    "+cpno);
 		
 		String textarea = request.getParameter("pNo");
-		System.out.println("넘어가니?"+textarea);
+		System.out.println("업데이트 할 pnopno"+textarea);
+		
 		String[] pNo = textarea.split(",");
-		for(int i=0; i<pNo.length; i++) 
+		int[] cpNo = new int[cpno.size()];
+		Course c = new Course();
+		c.setCourseNo(cNo);
+		c.setAreaNo(Integer.parseInt(request.getParameter("aNo")));
+		c.setThemeNo(Integer.parseInt(request.getParameter("themeNo")));
+		c.setCourseTitle(request.getParameter("courseTitle"));
+		int result=0;
+		for(int i=0; i<cpno.size(); i++) 	
 		{
+			cpNo[i] = cpno.get(i).getCpNo();
 			
-			System.out.println("1111111111pNo"+pNo[i]);
-			Course c = new Course();
-			c.setCourseNo(Integer.parseInt(request.getParameter("cNo")));
-			c.setAreaNo(Integer.parseInt(request.getParameter("aNo")));
-			c.setThemeNo(Integer.parseInt(request.getParameter("themeNo")));
-			c.setCourseTitle(request.getParameter("courseTitle"));
 			
-			int result = new CourseService().updateCourse(c,pNo);
-			System.out.println("result"+result); 
-			if(result>0) {
-			  response.sendRedirect("list.co");
-			  return;
-			}
-			 
-			else 
-			{ 
-				request.setAttribute("msg", "코스 수정에 실패하였습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,	response); 
-			}
-			 
+			System.out.println("최종 pno  "+pNo[i]+"\n");
+			System.out.println("최종 cpNo  "+cpNo[i]);
+			result = new CourseService().updateCourse(c,cNo,pNo[i],cpNo[i]);
+			
 		}
+		if(result >0)
+			response.sendRedirect("list.co");
+		else
+		{
+			request.setAttribute("msg", "코스 수정에 실패하였습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 		
 	}
 

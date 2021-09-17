@@ -13,6 +13,7 @@ import semiProject.com.kh.area.model.service.AreaService;
 import semiProject.com.kh.area.model.vo.Area;
 import semiProject.com.kh.course.model.service.CourseService;
 import semiProject.com.kh.course.model.vo.Course;
+import semiProject.com.kh.course.model.vo.CoursePlace;
 import semiProject.com.kh.theme.model.vo.Theme;
 import semiProject.com.kh.theme.service.ThemeService;
 
@@ -44,6 +45,8 @@ public class CourseUpdateFormServlet extends HttpServlet {
 		System.out.println("cNo============"+cNo);
 		Course c = new CourseService().selectUpdateCourse(cNo);
 		System.out.println("Course============="+c);
+		
+		
 		if(c!= null)
 		{
 			request.setAttribute("c", c);
