@@ -38,7 +38,7 @@ public class SelectTopList extends HttpServlet {
 		
 		ArrayList<Place> topList = new PlanMyService().topList(placeNo);
 		
-		System.out.println("topList 잘 뽑아졌나?" + topList);
+//		System.out.println("topList 잘 뽑아졌나?" + topList);
 		response.setContentType("application/json; charset=utf-8");     
 	    new Gson().toJson(topList, response.getWriter());
 		

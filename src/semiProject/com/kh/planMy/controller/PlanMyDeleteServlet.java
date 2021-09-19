@@ -32,8 +32,8 @@ public class PlanMyDeleteServlet extends HttpServlet {
 		
 		String[] planNo = request.getParameterValues("planNo");
 
-		System.out.println("내가 보낸 값 : " +request.getParameterValues("planNo"));
-		System.out.println("deleteServlet에서 받는 값 planNo[]: " + planNo);
+//		System.out.println("내가 보낸 값 : " +request.getParameterValues("planNo"));
+//		System.out.println("deleteServlet에서 받는 값 planNo[]: " + planNo);
 //		
 //		int result = new PlanMyService().deleltePlanMy(planNo);
 		
