@@ -96,7 +96,7 @@ public class BoardInsertServlet extends HttpServlet {
 	        		 
 	        		 fileList.add(at);
 	        		 
-	        		 System.out.println("fileList 객체 안에 : "+ fileList);
+	        		
 	        		 
 	        	 }
 	         }

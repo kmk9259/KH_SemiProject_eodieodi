@@ -124,7 +124,7 @@ public class BoardService {
 		
 		if(fileList != null) { // 값이 있으면 
 			
-			System.out.println("@@@@@서비스에서 파일리스트들 "+fileList);
+			
 			
 			
 			for(int i = 0; i<fileList.size(); i++) //리스트 사이즈 만큼 돌아~~ 
@@ -164,7 +164,7 @@ public class BoardService {
 			rollback(conn);
 		}
 		
-		return result1;
+		return result1 * result2;
 	}
 
 
@@ -218,7 +218,7 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		ArrayList<Board> list = new BoardDao().selectTopList(conn);
-		System.out.println("toplist at service : " + list);
+		
 		close(conn);
 		return list;
 	}
@@ -244,7 +244,7 @@ public class BoardService {
 		if(result > 0) {
 			commit(conn);
 			
-			System.out.println("서비스에 보내질 결과는 있어야 함 " + result);
+			
 			
 		}else {
 			rollback(conn);

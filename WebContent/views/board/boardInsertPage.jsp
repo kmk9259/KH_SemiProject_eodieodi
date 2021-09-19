@@ -202,13 +202,13 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
           <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">
               <div class="form-group">
                   
-                  <input type="text" class="form-control" id="name" name="title" placeholder="제목을 입력하세요, 20자까지 가능합니다." tabindex="1" maxlength="50" required>
+                  <input type="text" class="form-control" id="name" name="title" placeholder="제목을 입력하세요, 20자까지 가능합니다." tabindex="1" maxlength="20" required>
               </div>                            
                                         
                                          
               <div class="form-group">
                   
-                  <textarea rows="15" cols="150" name="content" class="form-control" id="message" placeholder="글을 작성하세요.2000자까지 가능합니다." maxlength="2000" tabindex="4" required></textarea>                                 
+                  <textarea rows="15" cols="150" name="content" class="form-control" id="message" placeholder="글을 작성하세요. 2000자까지 가능합니다." maxlength="2000" tabindex="4" required></textarea>                                 
               </div>
               
               
@@ -323,31 +323,28 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 
 $(".fileRemove1").click(function(){
 
-	var inputfile = $("input[type='file']"); 
-	var num = 
+	
 	/* $(this).next("#titleImg").attr("src", ""); */
 	
+   var inputFile = $("input[type='text']");
+                  var num =1;
+                  console.dir(inputFile);
+                  if (inputFile.files.length == 1) {//file이 존재 할경우 
+                     var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
 
-	if(inputFile.files.length == 1){//file이 존재 할경우 
-		var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
-		
-		reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
-		
-		
-		reader.onload = function(e){//파일 읽기가 다완료 되면 실행할 메소드 
-			console.log(e);
-			e.target.result=null;
-			console.log(e);
-			switch(num){
-			case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
-			case 2 : $("#contentImg1").attr("src", e.target.result); break;
-			case 3 : $("#contentImg2").attr("src", e.target.result); break;
-			case 4 : $("#contentImg3").attr("src", e.target.result); break;
-			}
-		}
-	}
-	};
-}) 
+                     reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+
+                     reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
+                        console.log(e);
+                        e.target.result= null;
+                        console.log("null 후 "+e);
+                        switch (num) {
+                        case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
+                        }
+                     };
+                  }
+	
+});
 
 
 

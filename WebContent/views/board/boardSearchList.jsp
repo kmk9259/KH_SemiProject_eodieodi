@@ -213,7 +213,7 @@
 			<button type="submit" class="site-btn" onclick="goBack();">목록으로</button>
 		 <% }else {%>         
                     
-			<button type="submit" class="site-btn" onclick="pop();">글쓰기</button>
+			
 			<button type="submit" class="site-btn" onclick="goBack();">목록으로</button>
                     
             <% } %>        
