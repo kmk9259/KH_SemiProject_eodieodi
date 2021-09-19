@@ -1,7 +1,10 @@
 package semiProject.com.kh.board.model.service;
 
 
-import static semiProject.com.kh.common.JDBCTemplate.*;
+import static semiProject.com.kh.common.JDBCTemplate.close;
+import static semiProject.com.kh.common.JDBCTemplate.commit;
+import static semiProject.com.kh.common.JDBCTemplate.getConnection;
+import static semiProject.com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,7 +14,6 @@ import semiProject.com.kh.board.model.vo.Attachment;
 import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.board.model.vo.PageInfo;
 import semiProject.com.kh.board.model.vo.Reply;
-import semiProject.com.kh.notice.model.dao.NoticeDao;
 import semiProject.com.kh.notice.model.vo.Notice;
 
 public class BoardService {
@@ -118,21 +120,18 @@ public class BoardService {
 		
 		int result1 = new BoardDao().updateThBoard(conn, b);
 		int result2 =1;
-		
-		//여기서 파일번호가 모두 이미 12번으로 가져와 지고 있다는 것은!! 서블릿에서넘기는 파일 넘버가 그러한 것이다. 
-		System.out.println("서비스에 어테치먼트 들고 못오니? "+fileList);
+
 		
 		if(fileList != null) { // 값이 있으면 
+			
+			System.out.println("@@@@@서비스에서 파일리스트들 "+fileList);
+			
 			
 			for(int i = 0; i<fileList.size(); i++) //리스트 사이즈 만큼 돌아~~ 
 				
 			{
 			
 					if(fileList.get(i).getFileNo() != 0) { //기존파일있어 비교해 업데이트 
-						
-						//여러개 가져와야 하는거 아니니? 
-						System.out.println("파일넘버 가져오니? 왜 마지막 파일 넘버일까?  " + fileList.get(i).getFileNo());
-						
 						result2 = new BoardDao().updateAttachment(conn, fileList);
 						
 					}else { // 없었다면 새로 넣어 업데이트 하면되지
@@ -186,23 +185,9 @@ public class BoardService {
 
 	public ArrayList<Reply> selectRList(int bno) {
 		
-	
-		
-		
+
 		Connection conn = getConnection();
-		
-//		int result = new BoardDao().increaseReplyCount(conn, rno);
-//		
-//		ArrayList<Reply> list = null;
-//		
-//		if(result > 0) {
-//			commit(conn);
-//			list = new BoardDao().selectRList(conn, bno);
-//		}else {
-//			rollback(conn);
-//		}
-//		
-//		return list;
+
 		
 		ArrayList<Reply> list = new BoardDao().selectRList(conn, bno);
 		close(conn);
@@ -238,13 +223,28 @@ public class BoardService {
 		return list;
 	}
 
-//파일 지우기 메소드
-	public int deleteFile(int originFileNo) {
+
+	public ArrayList<Board> searchWord(String searchWord) {
 		Connection conn = getConnection();
-		int result = new BoardDao().deleteFile(conn, originFileNo);
+		ArrayList<Board> list = new BoardDao().searchWord(conn, searchWord);
+		
+		
+		close(conn);
+		return list;
+	}
+
+
+
+
+//파일 지우기 메소드
+	public int deleteFile(int fileno) {
+		Connection conn = getConnection();
+		int result = new BoardDao().deleteFile(conn, fileno);
 		
 		if(result > 0) {
 			commit(conn);
+			
+			System.out.println("서비스에 보내질 결과는 있어야 함 " + result);
 			
 		}else {
 			rollback(conn);

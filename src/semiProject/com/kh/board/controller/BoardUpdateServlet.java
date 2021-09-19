@@ -69,43 +69,52 @@ public class BoardUpdateServlet extends HttpServlet {
 		         ArrayList<Attachment> fileList = new ArrayList<>();
 		         
 		        
-		         for(int i = 1; i<= 4; i++) {
+		         for(int i = 1; i<= 4; i++) 
+		         {
 		         
-		         if(multiRequest.getOriginalFileName("file"+ i) != null) { //새 파일이 생기면 (값이 들어오면) 
+		         if(multiRequest.getOriginalFileName("file"+ i) != null)
+		         	{ 
 		        	 
+		        	 
+		        	 System.out.println("***wwwwww**비교비교 하기 위해 "+multiRequest.getOriginalFileName("file"+ i));
 		        	 Attachment at = new Attachment();
 		        	 
 		        	 at.setOriginName(multiRequest.getOriginalFileName("file" + i));
 		        	 at.setChangeName(multiRequest.getFilesystemName("file" + i));
+		        
 		        	 at.setFilePath(savePath);
 		        	 
 		        	 fileList.add(at);
 		        	 
-		        	
+		      
+
+			        	 if(multiRequest.getOriginalFileName("file"+ i) != null && multiRequest.getParameter("originFile" + i) != null) {
+			        		 
+			        		
+			        		 
+			        		 File deleteFile = new File(savePath + multiRequest.getParameter("originFile" +i));
+			        		 deleteFile.delete();
+			        		 
+			        		 
+	
+			        		 at.setFileNo(Integer.parseInt(multiRequest.getParameter("originFileNo" + i)));
+			        		 
+			        	
+			        	 }else {
+			        		 at.setRefBoardNo(bno); // 새 파일이 들어오면 넣어준다. 보드 번호에 맞게 (bno)
+			        	 }
 		        	 
-		        	 if(multiRequest.getParameter("originFile" + i) != null) {
-		        		 File deleteFile = new File(savePath + multiRequest.getParameter("originFile" +i));
-		        		 
-		        		 deleteFile.delete();
-		        		 
-		        		 at.setFileNo(Integer.parseInt(multiRequest.getParameter("originFileNo" + i)));
-		        	 }else {
-		        		 at.setRefBoardNo(bno); // 새 파일이 들어오면 넣어준다. 보드 번호에 맞게 (bno)
-		        	 }
 		        	 
 		        	 
-		        	 
-		         }
+		         	}
 
 		         }
 		         
 
 		        
 		        	 int result = new BoardService().updateBoard(b, fileList, bno);
-		         
-
-		         
-		         System.out.println("서비스,다오에 보낼 파일들이 있는데?  " + fileList);
+		        	 //파일 안들오나?
+		             System.out.println("서비스,다오에 보낼 파일들이 있는데?  " + fileList);
 		         
 		         if(result > 0 ) {
 		        	 request.getSession().setAttribute("msg", "게시글이 수정되었습니다.");

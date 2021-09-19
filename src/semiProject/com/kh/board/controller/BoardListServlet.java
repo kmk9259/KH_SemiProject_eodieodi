@@ -3,7 +3,6 @@ package semiProject.com.kh.board.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import semiProject.com.kh.board.model.service.BoardService;
 import semiProject.com.kh.board.model.vo.Board;
 import semiProject.com.kh.board.model.vo.PageInfo;
-import semiProject.com.kh.notice.model.service.NoticeService;
 import semiProject.com.kh.notice.model.vo.Notice;
 
 
@@ -59,10 +57,10 @@ public class BoardListServlet extends HttpServlet {
 				}
 				
 				// * pageLimit : 한 페이지 하단에 보여질 페이지 최대 갯수 
-				pageLimit = 4;
+				pageLimit = 6;
 				
 				// * boardLimit : 한 페이지에 보여질 게시글 최대 갯수
-				boardLimit = 4;
+				boardLimit = 6;
 				
 				// * maxPage : 총 페이지 수
 				/*
@@ -125,10 +123,7 @@ public class BoardListServlet extends HttpServlet {
 				ArrayList<Notice> nlist = new BoardService().selectNList();
 				
 				
-				
-				
-				
-				
+
 				//VIEW 단으로 넘겨주는 객체들 
 				request.setAttribute("nlist", nlist);
 				

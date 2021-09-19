@@ -33,10 +33,11 @@ public class BoardDeleteServlet extends HttpServlet {
 		int result = new BoardService().deleteBoard(bno);
 		
 		if(result > 0) {
+			request.getSession().setAttribute("msg", "게시글이 성공적으로 삭제되었습니다.");
 			response.sendRedirect("list.bo");
 			
 		}else {
-			request.setAttribute("msg", "게시판 글이 삭제 되었습니다");
+			request.setAttribute("msg", "게시판 글이 삭제 실패 되었습니다");
 			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
