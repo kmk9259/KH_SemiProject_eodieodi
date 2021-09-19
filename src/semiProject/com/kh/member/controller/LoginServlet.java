@@ -39,7 +39,6 @@ public class LoginServlet extends HttpServlet {
       String userId = request.getParameter("userId");
       String userPwd = request.getParameter("userPwd");
       String originPwd = request.getParameter("userPwd");
-     // String originPwd = (String)request.getParameter("originPwd");
 
       System.out.println(userPwd);
       System.out.println(originPwd);

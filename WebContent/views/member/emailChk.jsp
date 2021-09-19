@@ -39,8 +39,6 @@
 				if(bool) {
 					//인증번호가 일치한다면
 					opener.document.getElementsByName("email")[0].focus();
-					//window.close();
-					//opener.document.getElementsByName("user_email")[0].setAttribute("style", "border-color: #0dcaf0");
 				} else {
 					//인증번호가 일치하지 않는다면
 					alert("인증번호가 일치하지 않습니다.");

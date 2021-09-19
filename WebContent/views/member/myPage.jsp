@@ -62,11 +62,6 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-    <!-- mypageSIDEBAR -->
-    <!-- <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script> -->
-
     <!------ pwUp ---------->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet"
         id="bootstrap-css">
@@ -164,23 +159,7 @@
                                     <input hidden="hidden" maxlength="100" type="text" required="required" class="form-control"
                                     	name="email" readonly="readonly" style=" height: 50px; width: 50%;"
                                         value="<%= email %>" /><br>
-								   <!-- <input style="float: right; background-color: #D958A0; color:#fff;
-								   border:none; width:110px; height:48px; border-radius: 5px; margin-top : -21px; color:#fff;"
-								    type="button" id="emailCheckBtn" onclick="emailChk();" value="이메일인증"/><br><br>
-								    
-								   </button>
-                                   <label class="control-label">인증확인</label><br>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
-                                    	name = "email_chk_result"
-                                        placeholder="인증번호를 입력해주세요 "style=" width: 80%; float: left;" disabled="disabled"/>
-                                        <br>
-                                        
-                                         <button style="float: right; background-color: #D958A0; color:#fff;
-										   border:none; width:100px; height:48px; border-radius: 5px; margin-top : -21px;"
-										   name = "email_chk"
-								    		type="button" id="checkMail" onclick="checkMail();" disabled="disabled"><h6 style="color:#fff;">인증하기</h6></button><br><br>
-								     -->
-								    
+								   
                                     <center><button type="submit" style=" background-color: #D958A0; color:#fff;
 							   				border:none; width:100px; height:48px; border-radius: 5px; "
                                     		 id="updateBtn" onclick="saveMyInfo();">저장하기</button></center>
@@ -265,7 +244,7 @@
 				                                    
                                 <br>
                                     	<label>변경할 비밀번호 </label>
-				                        <p id="6char" style="float: right;"> 6자리 이상</p><br>
+				                        <p id="6char" style="float: right;"> 6자 이상 & 영문,숫자,특수문자 포함</p><br>
                                     		<input maxlength="100" style="text-align: center;" type="password" class="input-lg form-control" name="newPwd" id="newPwd"
                                         				placeholder="변경할 비밀번호를 입력하세요" autocomplete="off" required><br>
 				                                   
@@ -360,29 +339,7 @@
     						        location.href="<%=contextPath%>/mypage.me";
                         		})
 					        })
-                        }
-                        
-                        <%-- 
-                        $(function () {
-							button.click(function(){
-								var bno = $(this).eq(0).val();
-						        var url2="<%=contextPath%>/updateForm.bo?bno="+bno; 
-						        window.open(url2);
-							})
-						});
-                        
-                        $(function(){
-					        ptr.click(function(){
-						        var bno = $(this).children().eq(0).text();
-						        var url="<%=contextPath%>/detail.bo?bno="+bno;
-						        window.open(url);
-					        })
-				        })
-					                            		
-						$(function () {
-							$("#tb").niceScroll();
-						});
-                        --%>		                  
+                        }                 
 					        
 						</script>
                         
@@ -398,7 +355,7 @@
                                 		  <label class="control-label">탈퇴 진행을 원하신다면 현재 비밀번호를 입력해주세요.</label>
                                     <input type="password" class="input-lg form-control" name="deleteUser" id="deleteUser" style="text-align: center;"
                                         placeholder="현재 비밀번호를 입력하세요" autocomplete="off" required="required">
-                                        <br><br><br>
+                                 <br><br><br>
                                     <button type="submit" class="btn-load btn-lg" style="background-color: #D958A0; color:#fff; border:none; margin-left: 35%;" onclick="deleteMember()">탈퇴하기</button>
                                 </form>
                             </div>
@@ -515,32 +472,20 @@
         $("input[type=password]").keyup(function () {
 
         	if ($("#nowPwd").val() == $("#userPwd").val()) {
-                //$("#chUserPw").removeClass("glyphicon-remove");
-                //$("#chUserPw").addClass("glyphicon-ok");
                 $("#chUserPw").css("color", "#00A41E");
             } else {
-               // $("#chUserPw").removeClass("glyphicon-ok");
-                //$("#chUserPw").addClass("glyphicon-remove");
                 $("#chUserPw").css("color", "#FF0004");
             }
         	
             if ($("#newPwd").val().length >= 6) {
-               // $("#6char").removeClass("glyphicon-remove");
-                //$("#6char").addClass("glyphicon-ok");
                 $("#6char").css("color", "#00A41E");
             } else {
-                //$("#6char").removeClass("glyphicon-ok");
-                //$("#6char").addClass("glyphicon-remove");
                 $("#6char").css("color", "#FF0004");
             }
 
             if ($("#newPwd").val() == $("#checkPwd").val()) {
-                //$("#pwmatch").removeClass("glyphicon-remove");
-                //$("#pwmatch").addClass("glyphicon-ok");
                 $("#pwmatch").css("color", "#00A41E");
-            } else {
-                //$("#pwmatch").removeClass("glyphicon-ok");
-                //$("#pwmatch").addClass("glyphicon-remove");
+            } else{
                 $("#pwmatch").css("color", "#FF0004");
             }
         });

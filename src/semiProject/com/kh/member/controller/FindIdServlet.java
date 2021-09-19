@@ -50,37 +50,22 @@ public class FindIdServlet extends HttpServlet {
          int result = new MemberService().emailCheck(email);
          System.out.println("서블릿 돌리기 전 result--->" + result);
 
-         //PrintWriter out = response.getWriter();
          if(findId != null) {
-         
-				/*
-				 * if(result > 0) { out.print("fail");
-				 */
-
-           // System.out.println("서블릿 돌린 후의 result--->" + result);
             
             request.getSession().setAttribute("msg", "아이디 찾기 성공!");
 
                HttpSession session = request.getSession();
                session.setAttribute("findId", findId);
                System.out.println("session =========" + findId);
-            //request.getSession().setAttribute("findId", findId);
             System.out.println("서블릿 돌린 후 findId--->" + findId);
             
-         //   request.getSession().setAttribute("result", result);
-         //   System.out.println("서블릿 돌린 후 result--->" + result);
                response.sendRedirect(request.getContextPath());
-               //RequestDispatcher view = request.getRequestDispatcher("/findId.me");
-               //view.forward(request, response);
          }else {
-            //out.print("success");
             request.setAttribute("msg", "아이디 찾기에 실패했습니다."); 
             RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
             view.forward(request, response);
             
          }
-        // out.flush();
-         //out.close();
    }
 
    /**
