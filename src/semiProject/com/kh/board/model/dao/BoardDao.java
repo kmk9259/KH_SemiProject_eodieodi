@@ -52,13 +52,13 @@ public class BoardDao {
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
-			System.out.println("sql : " + sql);
+			
 
 			if(rset.next()) {
 				//listCount = rset.getInt(1); // count
 				listCount = rset.getInt("COUNT(*)");
 				
-				System.out.println("listCount : " + listCount);
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,7 +81,7 @@ public class BoardDao {
 
 		String sql = prop.getProperty("selectThList");
 		
-		System.out.println("쿼리문 제대로? " + sql);
+		
 		
 
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
@@ -111,7 +111,7 @@ public class BoardDao {
 				list.add(b);
 				
 
-				System.out.println("selectThList list : " + list);
+				
 
 			}
 		} catch (SQLException e) {
@@ -133,7 +133,7 @@ public class BoardDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertBoard");
-		System.out.println("insert Board sql : " + sql);
+		
 		
 		
 		try {
@@ -144,7 +144,7 @@ public class BoardDao {
 			pstmt.setInt(3, Integer.parseInt(b.getBoardWriter()));
 			
 			result = pstmt.executeUpdate();
-			System.out.println("======insert board result====="+result);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,7 +161,7 @@ public class BoardDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("increaseCount");
-		System.out.println("sql : " + sql);
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -187,7 +187,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectBoard");
-		System.out.println("sql : " + sql);
+		
 		
 		
 		try {
@@ -282,13 +282,10 @@ public class BoardDao {
 	      PreparedStatement pstmt = null;
 	      //insertThBoard=INSERT INTO BOARD VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, DEFAULT, SYSDATE, DEFAULT)
 	      String sql = prop.getProperty("insertThBoard");
-	      System.out.println("내용 등록 퀴리문 : "+ sql);
+	     
 	      try {
 	         pstmt = conn.prepareStatement(sql);
-	         
-//	         BOARD_TITLE
-//	         BOARD_CONTENT
-//	         BOARD_WRITER
+
 	         
 	         
 	         pstmt.setString(1, b.getBoardTitle());
@@ -297,7 +294,7 @@ public class BoardDao {
 	         
 	         result= pstmt.executeUpdate();
 	         
-	         System.out.println("내용등록============== : "+ result);
+	         
 	         
 	         
 	      } catch (SQLException e) {
@@ -317,7 +314,7 @@ public class BoardDao {
 		
 		String sql = prop.getProperty("insertAttachment");
 
-		System.out.println("??????insertAttachment 퀴리문 : "+ sql);
+		
 		try {
 			
 			
@@ -338,7 +335,6 @@ public class BoardDao {
 				result += pstmt.executeUpdate();
 				
 				
-				System.out.println("insertAttachment 첨부파일 여러개 : "+ result);
 				
 			}
 			
@@ -475,7 +471,7 @@ public class BoardDao {
 						
 						files.add(at);
 						
-						System.out.println("다오에서 파일이 담기? 파일 4개다 가져오고 있음  +++ " + files);
+						
 					
 					}
 				} catch (SQLException e) {
@@ -499,7 +495,7 @@ public class BoardDao {
 		//updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=? WHERE FILE_NO=?
 		String sql = prop.getProperty("updateAttachment");
 		
-		System.out.println("+++++++++++++updateAttachment+++++++++++"+ sql);
+
 		
 		try {
 			
@@ -518,7 +514,6 @@ public class BoardDao {
 
 
 			
-			System.out.println("보드에 바뀐 이름 업데잇 ::: " + result);
 			
 			
 			
@@ -546,8 +541,6 @@ public class BoardDao {
 		String sql = prop.getProperty("updateBoard");
 		//updateBoard=UPDATE BOARD SET BOARD_TITLE=?, BOARD_CONTENT=?  WHERE BOARD_NO=?
 		
-		
-		System.out.println("보드 업데이트 할때 쿼리? " + sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -558,7 +551,6 @@ public class BoardDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("보드 업데이트 값 담기 =============== 값이 없다구? : " + result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -577,7 +569,7 @@ public class BoardDao {
 		String sql = prop.getProperty("insertNewAttachment");
 		
 		//INSERT INTO ATTACHMENT VALUES(SEQ_ANO.NEXTVAL, ?, ?, ?, ?, SYSDATE, DEFAULT)
-		System.out.println("새로운 파일 넣기 쿼리? " + sql);
+		
 		
 		try {
 			
@@ -585,7 +577,6 @@ public class BoardDao {
 			
 			Attachment at = fileList.get(i);
 			
-			System.out.println("Atachment at 뭐가 인서트 뉴 어테치먼트 " + at);
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -599,8 +590,6 @@ public class BoardDao {
 			result += pstmt.executeUpdate();
 			
 		
-			
-			System.out.println("+++++++insertNewAttachment 결과  : "+ result);
 			}
 			
 			
@@ -665,7 +654,6 @@ public class BoardDao {
 		
 		String sql = prop.getProperty("insertReply");
 		
-		System.out.println("댓글 등록 : " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -798,7 +786,7 @@ public class BoardDao {
 		ResultSet rset = null; 
 		
 		String sql = prop.getProperty("searchWord");
-		System.out.println("@@@ searchWordd 쿼리문" + sql );
+		
 		
 //		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 //		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -851,7 +839,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteFile");
 		
-		System.out.println("파일 지우기 쿼리문 까지 오니? " + sql);
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -860,8 +848,7 @@ public class BoardDao {
 
 			result = pstmt.executeUpdate();
 			
-			System.out.println("다오에 결과로 받니? "+ result);
-			
+						
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -57,7 +57,7 @@ public class BoardDeleteFileServlet extends HttpServlet {
 		if(originFileNo1 != null) {
 			int fileno = Integer.parseInt(request.getParameter("originFileNo1"));
 			
-			System.out.println("서블릿에까지 값을 가져오니는지/ /// " + fileno);
+			
 			int result = new BoardService().deleteFile(fileno);
 			
 			if(result > 0) 

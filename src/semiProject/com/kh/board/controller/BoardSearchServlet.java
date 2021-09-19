@@ -135,13 +135,13 @@ public class BoardSearchServlet extends HttpServlet {
 			//VIEW 단으로 넘겨주는 객체들 
 			request.setAttribute("nlist", nlist);
 			
-			//request.setAttribute("msg", "");
+			request.setAttribute("msg",  " ");
 			request.getRequestDispatcher("views/board/boardSearchList.jsp").forward(request, response);
 		}
 		else
 		{
-			request.setAttribute("msg", "검색된 일정이 없습니다. 다시 검색해 주세요");
-			request.getRequestDispatcher("views/board/boardSearchList.jsp").forward(request, response);
+			request.setAttribute("msg", "검색된 결과가 없습니다. 다시 검색해 주세요");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 					
 		}
 	}
