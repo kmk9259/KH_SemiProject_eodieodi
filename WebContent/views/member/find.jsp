@@ -167,7 +167,6 @@
                               }
                            })
 
-                           //$("#idFind").submit();
                      }
                         </script>
                         
@@ -238,8 +237,7 @@
                               }
                            })
 
-                           //$("#idFind").submit();
-                     }
+                     	}
                         </script>
                         
                     </div>

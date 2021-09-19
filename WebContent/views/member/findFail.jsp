@@ -21,7 +21,7 @@
 	<body style="background-color: #FFF3E7;">
 
 		<script type="text/javascript">
-			alert("이메일 발송에 실패하였습니다..")
+			alert("이메일 발송에 실패하였습니다.")
 			
 			function mailChk() {
 				window.close();

@@ -45,12 +45,9 @@ public class MemberPageServlet extends HttpServlet {
 		String btitle = request.getParameter("myPost");
 		Board b = new MemberService().showMyPost(userId, btitle);
 		
-		//int bno = Integer.parseInt(request.getParameter("bno"));
-		//ArrayList<Board> list = new MemberService().selectMyPost(userId, bno);
 		ArrayList<Board> list = new MemberService().selectMyPost(userId);
 		request.setAttribute("list", list);
 
-		//System.out.println("bno : " + bno);
 		
 		
 		RequestDispatcher view = null;
