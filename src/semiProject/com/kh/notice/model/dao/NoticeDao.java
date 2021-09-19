@@ -226,10 +226,7 @@ public class NoticeDao {
 				close(pstmt);
 			}
 			
-			System.out.println("값은 잘 들어오나 result " + result) ;
-			System.out.println("값은 잘 들어오나 result " + result) ;
-			System.out.println("값은 잘 들어오나 result " + result) ;
-			System.out.println("값은 잘 들어오나 result " + result) ;
+		
 
 			return result;
 		}

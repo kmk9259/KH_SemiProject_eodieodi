@@ -44,10 +44,17 @@ public class Notice_UpdateServlet extends HttpServlet {
 	 		Notice notice = new Notice(); 
 			notice.setNoticeNo(nno);
 			notice.setNoticeTitle(title);
-			notice.setNoticeContent(content.replaceAll("\n", "<br>"));
+			notice.setNoticeContent(content);
 			
 			int result = new NoticeService().updateNotice(notice);
 		
+			if(notice.getNoticeContent() != null) {
+				notice.setNoticeContent(notice.getNoticeContent().replaceAll("<br>","\n"));
+			}
+			
+			
+			
+			
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "공지사항이 성공적으로 수정되었습니다.");
 			response.sendRedirect("detail.no?nno=" + nno);

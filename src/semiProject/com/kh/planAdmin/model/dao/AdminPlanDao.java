@@ -38,11 +38,9 @@ public class AdminPlanDao {
 		}
 }
 
-	
 
 
 	public ArrayList<Place> selectPList(Connection conn, int area, int theme) {
-
 	
 //		SELECT REF_COURSE,PLACE_NO, PLACE_TITLE, DESCRIPTION, CHANGE_NAME
 //		FROM PLACE
@@ -99,12 +97,6 @@ public class AdminPlanDao {
 				close(rset);
 				close(pstmt);
 			}
-		
-//	
-//		System.out.println("--------테마번호----"+ theme);
-//		System.out.println("------위치번호 ------"+ area);
-//
-//		System.out.println(pList+"=========pList 다오에서 찍히나? ");
 
 	return pList;
 		
