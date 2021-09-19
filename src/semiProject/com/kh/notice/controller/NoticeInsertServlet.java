@@ -42,10 +42,15 @@ public class NoticeInsertServlet extends HttpServlet {
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo()); //작성한 사람만 수정할수있다면
 		//작성한 사람만 작성할 수 있게 
 	
-		Notice n = new Notice(title,writer,content.replaceAll("\n", "<br>"));
+		Notice n = new Notice(title,writer,content);
+		//		Notice n = new Notice(title,writer,content.replaceAll("\n", "<br>"));
+
 		
 		int result = new NoticeService().insertNotice(n);
 		
+		if(n.getNoticeContent() != null) {
+			n.setNoticeContent(n.getNoticeContent().replaceAll("<br>","\n"));
+		}
 		
 		
 		if(result>0) {
