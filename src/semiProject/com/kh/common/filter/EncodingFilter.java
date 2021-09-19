@@ -39,7 +39,6 @@ public class EncodingFilter implements Filter {
 			request.setCharacterEncoding("UTF-8");	
 		}
 		chain.doFilter(request, response);
-		System.out.println("========서블릿 동작하고 나서 실행 start==================");
 	}
 
 	/**

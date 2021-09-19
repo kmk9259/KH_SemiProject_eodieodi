@@ -22,7 +22,6 @@ public class AdminDao {
 	
 	public AdminDao() {
 		String fileName = PlanMyDao.class.getResource("/semiProject/sql/adminPlan/adminPlan-query.properties").getPath();
-		System.out.println("fileName   " + fileName);
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {

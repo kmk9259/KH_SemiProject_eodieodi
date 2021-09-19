@@ -36,10 +36,8 @@ public class MainSearchServlet extends HttpServlet {
 		
 		
 		String searchArea = request.getParameter("search");
-		System.out.println("searchArea"+searchArea);
 		
 		ArrayList<Place> searchPlace = new PlaceService().searchArea(searchArea);
-		System.out.println("searchPlace"+searchPlace);
 		
 		if(!searchPlace.isEmpty() && !searchArea.equals(""))
 		{

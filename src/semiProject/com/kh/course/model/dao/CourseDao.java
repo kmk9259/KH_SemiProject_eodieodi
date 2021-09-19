@@ -59,7 +59,6 @@ public class CourseDao {
 		int result =0;
 		PreparedStatement pstmt = null;
 		//insertCoursePlace=INSERT INTO COURSE_PLACE VALUES(SEQ_CPNO.NEXTVAL,SEQ_CONO.CURRVAL,?,DEFAULT)
-		System.out.println("다오의 placeNum : "+placeNum);
 		String sql = prop.getProperty("insertCoursePlace");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -155,7 +154,6 @@ public class CourseDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(list);
 		return list;
 	}
 
@@ -324,7 +322,6 @@ public class CourseDao {
 		PreparedStatement pstmt = null;
 		//updateCoursePlace=updateCoursePlace=UPDATE COURSE_PLACE SET PLACE_NO=? WHERE REF_COURSE=? AND CP_NO=?
 		String sql = prop.getProperty("updateCoursePlace");
-		System.out.println(pNo+"다오의");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(pNo));

@@ -32,7 +32,6 @@ public class PlaceListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Place> list = new PlaceService().selectPList();
-		System.out.println(list);
 		request.setAttribute("list", list);
 		
 

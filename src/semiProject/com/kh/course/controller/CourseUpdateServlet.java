@@ -33,12 +33,9 @@ public class CourseUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
-		System.out.println(cNo+"cNo");
 		ArrayList<CoursePlace> cpno = new CourseService().selectCPno(cNo);
-		System.out.println("업데이트 전 cpno$$$$$$$$$    "+cpno.size());
 		
 		String textarea = request.getParameter("pNo");
-		System.out.println("업데이트 할 pnopno"+textarea);
 		
 		String[] pNo = textarea.split(",");
 		int[] cpNo = new int[cpno.size()];
@@ -52,9 +49,6 @@ public class CourseUpdateServlet extends HttpServlet {
 		{
 			cpNo[i] = cpno.get(i).getCpNo();
 			
-			
-			System.out.println("최종 pno  "+pNo[i]+"\n");
-			System.out.println("최종 cpNo  "+cpNo[i]);
 			result = new CourseService().updateCourse(c,cNo,pNo[i],cpNo[i]);
 			
 		}

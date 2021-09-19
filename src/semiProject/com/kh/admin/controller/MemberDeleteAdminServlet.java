@@ -31,7 +31,6 @@ public class MemberDeleteAdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mId = request.getParameter("mId");
-		System.out.println("mid : "+mId);
 		int result = new MemberService().deleteMember(mId);
 		if(result > 0)
 		{

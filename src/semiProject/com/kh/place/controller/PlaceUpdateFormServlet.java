@@ -43,10 +43,8 @@ public class PlaceUpdateFormServlet extends HttpServlet {
 		request.setAttribute("clist", clist);
 		
 		int pNo = Integer.parseInt(request.getParameter("pNo"));
-		System.out.println("pNo============"+pNo);
 		
 		Place p = new PlaceService().selectUpdatePlace(pNo);
-		System.out.println("Place============="+p);
 		PlaceAttachment pa = new PlaceService().selectAttachment(pNo);
 		
 		if(p != null)
