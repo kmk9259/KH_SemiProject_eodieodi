@@ -10,14 +10,10 @@
 	ArrayList<Area> aList = (ArrayList<Area>)request.getAttribute("aList");
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
-	
-	if(pm != null){
-		String memo = pm.getPlanMemo();
-		if(memo == null){
-			memo="";
-		}
-		
-		String plantitle = pm.getPlanTitle();
+
+	String memo = pm.getPlanMemo();  //메모 null값인 경우 
+	if(memo == null){
+		memo="";
 	}
 	
 %>
@@ -196,6 +192,17 @@
         th{
         	background-color:#FDF5E6;
         }
+        .tableDeleteBtn{
+        	margin: 10px 2px 10px 2px;
+		    background-color: #FAE6B9;
+		    border-radius: 5px;
+		    border: 0;
+		    outline: 0;
+		    padding: 7px;
+        }
+        .tablePlaceTitle{
+        	text-align:center;
+        }
     </style>
     <!-- <style>
         .header__logo_myplan{
@@ -309,9 +316,10 @@
             	<!-- fn:escapeXml: "string에 XML과 HTML에서 특별한 의미를 가진 문자들이 있으면, XML 엔티티 코드로 바꿔준 뒤 문자열 리턴.
 				출처: https://cutewebi.tistory.com/240 [cutewebi 희정냥★]" -->
             	<c:set var="title1" value="<%=pm.getPlanTitle()%>"/>
-            
-                <input type="text" class="planInput" name="planTitle" id="planTitle" value="${fn:escapeXml(title1)}" required>
-                <div id="counter" style="font-size:12px; position:absolute; top:180px; left:405px;"><b>0/20</b></div>
+            	
+            	<!-- 크롬에서는 maxlength가 5라면 한글이 6자까지 들어가게 되므로 keyup에서 substr을 해줘야 한다. -->
+                <input type="text" class="planInput" name="planTitle" id="planTitle" value="${fn:escapeXml(title1)}" maxLength="20" required>
+                <div id="counter" style="font-size:12px; position:absolute; top:180px; left:85%;"><b>0/20</b></div>
             </div>
             <div class="filter__title">
                 <h5>일정 날짜</h5>
@@ -327,7 +335,7 @@
                 <h5>메모</h5>
             </div>
             <div>
-                <textArea name="planMemo" class="planInput" id="planMemo" cols="30" rows="6"><%=pm.getPlanMemo()%></textArea>
+                <textArea name="planMemo" class="planInput" id="planMemo" cols="30" rows="6" maxLength="200"><%=memo%></textArea>
             </div>
 
             <div class="filter__title">
@@ -343,8 +351,8 @@
             </div>
             <table class="listArea">
                 <thead>
-                    <tr>
-                        <th width="50">장소명</th>
+                    <tr style="text-align: center; font-size: 20px;">
+                        <th width="100">장소명</th>
                         <th width="200">주소</th>
                         <th width="50"></th>
                     </tr>
@@ -354,10 +362,10 @@
                 	<%for(Place p : pList) {%>
                 		<tr>
                 			<td style="display:none"><input type="hidden" name="placeNo" id="tablePlaceNo" value="<%=p.getPlaceNo()%>"></td>
-                			<td><%=p.getPlaceTitle()%></td>
+                			<td class='tablePlaceTitle'><%=p.getPlaceTitle()%></td>
                 			<td><%=p.getAddress()%></td>
                 			<td>
-                				<button onclick="rowDelete(this)">빼기</button>
+                				<button onclick="rowDelete(this)" class="tableDeleteBtn">빼기</button>
                 			</td>
                 		</tr>
                 	<%} %>
@@ -365,17 +373,17 @@
             </table>
             
             <div class="filter__btns">
-                <button type="submit">일정 수정하기</button>
+                <button type="submit" class="site-btn">일정 수정하기</button>
             </div>            
         </form>
-        
+<!--         
         <script>
             function rowDelete(obj){
                 $(obj).parent().parent().remove();
             }
                  
               
-        </script>
+        </script> -->
     </div>
     <!-- Filter End -->
 
@@ -421,7 +429,7 @@
         	<%} %> 
         </div>
         	
-    	<script>
+    	<script>    	
     		//첫 화면 뜨자마자 해줄 것들
     		$(function(){
     			//""치환
@@ -557,13 +565,14 @@
 	        	placeArr.push($(no).val());
 	        });
 	        
+	        console.log(placeArr);
+	        
         	//일정 테이블에서 삭제하기
-            function rowDelete(obj){
-                $(obj).parent().parent().remove();                             //행 통째로 삭제
-                var placeNo = $(obj).parent().siblings("#tablePlaceNo").val(); //장소번호 추출
+            function rowDelete(obj){                           
+                var placeNo = $(obj).parent().siblings().children("#tablePlaceNo").val(); //장소번호 추출
 	            placeArr.splice($.inArray(placeNo, placeArr),1);               //placeArr배열에서 장소번호 삭제
-	            
 	            console.log("삭제 후 placeArr: " + placeArr);
+	            $(obj).parent().parent().remove();    //행 통째로 삭제
             } 
 	        
 	        //[동적함수] ajax로 추가된 태그들에 함수가 적용되게 하기 위해서 모든 함수를 동적으로 바꾼다...
@@ -590,9 +599,9 @@
 		        if(noDuplicate(placeNo)){
 		            var $tr = $("<tr>"); //테이블 행 생성
 			        var hidden = '<td style="display:none"><input type="hidden" name="placeNo" id="tablePlaceNo" value="'+placeNo+'"></td>'; //hidden으로 placeNo넘기기
-			        var $title = $("<td>").text(title); 
+			        var $title = $("<td class='tablePlaceTitle'>").text(title); 
 			        var $address = $("<td>").text(address); 
-			        var btn = '<td><button onClick="rowDelete(this)">빼기</button></td>';
+			        var btn = '<td><button onClick="rowDelete(this)" class="tableDeleteBtn">빼기</button></td>';
 			
 			        $tr.append(hidden);   //placeNo
 			        $tr.append($title);   //title
