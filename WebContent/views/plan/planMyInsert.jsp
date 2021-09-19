@@ -184,6 +184,17 @@
         th{
         	background-color:#FDF5E6;
         }
+        .tableDeleteBtn{
+        	margin: 10px 2px 10px 2px;
+		    background-color: #FAE6B9;
+		    border-radius: 5px;
+		    border: 0;
+		    outline: 0;
+		    padding: 7px;
+        }
+        .tablePlaceTitle{
+        	text-align:center;
+        }
     </style>
 </head>
 <body class="ov-hid">
@@ -267,7 +278,7 @@
             </div>
             <div>
                 <input type="text" class="planInput" name="planTitle" id="planTitle" maxLength="20" required>
-                <div id="counter" style="font-size:12px; position:absolute; top:180px; left:405px;"><b>0/20</b></div>
+                <div id="counter" style="font-size:12px; position:absolute; top:180px; left:85%;"><b>0/20</b></div>
             </div>
             <div class="filter__title">
                 <h5>일정 날짜</h5>
@@ -298,8 +309,8 @@
             </div>
             <table class="listArea">
                 <thead>
-                    <tr>
-                        <th width="50">장소명</th>
+                    <tr style="text-align: center; font-size: 20px;">
+                        <th width="100">장소명</th>
                         <th width="200">주소</th>
                         <th width="50"></th>
                     </tr>
@@ -308,7 +319,7 @@
             </table>
             
             <div class="filter__btns">
-                <button type="submit">일정 저장하기</button>
+                <button type="submit" style="background:#D958A0;">일정 저장하기</button>
             </div>            
         </form>
 
@@ -341,8 +352,9 @@
 								<input type="hidden" value="<%=p.getPlaceNo()%>" id="placeNo">
 								<input type="hidden" value="<%=p.getAreaNo()%>" id="areaNo" name="areaNo">
 								<input type="hidden" value="<%=p.getCategoryNo()%>" id="categoryNo" name="categoryNo">
-								
+
 		                    	<img class="placeImg" src="<%=request.getContextPath()%>/resources/place_upFiles/<%= p.getTitleImg() %>" width="100%" height="250px"> <br>
+		                    	
 		                    	<div class="planBox">
 		                    		<p class="placeTitle" id="placeTitle" style="font-size:25px; color:black;"><%=p.getPlaceTitle()%></p>
 		                    		<p id="placeAddress"><%=p.getAddress()%></p>
@@ -372,7 +384,6 @@
 	         
 	         //planTitle일정제목 글자수 제한_20글자까지 가능
 	    	 $("#planMemo").keyup(function(e){
-	         	console.log($(this).val());
 	         	var content = $(this).val();
 	         	
 	         	if(content.length>200){
@@ -511,9 +522,9 @@
 		        if(noDuplicate(placeNo)){
 		            var $tr = $("<tr>"); //테이블 행 생성
 			        var hidden = '<input type="hidden" name="placeNo" id="tablePlaceNo" value="'+placeNo+'">'; //hidden으로 placeNo넘기기
-			        var $title = $("<td>").text(title); 
+			        var $title = $("<td class='tablePlaceTitle'>").text(title); 
 			        var $address = $("<td>").text(address); 
-			        var btn = '<td><button onClick="rowDelete(this)">빼기</button></td>';
+			        var btn = '<td><button class="tableDeleteBtn" onClick="rowDelete(this)">빼기</button></td>';
 			
 			        $tr.append(hidden);   //placeNo
 			        $tr.append($title);   //title

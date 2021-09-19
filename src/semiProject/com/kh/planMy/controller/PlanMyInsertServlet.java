@@ -61,7 +61,6 @@ public class PlanMyInsertServlet extends HttpServlet {
 		
 		//planPlace -> MYPLAN_PLACE 테이블에 넣어주기
 		String[] planPlaces = request.getParameterValues("placeNo");
-
 		
 		int result = new PlanMyService().insertPlanMy(pm, planPlaces);
 		

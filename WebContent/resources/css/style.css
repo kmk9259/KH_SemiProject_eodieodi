@@ -1600,7 +1600,7 @@ login
 	font-weight: 700;
 	text-transform: uppercase;
 	color: #ffffff;
-	background: #f03250;
+	background: #D958A0;
 	border: none;
 	border-radius: 2px;
 	width: 100%;
@@ -1659,7 +1659,7 @@ login
 .listing {
 	width: 55%;
 	height: 100%;
-	padding: 0 40px;
+	padding: 0 50px;
 	padding-top: 140px;
 	overflow-y: auto;
 	float: left;

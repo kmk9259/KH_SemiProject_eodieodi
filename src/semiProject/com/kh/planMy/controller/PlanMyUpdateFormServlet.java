@@ -40,6 +40,12 @@ public class PlanMyUpdateFormServlet extends HttpServlet {
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		
 		PlanMy pm = new PlanMyService().selectPlanMy(planNo);
+		
+		//memo가 null일때 대비해줘야 한다...
+		if(pm.getPlanMemo() != null) {
+			pm.setPlanMemo(pm.getPlanMemo().replaceAll("<br>", "\n"));  //db에는 <br>로 띄어쓰기가 저장되고 화면에 이걸 다시 띄우면 <br>로 나오기 때문에 바꿔준다.			
+		}
+		
 		ArrayList<Place> pList = new PlanMyService().selectPlace_planMy(planNo);
 		ArrayList<Place> list = new PlanMyService().selectList();
 		ArrayList<Area> aList = new AreaService().selectAreaList();  //DB에서 지역목록 가져오기

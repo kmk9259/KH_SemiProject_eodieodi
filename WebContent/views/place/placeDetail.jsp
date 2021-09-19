@@ -142,11 +142,11 @@
         }
         th,td{
         	border-bottom: 1px solid lightgrey;
-        	padding:3px;
+        	padding:10px;
         }
         th{
-        	background-color:#7ec314;
-        	color:#fff;
+        	background-color:#FAE6B9;
+        	width:100px;
         }
         .modal-body{
 			width:100%;
@@ -199,7 +199,7 @@
 		.pleaseBg{
 			background-repeat: no-repeat;
 		    background-size: cover;
-		    background-position: top center;
+		    background-position: center center;
 		    background-image:url('<%=request.getContextPath()%>/resources/place_upFiles/<%= p.getTitleImg() %>');
 		}
     </style>
@@ -238,19 +238,33 @@
     <!-- About Section Begin -->
     <section class="about renewspad">
         <div class="container">
-        	<div style="text-align:center;">
+        	<div style="text-align:left;">
         		<h2 id="placeTitle"><%=p.getPlaceTitle()%></h2>
         	</div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 pleaseCenter">
-                    <div >
+                <div class="col-lg-8 col-md-8 pleaseCenter">
+                    <div style="width:100%">
                         <%-- <div id="placeImg" class="listing__item__pic set-bg" style="background-image: url(<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg()%>);"></div> --%>
                     	<%-- <img class="pleaseBg" src="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>" style="height:500px;"> --%>
-                    	<div class="pleaseBg" style="height:500px; width:500px;"></div>
+                    	<div class="pleaseBg" style="height:650px; width:100%;"></div>
                     </div>
                 </div>
-                <div class="col-lg-12 col-md-12 pleaseCenter">   
-                    <table>
+                
+                 <div class="col-lg-4">
+                 
+                 	<div class="blog__sidebar">
+                 		<div class="blog__sidebar__recent" style="margin-top: 20px;">
+                            <h5>같은 지역의 인기장소</h5>
+                          
+                          <div id="thumbList">     
+                          </div> 
+                         
+                        </div>
+                 	</div>
+                 </div>
+                
+                <div class="col-lg-8 col-md-12 pleaseCenter">   
+                    <table style="width:100%;">
                         <tr>
                             <th>상세주소</th>
                             <td><%=p.getAddress()%></td> 
@@ -284,13 +298,73 @@
 	        <input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">
 	    </div>
     <%}else {%>
-    	<div class="total_btn">       
+    	<div class="total_btn" id="bottonBtn">       
     		<input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">    
 	        <button type="button" id="addPlace" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-left: 15px;">일정에 추가</button>
 	    </div>
     <%} %>
     
+    
     <script>
+		/* $(function(){
+			var goback = '<input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">'
+			if(history.go(-1) != "undefined"){
+				$("#bottonBtn").append(goback);
+			}	
+		})  */
+		
+	   $(function(){
+			selectTopList(); // 열자 마자 호출 하고 
+			
+		   
+				$(".thumbnail").click(function(){
+					var bno = $(this).children().eq(0).val();
+					location.href="<%=contextPath%>/detail.bo?bno="+bno;
+				})
+
+			
+			//setInterval(selectTopList, 2000)
+		 	 $("#thumbList").on("click",".thumb",function(){
+				var bno = $(this).children().eq(0).val();
+				location.href = "<%=contextPath%>/detail.bo?bno="+bno;
+			}) 
+		})
+		
+		function selectTopList(){
+		   var placeNo = <%=p.getPlaceNo()%>
+		   
+			$.ajax({
+				url : "planTopList.do",
+				type: "post",
+				data:{
+					placeNo : placeNo
+				},
+				success:function(list){
+					
+					var contextPath = "<%=contextPath%>"; 
+					var value = "";
+					for(var i in list){
+						var tmp = list[i].placeTitle;
+						value += '<div class="blog__sidebar__recent__item__pic thumb" >'+ 
+								 '<input type="hidden" value="' +list[i].placeNo+ '">'+
+								 '<img src="'+contextPath+'/resources/place_upFiles/' + list[i].titleImg + '" width="80px" height="70px">'+
+						
+								 '</div><div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i)+ 
+								 '</span></div><h6 class="thumb">'+ tmp +'</h6>'+
+								 '<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;</p></div>';
+								
+								 
+					}
+					console.log(value);
+					$("#thumbList").html(value).trigger("create");
+				},
+				error:function(){
+					console.log("ajax통신실패");
+				}
+			})
+		}
+    
+    
     	//'일정에 추가'버튼 클릭 -> 사용자의 모든 일정 중 해당 장소가 포함되지 않은 일정만 뽑아서 리스트로 받기
 	    $("#addPlace").click(function(){
 	    	var placeNo = <%=p.getPlaceNo()%>
