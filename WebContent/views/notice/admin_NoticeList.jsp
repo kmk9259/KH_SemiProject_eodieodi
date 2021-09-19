@@ -3,6 +3,9 @@
 	
 	<%	ArrayList <Notice> list = (ArrayList<Notice>)request.getAttribute("list");  %>
 
+
+
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -187,14 +190,14 @@
                                                   </tbody>
                                               </table>
                        
-                          
                                           </div>
-                          
                           
                                       </div>
                           
                                   </div>
                               </form> <!-- 폼 -->
+                              
+     
                               
                               
                        <!-- 새공지사항 등록 버튼  -->       
@@ -205,7 +208,7 @@
 				
 				<button onclick="location.href='<%=contextPath%>/enrollForm.no'" type="button" class="site-btn">새 공지 등록하기 </button>
 					
-					<% } %>
+			<% } %>
 				</div>
 				                              
                   

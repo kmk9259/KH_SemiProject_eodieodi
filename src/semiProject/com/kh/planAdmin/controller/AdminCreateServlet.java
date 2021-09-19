@@ -53,7 +53,7 @@ public class AdminCreateServlet extends HttpServlet {
 			String aDate = y + "-" + m + "-" + d;
 			// Date planDate= java.sql.Date.valueOf(aDate);
 			Date adminDate = Date.valueOf(aDate);
-				
+		
 			ArrayList<Place> pList = new AdminPlanService().selectPList(area,theme);
 			
 			//AdminPlan adminList = new AdminPlan(area, adminDate);
@@ -64,15 +64,14 @@ public class AdminCreateServlet extends HttpServlet {
 			request.setAttribute("adminDate", adminDate); // 날짜랑 
 			request.setAttribute("areaNo", areaNo); //위치 
 		
-		//	System.out.println(adminDate+"어드민 리스트 위치랑 날짜 선택한게 떠라 ");
 		
-				
+		
 				//request.setAttribute("msg", "추천일정조회를 성공적으로 완료 하였습니다.");
 				//request.getRequestDispatcher("adminList.pl").forward(request, response);
-				request.getRequestDispatcher("views/plan/adminPlan_detail.jsp");
-		
-		
-		}else {
+				request.getRequestDispatcher("views/adminPlan/adminPlan_detail.jsp");
+	
+
+			} else {
 
 			request.setAttribute("msg", "추천일정 조회에 실패했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
@@ -80,8 +79,7 @@ public class AdminCreateServlet extends HttpServlet {
 //			System.out.println(tmp+ tmp1+" 널포인트 잡히냐?");
 		
 		}
-		
-		request.getRequestDispatcher("views/plan/adminPlan_detail.jsp").forward(request, response);
+		request.getRequestDispatcher("views/adminPlan/adminPlan_detail.jsp").forward(request, response);
 
 	}
 

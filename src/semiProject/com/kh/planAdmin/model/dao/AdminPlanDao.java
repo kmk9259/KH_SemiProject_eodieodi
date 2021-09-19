@@ -39,83 +39,7 @@ public class AdminPlanDao {
 }
 
 	
-	//adminPlan에 인서트하는 
-//	public int insertAdminPlan(Connection conn, AdminPlan courseList) {
-//
-//		PLAN_NO	NUMBER
-//		USER_NO	NUMBER
-//		AREA_NO	NUMBER
-//		THEME_NO	NUMBER
-//		COURSE_NO	NUMBER
-//		CHOOSE_DATE	DATE
-//		STATUS	VARCHAR2(1 BYTE)
-		
-//insertAdminPlan=insert into admin_plan VALUES(SEQ_APNO.NEXTVAL,?,?,?,SYSDATE,DEFAULT);
-		
-//		
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//
-//		String sql = prop.getProperty("insertAdminPlan");
-//		
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			pstmt.setInt(2, courseList.getAreaNo());
-//			pstmt.setInt(3, courseList.getThemeNo());
-//			pstmt.setInt(4, courseList.getCourseNo());
-//			pstmt.setDate(5, courseList.getChooseDate());
-//	
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(pstmt);
-//		}
-//		
-//		
-//		
-//		return result;
-//	}
 
-
-
-	//상세페이지에 뿌려주는 애 	
-//	public ArrayList<AdminPlan> totalList(Connection conn) {
-//		
-//		
-//		ArrayList<AdminPlan> apList = new ArrayList<>();
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		//totalList=select USER_NO, COURSE_NO, CHOOSE_DATE FROM ADMIN_PLAN;
-//		String sql = prop.getProperty("totalList");
-//
-//		
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			rset = pstmt.executeQuery();
-//			
-//			while(rset.next()) {
-//				
-//				AdminPlan ap = new AdminPlan();
-//				
-//				ap.setUserNo(rset.getInt("USER_NO"));
-//				ap.setCourseNo(rset.getInt("COURSE_NO"));
-//				ap.setChooseDate(rset.getDate("CHOOSE_DATE"));
-//			}
-//			
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	
-//		
-//		return apList;
-//	}
 
 	public ArrayList<Place> selectPList(Connection conn, int area, int theme) {
 
@@ -127,9 +51,10 @@ public class AdminPlanDao {
 //		        FROM COURSE_PLACE
 //		        WHERE REF_COURSE = (SELECT COURSE_NO
 //		                            FROM (SELECT * FROM COURSE ORDER BY DBMS_RANDOM.VALUE)
-//		                            WHERE AREA_NO=? AND THEME_NO=? AND ROWNUM<2))
+//		                            WHERE STATUS='Y' AND AREA_NO=? AND THEME_NO=? AND ROWNUM<2))
 //		USING(PLACE_NO);
 		
+		//삭제된 애들은 가져오면 안되니까 status 조건을 걸어줌  
 		
 		ArrayList<Place> pList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -150,12 +75,17 @@ public class AdminPlanDao {
 				
 				Place p = new Place();
 				
-				p.setCourseNo(rset.getInt("REF_COURSE")); // 없어서 추가함 
-				p.setPlaceNo(rset.getInt("PLACE_NO"));
+				p.setCourseNo(rset.getInt("REF_COURSE")); // 코스 참조번호 
+				p.setPlaceNo(rset.getInt("PLACE_NO")); // 1번 홍대 2번 강남 을 선택했을떄 글씨 띄워주는것도 해야됨 
 				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
 				p.setDescription(rset.getString("DESCRIPTION"));
 				p.setTitleImg(rset.getString("CHANGE_NAME"));
-			
+				p.setBsHour(rset.getString("BSHOUR"));
+				p.setPrice(rset.getInt("PRICE"));
+				p.setAddress(rset.getString("ADDRESS"));
+				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				p.setPlacePhone(rset.getString("PLACE_PHONE"));
+				p.setAreaNo(rset.getInt("AREA_NO"));
 
 				pList.add(p);// 추가하기 
 				
@@ -170,11 +100,11 @@ public class AdminPlanDao {
 				close(pstmt);
 			}
 		
-	
-		System.out.println("--------테마번호----"+ theme);
-		System.out.println("------위치번호 ------"+ area);
-
-		System.out.println(pList+"=========pList 다오에서 찍히나? ");
+//	
+//		System.out.println("--------테마번호----"+ theme);
+//		System.out.println("------위치번호 ------"+ area);
+//
+//		System.out.println(pList+"=========pList 다오에서 찍히나? ");
 
 	return pList;
 		

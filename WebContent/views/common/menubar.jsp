@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6, p, a, input, button, li, div {
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/resources/img/Logo.png" alt="야호"></a>
+                        <a href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/resources/img/Logo.png" alt="야호"></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6, p, a, input, button, li, div {
                                     
                                     <ul class="dropdown">
                                         <li><a href="#" class="movePage">마음대로일정</a></li>
-                                        <li><a href="<%=contextPath %>/admin_List.pl">추천일정</a></li>
+                                        <li><a href="#" class="movePageAdmin">추천일정</a></li>
                                         <li><a href="#" class="movePage">일정보관함</a></li>
                                         
                                     </ul>
@@ -137,6 +137,26 @@ h1, h2, h3, h4, h5, h6, p, a, input, button, li, div {
 	               <%}%>
 	           })
 		   })
+		   
+		  	 // 추천일정 로그인접근 
+		   		   $(function(){
+			   $('.movePageAdmin').click(function(){
+	               var text = $(this).text();
+	               <%if(loginUser == null) {%>  //로그인 X -> 로그인페이지로 이동
+	                    alert("로그인 후 이용해주세요");
+	                    location.href="<%=contextPath%>/views/member/login.jsp";
+	               <%}else{ %>
+	                    if(text == "추천일정"){
+	                      	 location.href="<%=contextPath%>/admin_List.pl";	
+	                    }<%-- else if(text == "일정보관함"){
+	                        location.href="<%=contextPath%>/list.ps";
+	                    } --%>
+	               <%}%>
+	           })
+		   })
+		   
+		   
+		   
    		</script>
     
     

@@ -18,26 +18,6 @@ import semiProject.com.kh.planAdmin.model.vo.AdminPlan;
 public class AdminPlanService {
 
 
-
-	
-//	public int insertAdminPlan(AdminPlan courseList) {
-//		
-//		Connection conn = getConnection();
-//		
-//		int result = new AdminPlanDao().insertAdminPlan(conn, courseList);
-//		
-//		if(result > 0 ) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		}close(conn);
-//		
-//		
-//		return result;
-//		
-//		
-//	}
-
 	//다시하는중 - 0915 
 
 	//플레이스
@@ -55,6 +35,7 @@ public class AdminPlanService {
 		
 		return pList;
 	}
+
 
 
 

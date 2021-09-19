@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -16,25 +16,37 @@
 
 <style>
 .admin {
-    background-color: #FFF3E7;
-    height: 1000px; 
-    padding: 0px 50px 50px 50px;
+	background-color: #FFF3E7;
+	height: 1000px;
+	padding: 0px 50px 50px 50px;
 }
-.admin-showpage{
+
+.admin-showpage {
 	float: right;
-    width: 1200px;
-    margin-right:50px;
-    height: 400px;
-    padding: 10px;
-    margin-top: 2.5%;
-    background-color: #FFF3E7;
-    border: 1px solid #D34B32;
-   	
+	width: 1200px;
+	margin-right: 50px;
+	height: 400px;
+	padding: 10px;
+	margin-top: 2.5%;
+	background-color: #FFF3E7;
+	border: 1px solid #D34B32;
 }
 
+.content {
+	height: 500px;
+	width: 700px;
+}
 
+.title {
+	width: 700px;
+}
 
+.btn_set{
 
+	text-align: center;
+	margin: 12px;
+
+}
 </style>
  
 </head>
@@ -115,24 +127,27 @@
 				 <div class="container">
                             <div class="row">
                                 <div class="col-md-8 mt-5">
-                                    <form method="post" th:object="${post}" action=" <%= contextPath %>/insert.no">
+                                    <form method="post"  action=" <%= contextPath %>/insert.no">
                                     
-                                     	   <h2>공지사항 등록</h2>
+                                     	   <h2 style="text-align: center">공지사항 등록</h2>
+                                     	   <br>
                                         <div class="form-group">
                                             <label for="title">제목</label>
-                                            <input type="text" id="title" name="title" placeholder="제목을 입력하세요" autocomplete="off" class="form-control"
-                                                   th:field="*{title}"/>
+                                            <input  onKeyUp="javascript:fnChkByte(this,'30')"; type="text" id="title" name="title" placeholder="제목을 입력하세요" autocomplete="off" class="title"
+                                                   />
                                         </div>
                         
-                                        <div class="form-group">
+                                        
                                             <label for="content">내용 </label>
-                                            <textarea type="text" id="content" name="content" placeholder="내용을 입력하세요 " class="form-control"
+                                            <textarea onKeyUp="javascript:titlefnChkByte(this,'2000')"type="text" id="content" name="content" placeholder="내용을 입력하세요 " class="content"
                                                     ></textarea> 
-                                        </div>
+                                      
                                        <br>
+                                       
+                                      	 <div class="btn_set">
                                         <button class="site-btn" type="submit" >등록</button> 
                                         <button class="site-btn"type="reset">취소</button>
-                    
+                					    </div>
                                       
                                        
                                     </form>
@@ -147,7 +162,102 @@
 	</section><!-- page- end -->
 
 
+				<script type="text/javascript">
+				
+				/* 
+				
+				 oninput="numberMaxLength(this);" maxlength='20'
+				
+				function numberMaxLength(e){
+				    if(e.value.length > e.maxLength){
+				        e.value = e.value.slice(0, e.maxLength);
+				    }
+				} */
+				
+				// 제목 글자수 제한 
+				function fnChkByte(obj, maxByte)
+				{
+				    var str = obj.value;
+				    var str_len = str.length;
 
+
+				    var rbyte = 0;
+				    var rlen = 0;
+				    var one_char = "";
+				    var str2 = "";
+
+
+				    for(var i=0; i<str_len; i++)
+				    {
+				        one_char = str.charAt(i);
+				        if(escape(one_char).length > 4) {
+				            rbyte += 2;                                         //한글2Byte
+				        }else{
+				            rbyte++;                                            //영문 등 나머지 1Byte
+				        }
+				        if(rbyte <= maxByte){
+				            rlen = i+1;                                          //return할 문자열 갯수
+				        }
+				     }
+				     if(rbyte > maxByte)
+				     {
+				        // alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+				        alert("제목은 최대 " + maxByte + "byte를 초과할 수 없습니다.")
+				        str2 = str.substr(0,rlen);                                  //문자열 자르기
+				        obj.value = str2;
+				        fnChkByte(obj, maxByte);
+				     }
+				     else
+				     {
+				        document.getElementById('byteInfo').innerText = rbyte;
+				     }
+				}
+				
+				</script>
+				
+				<script type="text/javascript">
+				
+				
+				function titlefnChkByte(obj, maxByte)
+				{
+				    var str = obj.value;
+				    var str_len = str.length;
+
+
+				    var rbyte = 0;
+				    var rlen = 0;
+				    var one_char = "";
+				    var str2 = "";
+
+
+				    for(var i=0; i<str_len; i++)
+				    {
+				        one_char = str.charAt(i);
+				        if(escape(one_char).length > 4) {
+				            rbyte += 2;                                         //한글2Byte
+				        }else{
+				            rbyte++;                                            //영문 등 나머지 1Byte
+				        }
+				        if(rbyte <= maxByte){
+				            rlen = i+1;                                          //return할 문자열 갯수
+				        }
+				     }
+				     if(rbyte > maxByte)
+				     {
+				        // alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+				        alert("내용은 최대 " + maxByte + "byte를 초과할 수 없습니다. 2000 이하로 작성해주세요  ")
+				        str2 = str.substr(0,rlen);                                  //문자열 자르기
+				        obj.value = str2;
+				        fnChkByte(obj, maxByte);
+				     }
+				     else
+				     {
+				        document.getElementById('byteInfo').innerText = rbyte;
+				     }
+				}
+				
+				
+				</script>
 
 	<%@ include file="../common/footer.jsp"%>
 

@@ -35,12 +35,19 @@
 	padding: 10px;
 	margin-top: 2.5%;
 	background-color: #FFF3E7;
-	border: 1px solid #D34B32;
-}
+/* 	border: 1px solid #D34B32;
+ */}
 
- #dt,#wr{ 
+ #wr{ 
 	
 	float: right;
+	font-weight: 400;
+}
+
+#dt{
+
+	float: right;
+	font-weight: 400;
 
 }
 
@@ -131,10 +138,10 @@
 				<div name="title" >게시글 제목 : <h3><%= notice.getNoticeTitle() %></h3> </div>
 				<hr/>
 				<div id="wr">작성자 : <%=notice.getNoticeWriter() %></div><br>
-				<div id="dt">작성날짜 : <%=notice.getCreateDate()%></div>
+				<div id="dt">작성날짜 : <%=notice.getCreateDate()%></div><br><br>
 			
 				<div id="content" name="content"><%= notice.getNoticeContent() %></div>
-			
+			<br>
 				
 		 
 		 	<div class="btns" align="center"> <!-- 버튼만 있는 애들  -->
