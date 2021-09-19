@@ -45,7 +45,7 @@ public class admin_ListServlet extends HttpServlet {
 		  
 //		System.out.println(aList+"------------aList");
 		
-		request.getRequestDispatcher("views/plan/adminRecommend.jsp").forward(request, response);
+		request.getRequestDispatcher("views/adminPlan/adminRecommend.jsp").forward(request, response);
 	
 	}
 

@@ -137,24 +137,22 @@
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
                         <div class="row">
                            
-                           <%for(Theme t : tList) { %>
-                           
-                           
+                      <%--      <%for(Theme t : tList) { %> --%>
                            
                             <div class="col-lg-4 col-md-6">
                                 <div class="listing__item">
-                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/list-1.jpg">
+                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/couple_img.png">
                                         <div class="listing__item__pic__btns">
                                         </div>
                                     </div>
                                     <div class="listing__item__text">
                                         <div class="listing__item__text__inside">
-                                            <h4><%=t.getThemeName() %></h4>
+                                            <h4><%=tList.get(0).getThemeName()%></h4>
                                             <div class="listing__item__text__rating">
                                                 <label class="form-check-label">
                                                     <input type="radio" class="form-check-input" name="theme"
-                                                        id="optionsRadios1" value="<%=t.getThemeNo() %>">
-                                                    연인 2인이상/가족 4인이상/친구 3인이상 추천 
+                                                        id="optionsRadios1" value="<%=tList.get(0).getThemeNo() %>">
+                                                     2인이상 추천 
                                                 </label>
             
                                             </div>
@@ -162,8 +160,50 @@
                                     </div>
                                 </div>
                             </div>
-                       <% } %>     
+                  <%--      <% } %>      --%>
+                              <div class="col-lg-4 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/fam_img.png">
+                                        <div class="listing__item__pic__btns">
+                                        </div>
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h4><%=tList.get(1).getThemeName()%></h4>
+                                            <div class="listing__item__text__rating">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="theme"
+                                                        id="optionsRadios1" value="<%=tList.get(1).getThemeNo() %>">
+                                                     3-4인이상 추천 
+                                                </label>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             
+                              <div class="col-lg-4 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/bff_img.png">
+                                        <div class="listing__item__pic__btns">
+                                        </div>
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h4><%=tList.get(2).getThemeName()%></h4>
+                                            <div class="listing__item__text__rating">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="theme"
+                                                        id="optionsRadios1" value="<%=tList.get(1).getThemeNo() %>">
+                                                    3인이상 추천 
+                                                </label>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             
 		                            </div> 
 		            		</div>
@@ -193,7 +233,7 @@
                          
                             <option value="<%=a.getAreaNo()%>"><%=a.getAreaName()%></option>
             
-                        <%} %>    
+                        	<%} %>    
                         </select>
                         
                         <div id='result'></div>
@@ -220,7 +260,7 @@
                          <div style="text-align: center;">
                           
                             <h4>다음으로 버튼을 누른후 다음으로 클릭하셔서 일정을 추천 받으세요!</h4>
-                                <p> 인원에 따라 추가 금액이 발생 할 수 있습니다 </p>
+                              	  <p> 인원에 따라 추가 금액이 발생 할 수 있습니다 </p>
                            
                         
                         </div>
@@ -263,12 +303,10 @@
 			}
 		</script>
 		
-		<script> // 달력 날짜 선택 
+		<script> // 달력 날짜 선택 이전 날짜들은 선택되지 않음 
 		 
 			$(function() {
-				$('#startDate').datepicker({
-
-				})
+				$('#startDate').datepicker({minDate: 0})
 
 			})
 		</script>

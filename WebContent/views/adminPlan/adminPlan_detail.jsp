@@ -9,6 +9,7 @@
      ArrayList<Place> pList = (ArrayList<Place>) request.getAttribute("pList");
     Date day = (Date) request.getAttribute("adminDate");
   // 	String which = (String)request.getAttribute("areaNo");
+  //		System.out.println("plist jsp 쪽에================"+ pList );
      %>
     
     
@@ -50,6 +51,7 @@
 		<style>
 		
 		.btn_section {
+		
 			text-align: center;
 			margin-top: 10%;
 		}
@@ -58,8 +60,42 @@
 			float: none;
 			margin-top: 10%;
 		}
+		
+		.placeImg{
+		
+		width:350px; 
+		height:250px; 
+		 
+		}
+		
+		.first_course{
+		
+		text-align: center
+		
+		}
+		
+		.first_place{
+		
+		float: left;
+		margin: 1%;
+		
+		 
+		}
+		.second_place{
+		
+		float: left;
+		margin: 1%;
+		
+		 
+		}.third_place{
+		
+		float: right;
+	    margin: 1%;
+		 
+		}
 		</style>
-
+		
+		
 
 </head>
 
@@ -100,81 +136,90 @@
     <div class="main_box">
     
      <div class="container">
-                                <!-- start experience section-->
+                            
              
              
                 <!--화면에 띄워줘야 되는 것 선택한 위치, 날짜, 대표(상세사진 썸네일?, 설명, 카테고리, 영업시간,   ) -->
                 <form method ="post" action="<%= contextPath %>/adminCreate.pl">
 
-
- 	<div> <h2>선택하신 날짜: <%="9월 "+ day.getDate() + "일"%></h2></div>
+					<div align="center">
+						<%
+						if (pList.get(0).getAreaNo() == 1) {
+							%>
+						  <h2><%="선택하신 위치는 홍대 입니다 "  %></h2> 
+						<%
+						} else if (pList.get(0).getAreaNo() == 2) {
+						%>
+						   <h2><%="선택하신 위치는 강남 입니다 "  %></h2>
+						<%} %>
+					</div> 
+					
+		<div> <h4 align="center">선택하신 날짜는 : <%=day.getMonth() + 1 + " 월 " + day.getDate() + "일 입니다" %></h4></div>
+					
+ 	<br><br>
+ 	<!-- 장소 1  <br>-->
+ 	<div class="first_course">
  	
- 	<!-- 장소 1  -->
- 	<div class="first_place">
- 	
+ 	<!-- 0~2까지고 그외면 Null이면 추천일정 실패뜨게 하기  -->
  	<!-- 상세이미지  -->
- 	  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
+ 			<div class="first_place"> 	  	  
  	
- 	<%-- 	 <div class="col-lg-4 col-md-6">
- 		 
-                                <div class="listing__item">
-                                    <div class="listing__item__pic set-bg" data-setbg="<%= contextPath %>/resources/img/listing/list-1.jpg">
-                                        <div class="listing__item__pic__btns">
-                                        </div>
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h4><%= %></h4>
-                                            <div class="listing__item__text__rating">
-                                                <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="theme"
-                                                        id="optionsRadios1" value="<%= %>">
-                                                  
-                                                </label>
-            
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
- 	
- 	</div> --%>
- 	
- 	<div class="second_place"></div>
- 	<div class="thrid_place"></div>
- 	
- 	<!--  카ㅡ드로 뽑자 -->
- 	
-      
-              <div>장소: <%= pList.get(0).getDescription() %></div>
-              <div>장소: <%= pList.get(1).getDescription()%></div> 
-              
-  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
-  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(1).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
- <!-- <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(2).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>-->
+		 			<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" class="placeImg"> <br>
+							<br>
+							<h4><%=pList.get(0).getPlaceTitle()%></h4>
+							<p><%=pList.get(0).getAddress()%></p>
+							<h5><%=pList.get(0).getDescription()%></h5>
 
-        	<div>상세사진 : <%=pList.get(0).getTitleImg() %></div>
-       	    <div> 추천 코스:<%=pList.get(0).getCourseNo() %></div> 
+							<p><%=pList.get(0).getPrice() + "원"%></p>
+							<h5><%=pList.get(0).getBsHour()%></h5>
+							<p><%=pList.get(0).getPlacePhone()%></p>
+
+						</div>
+		 	
+		 	<div class="second_place"> 	  	  
+		 	
+		 	 	  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(1).getTitleImg() %>"  class="placeImg"> <br>
+							<br>
+							<h4><%=pList.get(1).getPlaceTitle()%></h4>
+							<p><%=pList.get(1).getAddress()%></p>
+							<h5><%=pList.get(1).getDescription()%></h5>
+
+							<p><%=pList.get(1).getPrice() + "원"%></p>
+							<h5><%=pList.get(1).getBsHour()%></h5>
+							<p><%=pList.get(1).getPlacePhone()%></p>
+
+						</div>
+		 	
+		 	<div class="third_place"> 	  	  
+		 	
+		 	 	  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(2).getTitleImg() %>"  class="placeImg"> <br>
+							<br>
+							<h4><%=pList.get(2).getPlaceTitle()%></h4>
+							<p><%=pList.get(2).getAddress()%></p>
+							<h5><%=pList.get(2).getDescription()%></h5>
+
+							<p><%=pList.get(2).getPrice() + "원"%></p>
+							<h5><%=pList.get(2).getBsHour()%></h5>
+							<p><%=pList.get(2).getPlacePhone()%></p>
+
+						</div>
+		 	
+	
+ 	
               
-             <%for (Place p : pList) { %>
-             
-     <div>장소: <%= pList.get(0).getDescription() %></div>
-     <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
-    
-             
-             <%} %>
-              
-              
-               
                </form> 
      
-        </div>
+        </div><!--  컨테이너 디비 끝 -->
+        
 
     <div class="btn_section">
-        <p>맘에 드신다면 아래 등록하기 버튼을 눌러 계속 진행해주세요 </p>
-        <button class="btn btn-dark"><a href="<%= contextPath %>/index.jsp"">메인으로</a></button>
+      
+      
+        <button class="site-btn"onclick="location='index.jsp'" value="메인으로">메인으로</button>
+         
+       <!--     <div>  <p>맘에 드신다면 등록하기 버튼을 눌러 계속 진행해주세요 </p></div><br> -->
         </div>
-
+      
     </div>
      </section>
                         
@@ -194,6 +239,23 @@
 
 
 <!-- 자바스크립트 함수부분  -->
+
+<!-- <script type="text/javascript">
+
+
+	function which(this){
+		var value = this.value;
+		
+		if(value == 1){
+		document.getElementById('which').innerHTML = "<h3>홍대</h3>";
+			
+		}if (value == 2) {
+		document.getElementById('which').innerHTML = "<h3>강남</h3>";
+		}
+	}
+
+
+</script> -->
 		
 	
 <script>

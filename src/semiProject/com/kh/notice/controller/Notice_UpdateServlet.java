@@ -32,20 +32,14 @@ public class Notice_UpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-		// getparameter은 항상 스트링형태로 반환해줘서 형변환 해주는데 뭐가 문제임 ㅠ 
-		
+						
 		int nno = Integer.parseInt(request.getParameter("nno"));  // 조회한 게시글 가져오기 
 		
-//		System.out.println(nno + "nno 잘들고 오는지 ");
-//		System.out.println(nno + "nno 잘들고 오는지 ");
-//		System.out.println(nno + "nno 잘들고 오는지 ");
-//		System.out.println(nno + "nno 잘들고 오는지 ");
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 	
-		System.out.println(title+content+"컨텐츠랑 타이틀 잘 들ㅇ고오는지 ");
+		//System.out.println(title+content+"컨텐츠랑 타이틀 잘 들ㅇ고오는지 ");
 		
 	 		Notice notice = new Notice(); 
 			notice.setNoticeNo(nno);
