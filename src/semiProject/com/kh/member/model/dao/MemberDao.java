@@ -237,7 +237,7 @@ public class MemberDao {
 		ResultSet rset = null;
 		
 		/*
-		 * selectAllMember=SELECT USER_NO, USER_ID, USER_PWD, USER_NAME, PHONE, EMAIL, GENDER, ENROLL_date FROM MEMBER WHERE STATUS='Y'
+		 * selectAllMember=SELECT USER_NO, USER_ID, USER_PWD, USER_NAME, PHONE, EMAIL, GENDER, ENROLL_DATE FROM MEMBER WHERE STATUS='Y' AND NOT USER_ID='admin'
 		 */
 		String sql = prop.getProperty("selectAllMember");
 		try {

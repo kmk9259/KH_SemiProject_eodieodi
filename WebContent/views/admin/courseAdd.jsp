@@ -127,7 +127,7 @@ margin-left: 150px;
 			            <h2 style="margin: 0px;">코스 등록</h2>
 			        </div>
 					<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
-							<option value="0" selected>지역을 선택하세요</option>
+							<option value="0">지역을 선택하세요</option>
 							<%for(Area a : alist) {%>							
 							<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
 							<%} %>
@@ -140,9 +140,10 @@ margin-left: 150px;
 									<div class="tab-pane active" id="tabs-1" role="tabpanel">
 										<div class="row" id="placeList">
 										</div><br><br>
-										<form action="cInsert.co" method="post" id="insertForm">
+										<form action="cInsert.co" method="post" id="insertForm" onsubmit="return fieldCheck()">
 											
 										</form>
+										
 									</div>
 				                </div>
 				            </div>
@@ -150,88 +151,106 @@ margin-left: 150px;
 					</section>												
 				</div><!-- admin-showpage -->
 				<script>
+				
+				function fieldCheck(){					
+					var count = $("input:checked[type='checkbox']").length;
+					if(count >3){
+						alert("일정은 최대 3개까지만 선택 할 수 있습니다.");
+						return false;
+					}else if(count ==0){
+						alert("코스에 등록할 일정을 선택해주세요")
+						return false;
+					}
+				}
 				function changeArea(obj)
 				{
-					var placeChoice = document.getElementById('placeChoice');
-					var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
-					$("#placeList").empty();
-					$.ajax({
-						url : "pList.co",
-						type : "post",
-						data:{areaNo : areaNo},
-						success:function(list)
-						{
-							var value="";							
-							var contextPath = "<%=contextPath%>";
-							for(var i in list)
+					if(obj.value!=0){ 
+						var placeChoice = document.getElementById('placeChoice');
+						var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
+						$("#placeList").empty();
+						$.ajax({
+							url : "pList.co",
+							type : "post",
+							data:{areaNo : areaNo},
+							success:function(list)
 							{
-								var titleImg = list[i].titleImg;
-								var src = "<%= contextPath%>/resources/place_upFiles/"+titleImg;
-								switch(list[i].categoryNo){
-								case 1 :
-									var categortName="먹기";
-									break;
-								case 2 :
-									var categortName="마시기" 
-									break;
-								case 3 :
-									var categortName="놀기"
-									break;
-								
-								}
-								value +=
-									'<div class="col-lg-4 col-md-4">'+
-									'<div class="listing__item">'+
-										'<input type="hidden" name="pNo" id="placeNo" value="'+list[i].placeNo+'">'+
-									    '<div class="listing__item__pic set-bg" style="height:300px; background-image: url(' + src + '); ">'+
-									        '<img src="resources/img/listing/list_icon-1.png" alt="">'+
-									        '<div class="listing__item__pic__tag">NO. '+list[i].placeNo+'</div>'+								        
-									    '</div>'+
-										'<div class="listing__item__text">'+
-										    '<div class="listing__item__text__inside">'+
-										        '<h5>'+list[i].placeTitle+'</h5>'+
-										        '<p>'+list[i].description+'</p>'+
-										        '<div class="listing__item__text__rating">'+
-										            '<div class="listing__item__rating__star">'+
-										                '<span class="icon_star"></span>'+
-										                '<span class="icon_star"></span>'+
-										                '<span class="icon_star"></span>'+
-										                '<span class="icon_star"></span>'+
-										                '<span class="icon_star-half_alt"></span>'+
-										            '</div>'+
-										            '<h6>'+list[i].price+' 원</h6>'+
-										            '</div>'+
-										        '<ul>'+
-										            '<li><span class="icon_pin_alt"></span> '+list[i].address+'</li>'+
-										            '<li><span class="icon_phone"></span> '+list[i].placePhone+'</li>'+
-										        '</ul></div>'+
-										    '<div class="listing__item__text__info">'+
-										        '<div class="listing__item__text__info__left">'+
-										            '<img src="resources/img/listing/list_small_icon-1.png" alt="">'+
-										            '<span>'+categortName+'</span></div>'+
-										        '<div class="listing__item__text__info__right">Open Now</div>'+
+								var value="";							
+								var contextPath = "<%=contextPath%>";
+								for(var i in list)
+								{
+									var titleImg = list[i].titleImg;
+									var src = "<%= contextPath%>/resources/place_upFiles/"+titleImg;
+									switch(list[i].categoryNo){
+									case 1 :
+										var categortName="먹기";
+										break;
+									case 2 :
+										var categortName="마시기" 
+										break;
+									case 3 :
+										var categortName="놀기"
+										break;
+									
+									}
+									value +=
+										'<div class="col-lg-4 col-md-4">'+
+										'<div class="listing__item">'+
+											'<input type="hidden" name="pNo" id="placeNo" value="'+list[i].placeNo+'">'+
+										    '<div class="listing__item__pic set-bg" style="height:300px; background-image: url(' + src + '); ">'+
+										        '<img src="resources/img/listing/list_icon-1.png" alt="">'+
+										        '<div class="listing__item__pic__tag">NO. '+list[i].placeNo+'</div>'+								        
 										    '</div>'+
-										    '<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택 '+
-										'</div></div></div>';
-							}//for
-							var value2="";							
-							value2 +='코스이름: <input maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>'
-									+'<input type="hidden" name="area" value="'+areaNo+'">'
-									+'테마종류: 	<% for(Theme t : tlist) {%>'
-									+'<label><input type="radio" name="themeNo" value="<%=t.getThemeNo() %>"> <%=t.getThemeName() %></label>'
-									+'<%} %><br><br>'
-									+'<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br>'
-									+'<input type="submit" value="코스등록" id="courseAdd">'; 
-							
-						 	$("#placeList").html(value);
-							$("#insertForm").html(value2); 
-						}//success
-					})					
-				}				
+											'<div class="listing__item__text">'+
+											    '<div class="listing__item__text__inside">'+
+											        '<h5>'+list[i].placeTitle+'</h5>'+
+											        '<p>'+list[i].description+'</p>'+
+											        '<div class="listing__item__text__rating">'+
+											            '<div class="listing__item__rating__star">'+
+											                '<span class="icon_star"></span>'+
+											                '<span class="icon_star"></span>'+
+											                '<span class="icon_star"></span>'+
+											                '<span class="icon_star"></span>'+
+											                '<span class="icon_star-half_alt"></span>'+
+											            '</div>'+
+											            '<h6>'+list[i].price+' 원</h6>'+
+											            '</div>'+
+											        '<ul>'+
+											            '<li><span class="icon_pin_alt"></span> '+list[i].address+'</li>'+
+											            '<li><span class="icon_phone"></span> '+list[i].placePhone+'</li>'+
+											        '</ul></div>'+
+											    '<div class="listing__item__text__info">'+
+											        '<div class="listing__item__text__info__left">'+
+											            '<img src="resources/img/listing/list_small_icon-1.png" alt="">'+
+											            '<span>'+categortName+'</span></div>'+
+											        '<div class="listing__item__text__info__right">Open Now</div>'+
+											    '</div>'+
+											    '<input type="checkbox" id="check" class="check" name="check" onclick="checkbox(this)" value="'+list[i].placeNo+'">선택 '+
+											'</div></div></div>';
+											
+								}//for
+								
+								var value2="";							
+								value2 +='코스이름: <input maxlength="100" type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>'
+										+'<input type="hidden" name="area" value="'+areaNo+'">'
+										+'테마종류: 	<% for(Theme t : tlist) {%>'
+										+'<label><input type="radio" name="themeNo" required value="<%=t.getThemeNo() %>"> <%=t.getThemeName() %></label>'
+										+'<%} %><br><br>'
+										+'<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br><br>'
+										+'<button id="courseAdd"  class="nextBtn btn-ms" type="submit" style="margin-right: 1100px">코스 등록</button>';
+							 	$("#placeList").html(value);
+								$("#insertForm").html(value2);
+								
+							}//success
+						})//ajax
+					}
+				}//changearea
+				
+				
 				function checkbox(check)
 				{				
 					var placeNo = check.value;
 					var result = document.getElementById("textarea");
+					
 					if( check.checked==true )
 					{
 						if (result.value == "") 

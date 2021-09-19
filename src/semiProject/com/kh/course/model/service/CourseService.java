@@ -83,20 +83,7 @@ public class CourseService {
 		close(conn);
 		return c;
 	}
-//	public int updateCourse(Course c, String[] pNo) {
-//		Connection conn = getConnection();
-//		
-//		int result1 = new CourseDao().updateCourse(conn, c);
-//		int result2=0;
-//		for(int i=0; i<pNo.length; i++) 
-//		{
-//			int placeNum =Integer.parseInt(pNo[i]);
-//			System.out.println("서비스의 placeNum: "+placeNum);
-//			result2 = new CourseDao().updateCoursePlace(conn,c,placeNum);
-//			System.out.println("서비스의 result2  :"+ result2);
-//		}
-		
-//	}
+
 
 	public ArrayList<CoursePlace> selectCPno(int cNo) {
 		Connection conn = getConnection();

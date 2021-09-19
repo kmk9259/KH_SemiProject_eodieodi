@@ -21,8 +21,10 @@
 		if(p.getCategoryNo()==(i+1))	//cno ==1 i==0+1 ano==2 == i1+1
 			selected2[i]="selected";
 	}
-	%> 
-
+%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,21 +147,24 @@ height: 500px;
 										<option value="0">카테고리를 선택해주세요</option>
 					                    <%for(int i=0; i<clist.size(); i++) {%>
 											<option value="<%=clist.get(i).getCategoryNo()%>" <%= selected2[i] %>><%=clist.get(i).getCategoryName() %></option>
-										<%} %>				                    
+										<%} %>				          
 					                </select> <br><br>
 									<label class="control-label">상호명</label> 
 									<input value="<%= p.getPlaceTitle() %>" maxlength="100" type="text" name="placeTitle" required="required" class="form-control" placeholder="상호명을 입력해주세요" /> 
 									<label class="control-label">전화번호</label>
 									<input value="<%= p.getPlacePhone() %>" maxlength="100" type="tel" name="placePhone" required="required" class="form-control" placeholder="전화번호를 입력해주세요" /> 
+									
 									<label class="control-label">설명</label> 
-									<input value="<%= p.getDescription() %>" maxlength="100" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
+									<c:set var="description" value="<%= p.getDescription() %>"/>
+									<input value="${fn:escapeXml(description)}" maxlength="100" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
+									
 									<label class="control-label">영업 시간</label> 
 									<input value="<%= p.getBsHour() %>" maxlength="100" type="text" name="bsHour" required="required" class="form-control" placeholder="영업 시간을 입력해주세요" /> 
 									<label class="control-label">대표 금액</label> 
 									<input value="<%= p.getPrice() %>" maxlength="100" type="text" name="price" required="required" class="form-control" placeholder="대표 금액을 입력해주세요(숫자만)" /> 
 									<label class="control-label">상세주소</label>
 									<input value="<%= p.getAddress() %>" maxlength="100" type="text" name="address" required="required" class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
-									<img name="titleImg" width="150" height="120" id=titleImg> <br> 
+									<img name="titleImg" width="150" height="120" id=titleImg src="<%=contextPath%>/resources/place_upFiles/<%=p.getTitleImg()%>"> <br> 
 									<label> 대표 이미지</label>
 									
 									<div id="fileArea">
@@ -191,9 +196,46 @@ height: 500px;
 									}
 
 								});
-
+															});
+							$('#insertForm').on("keydown", "input[type='text']", function() {
+								var text = $("#insertForm input[type='text']").val();
+								console.log("text"+text);
+								if($(this).val().length > $(this).attr('maxlength'))
+								{
+									alert("최대 글자수는 "+$(this).attr('maxlength')+"입니다!");
+									$(this).val($(this).val().substr(0, $(this).attr('maxlength'))); 
+								}
+								
+								
 							});
-
+							function fieldCheck(){
+								var text = $("#insertForm input[type='text']");	
+								var selected = $("#insertForm select");
+								
+								for(var i=0; i<selected.length; i++){
+									if(0==$(selected[i]).val() && $(selected[i]).attr("name")=="areaNo"){
+										alert("지역을 선택해주세요");
+										return false;									
+									}else if(0==$(selected[i]).val() && $(selected[i]).attr("name")=="categoryNo"){
+										alert("카테고리를 선택해주세요");
+										return false;
+									}							
+								} 	
+								for(var i=0; i<text.length; i++){
+									if(""==$(text[i]).val() || null == $(text[i]).val()){
+										var elename = $(text[i]).attr("name");
+										$("."+elename).focus();
+										alert("빈 칸을 다 입력해주세요");
+										return false;
+									}									
+								} 
+								
+								if($('#file1').val() == "") {
+									alert("대표사진을 등록해주세요");
+								    $("#file1").focus();
+								    return false;
+								}
+							}
 							function loadImg(inputFile, num) {// 이미지 미리보기 
 								//inputFile : 현재 변화가 생긴 input type = "file"
 								//num : 조건문을 활용 하기 위해 전달받은 매개변수

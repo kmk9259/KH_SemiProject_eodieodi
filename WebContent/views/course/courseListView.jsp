@@ -184,7 +184,7 @@
 			                                +'<li>'+themeName+'</li>'
 			                            +'</ul>'
 			                            +'<h5><a href="#">'+value.courseTitle+'</a></h5>'
-		                            	+'<button class="btn ">수정하기</button>'
+		                            	+'<button class="btn site-btn">수정하기</button>'
 				                    +'</div>'
 				                    +'</div>'
                     			+'</div>'

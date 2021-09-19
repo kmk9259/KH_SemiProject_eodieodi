@@ -55,7 +55,7 @@
 				<div class="col-lg-12">
 					<div class="hero__text">
 						<div class="section-title">
-							<h2>코스 상세조회</h2>
+							<h2>어디어디?!</h2>
 						</div>
 					</div>
 				</div>
@@ -84,54 +84,46 @@
 
 	<section class="page-start">
 		<section class="admin">
-			<!------ MENUSIDE BAR ---------->
-				<div class=" menuBar">
-					<div class="col-sm-2">
-						<nav class="nav-sidebar">
-							<ul class="nav tabs">
-								<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
-								
-								<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
-								<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
-								<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
-								
-								<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
-								<li class="menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
-								<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
-								<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
-								
-								<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
+			<div class=" menuBar">
+				<div class="col-sm-2">
+					<nav class="nav-sidebar">
+						<ul class="nav tabs">
+							<li class="menuB parent"><a href="" data-toggle="tab">커뮤니티	관리</a></li>
+							<li class="menuB "><a href="<%= contextPath %>/list.no">공지사항 조회</a></li>
+							
+							<li class="menuB parent"><a href="" data-toggle="tab">일정관리</a></li>
+							<li class="menuB "><a href="<%= contextPath %>/list.pl">일정 조회</a></li>
+							<li class="menuB "><a href="<%=contextPath%>/insertForm.pl">일정 등록</a></li>
+							<li class="menuB "> <a href="<%=contextPath%>/deleteP.pl">일정 삭제</a></li>
+							
+							<li class="menuB parent"><a href="" data-toggle="tab">코스 관리</a></li>
+							<li class="active menuB "><a href="<%= contextPath %>/list.co">코스 조회</a></li>								
+							<li class="menuB"><a href="<%=contextPath%>/cInsert.co">코스 등록</a></li>
+							<li class="menuB"><a href="<%=contextPath%>/delete.co" >코스 삭제</a></li>
+							
+							<li class="menuB parent"><a href="<%=contextPath%>/allmemberList.me">회원 관리</a></li>
 
-							</ul>
-						</nav>
-					</div>
-				</div>	
+						</ul>
+					</nav>
+				</div>
+			</div><!-- <div class=" menuBar"> -->	
 			<div class="admin-showpage nice-scroll">
+				<div class="section-title">
+		            <h2 style="margin: 0px;">코스 일정 상세페이지</h2>
+		        </div>
 				<section class="most-search spad">
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-12">
-						        <div class="section-title">
-						            <h2>코스 일정 상제 페이지</h2>
-						        </div>	    
-							</div><!-- class="col-lg-12" -->
-						
+					<div class="container">					
+						<div class="row">							
 							<div class="tab-content">
-								<div class="tab-pane active" id="tabs-1" role="tabpanel">
+								<div class="tab-pane active" id="tabs-1" role="tabpanel" style="width: 1000px; margin-left: 100px">
 									<div class="row">
 										<% for(Place p: list) {%>
 										<div class="col-lg-4 col-md-6" >
 											<div class="listing__item">
-											<input type="hidden" id="placeNo" value="<%=p.getPlaceNo() %>">
+												<input type="hidden" id="placeNo" value="<%=p.getPlaceNo() %>">
 											    <div class="listing__item__pic set-bg" data-setbg="<%=contextPath %>/resources/place_upFiles/<%=p.getTitleImg()%>">
 											        <img src="resources/img/listing/list_icon-1.png" alt="">
-											        <div class="listing__item__pic__tag">NO. <%=p.getPlaceNo() %></div>
-											        <div class="listing__item__pic__btns">
-											            <a href="#"><span class="icon_zoom-in_alt"></span></a>
-											            <a href="#"><span class="icon_heart_alt"></span></a>
-											        </div>
+											        <div class="listing__item__pic__tag">NO. <%=p.getPlaceNo() %></div>											       
 											    </div>
 												<div class="listing__item__text">
 												    <div class="listing__item__text__inside">
@@ -176,11 +168,13 @@
 										</div><!--<div class="col-lg-4 col-md-6">  -->
 										<%} %>
 									</div>
+									<button class="nextBtn btn-ms" style="margin-right: 500px" onClick="history.go(-1)">이전으로</button>
 								</div>
 							</div><!--<div class="tab-content"> -->
 						</div>
 					   </div>          
 				</section>
+			</div><!--<div class="admin-showpage nice-scroll">  -->
 				<script>
 				$(function(){
 					$(".listing__item__pic").click(function(){
@@ -192,7 +186,7 @@
 				});
 				</script>
 								
-			</div>
+			
 			
 		</section><!-- admin -->
 	</section><!-- page- start -->

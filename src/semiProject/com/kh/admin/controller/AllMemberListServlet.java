@@ -1,4 +1,4 @@
-package semiProject.com.kh.member.controller;
+package semiProject.com.kh.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
