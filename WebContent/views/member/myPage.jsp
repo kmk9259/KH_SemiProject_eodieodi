@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
-    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%
 	session = request.getSession();
 	Member m = (Member)request.getAttribute("loginUser");
@@ -297,15 +300,16 @@
 												 <%for(int i = 0; i < list.size(); i++){ %>
 												 <% } %>
 												
-												<% for(Board b : list){ 
-												%>
+												<% for(Board b : list){ %>
+												<c:set var="TextValue" value="<%= b.getBoardContent() %>"/>
 			                                       <tr onmouseover="this.style.background='#e4a6c8'" onmouseout="this.style.background='none'">
 			                                          <td hidden="hidden"><a style="color: #545554;"><%= b.getBoardNo() %></a></td>
 			                                          <td class="showPost" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardTitle() %>" name = "myPost"><a style="color: #545554;"><%= b.getBoardTitle() %></a></td>
-			                                          <td class="showPost" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="<%= b.getBoardContent() %>"><a style="color: #545554;"><%= b.getBoardContent() %></a></td>
+			                                          <td class="showPost" style="background: none !important; text-align: center; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="${fn:substring(TextValue,0,10)}"><a style="color: #545554;">${fn:substring(TextValue,0,10)}</a></td>
 			                                          <td class="showPost" style="background: none !important; text-align: center;"><a style="color: #545554;"><%= b.getCount() %></a></td>
 			                                          <td style="background: none !important; text-align: center;"><button type="button" id="updateBoard" class="site-btn" value="<%= b.getBoardNo() %>">수정</button></td>
 			                                       </tr>
+			                                       
 			                                       
 												<% } %>  
 						 					<% } %>
@@ -316,6 +320,8 @@
                         
                         
                         <script>
+                        
+                        
                         var button = $("#listArea>table>tbody>tr>td>button");
                         var ptr = $("#listArea>table>tbody>tr");
                         if(button.click){
@@ -482,12 +488,14 @@
             } else {
                 $("#6char").css("color", "#FF0004");
             }
-
-            if ($("#newPwd").val() == $("#checkPwd").val()) {
-                $("#pwmatch").css("color", "#00A41E");
-            } else{
-                $("#pwmatch").css("color", "#FF0004");
-            }
+            $('#checkPwd').on('keyup', function(){
+            	if ($("#newPwd").val() == $("#checkPwd").val()) {
+                    $("#pwmatch").css("color", "#00A41E");
+                } else{
+                    $("#pwmatch").css("color", "#FF0004");
+                }
+            	});
+            
         });
     </script>
     <script>
