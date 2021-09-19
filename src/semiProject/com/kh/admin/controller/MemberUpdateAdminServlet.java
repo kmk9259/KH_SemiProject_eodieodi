@@ -35,7 +35,8 @@ public class MemberUpdateAdminServlet extends HttpServlet {
 		int result = new MemberService().updateMemberAdmin(mId2);
 		if(result > 0)
 		{
-			response.sendRedirect("adminPage.ad");
+			response.sendRedirect("allmemberList.me");
+			
 		}
 		else
 		{			

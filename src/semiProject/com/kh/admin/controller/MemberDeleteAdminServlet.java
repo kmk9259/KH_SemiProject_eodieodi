@@ -35,7 +35,7 @@ public class MemberDeleteAdminServlet extends HttpServlet {
 		int result = new MemberService().deleteMember(mId);
 		if(result > 0)
 		{
-			response.sendRedirect("adminPage.ad");
+			response.sendRedirect("allmemberList.me");
 		}
 		else
 		{			

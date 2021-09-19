@@ -36,7 +36,6 @@ public class CoursePlaceDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
-		System.out.println("cNo???"+cNo);
 		
 		ArrayList<Place> list = new CourseService().selectCoursePlaceList(cNo);
 		
@@ -47,14 +46,10 @@ public class CoursePlaceDetail extends HttpServlet {
 		}
 		else
 		{
-		request.setAttribute("msg",	"코스일정 상세보기 실패"); 
+			request.setAttribute("msg",	"코스일정 상세보기 실패"); 
 			RequestDispatcher view =request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response); 
 		}
-		/*
-		 * request.getRequestDispatcher("views/course/coursePlaceDetailView.jsp").
-		 * forward(request, response);
-		 */
 		
 		
 	}
