@@ -64,12 +64,12 @@ public class PlanMyUpdateServlet extends HttpServlet {
 		int result = new PlanMyService().updatePlanMy(pm, planNo, planPlaces);  //planNo도 같이 넘기자->MYPLAN_PLACE에 추가할때를 위해서
 		
 		
-		System.out.println("updateServlet__ pm : " + pm);
-		System.out.println("updateServlet__ planNo : " + planNo);
+//		System.out.println("updateServlet__ pm : " + pm);
+//		System.out.println("updateServlet__ planNo : " + planNo);
 		
-		for(String s: planPlaces) {
-			System.out.println("updateServlet__ planPlaces(장소번호) : " + s);
-		}
+//		for(String s: planPlaces) {
+//			System.out.println("updateServlet__ planPlaces(장소번호) : " + s);
+//		}
 
 		
 		if(result > 0) {

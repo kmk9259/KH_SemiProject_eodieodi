@@ -111,15 +111,15 @@ public class SendEmailServlet extends HttpServlet {
 			msg.setText(content);
 
 			Transport.send(msg);
-			System.out.println("이메일 전송 완료");
+//			System.out.println("이메일 전송 완료");
 
 		} catch (Exception e) { //이메일전송 오류 -> result가 false되게 함
 			result = 0;
-			System.out.println("여기 안찍히나..?");
+//			System.out.println("여기 안찍히나..?");
 			e.printStackTrace();
 		}
 		
-		System.out.println("result : " + result);
+//		System.out.println("result : " + result);
 		response.getWriter().print(result);
 	}
 

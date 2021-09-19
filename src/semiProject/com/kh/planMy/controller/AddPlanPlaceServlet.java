@@ -38,7 +38,7 @@ public class AddPlanPlaceServlet extends HttpServlet {
 		ArrayList<String> placeNo = new ArrayList<String>();
 		placeNo.add(b_placeNo);
 		
-		System.out.println("planNo 어레이리스트 사이즈: " + placeNo.size() + " 뭐 들었나?" + placeNo.get(0));
+//		System.out.println("planNo 어레이리스트 사이즈: " + placeNo.size() + " 뭐 들었나?" + placeNo.get(0));
 		
 		int result = new PlanMyService().addPlanPlace(planNo, placeNo);
 		response.setCharacterEncoding("UTF-8");

@@ -115,8 +115,8 @@ public class PlanMyService {
 					deleteDB.add(o);                      //deleteDB " ["5","6"] 
 				}
 			}
-			System.out.println(insertDB);
-			System.out.println(deleteDB);
+//			System.out.println(insertDB);
+//			System.out.println(deleteDB);
 			
 			//추가해줘야 하는 장소가 있다면(1개 이상이라면)         insertDB : ["8"]
 			if(insertDB.size() != 0) {
