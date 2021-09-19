@@ -199,13 +199,13 @@
               
               <div id="container">
               
-               <a class="fileRemove" id="close"> X </a>
+               <a class="fileRemove1" id="close"> X </a>
               
-              <img  name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>"  id="titleImg"  width="200px" height="180">
+              <img  name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>" class="remove" id="titleImg"  width="200px" height="180">
           
               
              	<input type='hidden' name='originFile1' value='<%=fileList.get(0).getOriginName()%>'>
-				<input type='hidden' name='originFileNo1' value='<%=fileList.get(0).getFileNo()%>'>
+				<input id="fno1" type='hidden' name='originFileNo1' value='<%=fileList.get(0).getFileNo()%>'>
               	
 
               
@@ -215,10 +215,10 @@
              	
              	 <a class="fileRemove" id="close"> X </a>
              	 
-                <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>"  id="contentImg<%=i%>"   width="200px" height="180">
+                <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>"  id="contentImg<%=i%>" class="remove"  width="200px" height="180">
        
              	<input type='hidden' name='originFile<%=i +1%>' value='<%=fileList.get(i).getOriginName()%>'>
-				<input id="fno" type='hidden' name='originFileNo<%=i +1 %>' value='<%=fileList.get(i).getFileNo()%>'>
+				<input id="fno<%=i+1 %>" type='hidden' name='originFileNo<%=i +1 %>' value='<%=fileList.get(i).getFileNo()%>'>
 
 					<%} %>
 					
@@ -240,10 +240,7 @@
               <% } %>
              
              
-             
-             
-             
-             
+   
              
              
               
@@ -344,11 +341,45 @@
 
 //==================사진 지우기 함수 
 
-$(".fileRemove").click(function(){
+ $(".fileRemove1").click(function(){
+
 	
-	$(this).children().remove();
+	var originFileNo1 = $("#fno1").attr("value");
+	var remove = $(this).next().attr("src");
 	
-})
+	console.log(originFileNo1); //57
+	console.log(remove); // 파일 넘버
+	
+
+	
+	$(this).next().attr("src", "");
+	
+	 $.ajax({
+		
+		url : "deleteFile.bo",
+		data : {
+			originFileNo1 : originFileNo1
+		},
+	 
+	 	type: "post",
+	 	processData:false,
+        contentType:false,
+
+	 	enctype:'multipart/form-data',
+
+	 	
+	 	success: function(result){
+	 		console.log("ajax 통신 성공")
+	 		$(this).next().attr("src");
+	 		
+	 	},
+	 	error : function(){
+	 		console.log("ajax 통신 실패")
+	 	}
+	}) 
+	
+	
+}) 
 	
 
 

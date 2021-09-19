@@ -4,16 +4,20 @@
     
     %>
     
-<%
+    <%
 	//공지사항
 	ArrayList<Notice> nlist = (ArrayList<Notice>)request.getAttribute("nlist"); 
     
 	//게시글 
 	ArrayList<Board> list  = (ArrayList<Board>)request.getAttribute("list");
 	
+	//검색글
+	ArrayList<Board> searchBoard  = (ArrayList<Board>)request.getAttribute("searchBoard");
 	
 	//페이지 정보 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	String searchWord = (String)request.getAttribute("searchWord");
 	
 	
 	
@@ -24,38 +28,32 @@
 	int endPage = pi.getEndPage();
 	
 	%>
+    
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Directing Template">
-    <meta name="keywords" content="Directing, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>어디어디 커뮤니티</title>
+<meta charset="UTF-8">
+<title>검색 결과</title>
 
+<style type="text/css">
+.resultTitle{
+	padding: 50px; 50px;
+	text-align: center;
 
- <style type="text/css">
- .thumbnail{word-break:break-all;}
- </style>
+}
 
-
-
+</style>
 </head>
-
 <body>
-
-    
-    <!-- Page Preloder -->
+ 
+  <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
-   
- <%@ include file="../common/menubar.jsp"%> 
-
-
-    <script>
+    
+    <%@ include file="../common/menubar.jsp"%> 
+    
+     <script>
         $(function () {
             var $header = $('header'); //헤더를 변수에 넣기
             var $page = $('.page-start'); //색상이 변할 부분
@@ -72,14 +70,14 @@
             });
         });
         
-        function pop(){
-			alert("로그인 후 이용 가능합니다.");
+        
+        function goBack(){
+			location.href="<%=request.getContextPath()%>/list.bo";
 		}
 
     </script>
-
     
-
+    
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-area set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb/breadcrumb-blog.jpg">
         <div class="container">
@@ -97,16 +95,17 @@
         </div>
     </div>
     <!-- Breadcrumb End -->
-
-    <!--폴라로이드 -->
+    
+    
+     <!--폴라로이드 -->
 
 
  <%@ include file="../common/polaroid.jsp"%> 
 
     <!-- 폴라로이드  end-->
-
-
-<!-- ================= 공지사항 =============== -->
+    
+    
+    <!-- ================= 공지사항 =============== -->
 
 <section class="faq bg-color">
       <div class="container">
@@ -146,45 +145,29 @@
 
 
 <!-- =================공지사항 end =============== -->
-
-
-    <!-- Blog Section Begin -->
+    
+   
     <section class="blog-section spad">
     
         <div class="container">
             <div class="row">
             
                 <div class="col-lg-8">
-                    <%-- <div class="blog__item__large">
                     
-                        <a href="<%= request.getContextPath() %>/views/board/blogDetails.jsp">
-                        
-                        <div class="blog__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/blog/seoul.jpg"></div>
-                        </a>
-                        <div class="blog__item__text">
-                           
-                            <h3><a href="#">Internet Banner Advertising Most Reliable</a></h3>
-                            <ul class="blog__item__widget">
-                                <li><i class="fa fa-clock-o"></i> 19th March, 2019</li>
-                                <li><i class="fa fa-user"></i> John Smith</li>
-                            </ul>
-                            <p>One of my favorite things I like to watch is the bloopers and outtakes that are shown of
-                                mistakes made during the making of a movie.</p>
-                        </div>
-                    </div> --%>
+                    <div class="faq-title">
+			          <h2><%=searchWord %></h2><br>
+			          <p> 검색 결과 입니다!</p>
+        			</div>
                     
-             
-                <!-- ============================================================= -->    
-                    
-                    <div class="row">
+                     <div class="row">
                     
                     
-                    <%if(list.isEmpty()){ %>
+                    <%if(searchBoard.isEmpty()){ %>
 				
 					<p>조회된 리스트가 없습니다.</p>
 				
 					<%}else{ %>
-					<% for(Board b : list){ %>
+					<% for(Board sb : searchBoard){ %>
                     
                    
                         <div class="col-lg-6 col-md-6">
@@ -192,20 +175,20 @@
                                
                                 
                                 
-                                <div class="blog__item__pic set-bg thumbnail" data-setbg="<%=contextPath %>/resources/board_upfiles/<%= b.getTitleImg() %>" >
-				                <input type="hidden" value="<%=b.getBoardNo()%>">
+                                <div class="blog__item__pic set-bg thumbnail" data-setbg="<%=contextPath %>/resources/board_upfiles/<%= sb.getTitleImg() %>" >
+				                <input type="hidden" value="<%=sb.getBoardNo()%>">
                                 </div>
                                 
                                 <div class="blog__item__text">
                                    
-                                    <h4 class="thumbnail" ><%= b.getBoardTitle() %>
-                                    <input type="hidden" value="<%=b.getBoardNo()%>">
+                                    <h4 class="thumbnail" ><%= sb.getBoardTitle() %>
+                                    <input type="hidden" value="<%=sb.getBoardNo()%>">
                                     </h4>
                                     <br>
                                     <ul class="blog__item__widget">
-                                        <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
-                                        <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %></li>
-                                        <li><i class="fa fa-stars"></i> <%= b.getCount() %></li>
+                                        <li><i class="fa fa-clock-o"></i> <%= sb.getCreateDate() %></li>
+                                        <li><i class="fa fa-user"></i> <%= sb.getBoardWriter() %></li>
+                                        <li><i class="fa fa-stars"></i> <%= sb.getCount() %></li>
                                        
                                     </ul>
                                 </div>
@@ -217,54 +200,21 @@
                       
                         
                         
-                    </div>
+                    </div> 
+                    
+                    <!-- ========================공지 사항 끝================================ -->
+                    
                     
                    
-
-<!----------------------- 페이징바 만들기 -------------------------------->
-
-
-		<div class="blog__pagination" >
-			<!-- 맨 처음으로 (<<) -->
-			<a href="<%=contextPath%>/list.bo?currentPage=1"> &lt;&lt; </a> 
-			
-			
-		
-			<!-- 이전페이지로(<) -->
-			<%if(currentPage == 1){ %>
-			<a class="noHover"> &lt; </a>
-			<%}else{ %>
-			<a href="<%= contextPath %>/list.bo?currentPage=<%= currentPage-1 %>"> &lt; </a>
-			<%} %>
-			
-			<!-- 페이지 목록 -->
-			<%for(int p=startPage; p<=endPage; p++){ %>
-				
-				<%if(p == currentPage){ %>
-				<a class="noHover"> <%= p %> </a>
-				<%}else{ %>
-				<a href="<%=contextPath %>/list.bo?currentPage=<%= p %>"> <%= p %> </a>
-				<%} %>
-				
-			<%} %>
-			
-			<!-- 다음페이지로(>) -->
-			<%if(currentPage == maxPage){ %>
-			<a class="noHover"> &gt; </a>
-			<%}else { %>
-			<a href="<%= contextPath %>/list.bo?currentPage=<%= currentPage+1 %>"> &gt; </a>
-			<%} %>
-		
-			<!-- 맨 끝으로 (>>) -->
-			<a href="<%=contextPath%>/list.bo?currentPage=<%=maxPage%>"> &gt;&gt; </a>
-		</div> 
                     
           <br><br><br>          
            <% if(loginUser != null){ %>
 			<button  type="submit" class="site-btn" onclick="location.href='enroll.bo'">글쓰기</button>
+			<button type="submit" class="site-btn" onclick="goBack();">목록으로</button>
 		 <% }else {%>         
                     
 			<button type="submit" class="site-btn" onclick="pop();">글쓰기</button>
+			<button type="submit" class="site-btn" onclick="goBack();">목록으로</button>
                     
             <% } %>        
                     
@@ -273,9 +223,9 @@
 			
 			
 			
-                <div class="col-lg-4">
+                <div class="col-lg-4"> 
                 
-                    	<div class="blog__sidebar">
+                    	<div class="blog__sidebar"> 
                         
                         <!-- ==================== 검색바 ===================== -->
                         <div class="blog__sidebar__search">
@@ -328,12 +278,16 @@
 		}) 
 	})
 	
+	
+	
 	function selectTopList(){
 		$.ajax({
 			url : "topList.do",
 			type: "get",
 			success:function(list){
-				
+				console.log(list);
+				console.log(list[0].titleImg);
+				console.log(list[0].boardTitle);
 				var contextPath = "<%=contextPath%>"; 
 				var value = "";
 				for(var i in list){
@@ -343,7 +297,6 @@
 					value += '<div class="blog__sidebar__recent__item__pic thumb" >'+ 
 							 '<input type="hidden" value="' +list[i].boardNo+ '">'+
 							 '<img src="'+contextPath+'/resources/board_upfiles/' + list[i].titleImg + '" width="80px" height="70px">'+
-					
 							 '</div><div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i)+ 
 							 '</span></div><h6 class="thumb">'+ tmp +'</h6>'+
 							 '<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;'+time+'</p></div>';
@@ -361,8 +314,8 @@
 
     </script>
     
-   
-    <!-- Js Plugins -->
+    
+      <!-- Js Plugins -->
    
     
     <script src="<%= contextPath %>/resources/js/main.js"></script>
@@ -372,10 +325,5 @@
 
     
      <%@ include file="../common/footer.jsp"%> 
-
-
-
-
 </body>
-
 </html>

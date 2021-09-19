@@ -495,7 +495,8 @@ public class BoardDao {
 		int result =0;
 		PreparedStatement pstmt = null;
 		
-		//updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=? STATUS='N' WHERE FILE_NO=?
+		//updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=?, STATUS='N' WHERE FILE_NO=?
+		//updateAttachment=UPDATE ATTACHMENT SET CHANGE_NAME=?, ORIGIN_NAME=?, FILE_PATH=? WHERE FILE_NO=?
 		String sql = prop.getProperty("updateAttachment");
 		
 		System.out.println("+++++++++++++updateAttachment+++++++++++"+ sql);
@@ -584,11 +585,12 @@ public class BoardDao {
 			
 			Attachment at = fileList.get(i);
 			
+			System.out.println("Atachment at 뭐가 인서트 뉴 어테치먼트 " + at);
+			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, bno);
-			
-			
+
 			//pstmt.setInt(1, at.getRefBoardNo()); 
 			pstmt.setString(2, at.getOriginName());
 			pstmt.setString(3, at.getChangeName());
@@ -598,7 +600,7 @@ public class BoardDao {
 			
 		
 			
-			System.out.println("insertNewAttachment 결과  : "+ result);
+			System.out.println("+++++++insertNewAttachment 결과  : "+ result);
 			}
 			
 			
@@ -775,7 +777,6 @@ public class BoardDao {
 					
 			list.add(b);
 			
-			System.out.println("탑리스트 ===== " + list);
 				
 			}
 		} catch (SQLException e) {
@@ -790,26 +791,26 @@ public class BoardDao {
 
 	
 	//검색 결과 뿌리기 (새로운 페이징 처리와 함께)
-	public ArrayList<Board> searchWord(Connection conn, String searchWord, PageInfo pi) {
+	public ArrayList<Board> searchWord(Connection conn, String searchWord) {
 		
 		ArrayList<Board> list = new ArrayList<Board>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null; 
 		
-		String sql = prop.getProperty("searchWordd");
+		String sql = prop.getProperty("searchWord");
 		System.out.println("@@@ searchWordd 쿼리문" + sql );
 		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int endRow = startRow + pi.getBoardLimit() - 1;
-		
+//		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+//		int endRow = startRow + pi.getBoardLimit() - 1;
+//		
 		try {
 			
 			//페이지 부분을 우선 진행하고 
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, searchWord);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+//			pstmt.setInt(2, startRow);
+//			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 
@@ -844,18 +845,22 @@ public class BoardDao {
 
 	
 	//파일 지우기 메소드
-	public int deleteFile(Connection conn, int originFileNo) {
+	public int deleteFile(Connection conn, int fileno) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteFile");
 		
+		System.out.println("파일 지우기 쿼리문 까지 오니? " + sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, originFileNo);
+			pstmt.setInt(1, fileno);
 
 			result = pstmt.executeUpdate();
+			
+			System.out.println("다오에 결과로 받니? "+ result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

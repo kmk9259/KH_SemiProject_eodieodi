@@ -32,8 +32,12 @@ public class MainSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 		String searchArea = request.getParameter("search");
 		System.out.println("searchArea"+searchArea);
+		
 		ArrayList<Place> searchPlace = new PlaceService().searchArea(searchArea);
 		System.out.println("searchPlace"+searchPlace);
 		

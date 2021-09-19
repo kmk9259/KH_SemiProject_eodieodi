@@ -14,9 +14,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
  <meta charset="UTF-8">
     <title>커뮤니티</title>
     
-    
-    
-   
+
 	
 	<script type="text/javascript">
 		function checkValue(){
@@ -39,8 +37,23 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 				alert("대표 사진은 반드시 올려야 합니다.")
 				return false;
 			}
+			
+			
+			if(title.length > 50){
+				alert("최대 50자까지 입력 가능합니다.");
+        		$(this).val(title.substring(0,50));
+        		
+			}
+			
+			
+			if(content.length >2000){
+				alert("최대 2000자까지 입력 가능합니다.");
+	    		   $(this).val(content.substring(0,2000));
 				
-		}
+			}
+				
+    		   
+				
 	
 	</script>
     
@@ -85,6 +98,16 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 	padding: 30px;
 	}
     
+    
+    #close {
+    position: absolute;
+    float: right;
+    background: red;
+	color: white;
+	width:30px;
+    z-index: 1;
+    
+   }
     
     </style>
 
@@ -178,29 +201,34 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
           <form id="insertForm" action="<%= contextPath %>/insert.bo" method="post" enctype="multipart/form-data">
           <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">
               <div class="form-group">
-                  <label class="form-label" for="title">Title</label>
-                  <input type="text" class="form-control" id="name" name="title" placeholder="제목을 입력하세요" tabindex="1" required>
+                  
+                  <input type="text" class="form-control" id="name" name="title" placeholder="제목을 입력하세요, 20자까지 가능합니다." tabindex="1" maxlength="50" required>
               </div>                            
                                         
                                          
               <div class="form-group">
                   
-                  <textarea rows="15" cols="150" name="content" class="form-control" id="message" placeholder="글을 작성하세요." tabindex="4" required></textarea>                                 
+                  <textarea rows="15" cols="150" name="content" class="form-control" id="message" placeholder="글을 작성하세요.2000자까지 가능합니다." maxlength="2000" tabindex="4" required></textarea>                                 
               </div>
               
               
               <div class="text-center">
               <label class="title">대표 이미지</label>
               <div>
-             
+              <a class="fileRemove1" id="close"> X </a>
               <img name="files" id="titleImg" width="200px" height="180">
               
               </div>
               
               <br>
               <div>
+              <a class="fileRemove2" id="close"> X </a>
               <img name="files" id="contentImg1" width="200px" height="180">
+              
+              <a class="fileRemove3" id="close"> X </a>
               <img name="files" id="contentImg2" width="200px" height="180">
+              
+              <a class="fileRemove4" id="close"> X </a>
               <img name="files" id="contentImg3" width="200px" height="180">
               
               </div>
@@ -223,7 +251,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
               
               <button type="submit" class="site-btn" onclick="checkValue()">등록하기</button>
        		  <button type="reset" class="site-btn">취소하기</button>
-              <button type="history" class="site-btn" onclick=goBack();>목록으로</button>
+              <button type="history" class="site-btn" onclick="goBack();">목록으로</button>
               </div>
               
           </form>
@@ -281,14 +309,49 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 				case 3 : $("#contentImg2").attr("src", e.target.result); break;
 				case 4 : $("#contentImg3").attr("src", e.target.result); break;
 				}
-			};
-			
+			}
 		}
-	}
+		};
 	
 	
 	</script>
 
+
+<script>
+
+//==================사진 지우기 함수 
+
+$(".fileRemove1").click(function(){
+
+	var inputfile = $("input[type='file']"); 
+	var num = 
+	/* $(this).next("#titleImg").attr("src", ""); */
+	
+
+	if(inputFile.files.length == 1){//file이 존재 할경우 
+		var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
+		
+		reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+		
+		
+		reader.onload = function(e){//파일 읽기가 다완료 되면 실행할 메소드 
+			console.log(e);
+			e.target.result=null;
+			console.log(e);
+			switch(num){
+			case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
+			case 2 : $("#contentImg1").attr("src", e.target.result); break;
+			case 3 : $("#contentImg2").attr("src", e.target.result); break;
+			case 4 : $("#contentImg3").attr("src", e.target.result); break;
+			}
+		}
+	}
+	};
+}) 
+
+
+
+</script>
 
 	<!-- Js Plugins -->
 

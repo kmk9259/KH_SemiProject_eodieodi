@@ -15,6 +15,18 @@
 <meta charset="UTF-8">
 <title>커뮤니티 상세 페이지</title>
 
+<style>
+.bcontent{
+ font-size: 1.5rem;
+ word-break:break-all;
+}
+
+
+
+
+
+</style>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
@@ -61,7 +73,7 @@
                             <li><i class="fa fa-clock-o"></i> <%= b.getCreateDate() %></li>
                             <li><i class="fa fa-user"></i> <%= b.getBoardWriter() %> </li>
                             <li><i class="fa fa-star"></i> <%= b.getCount() %></li>
-                            <%-- <li><i class="fa fa-heart"></i> <%= b.getLikes() %></li> --%>
+                           
                         </ul>
                     </div>
                 </div>
@@ -77,14 +89,15 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="blog__details__text">
+                    
                     <form action="" id="postForm" method="post">
-			<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
-			
-		</form>
-                        <div class="blog__details__video set-bg" data-setbg="<%= contextPath %>/resources/board_upfiles/<%=titleImg.getChangeName()%>">
+					<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
+					</form>
+					
+                        <div class="blog__details__video set-bg" data-setbg="<%= contextPath %>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>">
                             
                         </div>
-                        <p> <%= b.getBoardContent() %></p>
+                        <p class="bcontent"> <%= b.getBoardContent() %></p>
                         
                         <% for(int i=1; i<fileList.size(); i++){ %>
                         <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>">
@@ -104,10 +117,7 @@
 					<% } %>
 				   </div>
 				   
-				   <!-- 보드 번호 보내주려고  -->
-					<%-- <form action="" id="postForm" method="post">
-					<input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
-					</form> --%>
+				   
 				<script>
 					function updateForm(){
 						$("#postForm").attr("action", "<%=contextPath%>/updateForm.bo");
@@ -144,7 +154,7 @@
                             
                             <div class="input-comment">
                                 <p>Comment</p>
-                                <textarea rows="5" cols="90" id="replyContent" style="resize:none;">로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea>
+                                <textarea rows="5" cols="90" id="replyContent" style="resize:none;" readonly="readonly" disabled>로그인한 사용자만 가능한 서비스입니다. 로그인 후 이용해주세요</textarea>
                             </div>
                             <button type="submit" class="site-btn" disabled>댓글 등록</button>
                             
@@ -181,8 +191,8 @@
                 <div class="col-lg-4">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Searching...">
+                            <form action="<%=contextPath %>/search.bo">
+                                <input type="text" name="search" placeholder="검색하기">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -266,8 +276,7 @@
 					+list[i].createDate+'</li>'+
 					'<li>'+'<i class="fa fa-user">'+'</i>'
 					+list[i].replyWriter+'</li>'+
-					'<li id="result">'+'<span class="fa fa-thumbs-up" onclick= "count("plus")" >'+'</span>'
-					+list[i].likes+'</li>'+
+					
 					'<br><br><br>'
 					
 					'</ul>';
