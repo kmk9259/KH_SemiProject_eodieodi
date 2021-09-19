@@ -31,7 +31,6 @@ public class MemberUpdateAdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mId2 = request.getParameter("mId2");
-		System.out.println("mId2 : "+mId2);
 		int result = new MemberService().updateMemberAdmin(mId2);
 		if(result > 0)
 		{

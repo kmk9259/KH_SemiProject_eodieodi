@@ -42,13 +42,11 @@ public class PlaceService {
 		Connection conn = getConnection();
 		
 		int result = new PlaceDao().increaseCount(conn, pno);
-		System.out.println("increaseCount 결과 : " + result);
 		Place p = null;
 		
 		if(result > 0) {
 			commit(conn);
 			p = new PlaceDao().selectPlace(conn, pno);
-			System.out.println("여기 도는 것 같은데 왜 null 뜨냐___p : " + p);
 		}else {
 			rollback(conn);
 		}
@@ -91,8 +89,6 @@ public class PlaceService {
 	public ArrayList<Place> searchArea(String searchArea) {
 		Connection conn = getConnection();
 		ArrayList<Place> list = new PlaceDao().searchArea(conn, searchArea);
-		
-		System.out.println("민경씨 서비스 결과 함 보려고  " + list);
 		close(conn);
 		return list;
 	}

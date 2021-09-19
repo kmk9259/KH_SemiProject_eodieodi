@@ -230,6 +230,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 								};
 							}
 						}
+						
 						</script>
 					</div>
 				</div> <!-- admin-showpage -->

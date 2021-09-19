@@ -56,7 +56,6 @@ public class CourseInsertServlet extends HttpServlet {
 			String[] pNo = textarea.split(",");
 			for(int i=0; i<pNo.length; i++)
 			{
-				System.out.println(pNo[i]);
 				Course c = new Course();
 				c.setAreaNo(Integer.parseInt(areaNo));
 				c.setThemeNo(Integer.parseInt(themeNo));

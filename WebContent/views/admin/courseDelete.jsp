@@ -190,7 +190,7 @@
 			                                +'<li>'+themeName+'</li>'
 			                            +'</ul>'
 			                            +'<h5><a href="#">'+value.courseTitle+'</a></h5>'
-		                            	+'<button class="btn ">삭제하기</button>'
+		                            	+'<button class="btn site-btn">삭제하기</button>'
 				                    +'</div>'
 				                    +'</div>'
                     			+'</div>'

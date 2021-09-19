@@ -23,9 +23,7 @@ public class CourseService {
 		for(int i=0; i<pNo.length; i++)
 		{
 			int placeNum =Integer.parseInt(pNo[i]);
-			System.out.println(placeNum+"  placeNum");
 			result2 = new CourseDao().insertCoursePlace(conn,placeNum);
-			System.out.println("서비스 result2  "+result2);
 		}
 		if(result1 > 0 && result2>0)
 		{

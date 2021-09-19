@@ -187,7 +187,7 @@ margin-top: 20px;
 					    <tbody>
 					    	
 					    	
-							<%if(list.isEmpty()){ %>
+							<%if(dlist.isEmpty()){ %>
 							<tr>
 								<td colspan="9">조회된 리스트가 없습니다.</td>
 							</tr>

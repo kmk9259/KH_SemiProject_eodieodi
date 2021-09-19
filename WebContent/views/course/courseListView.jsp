@@ -35,7 +35,10 @@
     border: 1px solid #D34B32;
     
 }
-
+.my-scroll {
+	height: 100%;
+	overflow-y: auto;
+}
 
 
 </style>
@@ -110,7 +113,7 @@
 						</nav>
 					</div>
 				</div>	
-			<div class="admin-showpage nice-scroll">
+			<div class="admin-showpage my-scroll">
 		
 					<div class="section-title">
 								<h2 style="margin: 0px;">코스 조회</h2>

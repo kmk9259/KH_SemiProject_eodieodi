@@ -43,7 +43,6 @@ public class CourseUpdateFormServlet extends HttpServlet {
 		
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		Course c = new CourseService().selectUpdateCourse(cNo);
-		System.out.println("Course============="+c);
 		ArrayList<CoursePlace> cpno = new CourseService().selectCPno(cNo);
 		int cpnoSize = cpno.size();
 		

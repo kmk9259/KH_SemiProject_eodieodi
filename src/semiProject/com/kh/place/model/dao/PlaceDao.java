@@ -202,7 +202,6 @@ public class PlaceDao {
 							  rset.getString("DESCRIPTION"), rset.getString("BSHOUR"), rset.getInt("PRICE"), 
 							  rset.getString("ADDRESS"), rset.getInt("COUNT"),rset.getString("STATUS"),rset.getString("CHANGE_NAME")
 							 );
-			System.out.println("p에 값이 아예 안들어가는거같은데...33333 : " + p);	
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
