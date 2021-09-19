@@ -53,7 +53,7 @@
         .thumbnail{  
             display:inline-block;  /*가로너비에 맞게 나란히 일정한 간격으로 보이게*/
             float:left;
-            /* width:33%; */
+            width:100%;
             border:1px solid white;
             margin-bottom: 20px;
         }
@@ -77,6 +77,7 @@
         	text-align: center;
     		margin: 25px;
         }
+
     </style>
 </head>
 <body>
@@ -131,8 +132,8 @@
 				<div class="row">
 	                <div class="col-lg-12">
 	                    <div style="float: right;display: -webkit-inline-box;">
-	                        <input type="checkBox" id="allCheck" name="allCheck"><label>모두 선택</label>
-	                        <div class=" deleteBtn"><button type="submit" class="btn btn-primary" onclick="delPlan()">삭제하기</button></div>
+	                        <input type="checkBox" id="allCheck" name="allCheck" style="zoom:1.5;"><label style="line-height:40px; font-size: 20px; padding: 0px 20px 0px 5px;">모두 선택</label>
+	                        <div class=" deleteBtn"><button type="submit" class="btn site-btn" onclick="delPlan()">삭제하기</button></div>
 	                    </div>
 	                </div>
 	            </div>
@@ -142,8 +143,8 @@
 						
 							<div class="col-lg-4 col-md-6">
 		                		<div class="thumbnail" align="center">
-		                    		<input type="checkbox" name="planNo" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox"><br>
-		                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="350px" height="250px" class="placeImg"> <br>
+		                    		<input type="checkbox" name="planNo" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox" style="zoom:1.5;"><br>
+		                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="100%" height="280px" class="placeImg"> <br>
 		                    		<div class="planBox">
 		                    			<p class="planTitle"><%=pm.getPlanTitle()%></p>
 		                    		</div>
@@ -190,13 +191,13 @@
 			</div> 
 		
 			<div class=" deleteBtn">
-                <input type="button" class="btn btn-primary" value="이전으로" onClick="history.go(-1)">
+                <input type="button" class="btn site-btn" value="이전으로" onClick="history.go(-1)" style="font-size: 18px; margin-bottom:20px;">
             </div>
         </div>
     </div>
     
     
-    <script>         
+    <script>    
         //맨 위에 체크박스 체크하면 일정보관함의 모든 일정들 체크됨
         $("#allCheck").click(function() {
             var chk = $("#allCheck").prop("checked");

@@ -4,8 +4,10 @@
 <%
 	ArrayList<Theme> tlist = (ArrayList<Theme>)request.getAttribute("tlist");	
 	ArrayList<Area> alist = (ArrayList<Area>)request.getAttribute("alist");
-
+	
 	Course c = (Course)request.getAttribute("c");
+	int cpnoSize = (int)request.getAttribute("cpnoSize");
+	
 	String[] selected = new String[alist.size()];
 	String[] checked = new String[alist.size()];
 	String[] checked2 = new String[tlist.size()];
@@ -155,7 +157,7 @@ margin-left: 150px;
 									<div class="tab-pane active" id="tabs-1" role="tabpanel">
 										<div class="row" id="placeList">
 										</div><br><br>
-										<form action="update.co" method="post">
+										<form action="update.co" method="post" id="updateForm" onsubmit="return fieldCheck()">
 													<input type="hidden" name="cNo" value="<%=c.getCourseNo()%>"> 
 													<input type="hidden" name="aNo" value="<%=c.getAreaNo()%>">													
 											코스이름: <input value="<%= c.getCourseTitle() %>" maxlength="100"type="text" required="required" name="courseTitle" placeholder="코스의이름을입력해주세요" /><br>
@@ -163,7 +165,7 @@ margin-left: 150px;
 														<label><input type="radio" name="themeNo"  value="<%=tlist.get(i).getThemeNo() %>" <%=checked2[i] %>> <%=tlist.get(i).getThemeName() %></label>
 													<%} %><br><br>
 											<textarea id="textarea" name="pNo" rows="5" cols="300" style="resize: none;"></textarea><br>
-											<input type="submit" value="코스수정" id="courseAdd">
+											<button id="courseAdd"  class="nextBtn btn-ms" type="submit" style="margin-right: 1100px">코스 수정</button>
 										</form>
 									</div>
 				                </div>
@@ -174,6 +176,20 @@ margin-left: 150px;
 					
 				</div><!-- admin-showpage -->
 				<script>
+				function fieldCheck(){					
+					var count = $("input:checked[type='checkbox']").length;
+					var cpnoSize = "<%= cpnoSize%>";
+					if(count >3){
+						alert("일정은 최대 3개까지만 선택 할 수 있습니다.");
+						return false;
+					}else if(count ==0){
+						alert("코스에 등록할 일정을 선택해주세요")
+						return false;
+					}else if(count <cpnoSize){
+						alert(cpnoSize+"개의 일정을 선택해주세요. 현재 일정의 개수는 "+count+"개 입니다.");
+						return false;
+					}
+				}
 				$(function() {
 					var areaNo = placeChoice.options[placeChoice.selectedIndex].value;
 					if(areaNo !=null){
@@ -184,7 +200,6 @@ margin-left: 150px;
 							data:{areaNo : areaNo},
 							success:function(list)
 							{
-								console.log(list);
 								var value="";
 								var contextPath = "<%=contextPath%>";
 								for(var i in list)
@@ -244,9 +259,7 @@ margin-left: 150px;
 							}//success
 						})
 								
-					}//if
-					
-					
+					}//if 
 					
 				});
 
@@ -278,7 +291,6 @@ margin-left: 150px;
 							}
 						}
 						result.value = resultArr.join(",");
-
 					}
 				}
 				

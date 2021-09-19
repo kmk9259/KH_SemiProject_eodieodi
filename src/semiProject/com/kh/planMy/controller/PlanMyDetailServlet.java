@@ -38,11 +38,14 @@ public class PlanMyDetailServlet extends HttpServlet {
 		int planNo = Integer.parseInt(request.getParameter("planNo"));
 		
 		PlanMy pm = new PlanMyService().selectPlanMy(planNo);
-		//ArrayList<Place> bpList = new PlanMyService().selectPlace_planMy(planNo);
 		ArrayList<Place> pList = new PlanMyService().selectPlace_planMy(planNo);
 		
-		
-		
+		//memo가 null일때 대비해줘야 한다...
+		if(pm.getPlanMemo() != null) {
+			pm.setPlanMemo(pm.getPlanMemo().replaceAll("<br>", "\n"));  //db에는 <br>로 띄어쓰기가 저장되고 화면에 이걸 다시 띄우면 <br>로 나오기 때문에 바꿔준다.			
+		}
+
+		//ArrayList<Place> bpList = new PlanMyService().selectPlace_planMy(planNo);
 		//---------------- 페이징 처리 -----------------
 				int listCount;			// 총 게시글 갯수
 				int currentPage;		// 현재 페이지 (즉, 요청한 페이지)

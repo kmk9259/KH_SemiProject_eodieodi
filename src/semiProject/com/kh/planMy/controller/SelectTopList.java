@@ -1,32 +1,30 @@
-package semiProject.com.kh.course.controller;
+package semiProject.com.kh.planMy.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import semiProject.com.kh.board.model.vo.PlaceAttachment;
-import semiProject.com.kh.course.model.service.CourseService;
-import semiProject.com.kh.course.model.vo.Course;
-import semiProject.com.kh.place.model.service.PlaceService;
+import com.google.gson.Gson;
+
 import semiProject.com.kh.place.model.vo.Place;
+import semiProject.com.kh.planMy.model.service.PlanMyService;
 
 /**
- * Servlet implementation class CoursePlaceDetail
+ * Servlet implementation class SelectTopList
  */
-@WebServlet("/cplaceDetail.co")
-public class CoursePlaceDetail extends HttpServlet {
+@WebServlet("/planTopList.do")
+public class SelectTopList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CoursePlaceDetail() {
+    public SelectTopList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,22 +33,14 @@ public class CoursePlaceDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		
-		ArrayList<Place> list = new CourseService().selectCoursePlaceList(cNo);
+		int placeNo = Integer.parseInt(request.getParameter("placeNo"));
 		
-		if(list != null)
-		{
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("views/course/coursePlaceDetailView.jsp").forward(request, response);
-		}
-		else
-		{
-			request.setAttribute("msg",	"코스일정 상세보기 실패"); 
-			RequestDispatcher view =request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response); 
-		}
+		ArrayList<Place> topList = new PlanMyService().topList(placeNo);
 		
+		System.out.println("topList 잘 뽑아졌나?" + topList);
+		response.setContentType("application/json; charset=utf-8");     
+	    new Gson().toJson(topList, response.getWriter());
 		
 	}
 

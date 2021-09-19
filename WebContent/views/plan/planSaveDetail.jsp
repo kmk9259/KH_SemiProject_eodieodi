@@ -131,6 +131,53 @@
 	    	justify-content: center;
 	    	padding: 20px;
 		}
+		
+		table{
+        	border-collapse:collapse;
+        }
+        th,td{
+        	border-bottom: 1px solid lightgrey;
+        	padding:3px;
+        	text-align: center;
+        }
+        th{
+        	padding: 15px 0px 7px 0px;
+        }
+        thead{
+        	text-align: center;
+        	font-size: 21px;
+		    font-weight: bold;
+		    border-bottom: 1px solid slategrey;
+        }
+        
+        /*테이블 페이징 처리*/
+        .off-screen {
+            /*이건 뭐지?*/
+            display: none;
+        }
+        
+        #nav {
+            /*페이징바 div / <div id="nav">*/
+            width: 100%;
+		    text-align: center;
+		    margin-bottom: 15px;
+        }
+        
+        #nav a {
+            /*<a href="#" rel="0" class="active">1</a> : 클릭하면 class="acitive"가 된다*/
+            display: inline-block;
+            padding: 3px 5px;
+            margin-right: 10px;
+            font-family: Tahoma;
+            background: #ccc;
+            color: #000;
+            text-decoration: none;
+        }
+        
+        #nav a.active {
+            background: #333;
+            color: #fff;
+        }
 	  </style>
    
 </head>
@@ -200,7 +247,13 @@
 					<div class="planDetail_detail">
 	                    <h4><b>장소 목록</b></h4>
 	                </div>
-					<table class="listArea">
+					<table id="placeDetail" class="listArea">
+						
+						<caption>
+						<form action="" id="setRows">
+			            </form>
+						</caption>
+						
 	                    <thead>
 	                        <tr>
 	                            <th width="180">장소명</th>
@@ -223,7 +276,6 @@
 				                        <td>	
 				                        	<!-- onclick으로 안되서 href로 걸어뒀음 -->
 				                        	<a href="<%=contextPath%>/detail.pl?pNo=<%=p.getPlaceNo()%>"><img src="<%=request.getContextPath()%>/resources/img/listing/magnifying-glass.png" style="width:25px;  cursor:pointer;"></a>
-				                        	<input type="hidden" id="placeNo" value="<%=p.getPlaceNo()%>">
 				                        </td>
 				                    </tr>
 	                    		<%}%>
@@ -270,7 +322,7 @@
 	                    <h4><b>일정 메모</b></h4>
 	                </div>
 	                <div class="planDetail_detail">
-	                    <textArea rows="9" style="width: 100%;" readonly><%=memo%></textArea>
+	                    <textArea rows="9" style="width: 100%; margin-top:15px;" readonly><%=memo%></textArea>
                 	</div>
 				</div>
 			</div>
@@ -354,6 +406,84 @@
 			<input type="hidden" name="planNo" value="<%=pm.getPlanNo()%>">
 		</form>
 		<script>
+			var $setRows = $('#setRows');
+	        console.log("$setRows : " + $setRows);
+	        console.log("$setRows : " + $setRows.val());
+	
+	        $setRows.submit(function(e) {
+	            e.preventDefault();
+	            //var rowPerPage = $('[name="rowPerPage"]').val() * 1; // 1 을  곱하여 문자열을 숫자형로 변환
+	
+	            var rowPerPage = 5 * 1;
+	            //		console.log(typeof rowPerPage);
+	
+	            var zeroWarning = 'Sorry, but we cat\'t display "0" rows page. + \nPlease try again.'
+	            if (!rowPerPage) {
+	                alert(zeroWarning);
+	                return;
+	            }
+	            $('#nav').remove();
+	            var $placeDetail = $('#placeDetail');
+	
+	            $placeDetail.after('<div id="nav">');
+	
+	
+	            var $tr = $($placeDetail).find('tbody tr');
+	            var rowTotals = $tr.length;
+	            //	console.log(rowTotals);
+	
+	            var pageTotal = Math.ceil(rowTotals / rowPerPage);
+	            var i = 0;
+	
+	            for (; i < pageTotal; i++) {
+	                $('<a href="#"></a>')
+	                    .attr('rel', i)
+	                    .html(i + 1)
+	                    .appendTo('#nav');
+	            }
+	
+	            $tr.addClass('off-screen')
+	                .slice(0, rowPerPage)
+	                .removeClass('off-screen');
+	
+	            var $pagingLink = $('#nav a');
+	            $pagingLink.on('click', function(evt) {
+	                evt.preventDefault();
+	                var $this = $(this);
+	                if ($this.hasClass('active')) {
+	                    return;
+	                }
+	                $pagingLink.removeClass('active');
+	                $this.addClass('active');
+	
+	                // 0 => 0(0*4), 4(0*4+4)
+	                // 1 => 4(1*4), 8(1*4+4)
+	                // 2 => 8(2*4), 12(2*4+4)
+	                // 시작 행 = 페이지 번호 * 페이지당 행수
+	                // 끝 행 = 시작 행 + 페이지당 행수
+	
+	                var currPage = $this.attr('rel');
+	                var startItem = currPage * rowPerPage;
+	                var endItem = startItem + rowPerPage;
+	
+	                $tr.css('opacity', '0.0')
+	                    .addClass('off-screen')
+	                    .slice(startItem, endItem)
+	                    .removeClass('off-screen')
+	                    .animate({
+	                        opacity: 1
+	                    }, 300);
+	
+	            });
+	
+	            $pagingLink.filter(':first').addClass('active');
+	
+	        });
+	
+	
+	        $setRows.submit();
+		
+		
 			function updateForm(){
 				$("#postForm").attr("action", "<%=contextPath%>/updateForm.ps?planNo=<%=pm.getPlanNo()%>");
 				$("#postForm").submit();

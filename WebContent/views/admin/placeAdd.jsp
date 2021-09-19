@@ -34,6 +34,11 @@
 width:800px;
 height: 500px;
 }
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+    border-color: rgba(105, 61, 209, 1);
+    box-shadow: 0 1px 1px rgba(105, 61, 209, 0.075) inset, 0 0 8px rgba(105, 61, 209, 0.6);
+    outline: 0 none;
+}
 
 </style>
 </head>
@@ -111,33 +116,40 @@ height: 500px;
 						<!-- 일정 등록 -->
 						<div class="tab-pane active text-style placeAddForm">
 							
-							<form id="insertForm" action="<%=contextPath%>/insert.pl" method="post"	enctype="multipart/form-data">
+							<form id="insertForm" action="<%=contextPath%>/insert.pl" method="post" onsubmit="return fieldCheck()" enctype="multipart/form-data">
 								<div class="form-group">
 									<label class="control-label" style="margin-top: 30px;">지역</label><br>									
-									<select name="areaNo" class="planInput" >
-										<option value="0">지역을 선택해주세요</option>
+									<select name="areaNo" class="planInput" required>
+										<option value="0" selected >지역을 선택해주세요</option>
 					                    <option value="1">홍대</option>
 					                    <option value="2">강남</option>					                    
 					                </select><br><br>
 									<label class="control-label">카테고리</label><br>
-									<select name="categoryNo" class="planInput" >
-										<option value="0">카테고리를 선택해주세요</option>
+									<select name="categoryNo" class="planInput" required>
+										<option value="0" selected>카테고리를 선택해주세요</option>
 					                    <option value="1" >먹기</option>
 					                    <option value="2">마시기</option>	
 					                    <option value="3">놀기</option>					                    
 					                </select> <br><br>
+					             
 									<label class="control-label">상호명</label> 
-									<input maxlength="100" type="text" name="placeTitle" required="required" class="form-control" placeholder="상호명을 입력해주세요" /> 
+									<input maxlength="10" type="text" id="placeTitle" name="placeTitle"  class="form-control" placeholder="상호명을 입력해주세요"/>									
+									
 									<label class="control-label">전화번호</label>
-									<input maxlength="100" type="text" name="placePhone" required="required" class="form-control" placeholder="전화번호를 입력해주세요" /> 
+									<input maxlength="15" type="text" name="placePhone"  class="form-control" placeholder="전화번호를 입력해주세요" />
+									
 									<label class="control-label">설명</label> 
-									<input maxlength="1000" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
+									<input maxlength="1000" type="text" name="description"  class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
+									
 									<label class="control-label">영업 시간</label> 
-									<input maxlength="100" type="text" name="bsHour" required="required" class="form-control" placeholder="영업 시간을 입력해주세요" /> 
+									<input maxlength="50" type="text" name="bsHour"  class="form-control" placeholder="영업 시간을 입력해주세요" /> 
+									
 									<label class="control-label">대표 금액(가격만)</label> 
-									<input maxlength="100" type="text" name="price" required="required" class="form-control" pattern="[0-9]+" placeholder="대표 금액을 입력해주세요(숫자만)" /> 
+									<input maxlength="6" type="text" name="price" class="form-control" pattern="[0-9]+" placeholder="대표 금액을 입력해주세요(숫자만)" /> 
+									
 									<label class="control-label">상세주소</label>
-									<input maxlength="100" type="text" name="address" required="required" class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
+									<input maxlength="50" type="text" name="address"  class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
+									
 									<img name="titleImg" width="150" height="120" id=titleImg> <br> 
 									<label> 대표 이미지</label>
 									
@@ -146,55 +158,78 @@ height: 500px;
 									</div>
 								</div>
 
-								<button id="btn" class="nextBtn btn-ms pull-right" type="submit">등록</button><br><br>
+								<button id="btn"  class="nextBtn btn-ms pull-right" type="submit">등록</button><br><br>
 							</form><br><br>
 						</div>
 						<script>
-							$(function() {
-								$("#fileArea").hide();
-								
-								$("#titleImg").click(function() {
-									 $("#file1").click(); 
-								});
-								$("#btn").click(function() {
-									var result = fieldCheck()==true? true:false;
-									
-
-								});
-
+						
+						$('#insertForm').on("keydown", "input[type='text']", function() {
+							var text = $("#insertForm input[type='text']");		
+							if($(this).val().length > $(this).attr('maxlength'))
+							{
+								alert("최대 글자수는 "+$(this).attr('maxlength')+"입니다!");
+								$(this).val($(this).val().substr(0, $(this).attr('maxlength'))); 
+							}
+						}); 
+						
+						function fieldCheck(){
+							var text = $("#insertForm input[type='text']");	
+							var selected = $("#insertForm select");
+							
+							for(var i=0; i<selected.length; i++){
+								if(0==$(selected[i]).val() && $(selected[i]).attr("name")=="areaNo"){
+									alert("지역을 선택해주세요");
+									return false;									
+								}else if(0==$(selected[i]).val() && $(selected[i]).attr("name")=="categoryNo"){
+									alert("카테고리를 선택해주세요");
+									return false;
+								}							
+							} 	
+							for(var i=0; i<text.length; i++){
+								if(""==$(text[i]).val() || null == $(text[i]).val()){
+									var elename = $(text[i]).attr("name");
+									$("."+elename).focus();
+									alert("빈 칸을 다 입력해주세요");
+									return false;
+								}									
+							} 
+							
+							if($('#file1').val() == "") {
+								alert("대표사진을 등록해주세요");
+							    $("#file1").focus();
+							    return false;
+							}
+						}
+						$(function(){
+							$("#fileArea").hide();
+							
+							$("#titleImg").click(function() {
+								 $("#file1").click(); 
 							});
-							function fieldCheck(){
-								var text = $("#insertForm input[type='text']");
-								for(var i=0; i<text.length; i++){
-									if(""==$(text[i]).val() || null == $(text[i]).val()){
-										var elename = $(text[i]).attr("name");
-										alert("빈 칸을 다 채워주세요");
-										$("."+elename).focus();
-										return true;
+							
+						});
+						
+						
+						
+						function loadImg(inputFile, num) {// 이미지 미리보기 
+							//inputFile : 현재 변화가 생긴 input type = "file"
+							//num : 조건문을 활용 하기 위해 전달받은 매개변수
+
+							console.dir(inputFile);
+
+							if (inputFile.files.length == 1) {//file이 존재 할경우 
+								var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
+
+								reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+
+								reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
+									console.log(e);
+									switch (num) {
+									case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
 									}
-								}
+								};
 							}
-
-							function loadImg(inputFile, num) {// 이미지 미리보기 
-								//inputFile : 현재 변화가 생긴 input type = "file"
-								//num : 조건문을 활용 하기 위해 전달받은 매개변수
-
-								console.dir(inputFile);
-
-								if (inputFile.files.length == 1) {//file이 존재 할경우 
-									var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
-
-									reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
-
-									reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
-										console.log(e);
-										switch (num) {
-										case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
-										}
-									};
-
-								}
-							}
+						}
 						</script>
 					</div>
 				</div> <!-- admin-showpage -->

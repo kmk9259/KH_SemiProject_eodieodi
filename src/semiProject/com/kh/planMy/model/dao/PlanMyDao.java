@@ -283,6 +283,13 @@ public class PlanMyDao {
 //		WHERE PLACE_NO IN (SELECT PLACE_NO 
 //		                  FROM MYPLAN_PLACE
 //		                  WHERE REF_MPNO=? AND MYPLAN_PLACE.STATUS='Y');
+		
+//		기존꺼는 자동정렬이 되어서 이렇게 바꿔보았다. 과연될까..ㅠ 해결했다!!ㅠㅠㅠ
+//		SELECT A.RNUM, A.PLACE_NO, PLACE_TITLE, ADDRESS, PRICE
+//		FROM (SELECT ROWNUM RNUM,REF_MPNO,PLACE_NO FROM MYPLAN_PLACE WHERE STATUS='Y' ORDER BY RNUM) A
+//		JOIN PLACE B ON(A.PLACE_NO=B.PLACE_NO)
+//		WHERE REF_MPNO=30 AND B.STATUS='Y';
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, planNo);
@@ -296,6 +303,9 @@ public class PlanMyDao {
 				p.setAddress(rset.getString("ADDRESS"));
 				p.setPrice(rset.getInt("PRICE"));
 				
+				System.out.println("dao_place_no 어떻게 나오나?" + rset.getInt("PLACE_NO"));
+				
+				
 				plist.add(p);
 			}
 			
@@ -306,7 +316,8 @@ public class PlanMyDao {
 			close(rset);
 			close(pstmt);
 		}
-
+		
+		System.out.println("dao_왜 순서가 저렇게 나오는 거지? plist : " + plist);
 		return plist;
 	}
 
@@ -552,51 +563,94 @@ public class PlanMyDao {
 	}
 
 	//내맘대로 일정 detail -> 장소 목록 페이징 처리
-	public ArrayList<Place> selectPlace_planMy(Connection conn, int planNo, PageInfo pi) {
-		ArrayList<Place> plist = new ArrayList<>();
+//	public ArrayList<Place> selectPlace_planMy(Connection conn, int planNo, PageInfo pi) {
+//		ArrayList<Place> plist = new ArrayList<>();
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		
+//		String sql = prop.getProperty("selectPlace_planMy_paging");
+////		selectPlace_planMy=
+////		SELECT PLACE_NO, PLACE_TITLE, ADDRESS, PRICE 
+////		FROM PLACE
+////		WHERE PLACE_NO IN (SELECT PLACE_NO 
+////		                  FROM MYPLAN_PLACE
+////		                  WHERE REF_MPNO=? AND MYPLAN_PLACE.STATUS='Y')
+////		AND PLACE.STATUS='Y' AND ROWNUM BETWEEN ? AND ?
+//		
+//		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+//		int endRow = startRow + pi.getBoardLimit() -1;
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, planNo);
+//			pstmt.setInt(2, startRow);
+//			pstmt.setInt(3, endRow);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				Place p = new Place();
+//				p.setPlaceNo(rset.getInt("PLACE_NO"));
+//				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
+//				p.setAddress(rset.getString("ADDRESS"));
+//				p.setPrice(rset.getInt("PRICE"));
+//				
+//				plist.add(p);
+//			}
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		
+//		System.out.println("dao_테이블페이징처리 테스트 : " + plist);
+//		return plist;
+//	}
+
+	public ArrayList<Place> topList(Connection conn, int placeNo) {
+		ArrayList<Place> pList = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectPlace_planMy_paging");
-//		selectPlace_planMy=
-//		SELECT PLACE_NO, PLACE_TITLE, ADDRESS, PRICE 
-//		FROM PLACE
-//		WHERE PLACE_NO IN (SELECT PLACE_NO 
-//		                  FROM MYPLAN_PLACE
-//		                  WHERE REF_MPNO=? AND MYPLAN_PLACE.STATUS='Y')
-//		AND PLACE.STATUS='Y' AND ROWNUM BETWEEN ? AND ?
-		
-		int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
-		int endRow = startRow + pi.getBoardLimit() -1;
+		String sql = prop.getProperty("selectTopList");
+//		SELECT * 
+//		FROM (SELECT PLACE_NO, PLACE_TITLE, AREA_NO, CATEGORY_NO, COUNT, CHANGE_NAME
+//		        FROM PLACE
+//		        JOIN (SELECT * FROM PLACE_ATTACHMENT WHERE STATUS='Y') ON (REF_PNO = PLACE_NO)
+//		        WHERE AREA_NO = (SELECT AREA_NO FROM PLACE WHERE PLACE_NO=7) 
+//		        ORDER BY COUNT DESC)
+//		WHERE ROWNUM < 4;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, planNo);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			
+			pstmt.setInt(1, placeNo);
+
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
-				Place p = new Place();
-				p.setPlaceNo(rset.getInt("PLACE_NO"));
-				p.setPlaceTitle(rset.getString("PLACE_TITLE"));
-				p.setAddress(rset.getString("ADDRESS"));
-				p.setPrice(rset.getInt("PRICE"));
+			while(rset.next())
+			{
+				Place place = new Place();
+				place.setPlaceNo(rset.getInt("PLACE_NO"));
+				place.setAreaNo(rset.getInt("AREA_NO"));
+				place.setCategoryNo(rset.getInt("CATEGORY_NO"));
+				place.setPlaceTitle(rset.getString("PLACE_TITLE"));
+				place.setCount(rset.getInt("COUNT"));
+				place.setTitleImg(rset.getString("CHANGE_NAME"));
 				
-				plist.add(p);
+				pList.add(place);
 			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		System.out.println("dao_테이블페이징처리 테스트 : " + plist);
-		return plist;
+
+		return pList;
 	}
 	
 }

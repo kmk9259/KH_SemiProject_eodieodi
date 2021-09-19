@@ -181,7 +181,7 @@
 												        </div>
 												        <div class="listing__item__text__info__right">Open Now</div>
 												    </div>
-												    <button class="btn " form="updateForm">수정하기</button>
+												    <button class="btn site-btn" form="updateForm">수정하기</button>
 												    
 												</div>
 											</div>

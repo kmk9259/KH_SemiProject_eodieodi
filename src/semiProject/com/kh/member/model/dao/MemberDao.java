@@ -233,7 +233,7 @@ public class MemberDao {
 		ArrayList<Member> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		String sql = prop.getProperty("selectAllMember");
 		try {
 			pstmt = conn.prepareStatement(sql);

@@ -35,7 +35,7 @@ public class CourseUpdateServlet extends HttpServlet {
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		System.out.println(cNo+"cNo");
 		ArrayList<CoursePlace> cpno = new CourseService().selectCPno(cNo);
-		System.out.println("업데이트 전 cpno$$$$$$$$$    "+cpno);
+		System.out.println("업데이트 전 cpno$$$$$$$$$    "+cpno.size());
 		
 		String textarea = request.getParameter("pNo");
 		System.out.println("업데이트 할 pnopno"+textarea);
