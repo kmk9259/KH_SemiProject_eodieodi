@@ -199,7 +199,7 @@
               
               <div id="container">
               
-               <a class="fileRemove1" id="close"> X </a>
+               <!-- <a class="fileRemove1" id="close"> X </a> -->
               
               <img  name="file1" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(0).getChangeName()%>" class="remove" id="titleImg"  width="200px" height="180">
           
@@ -213,9 +213,9 @@
              	 	 <% for(int i=1; i<fileList.size(); i++){ %>
              	 	 
              	
-             	 <a class="fileRemove" id="close"> X </a>
+             	<%--  <a class="fileRemove<%=i+1 %>" id="close"> X </a> --%>
              	 
-                <img src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>"  id="contentImg<%=i%>" class="remove"  width="200px" height="180">
+                <img name="file<%=i+1 %>"" src="<%=contextPath%>/resources/board_upfiles/<%=fileList.get(i).getChangeName()%>"  id="contentImg<%=i%>" class="remove"  width="200px" height="180">
        
              	<input type='hidden' name='originFile<%=i +1%>' value='<%=fileList.get(i).getOriginName()%>'>
 				<input id="fno<%=i+1 %>" type='hidden' name='originFileNo<%=i +1 %>' value='<%=fileList.get(i).getFileNo()%>'>
@@ -343,18 +343,70 @@
 
  $(".fileRemove1").click(function(){
 
+	  $("#titleImg").attr("src", " ");
+	  $('#file1').val('');
+	  var fno =$('input:hidden[name="originFileNo1"]').val();
+	  console.log(fno);
+	  
+/* 	  $.ajax({
+		  url: "deleteFile.bo",
+		  data : {
+			  fno : fno,
+		  },
+	  	  type: "post",
+	  	  
+	  	  success : function(){
+	  		  console.log("Ajax 통신 성공");
+	  	  },
+	  	  error: function(e){
+	  		  console.log(e)
+	  	  }
+	  });  */
+
+})
+
+$(".fileRemove2").click(function(){
+	 $("#contentImg1").attr("src", " "); 
+	 $('#file2').val('');
+	 var fno =$('input:hidden[name="originFileNo2"]').val();
+	 console.log(fno);
+	  
+/* 	  $.ajax({
+		  url: "deleteFile.bo",
+		  data : {
+			  fno : fno,
+		  },
+	  	  type: "post",
+		  	processData:false,
+	        contentType:false,
+	        enctype:'multipart/form-data',
+
+
+	  	  success : function(){
+	  		  console.log("Ajax 통신 성공");
+	  	  },
+	  	  error: function(e){
+	  		  console.log(e)
+	  	  }
+	  });  */
 	
-	var originFileNo1 = $("#fno1").attr("value");
-	var remove = $(this).next().attr("src");
-	
-	console.log(originFileNo1); //57
-	console.log(remove); // 파일 넘버
+})
+
+$(".fileRemove3").click(function(){
+	$("#contentImg2").attr("src", " ");
+	 $('#file3').val('');
+})
+
+$(".fileRemove4").click(function(){
+	 $("#contentImg3").attr("src", " "); 
+	 $('#file4').val('');
+})
+
 	
 
 	
-	$(this).next().attr("src", "");
 	
-	 $.ajax({
+	/*  $.ajax({
 		
 		url : "deleteFile.bo",
 		data : {
@@ -376,10 +428,10 @@
 	 	error : function(){
 	 		console.log("ajax 통신 실패")
 	 	}
-	}) 
+	}) ; 
 	
 	
-}) 
+}) */
 	
 
 

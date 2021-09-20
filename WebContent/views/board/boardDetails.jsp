@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.board.model.vo.*"%>
-    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
    <%
    	Reply reply  = (Reply)request.getAttribute("reply");
    	Board b = (Board)request.getAttribute("b");
@@ -22,7 +22,18 @@
 }
 
 
+.reBtn {
+	font-size: 14px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 5px 10px 5px;
+    background: #D958A0;
+    border: none;
+    display: inline-block;
 
+}
 
 
 </style>
@@ -229,13 +240,15 @@
 		$("#addReply").click(function(){
 			var content = $("#replyContent").val();
 			var bno = <%=b.getBoardNo()%>;
+			<%-- var rno = <%=reply.getReplyNo()%> --%>
 			
 			$.ajax({
 				url:"rInsert.bo",
 				type: "post",
 				data: {
 					content: content,
-					bno:bno
+					bno:bno,
+					/* rno: rno */
 				},
 				success:function(status){
 					if(status == "success"){
@@ -261,22 +274,29 @@
 			$.ajax({
 				url: "rList.bo",
 				type: "get",
-				data: {bno: <%=b.getBoardNo() %>},
+				data: {
+					bno: <%=b.getBoardNo() %>
+
+				},
 				
 				success : function(list){
 					console.log(list);
 					
 				var value="";
 				for(var i in list){
-					value += '<p>'+
+					var rno = list[i].replyNo;
+					var user = list[i].replyWriter;
+					value += '<br><br><p>'+
+					'<input type="hidden" name="rno" value="'+rno+'">'+
 					list[i].replyContent+
 					'<ul class="blog__item__widget">'+
 					'<hr>'+
+					'<li>'+'<i class="no"> No.'+list[i].replyNo+'</li>'+
 					'<li>'+'<i class="fa fa-clock-o">'+'</i>'
 					+list[i].createDate+'</li>'+
 					'<li>'+'<i class="fa fa-user">'+'</i>'
 					+list[i].replyWriter+'</li>'+
-					
+					'<button class="reBtn" onclick="del()">삭제</button>'+
 					'<br><br><br>'
 					
 					'</ul>';
@@ -290,7 +310,28 @@
 	            
 	         })
 	      }
-    
+    //댓글 삭제 
+    function del(){
+    	
+    	var rno = $('input:hidden[name="rno"]').val();
+    	console.log(rno);
+    	$.ajax({
+    		url: "deleteComment.bo",
+    		data : { 
+    			rno : rno
+    		},
+    		type: "post",
+    		
+    		success : function(){
+    			console.log("Ajax 통신 성공");
+    			selectReplyList();
+    		},
+    		error : function(e){
+    			console.log(e);
+    		}
+    	})
+    	
+    }
     //========================= 인기글 ========================
     	
     	
@@ -329,7 +370,6 @@
 					value += '<div class="blog__sidebar__recent__item__pic thumb" >'+ 
 							 '<input type="hidden" value="' +list[i].boardNo+ '">'+
 							 '<img src="'+contextPath+'/resources/board_upfiles/' + list[i].titleImg + '" width="80px" height="70px">'+
-					
 							 '</div><div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i)+ 
 							 '</span></div><h6 class="thumb">'+ tmp +'</h6>'+
 							 '<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;'+time+'</p></div>';
@@ -350,19 +390,6 @@
     	
     	
     
-
-    
-  //좋아요 클릭함수 넣어줄것
-  function count(){
-	  const result = document.getElementById('result');
-	  
-	  let number = result.innerText;
-	  
-	  if(type === 'plus') {
-		    number = parseInt(number) + 1;
-	  }
-  }
-  
 
     </script>
     

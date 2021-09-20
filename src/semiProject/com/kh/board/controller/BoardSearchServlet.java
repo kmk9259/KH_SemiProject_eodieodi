@@ -117,7 +117,6 @@ public class BoardSearchServlet extends HttpServlet {
 		//검색내용을 스트링에 담아서 
 		
 		String searchWord = request.getParameter("search");
-		System.out.println("searchWord :  : : : "+searchWord);
 		
 		
 		//페이지랑 검색 내용을 함께 넘셔서 , 새로운 페이지로 넘겨서 받아보자 
@@ -142,6 +141,7 @@ public class BoardSearchServlet extends HttpServlet {
 		{
 			request.setAttribute("msg", "검색된 결과가 없습니다. 다시 검색해 주세요");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			//request.getRequestDispatcher("views/board/boardSearchList.jsp").forward(request, response);
 					
 		}
 	}
