@@ -86,10 +86,10 @@ public class BoardService {
 	}
 
 
-	public ArrayList<Attachment> selectThumbnail(int bId) {
+	public ArrayList<Attachment> selectThumbnail(int bno) {
 		Connection conn = getConnection();
 		
-		ArrayList<Attachment> list = new BoardDao().selectThumbnail(conn, bId);
+		ArrayList<Attachment> list = new BoardDao().selectThumbnail(conn, bno);
 		close(conn);
 		return list;
 	}
@@ -120,7 +120,7 @@ public class BoardService {
 		
 		int result1 = new BoardDao().updateThBoard(conn, b);
 		int result2 =1;
-
+		
 		
 		if(fileList != null) { // 값이 있으면 
 			
@@ -255,9 +255,23 @@ public class BoardService {
 	}
 
 
-
-
+	public int deleteReply(int rno) {
+		Connection conn = getConnection();
+		int result = new BoardDao().deleteReply(conn, rno);
+		
+		if(result > 0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
 	
+	}
+
+
 
 
 

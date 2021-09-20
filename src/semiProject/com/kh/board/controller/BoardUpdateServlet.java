@@ -72,49 +72,49 @@ public class BoardUpdateServlet extends HttpServlet {
 		         for(int i = 1; i<= 4; i++) 
 		         {
 		         
-		         if(multiRequest.getOriginalFileName("file"+ i) != null)
-		         	{ 
 		        	 
-		        	 
-		        	 System.out.println("***wwwwww**비교비교 하기 위해 "+multiRequest.getOriginalFileName("file"+ i));
-		        	 Attachment at = new Attachment();
-		        	 
-		        	 at.setOriginName(multiRequest.getOriginalFileName("file" + i));
-		        	 at.setChangeName(multiRequest.getFilesystemName("file" + i));
-		        
-		        	 at.setFilePath(savePath);
-		        	 
-		        	 fileList.add(at);
-		        	 
-		      
+		        	 //파일 넣는곳 input 에 새 파일이 들어오면 
+			         if(multiRequest.getOriginalFileName("file"+ i) != null )
+			         	{ 
 
-			        	 if(multiRequest.getOriginalFileName("file"+ i) != null && multiRequest.getParameter("originFile" + i) != null) {
-			        		 
-			        		
-			        		 
-			        		 File deleteFile = new File(savePath + multiRequest.getParameter("originFile" +i));
-			        		 deleteFile.delete();
-			        		 
-			        		 
+			        	 //파일 객체 내용을 붙여 주고. 
+			        	 Attachment at = new Attachment();
+			        	 
+			        	 at.setOriginName(multiRequest.getOriginalFileName("file" + i));
+			        	 at.setChangeName(multiRequest.getFilesystemName("file" + i));
+			        
+			        	 at.setFilePath(savePath);
+			        	 
+			        	 fileList.add(at);
 	
-			        		 at.setFileNo(Integer.parseInt(multiRequest.getParameter("originFileNo" + i)));
-			        		 
-			        	
-			        	 }else {
-			        		 at.setRefBoardNo(bno); // 새 파일이 들어오면 넣어준다. 보드 번호에 맞게 (bno)
-			        	 }
-		        	 
-		        	 
-		        	 
-		         	}
+	
+			        	 // 기존 파일 이름이 있었다면 비워지고 새로 파일 넣어야하는데. 
+				        	 if(multiRequest.getParameter("originFile" + i) != null) {
+				        		 
+				        		 //multiRequest.getOriginalFileName("file"+ i) != null && multiRequest.getParameter("originFile" + i) != null
+				        		 
+				        		 File deleteFile = new File(savePath + multiRequest.getParameter("originFile" +i));
+				        		 deleteFile.delete();
+				        		 
+				        		 System.out.println("뭘지운다고? +++++ " +deleteFile );
+				        		 at.setFileNo(Integer.parseInt(multiRequest.getParameter("originFileNo" + i)));
+				        		 
+				        		 System.out.println("세팅한 파일 번호는? "+Integer.parseInt(multiRequest.getParameter("originFileNo" + i)));
+				        	
+				        	 }else {
+				        		 at.setRefBoardNo(bno); // 새 파일이 들어오면 넣어준다. 보드 번호에 맞게 (bno)
+				        	 }
+			        	 
+			        	 
+			        	 
+			         	} 
 
 		         }
 		         
 
-		        
+		         	 //처리된 파일을 보내서 세팅해준다.
 		        	 int result = new BoardService().updateBoard(b, fileList, bno);
-		        	 //파일 안들오나?
-		             System.out.println("서비스,다오에 보낼 파일들이 있는데?  " + fileList);
+		        	
 		         
 		         if(result > 0 ) {
 		        	 request.getSession().setAttribute("msg", "게시글이 수정되었습니다.");

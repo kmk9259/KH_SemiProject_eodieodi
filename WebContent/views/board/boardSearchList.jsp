@@ -69,12 +69,11 @@
                 $header.toggleClass('down', scrolled); //클래스 토글
             });
         });
-        
+
         
         function goBack(){
-			location.href="<%=request.getContextPath()%>/list.bo";
+			history.back();
 		}
-
     </script>
     
     
@@ -146,7 +145,7 @@
 
 <!-- =================공지사항 end =============== -->
     
-   
+    <!-- Blog Section Begin -->
     <section class="blog-section spad">
     
         <div class="container">
@@ -210,11 +209,10 @@
           <br><br><br>          
            <% if(loginUser != null){ %>
 			<button  type="submit" class="site-btn" onclick="location.href='enroll.bo'">글쓰기</button>
-			<button type="submit" class="site-btn" onclick="goBack();">목록으로</button>
+			<button type="history" class="site-btn" onclick="goBack();">목록으로</button>
 		 <% }else {%>         
                     
-			
-			<button type="submit" class="site-btn" onclick="goBack();">목록으로</button>
+			<button type="history" class="site-btn" onclick="goBack();">목록으로</button>
                     
             <% } %>        
                     

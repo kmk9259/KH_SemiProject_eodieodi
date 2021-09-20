@@ -27,7 +27,7 @@ public class BoardDao {
 
 	public BoardDao() {
 		String fileName = BoardDao.class.getResource("/semiProject/sql/board/board-query.properties").getPath();
-		System.out.println("fileName   " + fileName);
+		//System.out.println("fileName   " + fileName);
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
@@ -215,7 +215,7 @@ public class BoardDao {
 						
 						);
 				
-				System.out.println("조회 : "+ b);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -363,7 +363,6 @@ public class BoardDao {
 		 
 		String sql = prop.getProperty("selectNList");
 		
-		System.out.println("sql 문은 읽히는지 : " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -425,7 +424,6 @@ public class BoardDao {
 						
 				list.add(at);
 				
-				System.out.println("셀렉트어테치먼트  list : " + list);
 				
 			}
 		} catch (SQLException e) {
@@ -815,7 +813,7 @@ public class BoardDao {
 
 				list.add(b);
 				
-				System.out.println("bbbbbbbb 검색결과 내용 가져오려 " + list);
+				
 			}
 			
 			
@@ -860,9 +858,33 @@ public class BoardDao {
 		return result;
 	}
 
+	public int deleteReply(Connection conn, int rno) {
+		int result = 0;
+		
+		//deleteReply=UPDATE REPLY SET STATUS='N' WHERE REPLY_NO=?
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, rno);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+	}
 	
 	
 	
 
-	
-}
+

@@ -33,13 +33,14 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 			else if(!content){
 				alert("내용을 입력해주세요.")
 				return false;
-			}else if(!file1){
+				
+			} else if(!file1){
 				alert("대표 사진은 반드시 올려야 합니다.")
 				return false;
-			}
+			} 
 			
 			
-			if(title.length > 50){
+	/* 		if(title.length > 50){
 				alert("최대 50자까지 입력 가능합니다.");
         		$(this).val(title.substring(0,50));
         		
@@ -50,10 +51,10 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 				alert("최대 2000자까지 입력 가능합니다.");
 	    		   $(this).val(content.substring(0,2000));
 				
-			}
+			} */
 				
     		   
-				
+		}
 	
 	</script>
     
@@ -108,6 +109,8 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
     z-index: 1;
     
    }
+   
+   
     
     </style>
 
@@ -202,13 +205,13 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
           <input type="hidden" name="writer" value="<%= loginUser.getUserNo() %>">
               <div class="form-group">
                   
-                  <input type="text" class="form-control" id="name" name="title" placeholder="제목을 입력하세요, 20자까지 가능합니다." tabindex="1" maxlength="20" required>
+                  <input type="text" class="form-control" id="name" name="title" placeholder="제목을 입력하세요, 20자까지 가능합니다."  maxlength="20" required>
               </div>                            
                                         
                                          
               <div class="form-group">
                   
-                  <textarea rows="15" cols="150" name="content" class="form-control" id="message" placeholder="글을 작성하세요. 2000자까지 가능합니다." maxlength="2000" tabindex="4" required></textarea>                                 
+                  <textarea rows="15" cols="150" name="content" class="form-control" id="message" placeholder="글을 작성하세요. 2000자까지 가능합니다." maxlength="2000" required></textarea>                                 
               </div>
               
               
@@ -237,10 +240,10 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
               
               <div id="fileArea">
            
-				<input type="file" name="file1" id="file1" onchange="loadImg(this, 1);" required>
-				<input type="file" name="file2" id="file2" onchange="loadImg(this, 2);">
-				<input type="file" name="file3" id="file3" onchange="loadImg(this, 3);">
-				<input type="file" name="file4" id="file4" onchange="loadImg(this, 4);">
+				<input type="file" style="color: black;" name="file1" id="file1" onchange="loadImg(this, 1);" required>
+				<input type="file" style="color: black;" name="file2" id="file2" onchange="loadImg(this, 2);">
+				<input type="file" style="color: black;" name="file3" id="file3" onchange="loadImg(this, 3);">
+				<input type="file"  style="color: black;" name="file4" id="file4" onchange="loadImg(this, 4);">
 			  </div>
               
               </div>
@@ -250,7 +253,7 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
               
               
               <button type="submit" class="site-btn" onclick="checkValue()">등록하기</button>
-       		  <button type="reset" class="site-btn">취소하기</button>
+       		  <button type="reset" id="removefile" class="site-btn">취소하기</button>
               <button type="history" class="site-btn" onclick="goBack();">목록으로</button>
               </div>
               
@@ -321,30 +324,38 @@ ArrayList<Attachment> Filelist = (ArrayList<Attachment>)request.getAttribute("Fi
 
 //==================사진 지우기 함수 
 
+$("#removefile").click(function(){      
+	 $("#titleImg").attr("src", " "); 
+	 $("#contentImg1").attr("src", " ");
+	 $("#contentImg2").attr("src", " ");
+	 $("#contentImg3").attr("src", " ");
+	
+	})
+
+
 $(".fileRemove1").click(function(){
 
-	
-	/* $(this).next("#titleImg").attr("src", ""); */
-	
-   var inputFile = $("input[type='text']");
-                  var num =1;
-                  console.dir(inputFile);
-                  if (inputFile.files.length == 1) {//file이 존재 할경우 
-                     var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
+	  $("#titleImg").attr("src", " ");
+	  $('#file1').val('');
 
-                     reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+})
 
-                     reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
-                        console.log(e);
-                        e.target.result= null;
-                        console.log("null 후 "+e);
-                        switch (num) {
-                        case 1 : $("#titleImg").attr("src", e.target.result); break;// result :  읽어들이 파일 내용 data:URL 형식 
-                        }
-                     };
-                  }
+$(".fileRemove2").click(function(){
+	 $("#contentImg1").attr("src", " "); 
+	 $('#file2').val('');
 	
-});
+})
+
+$(".fileRemove3").click(function(){
+	$("#contentImg2").attr("src", " ");
+	 $('#file3').val('');
+})
+
+$(".fileRemove4").click(function(){
+	 $("#contentImg3").attr("src", " "); 
+	 $('#file4').val('');
+})
+
 
 
 
