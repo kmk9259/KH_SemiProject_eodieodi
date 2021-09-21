@@ -49,10 +49,8 @@
     <%@ include file="../common/menubar.jsp"%>
     
     
-    <!-- Hero Section Begin
-    <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/pascal-riben-YfZZvPaR9hY-unsplash.jpg">
-   -->
-     <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/jaemin-don-DBaVQ2rALYU-unsplash.jpg" style="height: 700px;"> 
+    <!-- Hero Section Begin-->
+     <section class="hero set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/aa.jpg" style="height: 700px;">
         <div class="container" style="margin-top: -12%;">
             <div class="row">
                 <div class="col-lg-12">
@@ -100,7 +98,7 @@
                 <div class="container login-container">
                     <div class="findrow">
                         <div class="col-md-6 login-form-1">
-                            <h3>아이디 찾기</h3>
+                            <h3 style="color: #D958A0;">아이디 찾기</h3>
                             <form id="findIdForm" method="POST" action="<%=request.getContextPath() %>/findId.me">
                                 <div class="form-group">
                                     <input maxlength="100" type="text" class="form-control" placeholder="이메일을 입력하세요" name="email" required="required" style="text-align: center;"/>
@@ -245,6 +243,9 @@
                     </div>
                     </section>
                     </section>
+                    
+    <!-- Footer Section Begin -->
+    <%@ include file="../common/footer.jsp"%>
     <!-- Js Plugins -->
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
