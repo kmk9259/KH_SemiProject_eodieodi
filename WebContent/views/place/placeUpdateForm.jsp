@@ -150,20 +150,20 @@ height: 500px;
 										<%} %>				          
 					                </select> <br><br>
 									<label class="control-label">상호명</label> 
-									<input value="<%= p.getPlaceTitle() %>" maxlength="100" type="text" name="placeTitle" required="required" class="form-control" placeholder="상호명을 입력해주세요" /> 
+									<input value="<%= p.getPlaceTitle() %>" maxlength="20" type="text" name="placeTitle" required="required" class="form-control" placeholder="상호명을 입력해주세요" /> 
 									<label class="control-label">전화번호</label>
-									<input value="<%= p.getPlacePhone() %>" maxlength="100" type="tel" name="placePhone" required="required" class="form-control" placeholder="전화번호를 입력해주세요" /> 
+									<input value="<%= p.getPlacePhone() %>" maxlength="15" type="tel" name="placePhone" required="required" class="form-control" placeholder="전화번호를 입력해주세요" /> 
 									
 									<label class="control-label">설명</label> 
 									<c:set var="description" value="<%= p.getDescription() %>"/>
-									<input value="${fn:escapeXml(description)}" maxlength="100" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
+									<input value="${fn:escapeXml(description)}" maxlength="1000" type="text" name="description" required="required" class="form-control" placeholder="주요 메뉴를 입력해주세요" /> 
 									
 									<label class="control-label">영업 시간</label> 
-									<input value="<%= p.getBsHour() %>" maxlength="100" type="text" name="bsHour" required="required" class="form-control" placeholder="영업 시간을 입력해주세요" /> 
+									<input value="<%= p.getBsHour() %>" maxlength="50" type="text" name="bsHour" required="required" class="form-control" placeholder="영업 시간을 입력해주세요" /> 
 									<label class="control-label">대표 금액</label> 
-									<input value="<%= p.getPrice() %>" maxlength="100" type="text" name="price" required="required" class="form-control" placeholder="대표 금액을 입력해주세요(숫자만)" /> 
+									<input value="<%= p.getPrice() %>" maxlength="10" type="text" name="price" required="required" class="form-control" placeholder="대표 금액을 입력해주세요(숫자만)" /> 
 									<label class="control-label">상세주소</label>
-									<input value="<%= p.getAddress() %>" maxlength="100" type="text" name="address" required="required" class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
+									<input value="<%= p.getAddress() %>" maxlength="50" type="text" name="address" required="required" class="form-control" placeholder="상세주소를 입력해주세요" /> <br>
 									<img name="titleImg" width="150" height="120" id=titleImg src="<%=contextPath%>/resources/place_upFiles/<%=p.getTitleImg()%>"> <br> 
 									<label> 대표 이미지</label>
 									
@@ -181,6 +181,17 @@ height: 500px;
 							</form>
 						</div>
 						<script>
+						$('#insertForm').on("keydown", "input[type='text']", function() {
+							var text = $("#insertForm input[type='text']").val();
+							console.log("text"+text);
+							if($(this).val().length > $(this).attr('maxlength'))
+							{
+								alert("최대 글자수는 "+$(this).attr('maxlength')+"입니다!");
+								$(this).val($(this).val().substr(0, $(this).attr('maxlength'))); 
+							}
+							
+							
+						});
 							$(function() {
 								$("#fileArea").hide();
 								
@@ -196,18 +207,8 @@ height: 500px;
 									}
 
 								});
-															});
-							$('#insertForm').on("keydown", "input[type='text']", function() {
-								var text = $("#insertForm input[type='text']").val();
-								console.log("text"+text);
-								if($(this).val().length > $(this).attr('maxlength'))
-								{
-									alert("최대 글자수는 "+$(this).attr('maxlength')+"입니다!");
-									$(this).val($(this).val().substr(0, $(this).attr('maxlength'))); 
-								}
-								
-								
 							});
+							
 							function fieldCheck(){
 								var text = $("#insertForm input[type='text']");	
 								var selected = $("#insertForm select");

@@ -78,9 +78,7 @@ public class CourseDao {
 		ArrayList<Course> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		/*
-		 * COURSE_NO AREA_NO THEME_NO COURSE_TITLE STATUS
-		 */
+
 		//selectCList=SELECT * FROM COURSE WHERE AREA_NO=? AND STATUS='Y'
 		String sql = prop.getProperty("selectCList");
 		
