@@ -39,20 +39,14 @@ public class Notice_UpdateServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 	
-		//System.out.println(title+content+"컨텐츠랑 타이틀 잘 들ㅇ고오는지 ");
 		
 	 		Notice notice = new Notice(); 
 			notice.setNoticeNo(nno);
 			notice.setNoticeTitle(title);
-			notice.setNoticeContent(content);
+			notice.setNoticeContent(content.replaceAll("\n", "<br>"));
 			
 			int result = new NoticeService().updateNotice(notice);
 		
-			if(notice.getNoticeContent() != null) {
-				notice.setNoticeContent(notice.getNoticeContent().replaceAll("<br>","\n"));
-			}
-			
-			
 			
 			
 		if(result > 0) {

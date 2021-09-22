@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.ArrayList, semiProject.com.kh.notice.model.vo.Notice"%>
 	
-	<%	ArrayList <Notice> list = (ArrayList<Notice>)request.getAttribute("list");  %>
+	<%	ArrayList <Notice> list = (ArrayList<Notice>)request.getAttribute("list");  
+	
+	
+	
+	%>
 
 
 
@@ -149,7 +153,7 @@
                                                           </th>
                                                           
                                                           <th scope="col">제목</th>
-                                                          <th scope="col">내용</th>
+                                                          <th scope="col">작성자</th>
                                                           <th scope="col">조회수</th>
                                                   		  <th scope="col">날짜</th>
                                                       <!--<th scope="col">수정</th>
@@ -175,14 +179,7 @@
 																	<td><%= n.getNoticeWriter() %></td>
 																	<td><%= n.getCount() %></td>
 																	<td><%= n.getCreateDate() %></td>
-									<%-- 		<td>
-														<form action="<%=request.getContextPath() %>/update.no" method="post">
-														<input type="hidden" name="nno" value="<%=n.getNoticeNo()%>">		
-														<button id="update_button" type="submit" class="site-btn">수정</button>
-															
-											</td>
-														<td><button type="button" class="site-btn">삭제</button></td>
-																	</form> --%>
+						
 														 		</tr>
 					 									 	<% } %>
 														 <% } %>
@@ -196,8 +193,6 @@
                           
                                   </div>
                               </form> <!-- 폼 -->
-                              
-     
                               
                               
                        <!-- 새공지사항 등록 버튼  -->       

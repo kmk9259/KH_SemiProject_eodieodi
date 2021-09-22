@@ -295,6 +295,24 @@
 				if (value == 1) {
 					document.getElementById('result').innerHTML = "<h3>홍대</h3>";
 				}
+			/* 	if (value == 2) {
+					document.getElementById('result').innerHTML = "<h3>건대</h3>";
+				}
+				if (value == 3) {
+					document.getElementById('result').innerHTML = "<h3>상수</h3>";
+				}
+				if (value == 4) {
+					document.getElementById('result').innerHTML = "<h3>신촌</h3>";
+				}
+				if (value == 5) {
+					document.getElementById('result').innerHTML = "<h3>여의도</h3>";
+				}
+				if (value == 6) {
+					document.getElementById('result').innerHTML = "<h3>이태원</h3>";
+				}
+				if (value == 7) {
+					document.getElementById('result').innerHTML = "<h3>종로</h3>";
+				} */
 				if (value == 2) {
 					document.getElementById('result').innerHTML = "<h3>강남</h3>";
 				}

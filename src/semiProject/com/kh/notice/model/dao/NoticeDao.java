@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import semiProject.com.kh.notice.model.vo.Notice;
+import semiProject.com.kh.notice.model.vo.PageInfo;
 
 public class NoticeDao {
 	
@@ -105,6 +106,7 @@ public class NoticeDao {
 
 		String sql = prop.getProperty("insertNotice");
 		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

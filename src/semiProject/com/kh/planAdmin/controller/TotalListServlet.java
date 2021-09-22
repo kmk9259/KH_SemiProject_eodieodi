@@ -35,10 +35,6 @@ public class TotalListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo(); // 1. 로그인유저번호
-
-		//ArrayList<Place> pList = new AdminPlanService().selectPList();
-		
-		//request.setAttribute("pList", pList);
 		
 		
 		request.getRequestDispatcher("views/adminPlan/admin_Plan_detail.jsp").forward(request, response);
