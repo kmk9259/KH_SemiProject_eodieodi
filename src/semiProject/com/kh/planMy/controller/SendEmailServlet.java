@@ -70,6 +70,7 @@ public class SendEmailServlet extends HttpServlet {
 			}
 		}
 		
+		
 		// 메일 받을 주소, 제목, 내용
 		String recipient = userEmail;
 		String subject = "[EodiEodi] "+mem.getUserName()+"님의 일정입니다.";

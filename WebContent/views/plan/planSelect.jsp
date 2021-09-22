@@ -173,7 +173,7 @@
                             <span class="flaticon-bed"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="#" class="movePage">내 맘대로 일정 계획</a></h5>
+                            <h5><a href="#" class="movePage1">마음대로 일정 계획</a></h5>
                             <p>사용자가 원하는 대로 일정을 계획할 수 있습니다</p>
                             <!-- <a href="#">View Details</a> -->
                         </div>
@@ -185,7 +185,7 @@
                             <span class="flaticon-drink"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="adminCreate.pl">추천 일정</a></h5>
+                            <h5><a href="admin_List.pl">추천 일정</a></h5>
                             <p>어디어디에서 추천해주는 일정으로 떠나보세요</p>
                             <!-- <a href="#">View Details</a> -->
                         </div>
@@ -197,7 +197,7 @@
                             <span class="flaticon-home"></span>
                         </div>
                         <div class="cat-cap">
-                            <h5><a href="#" class="movePage">일정 보관함</a></h5>
+                            <h5><a href="#" class="movePage1">일정 보관함</a></h5>
                             <p>내가 저장한 모든 일정을 확인할 수 있습니다.</p>
                             <!-- <a href="#">View Details</a> -->
                         </div>
@@ -216,20 +216,20 @@
 <script>
 	//로그인 상태에 따라 plan페이지 이동
 	$(function(){
-		   $('.movePage').click(function(){
+		   $('.movePage1').click(function(){
 	        var text = $(this).text();
 	        <%if(loginUser == null) {%>  //로그인 X -> 로그인페이지로 이동
 	             alert("로그인 후 이용해주세요");
 	             location.href="<%=contextPath%>/views/member/login.jsp";
 	        <%}else{ %>
-	             if(text == "내 맘대로 일정 계획"){
+	             if(text == "마음대로 일정 계획"){
 	               	 location.href="<%=contextPath%>/list.pm";	
 	             }else if(text == "일정 보관함"){
 	                 location.href="<%=contextPath%>/list.ps";
 	             }
 	        <%}%>
 	    })
-	})
+	}) 
     $(function() {
         var $header = $('header'); //헤더를 변수에 넣기
         var $page = $('.page-start'); //색상이 변할 부분

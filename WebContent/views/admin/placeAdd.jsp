@@ -121,8 +121,15 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 									<label class="control-label" style="margin-top: 30px;">지역</label><br>									
 									<select name="areaNo" class="planInput" required>
 										<option value="0" selected >지역을 선택해주세요</option>
-					                    <option value="1">홍대</option>
-					                    <option value="2">강남</option>					                    
+					                    <option value="1">가로수길</option>
+					                    <option value="2">강남</option>		
+					                    <option value="3">건대</option>
+					                    <option value="4">상수</option>
+					                    <option value="5">신촌</option>
+					                    <option value="6">여의도</option>
+					                    <option value="7">이태원</option>
+					                    <option value="8">종로</option>
+					                    <option value="9">홍대</option>		                    
 					                </select><br><br>
 									<label class="control-label">카테고리</label><br>
 									<select name="categoryNo" class="planInput" required>

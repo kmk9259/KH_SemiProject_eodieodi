@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <%
 	Place p = (Place)request.getAttribute("p");
-	PlaceAttachment pAt= (PlaceAttachment)request.getAttribute("at");
+	/* PlaceAttachment pAt= (PlaceAttachment)request.getAttribute("at"); */
 %>
 <html lang="en">
 
@@ -243,6 +243,8 @@
         	</div>
             <div class="row">
                 <div class="col-lg-8 col-md-8 pleaseCenter">
+                <div style="position: absolute;z-index: 3;color: white;bottom: 30px;width: 14%;text-align: right;right: 30px;
+    font-size: 20px;padding: 5px;background: black;opacity: 0.7;border-radius: 5px;padding-right: 8px;">조회수 : <%=p.getCount()%></div>
                     <div style="width:100%">
                         <%-- <div id="placeImg" class="listing__item__pic set-bg" style="background-image: url(<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg()%>);"></div> --%>
                     	<%-- <img class="pleaseBg" src="<%=contextPath%>/resources/place_upFiles/<%= p.getTitleImg() %>" style="height:500px;"> --%>
@@ -317,16 +319,18 @@
 			selectTopList(); // 열자 마자 호출 하고 
 			
 		   
-				$(".thumbnail").click(function(){
-					var bno = $(this).children().eq(0).val();
-					location.href="<%=contextPath%>/detail.bo?bno="+bno;
-				})
+				<%-- $(".thumbnail").click(function(){
+					var pno = $(this).children().eq(0).val();
+					location.href="<%=contextPath%>/detail.pl?pno="+pno;
+				}) --%>
 
 			
 			//setInterval(selectTopList, 2000)
-		 	 $("#thumbList").on("click",".thumb",function(){
-				var bno = $(this).children().eq(0).val();
-				location.href = "<%=contextPath%>/detail.bo?bno="+bno;
+		 	 $(document).on("click", "#placeBox",function(){
+		 		
+				var pNo = $(this).children().children().eq(0).val();
+				console.log("왜 안나와?" + pNo);
+				location.href = "<%=contextPath%>/detail.pl?pNo="+pNo;
 			}) 
 		})
 		
@@ -345,13 +349,13 @@
 					var value = "";
 					for(var i in list){
 						var tmp = list[i].placeTitle;
-						value += '<div class="blog__sidebar__recent__item__pic thumb" >'+ 
+						value += '<div id="placeBox"><div class="blog__sidebar__recent__item__pic thumb" >'+ 
 								 '<input type="hidden" value="' +list[i].placeNo+ '">'+
 								 '<img src="'+contextPath+'/resources/place_upFiles/' + list[i].titleImg + '" width="80px" height="70px">'+
 						
 								 '</div><div class="blog__sidebar__recent__item__text"><span class="lanking">'+ (++i)+ 
 								 '</span></div><h6 class="thumb">'+ tmp +'</h6>'+
-								 '<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;</p></div>';
+								 '<p>&nbsp;&nbsp;&nbsp;</p></div></div>';
 								
 								 
 					}

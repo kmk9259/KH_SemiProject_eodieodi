@@ -125,11 +125,12 @@
             width:100%;
             border:1px solid white;
             margin-bottom: 20px;
+            box-shadow: 0 3px 6px rgb(0 0 0 / 10%), 0 3px 6px rgb(0 0 0 / 18%);
         }
         .planBox{
         	/* width: 350px; */
         	/* width: 100%; */
-		    border: solid 1px #dfdfdf;
+		   /*  border: solid 1px #dfdfdf; */
 		    /* height: 100px; */
 		    padding: 15px;
         }
@@ -419,6 +420,7 @@
 		                    	<p class="placeTitle" id="placeTitle" style="font-size: 25px; color: black;"><%=p.getPlaceTitle()%></p>
 		                    	<p id="placeAddress"><%=p.getAddress()%></p>
 								<p><%=p.getDescription() %></p>
+								<p id="price">1인예상경비:<%=p.getPrice()%>원</p>
 		                    	<button class="btn btn-primary addPlace">추가</button>
 								<button class="btn btn-primary placeDetail">더보기</button>
 		                    </div>
@@ -538,21 +540,27 @@
 	    	function ajaxPlaceList(pList){
          		var result = '';
          		var contextPath = "<%=contextPath%>"
-          		$.each(pList, function(i){                         	
-                	result += '<div class="col-lg-6 col-md-6">'  <!-- 가로 한 줄에 장소 2개 나오게끔 설정 -->
-							+ '<div class="thumbnail" align="center">'
-							+ '<input type="hidden" value="'+ pList[i].placeNo +'" id="placeNo">'
-							+ '<input type="hidden" value="'+pList[i].areaNo+'" id="areaNo" name="areaNo">'
-							+ '<img class="placeImg" src="'+contextPath+'/resources/place_upFiles/'+pList[i].titleImg +'" width="100%" height="250px"><br>'
-	                    	+ '<div class="planBox">'
-	                    	+ '<p class="placeTitle" id="placeTitle" style="font-size:25px; color:black;">'+pList[i].placeTitle+'</p>'
-	                    	+ '<p id="placeAddress">'+pList[i].address+'</p>'
-							+ '<p>'+pList[i].description+'</p>'
-	                    	+ '<button class="btn btn-primary addPlace" style="margin-right: 3px;">추가</button>'
-							+ '<button class="btn btn-primary placeDetail" style="margin-left: 3px;">더보기</button>'
-							+'</div></div></div>';
-							
-          		})
+         		if(pList.length == 0){
+             		result += '<div class="col-lg-12 col-md-12"><h4>해당 조건에 등록된 장소가 없습니다.</h4></div>'
+             	}else{
+             		$.each(pList, function(i){       
+                  			
+                  		result += '<div class="col-lg-6 col-md-6">'  <!-- 가로 한 줄에 장소 2개 나오게끔 설정 -->
+        				+ '<div class="thumbnail" align="center">'
+        				+ '<input type="hidden" value="'+ pList[i].placeNo +'" id="placeNo">'
+        				+ '<input type="hidden" value="'+pList[i].areaNo+'" id="areaNo" name="areaNo">'
+        				+ '<img class="placeImg" src="'+contextPath+'/resources/place_upFiles/'+pList[i].titleImg +'" width="100%" height="250px"><br>'
+                        + '<div class="planBox">'
+                        + '<p class="placeTitle" id="placeTitle" style="font-size:25px; color:black;">'+pList[i].placeTitle+'</p>'
+                        + '<p id="placeAddress">'+pList[i].address+'</p>'
+        				+ '<p>'+pList[i].description+'</p>'
+        				+ '<p>1인예상경비:'+pList[i].price+'원</p>'
+                        + '<button class="btn btn-primary addPlace" style="margin-right: 3px;">추가</button>'
+        				+ '<button class="btn btn-primary placeDetail" style="margin-left: 3px;">더보기</button>'
+        				+'</div></div></div>';
+        						
+                  	})
+             	}
           		$("#placeList").html(result);
 	    	}
 	        //=================================================================================ajax리스트 배치 완성 / 함수적용 완성(0912)
@@ -582,7 +590,7 @@
 		    	
 				var parent = $(this).parent();  //클릭한 버튼의 최상위 부모
 				var pNo = parent.siblings("#placeNo").val();	//클릭한 버튼의 최상위 부모의 id가 placeNo value값
-				window.open("./detail.pl?pNo="+pNo);  //장소상세페이지 새창으로 열기
+				window.open("./detailNo.pl?pNo="+pNo);  //장소상세페이지 새창으로 열기
 			});
 		    
 		  	//[동적함수] '추가'버튼 클릭시 -> 왼쪽화면에 표 추가되도록 하기

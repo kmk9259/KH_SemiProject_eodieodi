@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.ArrayList, semiProject.com.kh.planMy.model.vo.PlanMy, 
-    semiProject.com.kh.place.model.vo.Place, semiProject.com.kh.board.model.vo.PageInfo"%>
+    semiProject.com.kh.place.model.vo.Place, semiProject.com.kh.board.model.vo.PageInfo, java.util.Collections"%>
 <%
 	PlanMy pm = (PlanMy)request.getAttribute("pm");
 	ArrayList<Place> pList = (ArrayList<Place>)request.getAttribute("pList");
@@ -12,18 +12,7 @@
 	if(memo == null){
 		memo="";
 	}
-	
-	/* PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage(); */
-	
-	
-	System.out.println("============pList : " + pList);
-	//System.out.println("============bpList : " + bpList);
+
 %> 	
 
 <!DOCTYPE html>
@@ -335,7 +324,7 @@
 					<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					    mapOption = {
-					        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					        center: new kakao.maps.LatLng(37.49925684737235, 127.03283389631359), // 지도의 중심좌표->KH정보교육원
 					        level: 6 // 지도의 확대 레벨
 					    };  
 					

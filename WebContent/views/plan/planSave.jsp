@@ -54,8 +54,9 @@
             display:inline-block;  /*가로너비에 맞게 나란히 일정한 간격으로 보이게*/
             float:left;
             width:100%;
-            border:1px solid white;
+           /*  border:1px solid white; */
             margin-bottom: 20px;
+            box-shadow: 0 0px 6px rgb(0 0 0 / 10%), 0 0px 6px rgb(0 0 0 / 18%);
         }
         .thumbnail:hover{
             opacity:0.7;
@@ -64,7 +65,7 @@
         .planBox{
         	/* width: 350px; */
         	/* width: 100%; */
-		    border: solid 1px #dfdfdf;
+		    /* border: solid 1px #dfdfdf; */
 		    height: 100px;
 		    padding: 15px;
         }
@@ -117,15 +118,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="planDetail_title">
-                        <a href="<%=contextPath%>/list.ps"><h4>내일정 보관함</h4></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="#"><h4>추천일정 보관함</h4></a>
+                        <a href="<%=contextPath%>/list.ps"><h4 style="font-size: 28px;">내일정 보관함</h4></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <!-- <a href="#"><h4>추천일정 보관함</h4></a> -->
                     </div>
                 </div>
             </div>
             
 
 			<%if(list.size()==0){%>
-			 <h2>저장하신 일정이 없습니다.</h2> 
+			 <h2 style="margin: 180px 0px 250px 0px;text-align: center;">저장하신 일정이 없습니다.</h2> 
 			
 			<%}else{ %>
 			<form id="delPlanForm" action="" method="post">
@@ -143,10 +144,11 @@
 						
 							<div class="col-lg-4 col-md-6">
 		                		<div class="thumbnail" align="center">
-		                    		<input type="checkbox" name="planNo" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox" style="zoom:1.5;"><br>
+		                    		<input type="checkbox" name="planNo" id="planNo" value="<%=pm.getPlanNo()%>" class="chBox" style="zoom:1.5; margin-top:5px;"><br>
 		                    		<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%= pm.getTitleImg() %>" width="100%" height="280px" class="placeImg"> <br>
 		                    		<div class="planBox">
 		                    			<p class="planTitle"><%=pm.getPlanTitle()%></p>
+		                    			<p class="planTitle" style="float: right;font-size: 18px;"><%=pm.getPlanDate()%></p>
 		                    		</div>
 		                		</div>
 		                	</div>
