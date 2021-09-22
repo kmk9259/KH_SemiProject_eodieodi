@@ -73,8 +73,9 @@ public class PlanMyUpdateServlet extends HttpServlet {
 
 		
 		if(result > 0) {
+			request.setAttribute("planNo", planNo);
 			request.getSession().setAttribute("msg", "일정이 수정되었습니다.");
-			response.sendRedirect("list.ps");  	//일정저장함으로 이동
+			response.sendRedirect("detailP.ps?planNo="+planNo);  	//일정저장함으로 이동
 		}else {
 			request.setAttribute("msg", "일정 수정 실패");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");

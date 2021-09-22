@@ -42,7 +42,7 @@ public class PlanMyDao {
 		
 		String sql = prop.getProperty("selectPlaceList");
 		//하나의 BOARD에 사진 여러 개 등록했을 경우로 짠 쿼리인데 될 것 같아서 그대로 넣음
-//		selectPlaceList=SELECT PLACE_NO, AREA_NO, CATEGORY_NO, PLACE_TITLE, ADDRESS, DESCRIPTION, COUNT, CHANGE_NAME \
+//		selectPlaceList=SELECT PLACE_NO, AREA_NO, CATEGORY_NO, PLACE_TITLE, ADDRESS, DESCRIPTION, COUNT, PRICE, CHANGE_NAME \
 //		FROM PLACE JOIN (SELECT * FROM PLACE_ATTACHMENT \
 //		WHERE FILE_NO IN( \
 //		SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \
@@ -62,6 +62,7 @@ public class PlanMyDao {
 				place.setAddress(rset.getString("ADDRESS"));
 				place.setDescription(rset.getString("DESCRIPTION"));
 				place.setCount(rset.getInt("COUNT"));
+				place.setPrice(rset.getInt("PRICE"));
 				place.setTitleImg(rset.getString("CHANGE_NAME"));
 				
 				list.add(place);
@@ -351,8 +352,6 @@ public class PlanMyDao {
 				pstmt.setInt(1, planNo);
 				pstmt.setInt(2, Integer.parseInt(insertDB.get(i)));
 				
-//				System.out.println("일정 수정_추가하기------insertDB.get(i) : " + insertDB.get(i));
-				
 				result += pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -399,7 +398,7 @@ public class PlanMyDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("areaNoPlaceList");
-//		selectPlaceList=SELECT PLACE_NO, AREA_NO, CATEGORY_NO, PLACE_TITLE, ADDRESS, DESCRIPTION, COUNT, CHANGE_NAME \
+//		areaNoPlaceList=SELECT PLACE_NO, AREA_NO, CATEGORY_NO, PLACE_TITLE, ADDRESS, DESCRIPTION, COUNT, PRICE, CHANGE_NAME \
 //		FROM PLACE JOIN (SELECT * FROM PLACE_ATTACHMENT \
 //		WHERE FILE_NO IN( \
 //		SELECT MIN(FILE_NO) FILE_NO FROM PLACE_ATTACHMENT WHERE STATUS='Y' GROUP BY REF_PNO)) ON (REF_PNO = PLACE_NO) \
@@ -420,6 +419,7 @@ public class PlanMyDao {
 				place.setAddress(rset.getString("ADDRESS"));
 				place.setDescription(rset.getString("DESCRIPTION"));
 				place.setCount(rset.getInt("COUNT"));
+				place.setPrice(rset.getInt("PRICE"));
 				place.setTitleImg(rset.getString("CHANGE_NAME"));
 				
 				pList.add(place);
@@ -494,6 +494,7 @@ public class PlanMyDao {
 				place.setAddress(rset.getString("ADDRESS"));
 				place.setDescription(rset.getString("DESCRIPTION"));
 				place.setCount(rset.getInt("COUNT"));
+				place.setPrice(rset.getInt("PRICE"));
 				place.setTitleImg(rset.getString("CHANGE_NAME"));
 				
 				pList.add(place);

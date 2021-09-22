@@ -32,17 +32,15 @@ public class PlaceDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//ThumnailDetailServelt() 참고
+
 		int pNo = Integer.parseInt(request.getParameter("pNo"));  //앞 페이지에서 pNo setAttribute해줘야 함
 
 		Place p = new PlaceService().selectPlace(pNo);
-		PlaceAttachment at = new PlaceService().selectAttachment(pNo);  //대표사진 한개
+
 		
 		if(p != null)
 		{
 			request.setAttribute("p", p);
-			request.setAttribute("at", at);
 			request.getRequestDispatcher("views/place/placeDetail.jsp").forward(request, response);
 		}
 		else
@@ -59,6 +57,9 @@ public class PlaceDetailServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+//		PlaceAttachment at = new PlaceService().selectAttachment(pNo);  //대표사진 한개
+//		request.setAttribute("at", at);
 	}
 
 }
