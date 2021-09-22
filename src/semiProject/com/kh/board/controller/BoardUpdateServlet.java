@@ -59,7 +59,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		         
 		         Board b = new Board();
 		         
-		         b.setBoardContent(multiRequest.getParameter("content").replaceAll("<br>", "/n"));
+		         b.setBoardContent(multiRequest.getParameter("content").replaceAll("/n", "<br>"));
 		         b.setBoardTitle(multiRequest.getParameter("title"));
 		         b.setBoardWriter(String.valueOf(userNo));
 		         b.setBoardNo(bno);

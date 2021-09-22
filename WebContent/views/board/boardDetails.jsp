@@ -238,6 +238,8 @@
 		selectReplyList(); //글이 조회되면 댓글이조회 되어야 한다.
 		
 		$("#addReply").click(function(){
+			
+			if($("#replyContent").val() != "") {
 			var content = $("#replyContent").val();
 			var bno = <%=b.getBoardNo()%>;
 			<%-- var rno = <%=reply.getReplyNo()%> --%>
@@ -260,7 +262,9 @@
 				}
 			})
 			
-			//location.reload(); //새로고침
+			}else{
+				alert("댓글 내용을 입력하세요.")
+			}
 		})
 		
 		
@@ -294,9 +298,9 @@
 					'<li>'+'<i class="no"> No.'+list[i].replyNo+'</li>'+
 					'<li>'+'<i class="fa fa-clock-o">'+'</i>'
 					+list[i].createDate+'</li>'+
-					'<li>'+'<i class="fa fa-user">'+'</i>'
-					+list[i].replyWriter+'</li>'+
-					'<button class="reBtn" onclick="del()">삭제</button>'+
+					'<li>'+'<i class="fa fa-user">&nbsp;'+user+'</i>'
+					+'</li>'<%if(loginUser != null) { %>+
+					'<button class="reBtn" onclick="del()">삭제</button>'<% } %>+
 					'<br><br><br>'
 					
 					'</ul>';

@@ -45,11 +45,7 @@ public class ReplyInsertServlet extends HttpServlet {
 		
 		int result = new BoardService().insertReply(r);
 		
-		//Prints formatted representations of objects to a text-output stream. 
-		//Thisclass implements all of the print methods 
-		//found in PrintStream. 
-		//It does not contain methods for writing raw bytes, 
-		//for whicha program should use unencoded byte streams.
+		
 		PrintWriter out = response.getWriter();
 		if(result > 0 ) {
 			out.print("success");
