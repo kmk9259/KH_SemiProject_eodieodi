@@ -46,6 +46,7 @@ public class BoardDetailServlet extends HttpServlet {
 			request.setAttribute("b", b);
 			request.setAttribute("fileList", fileList);
 			
+			
 			request.getRequestDispatcher("views/board/boardDetails.jsp").forward(request, response);
 		}else {
        	 request.setAttribute("msg", "사진게시판 상세보기 실패하였습니다.");
