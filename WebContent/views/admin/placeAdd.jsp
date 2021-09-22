@@ -133,7 +133,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 					                </select> <br><br>
 					             
 									<label class="control-label">상호명</label> 
-									<input maxlength="10" type="text" id="placeTitle" name="placeTitle"  class="form-control" placeholder="상호명을 입력해주세요"/>									
+									<input maxlength="20" type="text" id="placeTitle" name="placeTitle"  class="form-control" placeholder="상호명을 입력해주세요"/>									
 									
 									<label class="control-label">전화번호</label>
 									<input maxlength="15" type="text" name="placePhone"  class="form-control" placeholder="전화번호를 입력해주세요" />

@@ -121,12 +121,9 @@
 					<div>
 						<select id="placeChoice" name="placeChoice" onchange="changeArea(this)">
 							<option value="0" selected>지역을 선택하세요</option>
-							<%for(Area a : alist) {%>
-							
-							<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>
-							
+							<%for(Area a : alist) {%>							
+							<option value="<%=a.getAreaNo()%>"><%=a.getAreaName() %></option>							
 							<%} %>
-
 						</select><br><br>
 
 					</div>
@@ -191,10 +188,8 @@
 				                    +'</div>'
 				                    +'</div>'
                     			+'</div>'
-           					+'</div>';
-							
-						})
-						
+           					+'</div>';							
+						})						
 						 $("#courseList").html(tmp).trigger("create");
 						 $(function(){
 								$(".blog__item__pic").click(function(){
@@ -209,20 +204,14 @@
 									var parent = $(this).parent().parent();  
 									var cNo = parent.children("#courseNo").val(); 
 									location.href="<%=contextPath%>/updateForm.co?cNo="+cNo;
-										
-									
-									
-									
 								});
-							});
-						 
+							});						 
 					}//success					
 				})				
 			}
 			function getTitleImg(cNo, aNo)
 			{
 				var src ="";
-				console.log(cNo, aNo);
 				$.ajax({
 					url : "cList.co",
 					type : "post",
