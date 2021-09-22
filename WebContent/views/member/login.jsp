@@ -101,7 +101,7 @@
 	}
 </script>
     <!-- login -->
-    <!------ Include the above in your HEAD tag ---------->
+    <!----- Include the above in your HEAD tag ---------->
     <section>
         <section class="login">
             <div class="container">
