@@ -142,19 +142,19 @@
                 <!--화면에 띄워줘야 되는 것 선택한 위치, 날짜, 대표(상세사진 썸네일?, 설명, 카테고리, 영업시간,   ) -->
                 <form method ="post" action="<%= contextPath %>/adminCreate.pl">
 
-					<div align="center">
+					<div align="center" name="which">
 						<%
-						if (pList.get(0).getAreaNo() == 1) {
+							if (pList.get(0).getAreaNo() == 1) {
 							%>
-						  <h2><%="선택하신 위치는 홍대 입니다 "  %></h2> 
+						  	<h2><%="선택하신 위치는 홍대 입니다 "  %></h2> 
 						<%
-						} else if (pList.get(0).getAreaNo() == 2) {
+							}if (pList.get(0).getAreaNo() == 2) {
 						%>
 						   <h2><%="선택하신 위치는 강남 입니다 "  %></h2>
 						<%} %>
 					</div> 
 					
-		<div> <h4 align="center">선택하신 날짜는 : <%=day.getMonth() + 1 + " 월 " + day.getDate() + "일 입니다" %></h4></div>
+		<div name="choose_date"> <h4 align="center">선택하신 날짜는 : <%=day.getMonth() + 1 + " 월 " + day.getDate() + "일 입니다" %></h4></div>
 					
  	<br><br>
  	<!-- 장소 1  <br>-->
@@ -162,7 +162,7 @@
  	
  	<!-- 0~2까지고 그외면 Null이면 추천일정 실패뜨게 하기  -->
  	<!-- 상세이미지  -->
- 			<div class="first_place"> 	  	  
+ 			<div class="first_place" name ="num1"> 	  	  
  	
 		 			<img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(0).getTitleImg() %>" class="placeImg"> <br>
 							<br>
@@ -176,7 +176,8 @@
 
 						</div>
 		 	
-		 	<div class="second_place"> 	  	  
+		 	<div class="second_place" name="num2"> 	  	  
+		 	
 		 	
 		 	 	  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(1).getTitleImg() %>"  class="placeImg"> <br>
 							<br>
@@ -190,7 +191,7 @@
 
 						</div>
 		 	
-		 	<div class="third_place"> 	  	  
+		 	<div class="third_place" name="num3"> 	  	  
 		 	
 		 	 	  <img src="<%=request.getContextPath()%>/resources/place_upFiles/<%=pList.get(2).getTitleImg() %>"  class="placeImg"> <br>
 							<br>
@@ -240,23 +241,6 @@
 
 <!-- 자바스크립트 함수부분  -->
 
-<!-- <script type="text/javascript">
-
-
-	function which(this){
-		var value = this.value;
-		
-		if(value == 1){
-		document.getElementById('which').innerHTML = "<h3>홍대</h3>";
-			
-		}if (value == 2) {
-		document.getElementById('which').innerHTML = "<h3>강남</h3>";
-		}
-	}
-
-
-</script> -->
-		
 	
 <script>
     $(function () {

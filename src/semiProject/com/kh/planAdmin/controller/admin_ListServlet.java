@@ -43,7 +43,6 @@ public class admin_ListServlet extends HttpServlet {
 		request.setAttribute("tList", tList);
 		request.setAttribute("aList", aList);
 		  
-//		System.out.println(aList+"------------aList");
 		
 		request.getRequestDispatcher("views/adminPlan/adminRecommend.jsp").forward(request, response);
 	
