@@ -46,7 +46,6 @@ public class CourseUpdateFormServlet extends HttpServlet {
 		ArrayList<CoursePlace> cpno = new CourseService().selectCPno(cNo);
 		int cpnoSize = cpno.size();
 		
-		
 		if(c!= null)
 		{
 			request.setAttribute("c", c);
